@@ -1,0 +1,41 @@
+# Used by scripts/deploy_to_vps.sh — platform + PostGIS + Redis on one Docker network.
+# From the platform container: DB host `postgis`, Redis host `redis`.
+#
+# Kafka autoconfig is turned off via SPRING_AUTOCONFIGURE_EXCLUDE in deploy .env (no broker in this stack).
+# Point api.ayanlab.com (TLS) at Caddy/nginx → http://127.0.0.1:8080
+
+services:
+  platform:
+    image: ayanlabs/platform:latest
+    container_name: ayanlabs-platform
+    restart: unless-stopped
+    env_file:
+      - ./.env
+    ports:
+      - "127.0.0.1:8080:8080"
+    depends_on:
+      postgis:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  redis:
+    image: redis:7-alpine
+    container_name: ayanlabs-redis
+    restart: unless-stopped
+
+  postgis:
+    image: postgis/postgis:16-3.4
+    container_name: postgis
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGIS_USER}
+      POSTGRES_PASSWORD: ${POSTGIS_PASSWORD}
+      POSTGRES_DB: ${POSTGIS_DB}
+    volumes:
+      - ./data/postgis:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -q"]
+      interval: 5s
+      timeout: 5s
+      retries: 12

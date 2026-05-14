@@ -1,0 +1,21 @@
+# Use when PostGIS already runs on the host (container name `postgis` on a shared Docker network).
+# 1) docker network create ayanlabs  (if needed)
+# 2) docker network connect ayanlabs postgis
+# 3) docker network connect ayanlabs ayanlabs-platform
+# Set POSTGIS_HOST=postgis in .env so this container resolves the existing DB by name.
+
+services:
+  platform:
+    image: ayanlabs/platform:latest
+    container_name: ayanlabs-platform
+    restart: unless-stopped
+    env_file:
+      - ./.env
+    ports:
+      - "127.0.0.1:8080:8080"
+    networks:
+      - ayanlabs
+
+networks:
+  ayanlabs:
+    external: true

@@ -1,0 +1,475 @@
+-- -- ============================================
+-- -- PLATFORM SECURITY SCHEMA
+-- -- ============================================
+-- CREATE SCHEMA IF NOT EXISTS platform_security;
+-- SET search_path TO platform_security;
+--
+-- CREATE TABLE users (
+--     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     email               VARCHAR(255) NOT NULL UNIQUE,
+--     password_hash       VARCHAR(255) NOT NULL,
+--     phone               VARCHAR(20),
+--     first_name          VARCHAR(100) NOT NULL,
+--     last_name           VARCHAR(100) NOT NULL,
+--     avatar_url          VARCHAR(500),
+--     is_active           BOOLEAN DEFAULT true,
+--     is_email_verified   BOOLEAN DEFAULT false,
+--     is_phone_verified   BOOLEAN DEFAULT false,
+--     mfa_enabled         BOOLEAN DEFAULT false,
+--     mfa_secret          VARCHAR(255),
+--     last_login_at       TIMESTAMP,
+--     -- Added app_id to associate a user with an application (nullable for safe migration/backfill)
+--     app_id              UUID,
+--     created_at          TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     updated_at          TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
+-- CREATE INDEX idx_users_email ON users(email);
+-- CREATE INDEX idx_users_phone ON users(phone);
+-- CREATE INDEX idx_users_app ON users(app_id);
+--
+-- CREATE TABLE applications (
+--     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     app_key             VARCHAR(50) NOT NULL UNIQUE,
+--     app_name            VARCHAR(100) NOT NULL,
+--     description         TEXT,
+--     base_url_path       VARCHAR(100) NOT NULL,
+--     icon_url            VARCHAR(500),
+--     is_active           BOOLEAN DEFAULT true,
+--     is_public           BOOLEAN DEFAULT true,
+--     max_free_users      INTEGER DEFAULT 0,
+--     created_at          TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
+--
+-- INSERT INTO applications (app_key, app_name, base_url_path) VALUES
+--     ('property-mgmt', 'Property Management', '/ayanlabs/api/property-mgmt'),
+--     ('user-portal', 'User Portal', '/ayanlabs/api/user-portal'),
+--     ('accounting', 'Accounting', '/ayanlabs/api/accounting'),
+--     ('rideshare', 'Rideshare', '/ayanlabs/api/rideshare');
+--
+-- CREATE TABLE app_roles (
+--     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     app_id              UUID NOT NULL REFERENCES applications(id),
+--     role_key            VARCHAR(50) NOT NULL,
+--     role_display_name   VARCHAR(100) NOT NULL,
+--     description         VARCHAR(255),
+--     is_default          BOOLEAN DEFAULT false,
+--     hierarchy_level     INTEGER DEFAULT 0,
+--     created_at          TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     UNIQUE(app_id, role_key)
+-- );
+-- CREATE INDEX idx_app_roles_app ON app_roles(app_id);
+--
+-- CREATE TABLE permissions (
+--     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     app_id              UUID NOT NULL REFERENCES applications(id),
+--     permission_key      VARCHAR(100) NOT NULL,
+--     description         VARCHAR(255),
+--     resource_type       VARCHAR(50),
+--     action              VARCHAR(20),
+--     UNIQUE(app_id, permission_key)
+-- );
+--
+-- CREATE TABLE role_permissions (
+--     role_id             UUID NOT NULL REFERENCES app_roles(id) ON DELETE CASCADE,
+--     permission_id       UUID NOT NULL REFERENCES permissions(id) ON DELETE CASCADE,
+--     PRIMARY KEY (role_id, permission_id)
+-- );
+--
+-- CREATE TABLE user_app_enrollments (
+--     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     user_id             UUID NOT NULL REFERENCES users(id),
+--     app_id              UUID NOT NULL REFERENCES applications(id),
+--     is_active           BOOLEAN DEFAULT true,
+--     enrolled_at         TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     suspended_at        TIMESTAMP,
+--     suspension_reason   VARCHAR(255),
+--     UNIQUE(user_id, app_id)
+-- );
+-- CREATE INDEX idx_enrollment_user ON user_app_enrollments(user_id);
+-- CREATE INDEX idx_enrollment_app ON user_app_enrollments(app_id);
+--
+-- CREATE TABLE user_app_roles (
+--     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     enrollment_id       UUID NOT NULL REFERENCES user_app_enrollments(id) ON DELETE CASCADE,
+--     role_id             UUID NOT NULL REFERENCES app_roles(id),
+--     granted_at          TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     granted_by          UUID REFERENCES users(id),
+--     expires_at          TIMESTAMP,
+--     UNIQUE(enrollment_id, role_id)
+-- );
+--
+-- CREATE TABLE organizations (
+--     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     app_id              UUID NOT NULL REFERENCES applications(id),
+--     name                VARCHAR(200) NOT NULL,
+--     slug                VARCHAR(100) NOT NULL,
+--     description         TEXT,
+--     logo_url            VARCHAR(500),
+--     owner_user_id       UUID NOT NULL REFERENCES users(id),
+--     subscription_tier   VARCHAR(20) DEFAULT 'FREE',
+--     max_members         INTEGER DEFAULT 5,
+--     is_active           BOOLEAN DEFAULT true,
+--     created_at          TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     updated_at          TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     UNIQUE(app_id, slug)
+-- );
+-- CREATE INDEX idx_org_app ON organizations(app_id);
+-- CREATE INDEX idx_org_owner ON organizations(owner_user_id);
+--
+-- CREATE TABLE organization_members (
+--     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     org_id              UUID NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
+--     user_id             UUID NOT NULL REFERENCES users(id),
+--     org_role            VARCHAR(30) NOT NULL DEFAULT 'MEMBER',
+--     invited_by          UUID REFERENCES users(id),
+--     invited_at          TIMESTAMP,
+--     joined_at           TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     is_active           BOOLEAN DEFAULT true,
+--     UNIQUE(org_id, user_id)
+-- );
+--
+-- CREATE TABLE refresh_tokens (
+--     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     user_id             UUID NOT NULL REFERENCES users(id),
+--     app_id              UUID REFERENCES applications(id),
+--     token_hash          VARCHAR(255) NOT NULL,
+--     device_info         VARCHAR(255),
+--     ip_address          VARCHAR(45),
+--     expires_at          TIMESTAMP NOT NULL,
+--     is_revoked          BOOLEAN DEFAULT false,
+--     created_at          TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
+-- CREATE INDEX idx_refresh_user ON refresh_tokens(user_id);
+-- CREATE INDEX idx_refresh_hash ON refresh_tokens(token_hash);
+--
+-- CREATE TABLE auth_audit_log (
+--     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     user_id             UUID,
+--     app_id              UUID,
+--     action              VARCHAR(50) NOT NULL,
+--     ip_address          VARCHAR(45),
+--     user_agent          VARCHAR(500),
+--     success             BOOLEAN NOT NULL,
+--     failure_reason      VARCHAR(255),
+--     metadata            JSONB,
+--     created_at          TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
+-- CREATE INDEX idx_audit_user ON auth_audit_log(user_id);
+-- CREATE INDEX idx_audit_created ON auth_audit_log(created_at);
+--
+-- CREATE TABLE invitations (
+--     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     email               VARCHAR(255) NOT NULL,
+--     app_id              UUID NOT NULL REFERENCES applications(id),
+--     org_id              UUID REFERENCES organizations(id),
+--     role_id             UUID REFERENCES app_roles(id),
+--     token_hash          VARCHAR(255) NOT NULL UNIQUE,
+--     invited_by          UUID NOT NULL REFERENCES users(id),
+--     status              VARCHAR(20) DEFAULT 'PENDING',
+--     expires_at          TIMESTAMP NOT NULL,
+--     accepted_at         TIMESTAMP,
+--     created_at          TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
+--
+-- -- Seed Roles for Property Management
+-- INSERT INTO app_roles (app_id, role_key, role_display_name, hierarchy_level, is_default)
+-- SELECT id, 'PROPERTY_MANAGER', 'Property Manager', 100, false FROM applications WHERE app_key = 'property-mgmt';
+-- INSERT INTO app_roles (app_id, role_key, role_display_name, hierarchy_level, is_default)
+-- SELECT id, 'AGENT', 'Agent', 50, false FROM applications WHERE app_key = 'property-mgmt';
+-- INSERT INTO app_roles (app_id, role_key, role_display_name, hierarchy_level, is_default)
+-- SELECT id, 'HOMEOWNER', 'Homeowner', 40, false FROM applications WHERE app_key = 'property-mgmt';
+-- INSERT INTO app_roles (app_id, role_key, role_display_name, hierarchy_level, is_default)
+-- SELECT id, 'RENTER', 'Renter', 10, true FROM applications WHERE app_key = 'property-mgmt';
+-- INSERT INTO app_roles (app_id, role_key, role_display_name, hierarchy_level, is_default)
+-- SELECT id, 'VENDOR', 'Vendor', 20, false FROM applications WHERE app_key = 'property-mgmt';
+--
+-- -- Seed Roles for User Portal
+-- INSERT INTO app_roles (app_id, role_key, role_display_name, hierarchy_level, is_default)
+-- SELECT id, 'USER', 'User', 10, true FROM applications WHERE app_key = 'user-portal';
+--
+-- -- Seed Roles for Accounting
+-- INSERT INTO app_roles (app_id, role_key, role_display_name, hierarchy_level, is_default)
+-- SELECT id, 'ADMIN', 'Admin', 100, false FROM applications WHERE app_key = 'accounting';
+-- INSERT INTO app_roles (app_id, role_key, role_display_name, hierarchy_level, is_default)
+-- SELECT id, 'ACCOUNTANT', 'Accountant', 50, false FROM applications WHERE app_key = 'accounting';
+-- INSERT INTO app_roles (app_id, role_key, role_display_name, hierarchy_level, is_default)
+-- SELECT id, 'CLIENT', 'Client', 10, true FROM applications WHERE app_key = 'accounting';
+--
+-- -- Seed Roles for Rideshare
+-- INSERT INTO app_roles (app_id, role_key, role_display_name, hierarchy_level, is_default)
+-- SELECT id, 'DISPATCHER', 'Dispatcher', 100, false FROM applications WHERE app_key = 'rideshare';
+-- INSERT INTO app_roles (app_id, role_key, role_display_name, hierarchy_level, is_default)
+-- SELECT id, 'DRIVER', 'Driver', 50, false FROM applications WHERE app_key = 'rideshare';
+-- INSERT INTO app_roles (app_id, role_key, role_display_name, hierarchy_level, is_default)
+-- SELECT id, 'RIDER', 'Rider', 10, true FROM applications WHERE app_key = 'rideshare';
+--
+-- -- Seed Permissions for Property Management
+-- INSERT INTO permissions (app_id, permission_key, resource_type, action)
+-- SELECT id, 'property:create', 'PROPERTY', 'CREATE' FROM applications WHERE app_key = 'property-mgmt';
+-- INSERT INTO permissions (app_id, permission_key, resource_type, action)
+-- SELECT id, 'property:read', 'PROPERTY', 'READ' FROM applications WHERE app_key = 'property-mgmt';
+-- INSERT INTO permissions (app_id, permission_key, resource_type, action)
+-- SELECT id, 'property:update', 'PROPERTY', 'UPDATE' FROM applications WHERE app_key = 'property-mgmt';
+-- INSERT INTO permissions (app_id, permission_key, resource_type, action)
+-- SELECT id, 'property:delete', 'PROPERTY', 'DELETE' FROM applications WHERE app_key = 'property-mgmt';
+-- INSERT INTO permissions (app_id, permission_key, resource_type, action)
+-- SELECT id, 'unit:create', 'UNIT', 'CREATE' FROM applications WHERE app_key = 'property-mgmt';
+-- INSERT INTO permissions (app_id, permission_key, resource_type, action)
+-- SELECT id, 'unit:read', 'UNIT', 'READ' FROM applications WHERE app_key = 'property-mgmt';
+-- INSERT INTO permissions (app_id, permission_key, resource_type, action)
+-- SELECT id, 'lease:create', 'LEASE', 'CREATE' FROM applications WHERE app_key = 'property-mgmt';
+-- INSERT INTO permissions (app_id, permission_key, resource_type, action)
+-- SELECT id, 'lease:read', 'LEASE', 'READ' FROM applications WHERE app_key = 'property-mgmt';
+-- INSERT INTO permissions (app_id, permission_key, resource_type, action)
+-- SELECT id, 'maintenance:read', 'MAINTENANCE', 'READ' FROM applications WHERE app_key = 'property-mgmt';
+-- INSERT INTO permissions (app_id, permission_key, resource_type, action)
+-- SELECT id, 'maintenance:create', 'MAINTENANCE', 'CREATE' FROM applications WHERE app_key = 'property-mgmt';
+-- INSERT INTO permissions (app_id, permission_key, resource_type, action)
+-- SELECT id, 'maintenance:assign', 'MAINTENANCE', 'UPDATE' FROM applications WHERE app_key = 'property-mgmt';
+-- INSERT INTO permissions (app_id, permission_key, resource_type, action)
+-- SELECT id, 'agent:invite', 'AGENT', 'CREATE' FROM applications WHERE app_key = 'property-mgmt';
+-- INSERT INTO permissions (app_id, permission_key, resource_type, action)
+-- SELECT id, 'agent:manage', 'AGENT', 'UPDATE' FROM applications WHERE app_key = 'property-mgmt';
+--
+-- -- ============================================
+-- -- APP: PROPERTY MANAGEMENT SCHEMA
+-- -- ============================================
+-- CREATE SCHEMA IF NOT EXISTS app_property_mgmt;
+-- SET search_path TO app_property_mgmt;
+--
+-- CREATE TABLE properties (
+--     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     org_id UUID NOT NULL,
+--     name VARCHAR(200) NOT NULL,
+--     property_type VARCHAR(30) NOT NULL,
+--     address_line1 VARCHAR(255) NOT NULL,
+--     address_line2 VARCHAR(255),
+--     city VARCHAR(100) NOT NULL,
+--     state VARCHAR(50) NOT NULL,
+--     zip_code VARCHAR(20) NOT NULL,
+--     country VARCHAR(50) DEFAULT 'US',
+--     latitude DECIMAL(10,8),
+--     longitude DECIMAL(11,8),
+--     total_units INTEGER DEFAULT 1,
+--     year_built INTEGER,
+--     square_footage DECIMAL(10,2),
+--     description TEXT,
+--     status VARCHAR(20) DEFAULT 'ACTIVE',
+--     created_by UUID NOT NULL,
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
+-- CREATE INDEX idx_property_org ON properties(org_id);
+--
+-- CREATE TABLE units (
+--     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     property_id UUID NOT NULL REFERENCES properties(id),
+--     unit_number VARCHAR(20) NOT NULL,
+--     floor_number INTEGER,
+--     bedrooms INTEGER DEFAULT 1,
+--     bathrooms DECIMAL(3,1) DEFAULT 1.0,
+--     square_footage DECIMAL(10,2),
+--     rent_amount DECIMAL(10,2),
+--     deposit_amount DECIMAL(10,2),
+--     status VARCHAR(20) DEFAULT 'VACANT',
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     UNIQUE(property_id, unit_number)
+-- );
+--
+-- CREATE TABLE leases (
+--     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     unit_id UUID NOT NULL REFERENCES units(id),
+--     tenant_user_id UUID NOT NULL,
+--     lease_type VARCHAR(20) DEFAULT 'FIXED',
+--     start_date DATE NOT NULL,
+--     end_date DATE,
+--     monthly_rent DECIMAL(10,2) NOT NULL,
+--     security_deposit DECIMAL(10,2),
+--     status VARCHAR(20) DEFAULT 'ACTIVE',
+--     signed_at TIMESTAMP,
+--     document_url VARCHAR(500),
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
+--
+-- CREATE TABLE maintenance_requests (
+--     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     unit_id UUID NOT NULL REFERENCES units(id),
+--     reported_by UUID NOT NULL,
+--     assigned_to UUID,
+--     title VARCHAR(200) NOT NULL,
+--     description TEXT,
+--     priority VARCHAR(10) DEFAULT 'MEDIUM',
+--     status VARCHAR(20) DEFAULT 'OPEN',
+--     category VARCHAR(50),
+--     estimated_cost DECIMAL(10,2),
+--     actual_cost DECIMAL(10,2),
+--     completed_at TIMESTAMP,
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
+--
+-- CREATE TABLE payments (
+--     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     lease_id UUID NOT NULL REFERENCES leases(id),
+--     payer_user_id UUID NOT NULL,
+--     amount DECIMAL(10,2) NOT NULL,
+--     payment_type VARCHAR(20) NOT NULL,
+--     payment_method VARCHAR(20),
+--     status VARCHAR(20) DEFAULT 'PENDING',
+--     due_date DATE,
+--     paid_at TIMESTAMP,
+--     transaction_id VARCHAR(100),
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
+--
+-- CREATE TABLE vendors (
+--     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     org_id UUID NOT NULL,
+--     user_id UUID,
+--     company_name VARCHAR(200) NOT NULL,
+--     contact_name VARCHAR(100),
+--     email VARCHAR(255),
+--     phone VARCHAR(20),
+--     specialty VARCHAR(100),
+--     hourly_rate DECIMAL(8,2),
+--     is_active BOOLEAN DEFAULT true,
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
+--
+-- -- ============================================
+-- -- APP: USER PORTAL SCHEMA
+-- -- ============================================
+-- CREATE SCHEMA IF NOT EXISTS app_user_portal;
+--
+-- -- ============================================
+-- -- APP: ACCOUNTING SCHEMA
+-- -- ============================================
+-- CREATE SCHEMA IF NOT EXISTS app_accounting;
+-- SET search_path TO app_accounting;
+--
+-- CREATE TABLE accounts (
+--     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     org_id UUID,
+--     owner_user_id UUID NOT NULL,
+--     account_name VARCHAR(200) NOT NULL,
+--     account_type VARCHAR(30) NOT NULL,
+--     currency VARCHAR(3) DEFAULT 'USD',
+--     is_active BOOLEAN DEFAULT true,
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
+--
+-- CREATE TABLE categories (
+--     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     account_id UUID NOT NULL REFERENCES accounts(id),
+--     name VARCHAR(100) NOT NULL,
+--     type VARCHAR(10) NOT NULL,
+--     icon VARCHAR(50),
+--     color VARCHAR(7),
+--     parent_id UUID REFERENCES categories(id),
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
+--
+-- CREATE TABLE transactions (
+--     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     account_id UUID NOT NULL REFERENCES accounts(id),
+--     category_id UUID REFERENCES categories(id),
+--     type VARCHAR(10) NOT NULL,
+--     amount DECIMAL(12,2) NOT NULL,
+--     description VARCHAR(500),
+--     transaction_date DATE NOT NULL,
+--     reference_no VARCHAR(100),
+--     attachment_url VARCHAR(500),
+--     tags TEXT[],
+--     created_by UUID NOT NULL,
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
+--
+-- CREATE TABLE invoices (
+--     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     account_id UUID NOT NULL REFERENCES accounts(id),
+--     client_name VARCHAR(200) NOT NULL,
+--     client_email VARCHAR(255),
+--     invoice_number VARCHAR(50) NOT NULL,
+--     issue_date DATE NOT NULL,
+--     due_date DATE NOT NULL,
+--     subtotal DECIMAL(12,2),
+--     tax_amount DECIMAL(12,2),
+--     total_amount DECIMAL(12,2) NOT NULL,
+--     status VARCHAR(20) DEFAULT 'DRAFT',
+--     notes TEXT,
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
+--
+-- CREATE TABLE invoice_items (
+--     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     invoice_id UUID NOT NULL REFERENCES invoices(id) ON DELETE CASCADE,
+--     description VARCHAR(500) NOT NULL,
+--     quantity DECIMAL(10,2) NOT NULL DEFAULT 1,
+--     unit_price DECIMAL(10,2) NOT NULL,
+--     amount DECIMAL(12,2) NOT NULL
+-- );
+--
+-- -- ============================================
+-- -- APP: RIDESHARE SCHEMA
+-- -- ============================================
+-- CREATE SCHEMA IF NOT EXISTS app_rideshare;
+-- SET search_path TO app_rideshare;
+--
+-- CREATE TABLE driver_profiles (
+--     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     user_id UUID NOT NULL UNIQUE,
+--     license_number VARCHAR(50) NOT NULL,
+--     vehicle_make VARCHAR(50),
+--     vehicle_model VARCHAR(50),
+--     vehicle_year INTEGER,
+--     vehicle_color VARCHAR(30),
+--     license_plate VARCHAR(20),
+--     insurance_number VARCHAR(50),
+--     rating DECIMAL(3,2) DEFAULT 5.0,
+--     total_rides INTEGER DEFAULT 0,
+--     is_verified BOOLEAN DEFAULT false,
+--     is_online BOOLEAN DEFAULT false,
+--     current_latitude DECIMAL(10,8),
+--     current_longitude DECIMAL(11,8),
+--     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
+--
+-- CREATE TABLE rides (
+--     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     rider_user_id UUID NOT NULL,
+--     driver_user_id UUID,
+--     status VARCHAR(20) DEFAULT 'REQUESTED',
+--     pickup_latitude DECIMAL(10,8) NOT NULL,
+--     pickup_longitude DECIMAL(11,8) NOT NULL,
+--     pickup_address VARCHAR(500),
+--     dropoff_latitude DECIMAL(10,8) NOT NULL,
+--     dropoff_longitude DECIMAL(11,8) NOT NULL,
+--     dropoff_address VARCHAR(500),
+--     ride_type VARCHAR(20) DEFAULT 'STANDARD',
+--     estimated_fare DECIMAL(10,2),
+--     actual_fare DECIMAL(10,2),
+--     distance_km DECIMAL(8,2),
+--     duration_minutes INTEGER,
+--     requested_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     accepted_at TIMESTAMP,
+--     started_at TIMESTAMP,
+--     completed_at TIMESTAMP,
+--     cancelled_at TIMESTAMP,
+--     cancellation_reason VARCHAR(255),
+--     rider_rating INTEGER,
+--     driver_rating INTEGER
+-- );
+-- CREATE INDEX idx_rides_rider ON rides(rider_user_id);
+-- CREATE INDEX idx_rides_driver ON rides(driver_user_id);
+-- CREATE INDEX idx_rides_status ON rides(status);
+--
+-- CREATE TABLE ride_tracking (
+--     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+--     ride_id UUID NOT NULL REFERENCES rides(id),
+--     latitude DECIMAL(10,8) NOT NULL,
+--     longitude DECIMAL(11,8) NOT NULL,
+--     speed_kmh DECIMAL(5,1),
+--     recorded_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+-- );
+--
+-- -- Reset search path
+-- SET search_path TO public;
