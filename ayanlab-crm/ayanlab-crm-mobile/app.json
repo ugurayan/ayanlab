@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "name": "ayanlab-crm-mobile",
+    "slug": "ayanlab-crm-mobile",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "ayanlab-crm-mobile",
+    "userInterfaceStyle": "automatic",
+    "ios": { "supportsTablet": true },
+    "android": { "adaptiveIcon": { "backgroundColor": "#0f1419" } }
+  }
+}

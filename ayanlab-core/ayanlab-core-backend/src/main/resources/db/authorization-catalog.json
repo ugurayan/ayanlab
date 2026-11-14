@@ -1,0 +1,428 @@
+{
+  "permissionMatrices": [
+    {
+      "appCode": "ipms",
+      "modules": [
+        "dashboard", "properties", "tenants", "applicants", "rental_owners",
+        "associations", "violations", "leasing", "accounting", "maintenance",
+        "vendors", "work_orders", "tasks", "communication", "files",
+        "reports", "analytics", "addons", "settings", "users", "roles", "permissions"
+      ],
+      "actions": ["read", "create", "update", "delete", "manage", "approve", "export", "import"]
+    }
+  ],
+  "roles": [
+    {
+      "code": "SYSTEM_ADMINISTRATOR",
+      "name": "System Administrator",
+      "description": "Full system access with ability to manage all organizations and system settings"
+    },
+    {
+      "code": "SYSTEM_USER",
+      "name": "System User",
+      "description": "Platform staff with baseline read-only access; SYSTEM_ADMINISTRATOR may grant extras"
+    },
+    {
+      "code": "ORGANIZATION_ADMINISTRATOR",
+      "name": "Organization Administrator",
+      "description": "Full access to organization data, users, and settings"
+    },
+    {
+      "code": "PROPERTY_MANAGER",
+      "name": "Property Manager",
+      "description": "Manage properties, tenants, leases, and maintenance"
+    },
+    {
+      "code": "ACCOUNTANT",
+      "name": "Accountant",
+      "description": "Manage financial records, transactions, and reports"
+    },
+    {
+      "code": "MAINTENANCE_ORGANIZATION",
+      "name": "Maintenance Organization",
+      "description": "External vendor/maintenance company admin for assigned work orders and staff"
+    },
+    {
+      "code": "MAINTENANCE_STAFF",
+      "name": "Maintenance Staff",
+      "description": "View and manage maintenance requests and work orders"
+    },
+    {
+      "code": "VENDOR",
+      "name": "Vendor (Personal)",
+      "description": "Personal vendor account without company affiliation"
+    },
+    {
+      "code": "LEASING_AGENT",
+      "name": "Leasing Agent",
+      "description": "Manage applicants, leases, and property listings"
+    },
+    {
+      "code": "TENANT",
+      "name": "Tenant",
+      "description": "View own lease, submit maintenance requests, and make payments"
+    },
+    {
+      "code": "PROPERTY_OWNER",
+      "name": "Property Owner (Personal)",
+      "description": "Personal property owner account without management company affiliation"
+    },
+    {
+      "code": "VIEWER",
+      "name": "Viewer (Read Only)",
+      "description": "Read-only access to permitted modules (legacy alias toward SYSTEM_USER)"
+    }
+  ],
+  "applicationRoles": [
+    { "appCode": "ipms", "roleCode": "SYSTEM_ADMINISTRATOR" },
+    { "appCode": "ipms", "roleCode": "SYSTEM_USER" },
+    { "appCode": "ipms", "roleCode": "ORGANIZATION_ADMINISTRATOR" },
+    { "appCode": "ipms", "roleCode": "PROPERTY_MANAGER" },
+    { "appCode": "ipms", "roleCode": "ACCOUNTANT" },
+    { "appCode": "ipms", "roleCode": "MAINTENANCE_ORGANIZATION" },
+    { "appCode": "ipms", "roleCode": "MAINTENANCE_STAFF" },
+    { "appCode": "ipms", "roleCode": "VENDOR" },
+    { "appCode": "ipms", "roleCode": "LEASING_AGENT" },
+    { "appCode": "ipms", "roleCode": "TENANT" },
+    { "appCode": "ipms", "roleCode": "PROPERTY_OWNER" },
+    { "appCode": "ipms", "roleCode": "VIEWER" }
+  ],
+  "policyGroups": [
+    {
+      "appCode": "core",
+      "code": "CORE_ADMIN_FULL",
+      "name": "Core Admin Full Access",
+      "description": "Full core administration permissions",
+      "permissions": [
+        "core:admin:user:read",
+        "core:admin:user:create",
+        "core:admin:user:update",
+        "core:admin:user:delete",
+        "core:admin:role:read",
+        "core:admin:policy:read",
+        "core:admin:policy:manage"
+      ]
+    },
+    {
+      "appCode": "crm",
+      "code": "CRM_ACCOUNTING_READ",
+      "name": "CRM Accounting Read",
+      "permissions": [
+        "crm:accounting:ledger:read",
+        "crm:accounting:invoice:read",
+        "crm:clients:client:read"
+      ]
+    },
+    {
+      "appCode": "vault",
+      "code": "VAULT_DOCUMENTS_FULL",
+      "name": "Vault Documents Full",
+      "permissions": [
+        "vault:documents:file:read",
+        "vault:documents:file:create",
+        "vault:sharing:share:read"
+      ]
+    },
+    {
+      "appCode": "staffiq",
+      "code": "STAFFIQ_DISPATCH",
+      "name": "StaffIQ Dispatch",
+      "permissions": [
+        "staffiq:rides:ride:read",
+        "staffiq:rides:ride:create",
+        "staffiq:dispatch:route:read"
+      ]
+    }
+  ],
+  "rolePolicyGroups": [
+    { "appCode": "core", "roleCode": "ADMIN", "policyGroupCode": "CORE_ADMIN_FULL" },
+    { "appCode": "crm", "roleCode": "ADMIN", "policyGroupCode": "CRM_ACCOUNTING_READ" },
+    { "appCode": "vault", "roleCode": "ADMIN", "policyGroupCode": "VAULT_DOCUMENTS_FULL" },
+    { "appCode": "staffiq", "roleCode": "ADMIN", "policyGroupCode": "STAFFIQ_DISPATCH" }
+  ],
+  "appRoleAssignments": {
+    "ipms": {
+      "SYSTEM_ADMINISTRATOR": { "grantAll": true },
+      "SYSTEM_USER": {
+        "grants": [
+          "dashboard:read",
+          "users:read",
+          "reports:read",
+          "analytics:read",
+          "files:read",
+          "settings:read"
+        ]
+      },
+      "ORGANIZATION_ADMINISTRATOR": {
+        "grantAll": true,
+        "denyPatterns": [
+          "permissions:*",
+          "roles:manage", "roles:delete", "roles:approve", "roles:export", "roles:import",
+          "users:manage", "users:delete", "users:approve", "users:export", "users:import",
+          "settings:manage", "settings:approve", "settings:export", "settings:import",
+          "addons:manage", "addons:create", "addons:delete", "addons:update", "addons:approve", "addons:export", "addons:import",
+          "analytics:manage", "analytics:approve", "analytics:export", "analytics:import",
+          "reports:manage", "reports:approve",
+          "associations:manage", "associations:delete",
+          "violations:manage", "violations:approve"
+        ]
+      },
+      "PROPERTY_MANAGER": {
+        "grants": [
+          "dashboard:read",
+          "properties:read", "properties:create", "properties:update", "properties:delete", "properties:export", "properties:manage",
+          "tenants:read", "tenants:create", "tenants:update", "tenants:delete", "tenants:export",
+          "applicants:read", "applicants:update", "applicants:approve",
+          "rental_owners:read", "rental_owners:create", "rental_owners:update",
+          "associations:read", "associations:update",
+          "violations:read", "violations:create", "violations:update", "violations:approve",
+          "leasing:read", "leasing:create", "leasing:update", "leasing:approve", "leasing:export", "leasing:manage",
+          "accounting:read", "accounting:export",
+          "maintenance:read", "maintenance:create", "maintenance:update", "maintenance:approve", "maintenance:manage",
+          "vendors:read", "vendors:update",
+          "work_orders:read", "work_orders:create", "work_orders:update", "work_orders:approve", "work_orders:delete",
+          "tasks:read", "tasks:create", "tasks:update",
+          "communication:read", "communication:create",
+          "files:read", "files:create", "files:export",
+          "reports:read", "reports:export",
+          "analytics:read",
+          "addons:read",
+          "settings:read",
+          "users:read"
+        ]
+      },
+      "ACCOUNTANT": {
+        "grants": [
+          "dashboard:read",
+          "accounting:read", "accounting:create", "accounting:update", "accounting:delete", "accounting:approve", "accounting:export", "accounting:import",
+          "reports:read", "reports:export",
+          "files:read", "files:export",
+          "properties:read",
+          "rental_owners:read",
+          "associations:read",
+          "violations:read",
+          "leasing:read",
+          "tasks:read",
+          "analytics:read",
+          "settings:read"
+        ]
+      },
+      "MAINTENANCE_ORGANIZATION": {
+        "grants": [
+          "dashboard:read",
+          "maintenance:read", "maintenance:update", "maintenance:manage",
+          "vendors:read", "vendors:create", "vendors:update", "vendors:manage",
+          "work_orders:read", "work_orders:create", "work_orders:update", "work_orders:approve", "work_orders:manage",
+          "tasks:read", "tasks:create", "tasks:update",
+          "communication:read", "communication:create",
+          "files:read", "files:create",
+          "users:read", "users:create", "users:update",
+          "roles:read",
+          "settings:read", "settings:update",
+          "properties:read",
+          "reports:read"
+        ]
+      },
+      "MAINTENANCE_STAFF": {
+        "grants": [
+          "dashboard:read",
+          "maintenance:read", "maintenance:create", "maintenance:update",
+          "vendors:read",
+          "work_orders:read", "work_orders:create", "work_orders:update",
+          "tasks:read", "tasks:update",
+          "files:read",
+          "communication:read",
+          "properties:read",
+          "settings:read"
+        ]
+      },
+      "VENDOR": {
+        "grants": [
+          "dashboard:read",
+          "vendors:read", "vendors:update",
+          "work_orders:read", "work_orders:update",
+          "maintenance:read", "maintenance:update",
+          "tasks:read", "tasks:update",
+          "files:read",
+          "communication:read",
+          "settings:read"
+        ]
+      },
+      "LEASING_AGENT": {
+        "grants": [
+          "dashboard:read",
+          "properties:read", "properties:export",
+          "applicants:read", "applicants:create", "applicants:update", "applicants:approve",
+          "leasing:read", "leasing:create", "leasing:update", "leasing:approve",
+          "rental_owners:read",
+          "files:read", "files:create",
+          "communication:read", "communication:create",
+          "tasks:read", "tasks:create",
+          "reports:read", "reports:export",
+          "violations:read",
+          "associations:read",
+          "analytics:read",
+          "settings:read",
+          "tenants:read", "tenants:create", "tenants:update",
+          "vendors:read",
+          "addons:read",
+          "users:read"
+        ]
+      },
+      "TENANT": {
+        "grants": [
+          "dashboard:read",
+          "leasing:read",
+          "maintenance:read", "maintenance:create",
+          "communication:read", "communication:create",
+          "files:read",
+          "accounting:read",
+          "tasks:read",
+          "properties:read",
+          "settings:read"
+        ]
+      },
+      "PROPERTY_OWNER": {
+        "grants": [
+          "dashboard:read",
+          "properties:read", "properties:update",
+          "leasing:read",
+          "accounting:read",
+          "maintenance:read", "maintenance:create",
+          "communication:read", "communication:create",
+          "files:read", "files:create",
+          "reports:read",
+          "settings:read"
+        ]
+      },
+      "VIEWER": {
+        "grants": [
+          "dashboard:read",
+          "properties:read",
+          "reports:read",
+          "analytics:read",
+          "files:read",
+          "settings:read"
+        ]
+      }
+    }
+  },
+  "users": [
+    {
+      "appCode": "ipms",
+      "email": "admin@ipm-app.com",
+      "password": "Admin123!",
+      "firstName": "Jay",
+      "lastName": "Anderson",
+      "mobile": "+10000001001",
+      "assignRole": "SYSTEM_ADMINISTRATOR"
+    },
+    {
+      "appCode": "ipms",
+      "email": "owner@ipm-app.com",
+      "password": "Admin123!",
+      "firstName": "Sarah",
+      "lastName": "Mitchell",
+      "mobile": "+10000001002",
+      "assignRole": "ORGANIZATION_ADMINISTRATOR"
+    },
+    {
+      "appCode": "ipms",
+      "email": "tenant@ipm-app.com",
+      "password": "Admin123!",
+      "firstName": "Mike",
+      "lastName": "Johnson",
+      "mobile": "+10000001003",
+      "assignRole": "TENANT"
+    },
+    {
+      "appCode": "ipms",
+      "email": "demo@demo.com",
+      "password": "Admin123!",
+      "firstName": "Demo",
+      "lastName": "User",
+      "mobile": "+10000001004",
+      "assignRole": "SYSTEM_ADMINISTRATOR"
+    },
+    {
+      "appCode": "ipms",
+      "email": "manager@ipm-app.com",
+      "password": "Admin123!",
+      "firstName": "David",
+      "lastName": "Chen",
+      "mobile": "+10000001005",
+      "assignRole": "PROPERTY_MANAGER"
+    },
+    {
+      "appCode": "ipms",
+      "email": "accountant@ipm-app.com",
+      "password": "Admin123!",
+      "firstName": "Lisa",
+      "lastName": "Wong",
+      "mobile": "+10000001006",
+      "assignRole": "ACCOUNTANT"
+    },
+    {
+      "appCode": "ipms",
+      "email": "maintenance@ipm-app.com",
+      "password": "Admin123!",
+      "firstName": "Carlos",
+      "lastName": "Rodriguez",
+      "mobile": "+10000001007",
+      "assignRole": "MAINTENANCE_STAFF"
+    },
+    {
+      "appCode": "ipms",
+      "email": "leasing@ipm-app.com",
+      "password": "Admin123!",
+      "firstName": "Emma",
+      "lastName": "Williams",
+      "mobile": "+10000001008",
+      "assignRole": "LEASING_AGENT"
+    }
+  ],
+  "profilePermissionExtras": [
+    {
+      "appCode": "ipms",
+      "email": "manager@ipm-app.com",
+      "permissionCode": "ipms:analytics:analytics:export",
+      "effect": "GRANT"
+    },
+    {
+      "appCode": "ipms",
+      "email": "manager@ipm-app.com",
+      "permissionCode": "ipms:users:users:create",
+      "effect": "GRANT"
+    },
+    {
+      "appCode": "ipms",
+      "email": "leasing@ipm-app.com",
+      "permissionCode": "ipms:leasing:leasing:delete",
+      "effect": "GRANT"
+    },
+    {
+      "appCode": "ipms",
+      "email": "tenant@ipm-app.com",
+      "permissionCode": "ipms:reports:reports:read",
+      "effect": "GRANT"
+    },
+    {
+      "appCode": "ipms",
+      "email": "tenant@ipm-app.com",
+      "permissionCode": "ipms:accounting:accounting:export",
+      "effect": "DENY"
+    },
+    {
+      "appCode": "ipms",
+      "email": "accountant@ipm-app.com",
+      "permissionCode": "ipms:settings:settings:read",
+      "effect": "GRANT"
+    },
+    {
+      "appCode": "ipms",
+      "email": "maintenance@ipm-app.com",
+      "permissionCode": "ipms:maintenance:maintenance:approve",
+      "effect": "GRANT"
+    }
+  ]
+}

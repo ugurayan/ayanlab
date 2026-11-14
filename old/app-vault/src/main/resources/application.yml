@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: ayanlabs-vault
+  datasource:
+    url: ${POSTGIS_URL:jdbc:postgresql://${POSTGIS_HOST:localhost}:${POSTGIS_PORT:5432}/${POSTGIS_DB:ayanLabs}?currentSchema=vault}
+    username: ${POSTGIS_USER:core}
+    password: ${POSTGIS_PASSWORD:}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        default_schema: vault
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+    show-sql: true
+    open-in-view: true
+  port: 0

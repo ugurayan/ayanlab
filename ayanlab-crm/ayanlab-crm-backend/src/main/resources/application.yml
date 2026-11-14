@@ -1,0 +1,119 @@
+spring:
+  application:
+    name: ayanlab-crm-backend
+
+  # Flyway is not on the classpath; keep migrations off so schema stays Hibernate-only.
+  flyway:
+    enabled: false
+
+  datasource:
+    # Prefer POSTGIS_URL; otherwise POSTGIS_HOST (postgis on VPS internal network, localhost locally)
+    url: ${POSTGIS_URL:jdbc:postgresql://${POSTGIS_HOST:localhost}:${POSTGIS_PORT:5432}/${POSTGIS_DB:ayanLabs}?currentSchema=${POSTGIS_SCHEMA:crm}}
+    username: ${POSTGIS_USER:core}
+    password: ${POSTGIS_PASSWORD:}
+    driver-class-name: org.postgresql.Driver
+
+  # Tables are created/updated by Hibernate from JPA entities (no Flyway SQL migrations).
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyComponentPathImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        default_schema: ${POSTGIS_SCHEMA:crm}
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+        globally_quoted_identifiers: true
+    show-sql: false
+    open-in-view: false
+
+  mail:
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls.enable: true
+
+  kafka:
+    bootstrap-servers: ${KAFKA_SERVERS:localhost:9092}
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.redis.RedisRepositoriesAutoConfiguration
+
+# Document Postgres/PostGIS environment variables and defaults for the platform
+postgis:
+  host: ${POSTGIS_HOST:localhost}
+  port: ${POSTGIS_PORT:5432}
+  database: ${POSTGIS_DB:ayanLabs}
+  schema: ${POSTGIS_SCHEMA:crm}
+  user: ${POSTGIS_USER:core}
+  password: ${POSTGIS_PASSWORD:secret}
+  schemas: ${POSTGIS_SCHEMAS:core,ipms,crm,vault,staffiq}
+
+gcp:
+  project-id: ${GCP_PROJECT_ID:}
+  credentials-path: ${GOOGLE_APPLICATION_CREDENTIALS:}
+
+twilio:
+  account-sid: ${TWILIO_ACCOUNT_SID:}
+  auth-token: ${TWILIO_AUTH_TOKEN:}
+  from-number: ${TWILIO_FROM_NUMBER:}
+
+ayanlabs:
+  mail:
+    host: ${MAIL_HOST:smtp.gmail.com}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+  kafka:
+    bootstrap-servers: ${KAFKA_SERVERS:localhost:9092}
+    consumer:
+      group-id: ${KAFKA_GROUP_ID:ayanlabs-group}
+  storage:
+    gcp:
+      project-id: ${GCP_PROJECT_ID:}
+      bucket-name: ${GCP_BUCKET_NAME:}
+      credentials-resource: ${GCP_CREDENTIALS_RESOURCE:}
+      signed-url-duration-minutes: ${GCP_SIGNED_URL_DURATION_MINUTES:30}
+  verification:
+    email-code-expiration-minutes: ${VERIFICATION_EMAIL_CODE_EXPIRATION_MINUTES:30}
+    mobile-code-expiration-minutes: ${VERIFICATION_MOBILE_CODE_EXPIRATION_MINUTES:30}
+  # all in seconds; defaults: 1 day for web, 15 days for mobile, 60 days for refresh tokens
+  jwt:
+    secret: ${JWT_SECRET:}
+    access-token-expiry-for-web: ${JWT_ACCESS_TOKEN_EXPIRY_WEB:86400}
+    access-token-expiry-for-mobile: ${JWT_ACCESS_TOKEN_EXPIRY_MOBILE:1296000}
+    refresh-token-expiry: ${JWT_REFRESH_TOKEN_EXPIRY:5184000}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    tagsSorter: alpha
+    operationsSorter: alpha
+
+server:
+  port: 8080
+  # Access tokens embed large permission lists; default 8KB Tomcat limit returns opaque 400s.
+  max-http-request-header-size: 64KB
+
+# Seed data: default-data.json → authorization catalogs → subscription-data.json → DemoDataLoader
+platform:
+  db:
+    load-default-data: true
+    load-authorization-catalog: true
+    load-ipms-property-types: true
+    load-subscription-data: true
+    load-demo-data: true

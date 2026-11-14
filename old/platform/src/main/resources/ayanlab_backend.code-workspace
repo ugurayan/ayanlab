@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "../../../.."
+		},
+		{
+			"path": "../../../../../ipms-web"
+		},
+		{
+			"path": "../../../../../ayan_vault_local"
+		}
+	],
+	"settings": {}
+}

@@ -1,0 +1,277 @@
+{
+  "catalogs": [
+    {
+      "appCode": "vault",
+      "plans": [
+        {
+          "id": "b1a10001-0001-4000-8000-000000000001",
+          "code": "FREE",
+          "name": "Free",
+          "description": "Get started with a local vault and starter limits at no cost.",
+          "sortOrder": 0,
+          "isFree": true,
+          "trialDays": 0,
+          "pricingUnit": "FLAT",
+          "features": [
+            {
+              "id": "c1a10001-0001-4000-8000-000000000001",
+              "featureCode": "LOCAL_VAULT",
+              "title": "One local vault",
+              "sortOrder": 10
+            },
+            {
+              "id": "c1a10001-0001-4000-8000-000000000002",
+              "featureCode": "BASIC_ITEMS",
+              "title": "Limited items per vault",
+              "sortOrder": 20
+            }
+          ]
+        },
+        {
+          "id": "b1a10001-0001-4000-8000-000000000002",
+          "code": "INDIVIDUAL",
+          "name": "Individual",
+          "description": "Take control of your online security.",
+          "sortOrder": 10,
+          "isFree": false,
+          "trialDays": 14,
+          "pricingUnit": "FLAT",
+          "prices": [
+            {
+              "id": "d1a10001-0001-4000-8000-000000000001",
+              "billingPeriod": "MONTHLY",
+              "amountCents": 499,
+              "currency": "USD",
+              "appleStoreProductId": "com.vaultforge.individual.monthly",
+              "googlePlayProductId": "com.vaultforge.individual.monthly"
+            },
+            {
+              "id": "d1a10001-0001-4000-8000-000000000002",
+              "billingPeriod": "YEARLY",
+              "amountCents": 240,
+              "listAmountCents": 399,
+              "currency": "USD",
+              "appleStoreProductId": "com.vaultforge.individual.yearly",
+              "googlePlayProductId": "com.vaultforge.individual.yearly"
+            }
+          ],
+          "features": [
+            {
+              "id": "c1a10002-0001-4000-8000-000000000001",
+              "featureCode": "PASSWORD_GENERATOR",
+              "title": "Generate passwords securely",
+              "sortOrder": 10
+            },
+            {
+              "id": "c1a10002-0001-4000-8000-000000000002",
+              "featureCode": "AUTOFILL",
+              "title": "Autosave and autofill credentials",
+              "sortOrder": 20
+            },
+            {
+              "id": "c1a10002-0001-4000-8000-000000000003",
+              "featureCode": "SECURE_SHARE",
+              "title": "Share items securely with anyone",
+              "sortOrder": 30
+            },
+            {
+              "id": "c1a10002-0001-4000-8000-000000000004",
+              "featureCode": "MULTI_DEVICE",
+              "title": "Use on all of your devices",
+              "sortOrder": 40
+            },
+            {
+              "id": "c1a10002-0001-4000-8000-000000000005",
+              "featureCode": "WATCHTOWER",
+              "title": "Get alerts for weak or compromised credentials",
+              "sortOrder": 50
+            }
+          ]
+        },
+        {
+          "id": "b1a10001-0001-4000-8000-000000000003",
+          "code": "FAMILIES",
+          "name": "Families",
+          "description": "Peace of mind for your entire family.",
+          "sortOrder": 20,
+          "isFree": false,
+          "inheritsFromPlanCode": "INDIVIDUAL",
+          "maxSeats": 6,
+          "trialDays": 14,
+          "pricingUnit": "FLAT",
+          "prices": [
+            {
+              "id": "d1a10001-0001-4000-8000-000000000003",
+              "billingPeriod": "MONTHLY",
+              "amountCents": 799,
+              "currency": "USD",
+              "appleStoreProductId": "com.vaultforge.families.monthly",
+              "googlePlayProductId": "com.vaultforge.families.monthly"
+            },
+            {
+              "id": "d1a10001-0001-4000-8000-000000000004",
+              "billingPeriod": "YEARLY",
+              "amountCents": 360,
+              "listAmountCents": 599,
+              "currency": "USD",
+              "appleStoreProductId": "com.vaultforge.families.yearly",
+              "googlePlayProductId": "com.vaultforge.families.yearly"
+            }
+          ],
+          "features": [
+            {
+              "id": "c1a10003-0001-4000-8000-000000000001",
+              "featureCode": "INCLUDES_INDIVIDUAL",
+              "title": "Everything in Individual, plus:",
+              "description": "All Individual plan features are included.",
+              "sortOrder": 5
+            },
+            {
+              "id": "c1a10003-0001-4000-8000-000000000002",
+              "featureCode": "FAMILY_MEMBERS",
+              "title": "Invite up to 5 family members",
+              "sortOrder": 10
+            },
+            {
+              "id": "c1a10003-0001-4000-8000-000000000003",
+              "featureCode": "UNLIMITED_VAULTS",
+              "title": "Share unlimited vaults",
+              "sortOrder": 20
+            },
+            {
+              "id": "c1a10003-0001-4000-8000-000000000004",
+              "featureCode": "FAMILY_ADMIN",
+              "title": "Manage access with simple admin controls",
+              "sortOrder": 30
+            }
+          ]
+        },
+        {
+          "id": "b1a10001-0001-4000-8000-000000000004",
+          "code": "TEAMS_STARTER",
+          "name": "Teams Starter Pack",
+          "description": "Secure your small team (up to 10 users).",
+          "sortOrder": 30,
+          "isFree": false,
+          "maxSeats": 10,
+          "trialDays": 14,
+          "pricingUnit": "FLAT",
+          "prices": [
+            {
+              "id": "d1a10001-0001-4000-8000-000000000005",
+              "billingPeriod": "MONTHLY",
+              "amountCents": 2495,
+              "currency": "USD",
+              "appleStoreProductId": "com.vaultforge.teams.monthly",
+              "googlePlayProductId": "com.vaultforge.teams.monthly"
+            },
+            {
+              "id": "d1a10001-0001-4000-8000-000000000006",
+              "billingPeriod": "YEARLY",
+              "amountCents": 1995,
+              "currency": "USD",
+              "appleStoreProductId": "com.vaultforge.teams.yearly",
+              "googlePlayProductId": "com.vaultforge.teams.yearly"
+            }
+          ],
+          "features": [
+            {
+              "id": "c1a10004-0001-4000-8000-000000000001",
+              "featureCode": "TEAM_SHARING",
+              "title": "Share passwords and sensitive data",
+              "sortOrder": 10
+            },
+            {
+              "id": "c1a10004-0001-4000-8000-000000000002",
+              "featureCode": "SECURITY_ALERTS",
+              "title": "Stay informed with actionable security alerts",
+              "sortOrder": 20
+            },
+            {
+              "id": "c1a10004-0001-4000-8000-000000000003",
+              "featureCode": "ROLE_PERMISSIONS",
+              "title": "Assign access with role-based permissions",
+              "sortOrder": 30
+            },
+            {
+              "id": "c1a10004-0001-4000-8000-000000000004",
+              "featureCode": "DEVELOPER_TOOLS",
+              "title": "Build securely with developer tools",
+              "sortOrder": 40
+            },
+            {
+              "id": "c1a10004-0001-4000-8000-000000000005",
+              "featureCode": "SUPPORT_ONBOARDING",
+              "title": "Friendly support and onboarding resources",
+              "sortOrder": 50
+            }
+          ]
+        },
+        {
+          "id": "b1a10001-0001-4000-8000-000000000005",
+          "code": "BUSINESS",
+          "name": "Business",
+          "description": "Security that adapts to your business.",
+          "sortOrder": 40,
+          "isFree": false,
+          "inheritsFromPlanCode": "TEAMS_STARTER",
+          "trialDays": 14,
+          "pricingUnit": "PER_USER",
+          "prices": [
+            {
+              "id": "d1a10001-0001-4000-8000-000000000007",
+              "billingPeriod": "MONTHLY",
+              "amountCents": 999,
+              "currency": "USD",
+              "appleStoreProductId": "com.vaultforge.business.monthly",
+              "googlePlayProductId": "com.vaultforge.business.monthly"
+            },
+            {
+              "id": "d1a10001-0001-4000-8000-000000000008",
+              "billingPeriod": "YEARLY",
+              "amountCents": 799,
+              "currency": "USD",
+              "appleStoreProductId": "com.vaultforge.business.yearly",
+              "googlePlayProductId": "com.vaultforge.business.yearly"
+            }
+          ],
+          "features": [
+            {
+              "id": "c1a10005-0001-4000-8000-000000000001",
+              "featureCode": "INCLUDES_TEAMS",
+              "title": "Everything in Teams Starter Pack, plus:",
+              "sortOrder": 5
+            },
+            {
+              "id": "c1a10005-0001-4000-8000-000000000002",
+              "featureCode": "SSO_INTEGRATIONS",
+              "title": "Integrate with Okta, Entra ID, OneLogin, Duo, and more",
+              "sortOrder": 10
+            },
+            {
+              "id": "c1a10005-0001-4000-8000-000000000003",
+              "featureCode": "VAULT_SHARING",
+              "title": "Collaborate securely with role-based vault sharing and permissions",
+              "sortOrder": 20
+            },
+            {
+              "id": "c1a10005-0001-4000-8000-000000000004",
+              "featureCode": "WATCHTOWER_HYGIENE",
+              "title": "Strengthen security hygiene with Watchtower alerts",
+              "sortOrder": 30
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "profileSubscriptions": [
+    {
+      "id": "e1a10001-0001-4000-8000-000000000001",
+      "userEmail": "admin@vault.local",
+      "appCode": "vault",
+      "planCode": "FREE",
+      "status": "ACTIVE"
+    }
+  ]
+}

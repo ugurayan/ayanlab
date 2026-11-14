@@ -1,0 +1,40 @@
+# All-in-one stack (local or VPS without shared infra). For shared VPS PostGIS, use
+# docker-compose.platform.external-db.yml instead (default in deploy_to_vps.sh).
+
+services:
+  platform:
+    image: platform:latest
+    container_name: platform
+    restart: unless-stopped
+    env_file:
+      - ./.env
+    ports:
+      - "0.0.0.0:8080:8080"
+    depends_on:
+      postgis:
+        condition: service_healthy
+    networks:
+      - internal
+
+  postgis:
+    image: postgis/postgis:18-3.6
+    container_name: postgis
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGIS_USER}
+      POSTGRES_PASSWORD: ${POSTGIS_PASSWORD}
+      POSTGRES_DB: ${POSTGIS_DB}
+      TZ: ${TZ:-UTC}
+    volumes:
+      - ./data/postgis:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$$POSTGRES_USER\" -d \"$$POSTGRES_DB\" -q"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+    networks:
+      - internal
+
+networks:
+  internal:
+    driver: bridge

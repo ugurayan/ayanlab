@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "name": "ayanlab-hrm-mobile",
+    "slug": "ayanlab-hrm-mobile",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "scheme": "ayanlab-hrm-mobile",
+    "userInterfaceStyle": "automatic",
+    "ios": { "supportsTablet": true },
+    "android": { "adaptiveIcon": { "backgroundColor": "#0f1419" } }
+  }
+}

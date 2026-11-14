@@ -1,0 +1,19 @@
+# Platform only — joins existing VPS network (default: dockers_internal).
+# Requires: container `postgis` on that network (from your dockers compose stack).
+
+services:
+  platform:
+    image: platform:latest
+    container_name: platform
+    restart: unless-stopped
+    env_file:
+      - ./.env
+    ports:
+      - "0.0.0.0:8080:8080"
+    networks:
+      - internal
+
+networks:
+  internal:
+    external: true
+    name: ${DOCKER_NETWORK:-dockers_internal}

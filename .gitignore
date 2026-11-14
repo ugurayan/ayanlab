@@ -1,23 +1,24 @@
-# Gradle
-.gradle/
-build/
-!gradle/wrapper/gradle-wrapper.jar
+# Local secrets
+.env
+.env.*
+!.env.example
+config/secrets/
+secrets/
 
-# IDE
+# GCP / credential files
+**/*-credentials.json
+**/ayan-labs-*.json
+**/gcp-*.json
+*.pem
+*.p12
+
+# Build / deps
+**/node_modules/
+**/.gradle/
+**/build/
+**/dist/
+.expo/
 .idea/
 *.iml
-*.iws
-.vscode/
-*.swp
-
-# OS
 .DS_Store
-Thumbs.db
-
-# Env
-.env
-*.env.local
-
-# Logs
-*.log
-logs/
+docker/data/

@@ -1,0 +1,23 @@
+{
+  "permissions": [
+    { "code": "core:admin:user:read", "name": "Read Users", "appCode": "core", "module": "admin", "resource": "user", "action": "read" },
+    { "code": "core:admin:user:create", "name": "Create Users", "appCode": "core", "module": "admin", "resource": "user", "action": "create" },
+    { "code": "core:admin:user:update", "name": "Update Users", "appCode": "core", "module": "admin", "resource": "user", "action": "update" },
+    { "code": "core:admin:user:delete", "name": "Delete Users", "appCode": "core", "module": "admin", "resource": "user", "action": "delete" },
+    { "code": "core:admin:role:read", "name": "Read Roles", "appCode": "core", "module": "admin", "resource": "role", "action": "read" },
+    { "code": "core:admin:policy:read", "name": "Read Policies", "appCode": "core", "module": "admin", "resource": "policy", "action": "read" },
+    { "code": "core:admin:policy:manage", "name": "Manage Policies", "appCode": "core", "module": "admin", "resource": "policy", "action": "manage" },
+
+    { "code": "crm:accounting:ledger:read", "name": "Read Ledger", "appCode": "crm", "module": "accounting", "resource": "ledger", "action": "read" },
+    { "code": "crm:accounting:invoice:read", "name": "Read Invoices", "appCode": "crm", "module": "accounting", "resource": "invoice", "action": "read" },
+    { "code": "crm:clients:client:read", "name": "Read Clients", "appCode": "crm", "module": "clients", "resource": "client", "action": "read" },
+
+    { "code": "vault:documents:file:read", "name": "Read Vault Files", "appCode": "vault", "module": "documents", "resource": "file", "action": "read" },
+    { "code": "vault:documents:file:create", "name": "Upload Vault Files", "appCode": "vault", "module": "documents", "resource": "file", "action": "create" },
+    { "code": "vault:sharing:share:read", "name": "Read Shares", "appCode": "vault", "module": "sharing", "resource": "share", "action": "read" },
+
+    { "code": "staffiq:rides:ride:read", "name": "Read Rides", "appCode": "staffiq", "module": "rides", "resource": "ride", "action": "read" },
+    { "code": "staffiq:rides:ride:create", "name": "Create Rides", "appCode": "staffiq", "module": "rides", "resource": "ride", "action": "create" },
+    { "code": "staffiq:dispatch:route:read", "name": "Read Routes", "appCode": "staffiq", "module": "dispatch", "resource": "route", "action": "read" }
+  ]
+}
