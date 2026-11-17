@@ -17,12 +17,12 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/mailings")
+@RequestMapping("/pms/api/mailings")
 @Tag(name = "IPMS · MailingController", description = "Mailing CRUD")
 @RequiredArgsConstructor
 public class MailingController extends IpmsCrudController<Mailing> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/mailings";
+    private static final String BASE_PATH = "/pms/api/mailings";
     private final IMailingService mailingService;
 
     @Override

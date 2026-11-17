@@ -17,12 +17,12 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/recurring-transactions")
+@RequestMapping("/pms/api/recurring-transactions")
 @Tag(name = "IPMS · RecurringTransactionController", description = "RecurringTransaction CRUD")
 @RequiredArgsConstructor
 public class RecurringTransactionController extends IpmsCrudController<RecurringTransaction> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/recurring-transactions";
+    private static final String BASE_PATH = "/pms/api/recurring-transactions";
     private final IRecurringTransactionService recurringTransactionService;
 
     @Override

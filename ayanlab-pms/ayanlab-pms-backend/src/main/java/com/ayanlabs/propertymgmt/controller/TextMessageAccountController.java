@@ -17,12 +17,12 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/text-message-accounts")
+@RequestMapping("/pms/api/text-message-accounts")
 @Tag(name = "IPMS · TextMessageAccountController", description = "TextMessageAccount CRUD")
 @RequiredArgsConstructor
 public class TextMessageAccountController extends IpmsCrudController<TextMessageAccount> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/text-message-accounts";
+    private static final String BASE_PATH = "/pms/api/text-message-accounts";
     private final ITextMessageAccountService textMessageAccountService;
 
     @Override

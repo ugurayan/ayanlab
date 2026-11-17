@@ -29,12 +29,12 @@ import java.util.UUID;
 
 @Slf4j
 @RestController("accountingSubscriptionController")
-@RequestMapping("/ayanlabs/api/accounting/subscriptions")
+@RequestMapping("/crm/api/subscriptions")
 @Tag(name = "CRM · SubscriptionController", description = "Subscriptions (CRM / accounting)")
 @RequiredArgsConstructor
 public class SubscriptionController extends BaseController {
 
-    private static final String BASE_PATH = "/ayanlabs/api/accounting/subscriptions";
+    private static final String BASE_PATH = "/crm/api/subscriptions";
 
     private final ISubscriptionService subscriptionService;
 

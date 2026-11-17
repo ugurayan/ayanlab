@@ -21,12 +21,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/outstanding-balances")
+@RequestMapping("/pms/api/outstanding-balances")
 @Tag(name = "IPMS · OutstandingBalanceController", description = "OutstandingBalance management (Buildium-style CRUD)")
 @RequiredArgsConstructor
 public class OutstandingBalanceController extends IpmsCrudController<OutstandingBalance> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/outstanding-balances";
+    private static final String BASE_PATH = "/pms/api/outstanding-balances";
     private final IOutstandingBalanceService outstandingBalanceService;
 
     @Override

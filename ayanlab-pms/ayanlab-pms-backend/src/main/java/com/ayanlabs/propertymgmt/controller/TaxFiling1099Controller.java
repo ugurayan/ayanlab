@@ -17,12 +17,12 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/tax-filings-1099")
+@RequestMapping("/pms/api/tax-filings-1099")
 @Tag(name = "IPMS · TaxFiling1099Controller", description = "TaxFiling1099 CRUD")
 @RequiredArgsConstructor
 public class TaxFiling1099Controller extends IpmsCrudController<TaxFiling1099> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/tax-filings-1099";
+    private static final String BASE_PATH = "/pms/api/tax-filings-1099";
     private final ITaxFiling1099Service taxFiling1099Service;
 
     @Override

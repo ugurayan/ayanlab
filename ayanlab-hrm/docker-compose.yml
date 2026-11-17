@@ -10,7 +10,7 @@ services:
     container_name: ayanlab-hrm-backend
     restart: unless-stopped
     env_file:
-      - ../.env
+      - ../${ENV_FILE:-.env.local}
     environment:
       POSTGIS_HOST: postgres
       POSTGIS_PORT: 5432

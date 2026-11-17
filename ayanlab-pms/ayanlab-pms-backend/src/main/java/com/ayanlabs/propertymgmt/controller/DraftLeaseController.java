@@ -21,12 +21,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/draft-leases")
+@RequestMapping("/pms/api/draft-leases")
 @Tag(name = "IPMS · DraftLeaseController", description = "DraftLease management (Buildium-style CRUD)")
 @RequiredArgsConstructor
 public class DraftLeaseController extends IpmsCrudController<DraftLease> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/draft-leases";
+    private static final String BASE_PATH = "/pms/api/draft-leases";
     private final IDraftLeaseService draftLeaseService;
 
     @Override

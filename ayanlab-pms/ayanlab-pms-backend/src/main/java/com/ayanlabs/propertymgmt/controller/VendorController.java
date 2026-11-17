@@ -22,12 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/vendors")
+@RequestMapping("/pms/api/vendors")
 @Tag(name = "IPMS · VendorController", description = "Vendor management (Buildium-style CRUD)")
 @RequiredArgsConstructor
 public class VendorController extends IpmsCrudController<Vendor> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/vendors";
+    private static final String BASE_PATH = "/pms/api/vendors";
     private final IVendorService vendorService;
 
     @Override

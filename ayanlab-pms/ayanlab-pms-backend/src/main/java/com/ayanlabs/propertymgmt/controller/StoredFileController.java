@@ -27,12 +27,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/stored-files")
+@RequestMapping("/pms/api/stored-files")
 @Tag(name = "IPMS · StoredFileController", description = "StoredFile management (Buildium-style CRUD)")
 @RequiredArgsConstructor
 public class StoredFileController extends IpmsCrudController<StoredFile> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/stored-files";
+    private static final String BASE_PATH = "/pms/api/stored-files";
     private final IStoredFileService storedFileService;
     private final IApprovalRequestService approvalRequestService;
 

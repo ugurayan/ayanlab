@@ -70,13 +70,13 @@ FOOTER
 }
 
 # auth
-PRODUCT=ayanlab-auth
+PRODUCT=ayanlab-platform
 "${LIB}/scaffold-backend.sh" "${ROOT}/${PRODUCT}/${PRODUCT}-backend" "${PRODUCT}-backend" "8101" "com.ayanlabs.auth"
 "${LIB}/scaffold-ui.sh" "${ROOT}/${PRODUCT}/${PRODUCT}-ui" "${PRODUCT}-ui" "3101"
 write_product_compose "${PRODUCT}" backend "${PRODUCT}-backend" 8101 ui "${PRODUCT}-ui" 3101
 
 # core
-PRODUCT=ayanlab-core
+PRODUCT=ayanlab-platform
 "${LIB}/scaffold-backend.sh" "${ROOT}/${PRODUCT}/${PRODUCT}-backend" "${PRODUCT}-backend" "8102" "com.ayanlabs.core"
 write_product_compose "${PRODUCT}" backend "${PRODUCT}-backend" 8102
 

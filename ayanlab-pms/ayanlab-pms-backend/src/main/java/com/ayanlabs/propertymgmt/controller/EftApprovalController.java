@@ -17,12 +17,12 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/eft-approvals")
+@RequestMapping("/pms/api/eft-approvals")
 @Tag(name = "IPMS · EftApprovalController", description = "EftApproval CRUD")
 @RequiredArgsConstructor
 public class EftApprovalController extends IpmsCrudController<EftApproval> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/eft-approvals";
+    private static final String BASE_PATH = "/pms/api/eft-approvals";
     private final IEftApprovalService eftApprovalService;
 
     @Override

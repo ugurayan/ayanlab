@@ -6,8 +6,8 @@ Each top-level `ayanlab-*` directory is an **independent deployable product** (o
 
 | Product | Backend | UI | Mobile |
 |---------|---------|-----|--------|
-| `ayanlab-auth` | ✓ | ✓ | — |
-| `ayanlab-core` | ✓ | — | — |
+| `ayanlab-platform` | ✓ | ✓ | — |
+| `ayanlab-platform` | ✓ | — | — |
 | `ayanlab-vault` | ✓ | ✓ | ✓ (Expo) |
 | `ayanlab-hrm` | ✓ | ✓ | ✓ |
 | `ayanlab-pms` | ✓ | ✓ | ✓ |
@@ -31,23 +31,30 @@ Application stacks attach to `ayanlab_internal` as an external network (created 
 - **UI:** React 19 + TypeScript + Vite, served via nginx in Docker
 - **Mobile:** Expo (React Native) — one codebase for iOS/Android, aligns with React UI skills
 
+## Auth & core first (foundation)
+
+Tüm ürünler **ayanlab-platform** (kimlik, yetki, paylaşılan domain) ile **HTTP API** üzerinden konuşur. Derleme: `ayanlab-platform-core` JAR. Hedef mimari [`docs/SERVICES.md`](SERVICES.md).
+
+```bash
+./scripts/up-foundation.sh
+```
+
 ## Legacy
 
-`old/` remains the migration source (monolithic Gradle modules: `core`, `security`, `platform`, apps). New services copy patterns from there incrementally.
+Legacy sources `old/`, `tmp/auth`, and `libs/` were removed after migration into `ayanlab-platform` (see [`MIGRATION-STATUS.md`](MIGRATION-STATUS.md)).
 
 ## Repo layout
 
 ```
 AYANLAB/
-  libs/                   # shared JAR sources (core-domain, security) — not a boot app
+  ayanlab-platform/       # platform-core JAR + backend + UI
   docker/                 # infra compose + Dockerfile.backend
   docs/                   # documentation
   skills/                 # agent / team skills (see .cursor/skills)
   scripts/                # publish-vps.sh, helpers
-  old/                    # legacy monolith (unchanged)
-  ayanlab-<product>/      # product roots (own docker-compose + backend gradlew)
+  ayanlab-<product>/      # product roots (own docker-compose + Maven backend)
 ```
 
-**Gradle:** each `ayanlab-<product>/<product>-backend/` has its own wrapper (`./gradlew`). No monorepo `settings.gradle` at repo root.
+**Maven:** `ayanlab-platform-core` is installed locally; each product backend depends on that artifact.
 
-**Docker deploy per product:** from `ayanlab-auth/`, compose build context is `..` (repo root) so `libs/` is available. VPS rsync uses the full repo; only the chosen product compose stack is started (`PRODUCT=auth`).
+**Docker deploy per product:** compose build context is repo root so `ayanlab-platform/` is available. VPS rsync uses the full repo; only the chosen product compose stack is started.

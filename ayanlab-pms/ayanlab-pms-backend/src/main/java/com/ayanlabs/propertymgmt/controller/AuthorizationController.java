@@ -28,12 +28,12 @@ import java.util.UUID;
 
 @Slf4j
 @RestController("propertyMgmtAuthorizationController")
-@RequestMapping("/ayanlabs/api/property-mgmt/authorization")
+@RequestMapping("/pms/api/authorization")
 @Tag(name = "IPMS · AuthorizationController", description = "Auth context + org authorization admin")
 @RequiredArgsConstructor
 public class AuthorizationController extends BaseController {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/authorization";
+    private static final String BASE_PATH = "/pms/api/authorization";
 
     private final IIpmsAuthorizationAdminService authorizationAdminService;
 

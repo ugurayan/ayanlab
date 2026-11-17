@@ -16,11 +16,11 @@ import java.util.Map;
 
 @Slf4j
 @RestController
-@RequestMapping("/ayanlabs/api/rideshare")
+@RequestMapping("/hrm/api")
 @Tag(name = "StaffIQ · RideshareController", description = "Rideshare endpoints (StaffIQ)")
 public class RideshareController extends BaseController {
 
-    private static final String BASE_PATH = "/ayanlabs/api/rideshare";
+    private static final String BASE_PATH = "/hrm/api";
 
     @PostMapping("/rides/request")
     @RequireAppRole({"RIDER"})

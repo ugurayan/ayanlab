@@ -1,0 +1,30 @@
+# Attach to shared infra: docker compose -f docker/docker-compose.infra.yml up -d
+
+services:
+  ayanlab_platform_backend:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile.backend
+      args:
+        BACKEND_DIR: ayanlab-platform/ayanlab-platform-backend
+    container_name: ayanlab-platform-backend
+    restart: unless-stopped
+    env_file:
+      - ../${ENV_FILE:-.env.local}
+    environment:
+      POSTGIS_HOST: postgres
+      POSTGIS_PORT: 5432
+      POSTGIS_DB: ${POSTGRES_DB:-ayanLabs}
+      POSTGIS_USER: ${POSTGRES_USER:-ayanlab}
+      POSTGIS_PASSWORD: ${POSTGRES_PASSWORD:-change-me}
+      POSTGIS_SCHEMA: core
+      KAFKA_SERVERS: kafka:9092
+    ports:
+      - "8102:8080"
+    networks:
+      - ayanlab_internal
+
+networks:
+  ayanlab_internal:
+    external: true
+    name: ayanlab_internal

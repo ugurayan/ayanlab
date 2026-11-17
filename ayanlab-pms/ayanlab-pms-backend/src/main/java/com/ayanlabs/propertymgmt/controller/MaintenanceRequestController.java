@@ -21,12 +21,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/maintenance-requests")
+@RequestMapping("/pms/api/maintenance-requests")
 @Tag(name = "IPMS · MaintenanceRequestController", description = "MaintenanceRequest management (Buildium-style CRUD)")
 @RequiredArgsConstructor
 public class MaintenanceRequestController extends IpmsCrudController<MaintenanceRequest> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/maintenance-requests";
+    private static final String BASE_PATH = "/pms/api/maintenance-requests";
     private final IMaintenanceRequestService maintenanceRequestService;
 
     @Override

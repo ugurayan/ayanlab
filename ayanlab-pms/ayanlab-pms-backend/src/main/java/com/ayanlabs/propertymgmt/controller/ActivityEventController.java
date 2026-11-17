@@ -20,12 +20,12 @@ import java.util.UUID;
 
 @Slf4j
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/activity-events")
+@RequestMapping("/pms/api/activity-events")
 @Tag(name = "IPMS · ActivityEventController", description = "Platform / org activity feed")
 @RequiredArgsConstructor
 public class ActivityEventController extends BaseController {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/activity-events";
+    private static final String BASE_PATH = "/pms/api/activity-events";
 
     private final IIpmsActivityEventService activityEventService;
 

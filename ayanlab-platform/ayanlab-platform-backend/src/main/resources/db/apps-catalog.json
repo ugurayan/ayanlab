@@ -1,0 +1,70 @@
+{
+  "applications": [
+    {
+      "id": "00000000-0000-0000-0000-000000000001",
+      "code": "auth",
+      "name": "Authentication",
+      "apiBasePath": "/auth/api",
+      "subscriptionMode": "USER",
+      "multiTenantEnabled": false,
+      "description": "Central identity — not a billable product"
+    },
+    {
+      "id": "1e7c675c-53e5-41cc-ae94-8f09244c8f91",
+      "code": "core",
+      "name": "Platform Core",
+      "apiBasePath": "/core/api",
+      "subscriptionMode": "ORGANIZATION_AND_USER",
+      "multiTenantEnabled": true,
+      "description": "Apps, RBAC, billing, messaging integrations"
+    },
+    {
+      "id": "ad94b2d2-5022-4818-a785-55807ab139ba",
+      "code": "ipms",
+      "name": "Property Management",
+      "apiBasePath": "/pms/api",
+      "subscriptionMode": "ORGANIZATION_AND_USER",
+      "personas": ["SITE_MANAGER", "ORG_ADMIN", "VENDOR", "MAINTENANCE_STAFF", "TENANT", "HOME_OWNER"],
+      "description": "Buildium-style PMS"
+    },
+    {
+      "id": "5fd9fde7-e513-40fb-9622-9ce3e9699f89",
+      "code": "crm",
+      "name": "CRM",
+      "apiBasePath": "/crm/api",
+      "subscriptionMode": "ORGANIZATION_AND_USER",
+      "personas": ["ORG_ADMIN", "ORG_STAFF", "DEPARTMENT_USER", "CUSTOMER", "VENDOR"]
+    },
+    {
+      "id": "0cd4d187-f53e-4ebc-94cd-a601ab467094",
+      "code": "vault",
+      "name": "Document Vault",
+      "apiBasePath": "/vault/api",
+      "subscriptionMode": "ORGANIZATION",
+      "personas": ["PERSONAL", "ORG_MEMBER"]
+    },
+    {
+      "id": "f01ae844-85fd-48a0-90ed-8bdd7e0e48a6",
+      "code": "staffiq",
+      "name": "HRM / InstaWork",
+      "apiBasePath": "/hrm/api",
+      "subscriptionMode": "ORGANIZATION",
+      "personas": ["WORKER", "HIRING_MANAGER", "ORG_ADMIN"]
+    },
+    {
+      "code": "booking",
+      "name": "Appointments",
+      "apiBasePath": "/booking/api",
+      "subscriptionMode": "ORGANIZATION_AND_USER",
+      "personas": ["PROVIDER", "CUSTOMER", "ORG_ADMIN"]
+    },
+    {
+      "code": "comm",
+      "name": "Communications",
+      "apiBasePath": "/comm/api",
+      "subscriptionMode": "ORGANIZATION",
+      "personas": ["SCHOOL_ADMIN", "PARENT", "STUDENT", "STAFF"],
+      "description": "Multi-language email/SMS to parents, students, staff"
+    }
+  ]
+}

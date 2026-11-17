@@ -20,12 +20,12 @@ import java.util.UUID;
 
 @Slf4j
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/property-types")
+@RequestMapping("/pms/api/property-types")
 @Tag(name = "IPMS · PropertyTypeController", description = "Property type catalog (system defaults + org-specific)")
 @RequiredArgsConstructor
 public class PropertyTypeController extends BaseController {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/property-types";
+    private static final String BASE_PATH = "/pms/api/property-types";
     private final IPropertyTypeService propertyTypeService;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)

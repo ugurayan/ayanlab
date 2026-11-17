@@ -17,12 +17,12 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/org-settings")
+@RequestMapping("/pms/api/org-settings")
 @Tag(name = "IPMS · OrgSettingController", description = "OrgSetting CRUD")
 @RequiredArgsConstructor
 public class OrgSettingController extends IpmsCrudController<OrgSetting> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/org-settings";
+    private static final String BASE_PATH = "/pms/api/org-settings";
     private final IOrgSettingService orgSettingService;
 
     @Override

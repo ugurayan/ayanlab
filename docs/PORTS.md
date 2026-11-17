@@ -1,10 +1,11 @@
 # Default local ports
 
+Swagger UI (tüm backend’ler): `http://localhost:<port>/swagger-ui.html` — bkz. [`API-SWAGGER.md`](API-SWAGGER.md).
+
 | Service | HTTP port |
 |---------|-----------|
-| ayanlab-auth-backend | 8101 |
-| ayanlab-auth-ui | 3101 |
-| ayanlab-core-backend | 8102 |
+| ayanlab-platform-backend | 8102 |
+| ayanlab-platform-ui | 3102 |
 | ayanlab-vault-backend | 8103 |
 | ayanlab-vault-ui | 3103 |
 | ayanlab-hrm-backend | 8104 |
@@ -17,8 +18,8 @@
 | ayanlab-booking-ui | 3107 |
 | ayanlab-comm-backend | 8108 |
 | ayanlab-comm-ui | 3108 |
-| PostgreSQL | 5432 |
-| Redis | 6379 |
+| PostgreSQL (host) | 5433 |
+| Redis (host) | 6380 |
 | Kafka | 9092 |
 
 Mobile apps use Expo dev server locally (not published via root Docker by default).

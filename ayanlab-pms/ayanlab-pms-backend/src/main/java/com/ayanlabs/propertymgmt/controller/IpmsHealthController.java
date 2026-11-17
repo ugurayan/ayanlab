@@ -15,11 +15,11 @@ import java.util.Map;
 
 @Slf4j
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt")
+@RequestMapping("/pms/api")
 @Tag(name = "IPMS · Health", description = "Property management module health")
 public class IpmsHealthController extends BaseController {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt";
+    private static final String BASE_PATH = "/pms/api";
 
     @GetMapping("/health")
     public ResponseEntity<ApiResponse<String>> health(

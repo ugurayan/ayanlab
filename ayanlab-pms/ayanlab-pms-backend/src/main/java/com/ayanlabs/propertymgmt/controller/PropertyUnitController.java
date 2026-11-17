@@ -21,12 +21,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/property-units")
+@RequestMapping("/pms/api/property-units")
 @Tag(name = "IPMS · PropertyUnitController", description = "PropertyUnit management (Buildium-style CRUD)")
 @RequiredArgsConstructor
 public class PropertyUnitController extends IpmsCrudController<PropertyUnit> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/property-units";
+    private static final String BASE_PATH = "/pms/api/property-units";
     private final IPropertyUnitService propertyUnitService;
 
     @Override

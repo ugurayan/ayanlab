@@ -20,12 +20,12 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/tenants")
+@RequestMapping("/pms/api/tenants")
 @Tag(name = "IPMS · TenantController", description = "Tenant management (Buildium-style CRUD)")
 @RequiredArgsConstructor
 public class TenantController extends IpmsCrudController<Tenant> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/tenants";
+    private static final String BASE_PATH = "/pms/api/tenants";
     private final ITenantService tenantService;
 
     @Override

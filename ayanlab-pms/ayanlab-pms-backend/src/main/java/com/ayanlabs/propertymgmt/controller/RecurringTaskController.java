@@ -17,12 +17,12 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/recurring-tasks")
+@RequestMapping("/pms/api/recurring-tasks")
 @Tag(name = "IPMS · RecurringTaskController", description = "RecurringTask CRUD")
 @RequiredArgsConstructor
 public class RecurringTaskController extends IpmsCrudController<RecurringTask> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/recurring-tasks";
+    private static final String BASE_PATH = "/pms/api/recurring-tasks";
     private final IRecurringTaskService recurringTaskService;
 
     @Override

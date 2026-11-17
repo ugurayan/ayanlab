@@ -10,7 +10,7 @@ REMOTE_DIR=${REMOTE_DIR:-/root/dockers/ayanlab}
 PRODUCT=${PRODUCT:-all}
 SSH_KEY=${SSH_KEY:-}
 
-ALL_PRODUCTS=(ayanlab-auth ayanlab-core ayanlab-vault ayanlab-hrm ayanlab-pms ayanlab-crm ayanlab-booking ayanlab-comm)
+ALL_PRODUCTS=(ayanlab-platform ayanlab-vault ayanlab-hrm ayanlab-pms ayanlab-crm ayanlab-booking ayanlab-comm)
 
 expand_ssh_key() {
   local k="$1"
@@ -34,8 +34,8 @@ products_to_build() {
     IFS=',' read -ra parts <<< "${PRODUCT}"
     for p in "${parts[@]}"; do
       case "${p}" in
-        auth) echo ayanlab-auth ;;
-        core) echo ayanlab-core ;;
+        auth) echo ayanlab-platform ;;
+        core|platform) echo ayanlab-platform ;;
         vault) echo ayanlab-vault ;;
         hrm) echo ayanlab-hrm ;;
         pms) echo ayanlab-pms ;;

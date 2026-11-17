@@ -23,12 +23,12 @@ import java.util.UUID;
 
 @Slf4j
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/signup/admin")
+@RequestMapping("/pms/api/signup/admin")
 @Tag(name = "IPMS · SignupAdminController", description = "Organization admin signup tools (invites, join requests)")
 @RequiredArgsConstructor
 public class IpmsOrganizationSignupAdminController extends com.ayanlabs.core.controller.BaseController {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/signup/admin";
+    private static final String BASE_PATH = "/pms/api/signup/admin";
 
     private final IIpmsSignupService signupService;
 

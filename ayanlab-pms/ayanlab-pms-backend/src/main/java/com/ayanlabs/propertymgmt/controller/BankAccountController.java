@@ -22,12 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/bank-accounts")
+@RequestMapping("/pms/api/bank-accounts")
 @Tag(name = "IPMS · BankAccountController", description = "BankAccount management (Buildium-style CRUD)")
 @RequiredArgsConstructor
 public class BankAccountController extends IpmsCrudController<BankAccount> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/bank-accounts";
+    private static final String BASE_PATH = "/pms/api/bank-accounts";
     private final IBankAccountService bankAccountService;
 
     @Override

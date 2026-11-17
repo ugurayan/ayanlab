@@ -17,12 +17,12 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/subscription-accounts")
+@RequestMapping("/pms/api/subscription-accounts")
 @Tag(name = "IPMS · SubscriptionAccountController", description = "SubscriptionAccount CRUD")
 @RequiredArgsConstructor
 public class SubscriptionAccountController extends IpmsCrudController<SubscriptionAccount> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/subscription-accounts";
+    private static final String BASE_PATH = "/pms/api/subscription-accounts";
     private final ISubscriptionAccountService subscriptionAccountService;
 
     @Override

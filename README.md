@@ -1,20 +1,153 @@
 # AyanLab
 
-Multi-product platform: each `ayanlab-*` directory is a **standalone Docker project** (backend, UI, and/or mobile).
+Çok ürünlü platform; ürünler (`ayanlab-pms`, …) kendi backend’ine sahip. **Platform (auth + core)** tek deploy: `ayanlab-platform`.
 
-- **Docs:** [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md), [`docs/DEPLOY.md`](docs/DEPLOY.md), [`docs/PORTS.md`](docs/PORTS.md)
-- **Legacy monolith:** `old/` (migration source)
-- **Infra:** `docker/docker-compose.infra.yml` (PostgreSQL, Redis, Kafka)
+| Konu | Doküman |
+|------|---------|
+| **Platform (auth + API)** | [`README.platform.md`](README.platform.md) |
+| Eski auth ayrımı | [`README.auth.md`](README.auth.md) (yönlendirme) |
+| Mimari | [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) |
+| Veritabanları | [`docs/DATABASES.md`](docs/DATABASES.md) |
+| **API yolları** | [`docs/API-PATHS.md`](docs/API-PATHS.md) |
+| **Swagger / OpenAPI** | [`docs/API-SWAGGER.md`](docs/API-SWAGGER.md) |
+| Docker sorunları | [`docs/TROUBLESHOOTING-DOCKER.md`](docs/TROUBLESHOOTING-DOCKER.md) |
+
+---
+
+## Gereksinimler
+
+- **Podman** veya **Docker** + Compose
+- **Java 21** ve **Maven 3.9+** (sadece JAR’ı IDE/Maven ile çalıştıracaksan)
+
+Zsh’de `docker` genelde Podman alias’ıdır; `./scripts/*` bash ile çalışır ve `scripts/lib/docker.sh` bunu taklit eder.
+
+---
+
+## Hızlı başlangıç
 
 ```bash
-cp .env.example .env
-docker compose -f docker/docker-compose.infra.yml up -d
-./scripts/publish-vps.sh local   # build all product stacks locally
+cd AYANLAB
+cp .env.local.example .env.local
+# Düzenle: POSTGRES_SUPERUSER_PASSWORD, *_DB_PASSWORD, JWT_SECRET
+
+./scripts/validate-env-local.sh
+ENV=local ./scripts/up-platform.sh
 ```
 
-VPS:
+`up-platform.sh` (veya `up-auth.sh` alias): **Postgres**, **Redis**, **ayanlab-platform-backend**, **ayanlab-platform-ui**.
+
+---
+
+## Nasıl çalışır?
+
+```
+.env.local  →  compose env
+       ↓
+Postgres (ilk boş volume)
+  docker/postgres/init/01-create-databases.sh
+  → platform + 6 ürün DB’si + kullanıcı + şema
+       ↓
+ayanlab-platform-backend
+  → Hibernate ddl-auto: tabloları oluşturur/günceller (Flyway henüz yok)
+       ↓
+http://localhost:8102
+```
+
+| Ne | Nerede |
+|----|--------|
+| Postgres verisi | `./docker/data/postgres` |
+| Redis verisi | `./docker/data/redis` |
+| Init script | yalnızca **ilk** kurulumda (volume boşken) |
+| Şema eksikse | `./scripts/ensure-db-schemas.sh` |
+| Tablolar | **platform-backend çalışırken** oluşur; sadece `postgres redis` yetmez |
+
+**Host portları (varsayılan):** Postgres `5433`, Redis `6380`, Platform API `8102`, UI `3102`.  
+5432/6379 doluysa: [`docs/TROUBLESHOOTING-DOCKER.md`](docs/TROUBLESHOOTING-DOCKER.md).
+
+---
+
+## Kontrol
 
 ```bash
-export VPS_HOST=...
-./scripts/publish-vps.sh
+curl -s -o /dev/null -w "%{http_code}\n" \
+  -X POST http://localhost:8102/auth/api/login \
+  -H 'Content-Type: application/json' -d '{}'
+# 400 = servis ayakta (body eksik). Empty response = backend çöküyor → loglara bak.
 ```
+
+```bash
+docker logs -f ayanlab-platform-backend
+```
+
+| | URL |
+|---|-----|
+| Swagger | http://localhost:8102/swagger-ui/index.html |
+| OpenAPI | http://localhost:8102/v3/api-docs |
+| Login | `POST` http://localhost:8102/auth/api/login |
+
+Diğer backend Swagger adresleri: [`docs/API-SWAGGER.md`](docs/API-SWAGGER.md).
+
+`/actuator/health` local’de **DOWN** olabilir (SMTP yapılandırılmadı); login API’sini engellemez.
+
+---
+
+## Sık kullanılan komutlar
+
+**Sadece veritabanı + Redis (backend yok):**
+
+```bash
+docker compose --env-file .env.local -f docker-compose.platform.yml up -d postgres redis
+```
+
+**Postgres’i sıfırla (init yeniden çalışır):**
+
+```bash
+docker compose --env-file .env.local -f docker-compose.platform.yml down
+rm -rf ./docker/data/postgres/*
+ENV=local ./scripts/up-auth.sh
+./scripts/ensure-db-schemas.sh
+```
+
+**Backend’i Maven ile (Postgres Docker’da):**
+
+```bash
+cd ayanlab-platform && ENV=local ./run-local.sh
+# veya: ./scripts/run-auth-backend.sh
+```
+
+**Başka ürün (önce auth stack hazır olsun):**
+
+```bash
+cd ayanlab-vault
+ENV_FILE=../.env.local docker compose up -d --build
+```
+
+---
+
+## Ortam dosyaları
+
+| Dosya | Git |
+|-------|-----|
+| `.env.local.example` | ✅ şablon |
+| `.env.local` | ❌ lokal |
+
+`ENV=local` → `.env.local`, `ENV=prod` → `.env.prod`
+
+---
+
+## Klasörler
+
+```
+ayanlab-platform/  platform-core (JAR) + backend + UI
+ayanlab-vault/ …   diğer ürünler (HTTP + JWT)
+docker/data/       Postgres + Redis mount
+```
+
+---
+
+## Diğer dokümantasyon
+
+- [`docs/DOCKER-RUN.md`](docs/DOCKER-RUN.md)
+- [`docs/RUN-AUTH-BACKEND.md`](docs/RUN-AUTH-BACKEND.md)
+- [`docs/SECRETS.md`](docs/SECRETS.md)
+- [`docs/PORTS.md`](docs/PORTS.md)

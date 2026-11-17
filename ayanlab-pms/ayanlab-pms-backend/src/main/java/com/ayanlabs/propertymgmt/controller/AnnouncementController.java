@@ -21,12 +21,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/announcements")
+@RequestMapping("/pms/api/announcements")
 @Tag(name = "IPMS · AnnouncementController", description = "Announcement management (Buildium-style CRUD)")
 @RequiredArgsConstructor
 public class AnnouncementController extends IpmsCrudController<Announcement> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/announcements";
+    private static final String BASE_PATH = "/pms/api/announcements";
     private final IAnnouncementService announcementService;
 
     @Override

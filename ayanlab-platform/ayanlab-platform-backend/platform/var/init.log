@@ -1,0 +1,81 @@
+Target database is reachable: ayanlab_platform
+Connecting to target DB: jdbc:postgresql://localhost:5433/ayanlab_platform as user 'core_admin' to ensure schemas
+Ensured schema exists: core
+Ensured schema exists: ipms
+Ensured schema exists: crm
+Ensured schema exists: vault
+Ensured schema exists: staffiq
+Patched core.ProfilePermission.effect (backfill GRANT, NOT NULL)
+Target database is reachable: ayanlab_platform
+Connecting to target DB: jdbc:postgresql://localhost:5433/ayanlab_platform as user 'core_admin' to ensure schemas
+Ensured schema exists: core
+Ensured schema exists: ipms
+Ensured schema exists: crm
+Ensured schema exists: vault
+Ensured schema exists: staffiq
+Patched core.ProfilePermission.effect (backfill GRANT, NOT NULL)
+Target database is reachable: ayanlab_platform
+Connecting to target DB: jdbc:postgresql://localhost:5433/ayanlab_platform as user 'core_admin' to ensure schemas
+Ensured schema exists: core
+Ensured schema exists: ipms
+Ensured schema exists: crm
+Ensured schema exists: vault
+Ensured schema exists: staffiq
+Patched core.ProfilePermission.effect (backfill GRANT, NOT NULL)
+Target database is reachable: ayanlab_platform
+Connecting to target DB: jdbc:postgresql://localhost:5433/ayanlab_platform as user 'core_admin' to ensure schemas
+Ensured schema exists: core
+Ensured schema exists: ipms
+Ensured schema exists: crm
+Ensured schema exists: vault
+Ensured schema exists: staffiq
+Patched core.ProfilePermission.effect (backfill GRANT, NOT NULL)
+Target database is reachable: ayanlab_platform
+Connecting to target DB: jdbc:postgresql://localhost:5433/ayanlab_platform as user 'core_admin' to ensure schemas
+Ensured schema exists: core
+Ensured schema exists: ipms
+Ensured schema exists: crm
+Ensured schema exists: vault
+Ensured schema exists: staffiq
+Patched core.ProfilePermission.effect (backfill GRANT, NOT NULL)
+Target database is reachable: ayanlab_platform
+Connecting to target DB: jdbc:postgresql://localhost:5433/ayanlab_platform as user 'core_admin' to ensure schemas
+Ensured schema exists: core
+Ensured schema exists: ipms
+Ensured schema exists: crm
+Ensured schema exists: vault
+Ensured schema exists: staffiq
+Patched core.ProfilePermission.effect (backfill GRANT, NOT NULL)
+Target database is reachable: ayanlab_platform
+Connecting to target DB: jdbc:postgresql://localhost:5433/ayanlab_platform as user 'core_admin' to ensure schemas
+Ensured schema exists: core
+Ensured schema exists: ipms
+Ensured schema exists: crm
+Ensured schema exists: vault
+Ensured schema exists: staffiq
+Patched core.ProfilePermission.effect (backfill GRANT, NOT NULL)
+Target database is reachable: ayanlab_platform
+Connecting to target DB: jdbc:postgresql://localhost:5433/ayanlab_platform as user 'core_admin' to ensure schemas
+Ensured schema exists: core
+Ensured schema exists: ipms
+Ensured schema exists: crm
+Ensured schema exists: vault
+Ensured schema exists: staffiq
+Patched core.ProfilePermission.effect (backfill GRANT, NOT NULL)
+Target database is reachable: ayanlab_platform
+Connecting to target DB: jdbc:postgresql://localhost:5433/ayanlab_platform as user 'core_admin' to ensure schemas
+Ensured schema exists: core
+Ensured schema exists: ipms
+Ensured schema exists: crm
+Ensured schema exists: vault
+Ensured schema exists: staffiq
+Patched core.ProfilePermission.effect (backfill GRANT, NOT NULL)
+Target database is reachable: ayanlab_platform
+Connecting to target DB: jdbc:postgresql://localhost:5433/ayanlab_platform as user 'core_admin' to ensure schemas
+Ensured schema exists: core
+Ensured schema exists: ipms
+Ensured schema exists: crm
+Ensured schema exists: vault
+Ensured schema exists: staffiq
+Patched core.ProfilePermission.effect (backfill GRANT, NOT NULL)
+Ensured table core.ApplicationUser

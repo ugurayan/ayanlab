@@ -17,12 +17,12 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/budgets")
+@RequestMapping("/pms/api/budgets")
 @Tag(name = "IPMS · BudgetController", description = "Budget CRUD")
 @RequiredArgsConstructor
 public class BudgetController extends IpmsCrudController<Budget> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/budgets";
+    private static final String BASE_PATH = "/pms/api/budgets";
     private final IBudgetService budgetService;
 
     @Override

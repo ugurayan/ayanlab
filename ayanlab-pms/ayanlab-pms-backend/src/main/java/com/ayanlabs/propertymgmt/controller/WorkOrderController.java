@@ -21,12 +21,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/work-orders")
+@RequestMapping("/pms/api/work-orders")
 @Tag(name = "IPMS · WorkOrderController", description = "WorkOrder management (Buildium-style CRUD)")
 @RequiredArgsConstructor
 public class WorkOrderController extends IpmsCrudController<WorkOrder> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/work-orders";
+    private static final String BASE_PATH = "/pms/api/work-orders";
     private final IWorkOrderService workOrderService;
 
     @Override

@@ -1,7 +1,8 @@
-# Local secrets
+# Secrets — never push
 .env
-.env.*
-!.env.example
+.env.local
+.env.prod
+
 config/secrets/
 secrets/
 
@@ -16,6 +17,7 @@ secrets/
 **/node_modules/
 **/.gradle/
 **/build/
+**/target/
 **/dist/
 .expo/
 .idea/

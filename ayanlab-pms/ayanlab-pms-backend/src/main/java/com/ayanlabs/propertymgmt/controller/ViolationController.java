@@ -21,12 +21,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/violations")
+@RequestMapping("/pms/api/violations")
 @Tag(name = "IPMS · ViolationController", description = "Violation management (Buildium-style CRUD)")
 @RequiredArgsConstructor
 public class ViolationController extends IpmsCrudController<Violation> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/violations";
+    private static final String BASE_PATH = "/pms/api/violations";
     private final IViolationService violationService;
 
     @Override

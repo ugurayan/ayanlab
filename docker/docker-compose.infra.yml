@@ -6,15 +6,18 @@ services:
     image: postgis/postgis:16-3.4
     container_name: ayanlab-postgres
     restart: unless-stopped
+    env_file:
+      - ${ENV_FILE:-.env.local}
     environment:
-      POSTGRES_USER: ${POSTGRES_USER:-ayanlab}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change-me}
-      POSTGRES_DB: ${POSTGRES_DB:-ayanLabs}
-      TZ: ${TZ:-UTC}
+      POSTGRES_USER: ${POSTGRES_SUPERUSER:-ayanlab_super}
+      POSTGRES_PASSWORD: ${POSTGRES_SUPERUSER_PASSWORD:-change-me-super}
+      POSTGRES_DB: postgres
+      TZ: ${TZ:-America/Los_Angeles}
     ports:
       - "5432:5432"
     volumes:
       - ayanlab_pg_data:/var/lib/postgresql/data
+      - ./postgres/init:/docker-entrypoint-initdb.d:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U \"$$POSTGRES_USER\" -d \"$$POSTGRES_DB\" -q"]
       interval: 5s

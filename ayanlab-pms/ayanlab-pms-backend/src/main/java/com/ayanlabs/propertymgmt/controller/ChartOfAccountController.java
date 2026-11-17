@@ -17,12 +17,12 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/chart-of-accounts")
+@RequestMapping("/pms/api/chart-of-accounts")
 @Tag(name = "IPMS · ChartOfAccountController", description = "ChartOfAccount CRUD")
 @RequiredArgsConstructor
 public class ChartOfAccountController extends IpmsCrudController<ChartOfAccount> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/chart-of-accounts";
+    private static final String BASE_PATH = "/pms/api/chart-of-accounts";
     private final IChartOfAccountService chartOfAccountService;
 
     @Override

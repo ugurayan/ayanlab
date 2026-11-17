@@ -1,26 +1,25 @@
 # syntax=docker/dockerfile:1
-# Build from repo root (compose: context: ..)
+# Maven build from repo root:
 #   docker build -f docker/Dockerfile.backend \
 #     --build-arg BACKEND_DIR=ayanlab-auth/ayanlab-auth-backend \
 #     -t ayanlab-auth-backend .
 
 ARG BACKEND_DIR
-FROM eclipse-temurin:21-jdk-alpine AS build
+FROM maven:3.9.9-eclipse-temurin-21-alpine AS build
 ARG BACKEND_DIR
-WORKDIR /build
-RUN apk add --no-cache bash
-COPY libs libs/
-COPY ${BACKEND_DIR}/gradle ${BACKEND_DIR}/gradle
-COPY ${BACKEND_DIR}/gradlew ${BACKEND_DIR}/gradlew
-COPY ${BACKEND_DIR}/build.gradle.kts ${BACKEND_DIR}/settings.gradle.kts ${BACKEND_DIR}/
+WORKDIR /workspace
+COPY ayanlab-platform/pom.xml ayanlab-platform/pom.xml
+COPY ayanlab-platform/ayanlab-platform-core ayanlab-platform/ayanlab-platform-core
+RUN mvn -f ayanlab-platform/pom.xml install -pl ayanlab-platform-core -am -DskipTests -q
+COPY ${BACKEND_DIR}/pom.xml ${BACKEND_DIR}/pom.xml
+RUN mvn -f ${BACKEND_DIR}/pom.xml dependency:go-offline -B -q || true
 COPY ${BACKEND_DIR}/src ${BACKEND_DIR}/src
-WORKDIR /build/${BACKEND_DIR}
-RUN chmod +x gradlew && ./gradlew bootJar -x test --no-daemon
+RUN mvn -f ${BACKEND_DIR}/pom.xml package -DskipTests -q
 
 FROM eclipse-temurin:21-jre-alpine
 ARG BACKEND_DIR
 WORKDIR /app
-COPY --from=build /build/${BACKEND_DIR}/build/libs/*.jar app.jar
+COPY --from=build /workspace/${BACKEND_DIR}/target/*.jar app.jar
 ENV SERVER_PORT=8080
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]

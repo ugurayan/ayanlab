@@ -19,12 +19,12 @@ import java.util.Map;
 
 @Slf4j
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/signup")
+@RequestMapping("/pms/api/signup")
 @Tag(name = "IPMS · SignupController", description = "IPMS multi-step signup wizard")
 @RequiredArgsConstructor
 public class IpmsSignupController extends com.ayanlabs.core.controller.BaseController {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/signup";
+    private static final String BASE_PATH = "/pms/api/signup";
 
     private final IIpmsSignupService signupService;
 

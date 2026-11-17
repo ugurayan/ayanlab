@@ -22,12 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/incoming-requests")
+@RequestMapping("/pms/api/incoming-requests")
 @Tag(name = "IPMS · IncomingRequestController", description = "IncomingRequest management (Buildium-style CRUD)")
 @RequiredArgsConstructor
 public class IncomingRequestController extends IpmsCrudController<IncomingRequest> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/incoming-requests";
+    private static final String BASE_PATH = "/pms/api/incoming-requests";
     private final IIncomingRequestService incomingRequestService;
 
     @Override

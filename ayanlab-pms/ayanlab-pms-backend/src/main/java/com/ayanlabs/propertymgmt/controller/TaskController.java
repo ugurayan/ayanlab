@@ -22,12 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/tasks")
+@RequestMapping("/pms/api/tasks")
 @Tag(name = "IPMS · TaskController", description = "Task management (Buildium-style CRUD)")
 @RequiredArgsConstructor
 public class TaskController extends IpmsCrudController<Task> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/tasks";
+    private static final String BASE_PATH = "/pms/api/tasks";
     private final ITaskService taskService;
 
     @Override

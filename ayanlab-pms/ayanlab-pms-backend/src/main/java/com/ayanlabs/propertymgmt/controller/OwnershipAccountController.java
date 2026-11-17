@@ -21,12 +21,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/ownership-accounts")
+@RequestMapping("/pms/api/ownership-accounts")
 @Tag(name = "IPMS · OwnershipAccountController", description = "OwnershipAccount management (Buildium-style CRUD)")
 @RequiredArgsConstructor
 public class OwnershipAccountController extends IpmsCrudController<OwnershipAccount> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/ownership-accounts";
+    private static final String BASE_PATH = "/pms/api/ownership-accounts";
     private final IOwnershipAccountService ownershipAccountService;
 
     @Override

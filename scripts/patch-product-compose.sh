@@ -20,7 +20,7 @@ if re.search(pattern, text):
 PY
 }
 
-for prod in ayanlab-auth ayanlab-core ayanlab-vault ayanlab-hrm ayanlab-pms ayanlab-crm ayanlab-booking ayanlab-comm; do
+for prod in ayanlab-platform ayanlab-vault ayanlab-hrm ayanlab-pms ayanlab-crm ayanlab-booking ayanlab-comm; do
   compose="${ROOT}/${prod}/docker-compose.yml"
   [[ -f "${compose}" ]] || continue
   backend_dir="${prod}/${prod}-backend"

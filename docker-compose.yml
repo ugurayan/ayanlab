@@ -1,7 +1,7 @@
 # Root orchestrator: infra + optional product profiles.
 # Usage:
 #   docker compose up -d                    # infra only (default)
-#   docker compose --profile auth up -d     # infra + ayanlab-auth
+#   docker compose --profile auth up -d     # infra + ayanlab-platform
 
 include:
   - path: docker/docker-compose.infra.yml

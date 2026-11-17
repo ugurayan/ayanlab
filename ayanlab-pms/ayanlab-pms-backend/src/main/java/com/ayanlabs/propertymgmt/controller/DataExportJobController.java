@@ -17,12 +17,12 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/data-exports")
+@RequestMapping("/pms/api/data-exports")
 @Tag(name = "IPMS · DataExportJobController", description = "DataExportJob CRUD")
 @RequiredArgsConstructor
 public class DataExportJobController extends IpmsCrudController<DataExportJob> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/data-exports";
+    private static final String BASE_PATH = "/pms/api/data-exports";
     private final IDataExportJobService dataExportJobService;
 
     @Override

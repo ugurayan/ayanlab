@@ -17,12 +17,12 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/property-inspections")
+@RequestMapping("/pms/api/property-inspections")
 @Tag(name = "IPMS · PropertyInspectionController", description = "PropertyInspection CRUD")
 @RequiredArgsConstructor
 public class PropertyInspectionController extends IpmsCrudController<PropertyInspection> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/property-inspections";
+    private static final String BASE_PATH = "/pms/api/property-inspections";
     private final IPropertyInspectionService propertyInspectionService;
 
     @Override

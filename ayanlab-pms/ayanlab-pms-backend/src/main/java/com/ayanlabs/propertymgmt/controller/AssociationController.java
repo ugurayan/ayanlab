@@ -22,12 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/associations")
+@RequestMapping("/pms/api/associations")
 @Tag(name = "IPMS · AssociationController", description = "Association management (Buildium-style CRUD)")
 @RequiredArgsConstructor
 public class AssociationController extends IpmsCrudController<Association> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/associations";
+    private static final String BASE_PATH = "/pms/api/associations";
     private final IAssociationService associationService;
 
     @Override

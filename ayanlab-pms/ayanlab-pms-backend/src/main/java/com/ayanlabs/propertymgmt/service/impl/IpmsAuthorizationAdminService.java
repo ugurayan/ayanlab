@@ -76,7 +76,7 @@ public class IpmsAuthorizationAdminService implements IIpmsAuthorizationAdminSer
     @Override
     @Transactional(readOnly = true)
     public List<AuthRoleResponse> listRoles(CoreContext context) {
-        return roleService.findAll(context.getAppId(), context).stream()
+        return roleService.findAll(context.getAppId(), false, context).stream()
                 .map(r -> toRole(r, context))
                 .collect(Collectors.toList());
     }
@@ -123,9 +123,9 @@ public class IpmsAuthorizationAdminService implements IIpmsAuthorizationAdminSer
     @Override
     @Transactional(readOnly = true)
     public List<AuthPermissionResponse> listPermissions(CoreContext context) {
-        List<Permission> permissions = permissionService.findAll("ipms", context);
+        List<Permission> permissions = permissionService.findAll("ipms", false, context);
         if (permissions.isEmpty()) {
-            permissions = permissionService.findAll(null, context);
+            permissions = permissionService.findAll(null, false, context);
         }
         return permissions.stream()
                 .map(this::toPermission)

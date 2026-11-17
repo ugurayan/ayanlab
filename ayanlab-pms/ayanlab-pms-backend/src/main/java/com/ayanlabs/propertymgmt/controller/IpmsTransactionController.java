@@ -21,12 +21,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/transactions")
+@RequestMapping("/pms/api/transactions")
 @Tag(name = "IPMS · IpmsTransactionController", description = "IpmsTransaction management (Buildium-style CRUD)")
 @RequiredArgsConstructor
 public class IpmsTransactionController extends IpmsCrudController<IpmsTransaction> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/transactions";
+    private static final String BASE_PATH = "/pms/api/transactions";
     private final IIpmsTransactionService ipmsTransactionService;
 
     @Override

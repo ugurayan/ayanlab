@@ -17,11 +17,11 @@ import java.util.Map;
 
 @Slf4j
 @RestController
-@RequestMapping("/ayanlabs/api/accounting")
+@RequestMapping("/crm/api")
 @Tag(name = "CRM · AccountingController", description = "Accounting module APIs")
 public class AccountingController extends BaseController {
 
-    private static final String BASE_PATH = "/ayanlabs/api/accounting";
+    private static final String BASE_PATH = "/crm/api";
 
     @GetMapping("/accounts")
     @RequireAppRole({"ACCOUNTANT", "ADMIN", "CLIENT"})

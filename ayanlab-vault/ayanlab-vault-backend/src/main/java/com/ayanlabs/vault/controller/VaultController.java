@@ -16,11 +16,11 @@ import java.util.Map;
 
 @Slf4j
 @RestController
-@RequestMapping("/ayanlabs/api/vault")
+@RequestMapping("/vault/api")
 @Tag(name = "Vault · VaultController", description = "Authenticated profile / me (Vault)")
 public class VaultController extends BaseController {
 
-    private static final String BASE_PATH = "/ayanlabs/api/vault";
+    private static final String BASE_PATH = "/vault/api";
 
     @GetMapping("/me")
     public ResponseEntity<ApiResponse<Map<String, Object>>> getProfile(

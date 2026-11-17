@@ -16,11 +16,11 @@ import java.util.Map;
 
 @Slf4j
 @RestController("accountingAuthorizationController")
-@RequestMapping("/ayanlabs/api/accounting/authorization")
+@RequestMapping("/crm/api/authorization")
 @Tag(name = "CRM · AuthorizationController", description = "Current principal / auth context (CRM / accounting)")
 public class AuthorizationController extends BaseController {
 
-    private static final String BASE_PATH = "/ayanlabs/api/accounting/authorization";
+    private static final String BASE_PATH = "/crm/api/authorization";
 
     @GetMapping("/context")
     public ResponseEntity<ApiResponse<Map<String, Object>>> context(

@@ -17,12 +17,12 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/analytics-snapshots")
+@RequestMapping("/pms/api/analytics-snapshots")
 @Tag(name = "IPMS · AnalyticsSnapshotController", description = "AnalyticsSnapshot CRUD")
 @RequiredArgsConstructor
 public class AnalyticsSnapshotController extends IpmsCrudController<AnalyticsSnapshot> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/analytics-snapshots";
+    private static final String BASE_PATH = "/pms/api/analytics-snapshots";
     private final IAnalyticsSnapshotService analyticsSnapshotService;
 
     @Override

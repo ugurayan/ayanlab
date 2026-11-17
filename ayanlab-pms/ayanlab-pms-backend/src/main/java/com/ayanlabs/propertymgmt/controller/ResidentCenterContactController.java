@@ -17,12 +17,12 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/resident-center-contacts")
+@RequestMapping("/pms/api/resident-center-contacts")
 @Tag(name = "IPMS · ResidentCenterContactController", description = "ResidentCenterContact CRUD")
 @RequiredArgsConstructor
 public class ResidentCenterContactController extends IpmsCrudController<ResidentCenterContact> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/resident-center-contacts";
+    private static final String BASE_PATH = "/pms/api/resident-center-contacts";
     private final IResidentCenterContactService residentCenterContactService;
 
     @Override

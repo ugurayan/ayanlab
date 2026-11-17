@@ -1,0 +1,43 @@
+# Infra + unified platform (ayanlab-platform-backend + UI)
+#   ENV=local ./scripts/up-foundation.sh
+
+include:
+  - path: docker/docker-compose.infra.yml
+
+services:
+  ayanlab-platform-backend:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.backend
+      args:
+        BACKEND_DIR: ayanlab-platform/ayanlab-platform-backend
+    container_name: ayanlab-platform-backend
+    restart: unless-stopped
+    env_file:
+      - ${ENV_FILE:-.env.local}
+    environment:
+      POSTGIS_HOST: postgres
+      POSTGIS_PORT: 5432
+      POSTGIS_DB: ${PLATFORM_DB_NAME}
+      POSTGIS_USER: ${PLATFORM_DB_USER}
+      POSTGIS_PASSWORD: ${PLATFORM_DB_PASSWORD}
+      POSTGIS_SCHEMA: ${PLATFORM_DB_SCHEMA:-core}
+      KAFKA_SERVERS: kafka:9092
+    ports:
+      - "8102:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - ayanlab_internal
+
+  ayanlab-platform-ui:
+    build:
+      context: ./ayanlab-platform/ayanlab-platform-ui
+      dockerfile: Dockerfile
+    container_name: ayanlab-platform-ui
+    restart: unless-stopped
+    ports:
+      - "3102:80"
+    networks:
+      - ayanlab_internal

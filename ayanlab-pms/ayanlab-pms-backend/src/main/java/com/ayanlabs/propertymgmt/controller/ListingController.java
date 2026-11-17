@@ -21,12 +21,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/listings")
+@RequestMapping("/pms/api/listings")
 @Tag(name = "IPMS · ListingController", description = "Listing management (Buildium-style CRUD)")
 @RequiredArgsConstructor
 public class ListingController extends IpmsCrudController<Listing> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/listings";
+    private static final String BASE_PATH = "/pms/api/listings";
     private final IListingService listingService;
 
     @Override

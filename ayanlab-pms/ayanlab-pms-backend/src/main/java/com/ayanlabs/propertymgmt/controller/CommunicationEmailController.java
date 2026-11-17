@@ -22,12 +22,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/communication-emails")
+@RequestMapping("/pms/api/communication-emails")
 @Tag(name = "IPMS · CommunicationEmailController", description = "CommunicationEmail management (Buildium-style CRUD)")
 @RequiredArgsConstructor
 public class CommunicationEmailController extends IpmsCrudController<CommunicationEmail> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/communication-emails";
+    private static final String BASE_PATH = "/pms/api/communication-emails";
     private final ICommunicationEmailService communicationEmailService;
 
     @Override

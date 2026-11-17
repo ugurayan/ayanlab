@@ -13,7 +13,7 @@
 docker compose -f docker/docker-compose.infra.yml up -d
 
 # 2) One product (example: auth)
-docker compose -f ayanlab-auth/docker-compose.yml up -d --build
+docker compose -f ayanlab-platform/docker-compose.yml up -d --build
 
 # Or all products
 ./scripts/publish-vps.sh local

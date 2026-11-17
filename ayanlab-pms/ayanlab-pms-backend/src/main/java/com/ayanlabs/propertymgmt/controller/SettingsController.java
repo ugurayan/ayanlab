@@ -21,12 +21,12 @@ import java.util.UUID;
 
 @Slf4j
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/settings")
+@RequestMapping("/pms/api/settings")
 @Tag(name = "IPMS · SettingsController", description = "My settings & security operations")
 @RequiredArgsConstructor
 public class SettingsController extends BaseController {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/settings";
+    private static final String BASE_PATH = "/pms/api/settings";
 
     private final AuthService authService;
 

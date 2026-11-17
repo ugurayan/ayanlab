@@ -17,12 +17,12 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/field-staff-presence")
+@RequestMapping("/pms/api/field-staff-presence")
 @Tag(name = "IPMS · FieldStaffPresenceController", description = "Field staff presence / availability")
 @RequiredArgsConstructor
 public class FieldStaffPresenceController extends IpmsCrudController<FieldStaffPresence> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/field-staff-presence";
+    private static final String BASE_PATH = "/pms/api/field-staff-presence";
     private final IFieldStaffPresenceService fieldStaffPresenceService;
 
     @Override

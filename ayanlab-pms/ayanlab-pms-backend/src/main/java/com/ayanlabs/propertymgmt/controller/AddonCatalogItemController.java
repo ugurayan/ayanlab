@@ -17,12 +17,12 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/addons")
+@RequestMapping("/pms/api/addons")
 @Tag(name = "IPMS · AddonCatalogItemController", description = "AddonCatalogItem CRUD")
 @RequiredArgsConstructor
 public class AddonCatalogItemController extends IpmsCrudController<AddonCatalogItem> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/addons";
+    private static final String BASE_PATH = "/pms/api/addons";
     private final IAddonCatalogItemService addonCatalogItemService;
 
     @Override

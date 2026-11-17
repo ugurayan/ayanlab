@@ -17,12 +17,12 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/public-site-settings")
+@RequestMapping("/pms/api/public-site-settings")
 @Tag(name = "IPMS · PublicSiteSettingController", description = "PublicSiteSetting CRUD")
 @RequiredArgsConstructor
 public class PublicSiteSettingController extends IpmsCrudController<PublicSiteSetting> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/public-site-settings";
+    private static final String BASE_PATH = "/pms/api/public-site-settings";
     private final IPublicSiteSettingService publicSiteSettingService;
 
     @Override

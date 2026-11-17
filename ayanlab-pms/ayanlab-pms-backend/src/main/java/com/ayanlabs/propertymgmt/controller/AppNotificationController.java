@@ -17,12 +17,12 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/app-notifications")
+@RequestMapping("/pms/api/app-notifications")
 @Tag(name = "IPMS · AppNotificationController", description = "AppNotification CRUD")
 @RequiredArgsConstructor
 public class AppNotificationController extends IpmsCrudController<AppNotification> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/app-notifications";
+    private static final String BASE_PATH = "/pms/api/app-notifications";
     private final IAppNotificationService appNotificationService;
 
     @Override

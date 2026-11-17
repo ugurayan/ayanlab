@@ -20,12 +20,12 @@ import java.util.Map;
 
 @Slf4j
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/dashboard")
+@RequestMapping("/pms/api/dashboard")
 @Tag(name = "IPMS · Dashboard", description = "Role dashboard summary endpoints (Phase B)")
 @RequiredArgsConstructor
 public class DashboardController extends BaseController {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/dashboard";
+    private static final String BASE_PATH = "/pms/api/dashboard";
 
     private final IIpmsDashboardService dashboardService;
 

@@ -21,12 +21,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/ayanlabs/api/property-mgmt/bills")
+@RequestMapping("/pms/api/bills")
 @Tag(name = "IPMS · BillController", description = "Bill management (Buildium-style CRUD)")
 @RequiredArgsConstructor
 public class BillController extends IpmsCrudController<Bill> {
 
-    private static final String BASE_PATH = "/ayanlabs/api/property-mgmt/bills";
+    private static final String BASE_PATH = "/pms/api/bills";
     private final IBillService billService;
 
     @Override
