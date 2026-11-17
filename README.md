@@ -93,6 +93,20 @@ Diğer backend Swagger adresleri: [`docs/API-SWAGGER.md`](docs/API-SWAGGER.md).
 
 ## Sık kullanılan komutlar
 
+## Sıfırdan kurulum sırası
+
+```bash
+docker compose --env-file .env.local -f docker-compose.platform.yml down -v
+docker compose --env-file .env.local -f docker-compose.platform.yml up -d --build postgres redis
+
+# healthy olana kadar bekle (veya pg_isready)
+docker compose --env-file .env.local -f docker-compose.platform.yml ps
+
+./ayanlab-platform/run-local.sh   # 1
+```
+
+`run-backend.sh` içine Postgres hazır olana kadar bekleme eklendi; bir sonraki `run-local` bu yarışı daha az yaşatır. 
+
 **Sadece veritabanı + Redis (backend yok):**
 
 ```bash

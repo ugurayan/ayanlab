@@ -22,6 +22,24 @@ if [[ -z "${POSTGIS_URL:-}" && "${POSTGIS_HOST:-}" == "postgres" ]]; then
   export POSTGIS_HOST=localhost
 fi
 
+# shellcheck source=../../scripts/lib/docker.sh
+source "$ROOT/scripts/lib/docker.sh"
+if docker ps --format '{{.Names}}' 2>/dev/null | grep -qx 'ayanlab-postgres'; then
+  echo "Waiting for ayanlab-postgres (init/recovery can take ~30s after down -v)..."
+  ready=0
+  for _ in $(seq 1 45); do
+    if docker exec ayanlab-postgres pg_isready -U "${POSTGRES_SUPERUSER:-ayanlab_super}" -d "${POSTGIS_DB}" -q 2>/dev/null; then
+      ready=1
+      break
+    fi
+    sleep 2
+  done
+  if [[ "$ready" -ne 1 ]]; then
+    echo "Postgres not ready on ${POSTGIS_HOST:-localhost}:${POSTGIS_PORT:-5433} — check: docker logs ayanlab-postgres" >&2
+    exit 1
+  fi
+fi
+
 echo "Running ayanlab-platform-backend (Maven spring-boot:run)"
 echo "  env file: ${ENV_FILE}"
 echo "  database: ${POSTGIS_HOST:-?}:${POSTGIS_PORT:-5432}/${POSTGIS_DB:-?} schema=${POSTGIS_SCHEMA:-?}"

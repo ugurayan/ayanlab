@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-export const MIN_PAGE_LOADER_MS = 1000;
+export const MIN_PAGE_LOADER_MS = 500;
 
 /** Keeps the page loader visible until `busy` is false and at least 1s have elapsed. */
 export function useMinimumLoading(busy: boolean, minMs = MIN_PAGE_LOADER_MS, scope?: string): boolean {

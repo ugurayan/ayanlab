@@ -19,6 +19,8 @@ spring:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
       hibernate:
+        hbm2ddl:
+          auto: update
         default_schema: ${POSTGIS_SCHEMA:core}
         dialect: org.hibernate.dialect.PostgreSQLDialect
         format_sql: true
