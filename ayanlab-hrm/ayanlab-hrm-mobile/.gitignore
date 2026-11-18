@@ -1,0 +1,26 @@
+# Flutter/Dart
+.dart_tool/
+.packages
+build/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+coverage/
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# macOS
+.DS_Store
+
+# Generated platform folders are produced by `flutter create .` in the
+# scaffold script; keep them out of history for template consistency.
+android/
+ios/
+.dart_tool/
+
+# Generated localizations (flutter gen-l10n)
+lib/core/l10n/

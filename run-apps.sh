@@ -236,8 +236,15 @@ run_mobile() {
     yellow "Mobile klasörü yok: $mobile_dir"
     return 1
   fi
-  yellow "Mobile henüz run-apps ile bağlanmadı (sonra eklenecek): $mobile_dir"
-  return 0
+  if ! command -v flutter >/dev/null 2>&1; then
+    red "flutter bulunamadı — Flutter SDK kurulu değil"
+    return 1
+  fi
+  yellow "Mobile başlatılıyor (flutter run): $mobile_dir"
+  (cd "$mobile_dir" && flutter pub get) || { red "flutter pub get başarısız"; return 1; }
+  (cd "$mobile_dir" && nohup flutter run > "$ROOT/logs/$p-mobile.log" 2>&1 &
+    echo $! > "$ROOT/logs/$p-mobile.pid")
+  green "Mobile başlatıldı — log: logs/$p-mobile.log (bağlı cihaz/emülatör gerekir)"
 }
 
 run_component() {

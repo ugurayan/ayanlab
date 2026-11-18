@@ -24,3 +24,13 @@ secrets/
 *.iml
 .DS_Store
 docker/data/
+
+# Flutter
+**/.dart_tool/
+**/.flutter-plugins
+**/.flutter-plugins-dependencies
+**/.pub-cache/
+
+# Local logs / pids (run-apps.sh)
+logs/
+*.pid

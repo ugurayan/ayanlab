@@ -51,7 +51,26 @@ Kök dizinden menülü başlatıcı. Host’ta **8080 kullanılmaz**.
 
 Her ürün seçiminde bileşen ayrı sorulur (**Backend / UI / Mobile / ikisi / sadece kill**).  
 **Run öncesi ilgili portlar her zaman kill edilir**, sonra yeniden başlatılır.  
-Loglar: `./logs/<urun>-backend.log`, `./logs/<urun>-ui.log`.
+Loglar: `./logs/<urun>-backend.log`, `./logs/<urun>-ui.log`, `./logs/<urun>-mobile.log`.
+
+---
+
+## Mobile (Flutter)
+
+Tüm ürünlerin `*-mobile` klasörleri Flutter tabanlıdır ve ortak golden template'ten
+üretilir: [`scripts/mobile-template/`](scripts/mobile-template/). İçerik şimdilik
+mock (API yok): splash → onboarding → login/register/forgot → ana shell
+(drawer + 4 tab + FAB) + settings/security/help/about/terms sayfaları.
+11 dil desteği (en, zh, hi, es, fr, ar, bn, pt, ru, tr, ur — `ar`/`ur` RTL).
+
+Yeniden üretim:
+
+```bash
+./scripts/scaffold-mobile.sh hrm   # hrm, pms, vault, crm, booking, comm ...
+```
+
+Script hedef klasörü silip template'ten yeniden oluşturur (`flutter create .` +
+`flutter pub get` dahil). Flutter SDK gerektirir.
 
 ---
 
@@ -241,6 +260,22 @@ ENV_FILE=../.env.local docker compose up -d --build
 `ENV=local` → `.env.local`, `ENV=prod` → `.env.prod`
 
 ---
+
+## Java paketleri (backend)
+
+Kalıp: **`com.ayanlab.<app>.backend`**
+
+Shared kütüphane (`platform-core`) `com.ayanlab.core.*` / `com.ayanlab.security.*` olarak kalır — yalnızca runnable app `…backend` altındadır.
+
+| App | Paket |
+|-----|-------|
+| Core / Platform | `com.ayanlab.core.backend` |
+| HRM | `com.ayanlab.hrm.backend` |
+| Vault | `com.ayanlab.vault.backend` |
+| PMS | `com.ayanlab.pms.backend` |
+| CRM | `com.ayanlab.crm.backend` |
+| Booking | `com.ayanlab.booking.backend` |
+| Comm | `com.ayanlab.comm.backend` |
 
 ## Klasörler
 
