@@ -43,5 +43,7 @@ fi
 echo "Running ayanlab-platform-backend (Maven spring-boot:run)"
 echo "  env file: ${ENV_FILE}"
 echo "  database: ${POSTGIS_HOST:-?}:${POSTGIS_PORT:-5432}/${POSTGIS_DB:-?} schema=${POSTGIS_SCHEMA:-?}"
-echo "  API:      http://localhost:${SERVER_PORT:-8080}"
-exec mvn -s "$ROOT/.mvn/settings-central.xml" spring-boot:run "$@"
+export SERVER_PORT="${SERVER_PORT:-8102}"
+echo "  API:      http://localhost:${SERVER_PORT}"
+exec mvn -s "$ROOT/.mvn/settings-central.xml" spring-boot:run \
+  -Dspring-boot.run.arguments="--server.port=${SERVER_PORT}" "$@"

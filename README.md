@@ -8,6 +8,7 @@
 | Eski auth ayrımı | [`README.auth.md`](README.auth.md) (yönlendirme) |
 | Mimari | [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) |
 | Veritabanları | [`docs/DATABASES.md`](docs/DATABASES.md) |
+| **Portlar** | [`docs/PORTS.md`](docs/PORTS.md) |
 | **API yolları** | [`docs/API-PATHS.md`](docs/API-PATHS.md) |
 | **Swagger / OpenAPI** | [`docs/API-SWAGGER.md`](docs/API-SWAGGER.md) |
 | Docker sorunları | [`docs/TROUBLESHOOTING-DOCKER.md`](docs/TROUBLESHOOTING-DOCKER.md) |
@@ -18,8 +19,100 @@
 
 - **Podman** veya **Docker** + Compose
 - **Java 21** ve **Maven 3.9+** (sadece JAR’ı IDE/Maven ile çalıştıracaksan)
+- **Node 20+** (UI Vite dev)
 
 Zsh’de `docker` genelde Podman alias’ıdır; `./scripts/*` bash ile çalışır ve `scripts/lib/docker.sh` bunu taklit eder.
+
+---
+
+## Uygulama başlatıcı (`./run-apps.sh`)
+
+Kök dizinden menülü başlatıcı. Host’ta **8080 kullanılmaz**.
+
+```bash
+./run-apps.sh
+```
+
+| Seçenek | Ne yapar |
+|---------|----------|
+| **1** | Docker altyapısı — Postgres + Redis + Kafka (`ayanlab_internal`) |
+| **2** | Platform Docker stack — Postgres + Redis + backend + UI |
+| **3** | Platform lokal → alt menü: Backend / UI / Mobile / ikisi |
+| **4** | HRM → Backend / UI / Mobile / ikisi |
+| **5** | Vault → Backend / UI / Mobile / ikisi |
+| **6** | PMS → Backend / UI / Mobile / ikisi |
+| **7** | CRM → Backend / UI / Mobile / ikisi |
+| **8** | Booking → Backend / UI / Mobile / ikisi |
+| **9** | Comm → Backend / UI / Mobile / ikisi |
+| **10** | Demo kullanıcıları seed et (platform backend açılışı / `default-data.json`) |
+| **11** | Tüm lokal app'leri kill et (Docker'a dokunmaz) |
+| **12** | Hepsini kill et (lokal + `ayanlab-*` Docker) |
+| **0** | Çıkış |
+
+Her ürün seçiminde bileşen ayrı sorulur (**Backend / UI / Mobile / ikisi / sadece kill**).  
+**Run öncesi ilgili portlar her zaman kill edilir**, sonra yeniden başlatılır.  
+Loglar: `./logs/<urun>-backend.log`, `./logs/<urun>-ui.log`.
+
+---
+
+## Host portları
+
+Host’ta **8080 bağlanmaz**. Docker içinde container `8080` dinleyebilir; host mapping `8102:8080` şeklindedir.
+
+| Servis | Port |
+|--------|------|
+| Platform API | **8102** |
+| Platform UI | **3102** |
+| Vault API / UI | 8103 / 3103 |
+| HRM API / UI | 8104 / **3104** |
+| PMS API / UI | 8105 / 3105 |
+| CRM API / UI | 8106 / 3106 |
+| Booking API / UI | 8107 / 3107 |
+| Comm API / UI | 8108 / 3108 |
+| PostgreSQL (host) | 5433 |
+| Redis (host) | 6380 |
+| Kafka | 9092 |
+
+Detay: [`docs/PORTS.md`](docs/PORTS.md).
+
+---
+
+## Demo hesaplar (login)
+
+Seed: platform backend açılışında `default-data.json`.  
+Auth API: `POST http://localhost:8102/auth/api/login` — **application (appKey) ile kullanıcı eşleşmeli**.
+
+| UI | URL | Proxy |
+|----|-----|-------|
+| Platform admin | http://localhost:3102 | `/auth` → `:8102` |
+| HRM | http://localhost:3104 | `/auth` → `:8102` (iş verisi mock) |
+
+### Platform UI (`:3102`) — app seçimi zorunlu
+
+| Application | Email | Password |
+|-------------|-------|----------|
+| **Core** | `admin@core.local` | `Admin123!` |
+| **Core** | `ugur.ayan@gmail.com` | `superadmin` |
+| **Core** | `ugur.ayan.us@gmail.com` | `admin` |
+| **StaffIQ** | `next.is.future@icloud.com` | `password` |
+| **StaffIQ** | `admin@acme.test` | `password` |
+
+Yanlış app + doğru şifre yine de `Invalid email or password` döner (ör. Core seçiliyken StaffIQ kullanıcısı).
+
+### HRM / StaffIQ UI (`:3104`)
+
+Auth platform’a gider; ekran verisi mock (`VITE_USE_MOCKS=true`). **Şifre (hepsi):** `password`
+
+| Email | Rol |
+|-------|-----|
+| `next.is.future@icloud.com` | `PLATFORM_ADMIN` |
+| `admin@acme.test` | `ORG_ADMIN` |
+| `manager@acme.test` | `LOCATION_MANAGER` |
+| `finance@acme.test` | `ORG_FINANCE` |
+| `agent@staffing.test` | `AGENT_USER` |
+| `notApproved@platform.test` | `WORKER` |
+
+Önerilen sıra: `./run-apps.sh` → **1** veya **2** → **10** (seed) → Platform UI **3→2** veya HRM **4→2**
 
 ---
 
@@ -31,6 +124,7 @@ cp .env.local.example .env.local
 # Düzenle: POSTGRES_SUPERUSER_PASSWORD, *_DB_PASSWORD, JWT_SECRET
 
 ./scripts/validate-env-local.sh
+# Tercihen: ./run-apps.sh  →  1 veya 2
 ENV=local ./scripts/up-platform.sh
 ```
 
@@ -61,8 +155,7 @@ http://localhost:8102
 | Şema eksikse | `./scripts/ensure-db-schemas.sh` |
 | Tablolar | **platform-backend çalışırken** oluşur; sadece `postgres redis` yetmez |
 
-**Host portları (varsayılan):** Postgres `5433`, Redis `6380`, Platform API `8102`, UI `3102`.  
-5432/6379 doluysa: [`docs/TROUBLESHOOTING-DOCKER.md`](docs/TROUBLESHOOTING-DOCKER.md).
+Host port tablosu yukarıda. 5432/6379 doluysa: [`docs/TROUBLESHOOTING-DOCKER.md`](docs/TROUBLESHOOTING-DOCKER.md).
 
 ---
 

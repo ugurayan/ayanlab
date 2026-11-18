@@ -1,13 +1,8 @@
-import { authHttp, http } from "../client";
+import { authHttp, appKey } from "../client";
 import { endpoints } from "../endpoints";
-import type { AuthSession, User } from "../../types/auth";
+import type { AuthSession, Role, User } from "../../types/auth";
+import { computePermissions } from "../../security/permissions";
 
-// Generate correlation ID
-const generateCorrelationId = () => {
-  return `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-};
-
-// Get language from localStorage or default to "en"
 const getLanguage = (): string => {
   if (typeof window !== "undefined") {
     return window.localStorage.getItem("language") || "en";
@@ -15,88 +10,155 @@ const getLanguage = (): string => {
   return "en";
 };
 
-// Login api call to get the token and refresh token
-export async function apiLogin(emailOrMobile: string, password: string, language?: string): Promise<AuthSession> {
+type PlatformLoginData = {
+  accessToken?: string;
+  refreshToken?: string;
+  userId?: string;
+  profileId?: string;
+  orgId?: string;
+  user?: {
+    email?: string;
+    firstName?: string;
+    lastName?: string;
+    registrationStatus?: string;
+  };
+  access?: {
+    roleCodes?: string[];
+    roles?: string[];
+    primaryRoleCode?: string;
+    primaryRole?: string;
+    frontendRole?: string;
+  };
+  additionalInfo?: {
+    frontendRole?: string;
+  };
+  // legacy / alternate shapes
+  token?: string;
+  email?: string;
+  displayName?: string;
+  roles?: string[];
+  permissions?: string[];
+};
+
+/**
+ * Login against ayanlab-platform-backend (`POST /auth/api/login`).
+ * Afterwards HRM screens keep using mocks for business data (`VITE_USE_MOCKS`).
+ */
+export async function apiLogin(
+  emailOrMobile: string,
+  password: string,
+  language?: string
+): Promise<AuthSession> {
   const lang = language || getLanguage();
-  const correlationId = generateCorrelationId();
-  
+
   try {
     const res = await authHttp.post(
       `${endpoints.auth.login}?lang=${lang}`,
-      { 
-        emailOrMobile,
-        password 
-      },
       {
-        headers: {
-          'X-Correlation-ID': correlationId,
-          'Content-Type': 'application/json'
-        }
+        email: emailOrMobile,
+        password,
+        appKey
       }
     );
-    console.log(res?.data);
 
-    // Response structure: { success, data: { token, refreshToken, userId, profileId, orgId, displayName, email, roles, permissions, userStatus, profileStatus }, message, timestamp }
-    if (!res || !res.data) {
+    if (!res?.data) {
       throw new Error("Invalid response from server");
     }
 
-    if (!res.data.success) {
+    if (res.data.success === false) {
       throw new Error(res.data.message || "Invalid email or password");
     }
-    
-    if (!res.data.data || !res.data.data.token) {
+
+    const data: PlatformLoginData = res.data.data ?? res.data;
+    const accessToken = data.accessToken || data.token;
+    if (!accessToken) {
       throw new Error("Login failed: No token received");
     }
 
-    const responseData = res.data.data;
-    const { token, refreshToken, userId, profileId, orgId, displayName, email, roles, permissions, userApproved, profileApproved } = responseData;
-    
-    // Store refresh token if available
-    if (refreshToken) {
-      localStorage.setItem('refreshToken', refreshToken);
+    if (data.refreshToken) {
+      localStorage.setItem("refreshToken", data.refreshToken);
     }
-    
-    // Use the user data directly from the API response
+
+    const roleCodes: Role[] = Array.isArray(data.access?.roleCodes)
+      ? (data.access!.roleCodes as Role[])
+      : Array.isArray(data.access?.roles)
+        ? (data.access!.roles as Role[])
+        : Array.isArray(data.roles)
+          ? (data.roles as Role[])
+          : data.access?.primaryRoleCode
+            ? [data.access.primaryRoleCode as Role]
+            : data.access?.primaryRole
+              ? [data.access.primaryRole as Role]
+              : data.additionalInfo?.frontendRole
+                ? [String(data.additionalInfo.frontendRole).toUpperCase() as Role]
+                : [];
+
+    const displayName =
+      data.displayName ||
+      [data.user?.firstName, data.user?.lastName].filter(Boolean).join(" ") ||
+      emailOrMobile;
+
+    const email = data.user?.email || data.email || emailOrMobile;
+
+    // HRM UI permission model is role-code based (PLATFORM_ADMIN, …), not platform UUID perms.
+    const permissions = computePermissions(roleCodes);
+
     const user: User = {
-      id: userId || '',
-      email: email || emailOrMobile,
-      displayName: displayName || "",
-      roles: Array.isArray(roles) ? roles : [],
-      permissions: Array.isArray(permissions) ? permissions : [],
+      id: data.userId || "",
+      email,
+      displayName,
+      roles: roleCodes,
+      permissions,
       scope: {
-        orgId: orgId || undefined
+        orgId: data.orgId || undefined
       },
-      userApproved: userApproved !== false, // Default to true if not explicitly false
-      profileApproved: profileApproved !== false, // Default to true if not explicitly false
-      profileId: profileId || undefined
+      userApproved: true,
+      profileApproved: data.user?.registrationStatus !== "Pending",
+      profileId: data.profileId || undefined
     };
-    
+
     return {
-      accessToken: token,
+      accessToken,
       user
     };
   } catch (error: any) {
-    // Handle API errors
     console.error("Login error:", error);
-    
+
     if (error.response) {
-      // Server responded with error status
-      const errorMessage = error.response.data?.message || error.response.statusText || "Login failed";
+      const errorMessage =
+        error.response.data?.message || error.response.statusText || "Login failed";
       throw new Error(errorMessage);
-    } else if (error.request) {
-      // Request was made but no response received
-      throw new Error("No response from server. Please check your connection.");
-    } else if (error.message) {
-      // Error in request setup
-      throw new Error(error.message);
-    } else {
-      throw new Error("Invalid email or password");
     }
+    if (error.request) {
+      throw new Error("No response from server. Is platform backend running on :8102?");
+    }
+    if (error.message) {
+      throw new Error(error.message);
+    }
+    throw new Error("Invalid email or password");
   }
 }
 
 export async function apiMe(): Promise<User> {
-  const res = await http.get<User>(endpoints.auth.me);
-  return res.data;
+  const res = await authHttp.get("/auth/api/me");
+  const body = res.data?.data ?? res.data;
+  const roleCodes: Role[] = Array.isArray(body?.access?.roleCodes)
+    ? body.access.roleCodes
+    : Array.isArray(body?.access?.roles)
+      ? body.access.roles
+      : Array.isArray(body?.roles)
+        ? body.roles
+        : [];
+  return {
+    id: body?.userId || body?.user?.id || "",
+    email: body?.user?.email || body?.email || "",
+    displayName:
+      [body?.user?.firstName, body?.user?.lastName].filter(Boolean).join(" ") || "",
+    roles: roleCodes,
+    permissions: computePermissions(roleCodes),
+    scope: { orgId: body?.orgId },
+    userApproved: true,
+    profileApproved: true,
+    profileId: body?.profileId
+  };
 }

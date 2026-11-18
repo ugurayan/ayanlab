@@ -39,7 +39,7 @@ export function LoginPage() {
 
   const { register, handleSubmit, formState: { isSubmitting } , setValue } = useForm<Form>({
     resolver: zodResolver(schema),
-    defaultValues: { email: "", password: "Password123@" }
+    defaultValues: { email: "", password: "password" }
   });
 
   async function onSubmit(values: Form) {
@@ -174,7 +174,7 @@ export function LoginPage() {
                     className="w-full text-left rounded-2xl border border-slate-100 bg-slate-50 hover:bg-slate-100 px-3 py-2"
                     onClick={() => {
                       setValue("email", a.email);
-                      setValue("password", "Password123@");
+                      setValue("password", "password");
                     }}
                   >
                     <div className="text-sm font-semibold">{a.email}</div>

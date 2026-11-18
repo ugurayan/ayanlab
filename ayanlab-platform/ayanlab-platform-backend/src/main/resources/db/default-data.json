@@ -10,7 +10,13 @@
   ],
   "roles": [
     { "code": "ADMIN", "name": "Administrator", "id": "4f0018f6-ebb4-438b-8981-404cefdce0a7", "description": "Full access" },
-    { "code": "USER", "name": "User", "id": "5567f2b7-2015-4927-ab97-f2e517147e4b", "description": "Regular user" }
+    { "code": "USER", "name": "User", "id": "5567f2b7-2015-4927-ab97-f2e517147e4b", "description": "Regular user" },
+    { "code": "PLATFORM_ADMIN", "name": "Platform Admin", "id": "a1000001-0001-4000-8000-000000000001", "description": "HRM platform administrator" },
+    { "code": "ORG_ADMIN", "name": "Org Admin", "id": "a1000001-0001-4000-8000-000000000002", "description": "HRM organization administrator" },
+    { "code": "LOCATION_MANAGER", "name": "Location Manager", "id": "a1000001-0001-4000-8000-000000000003", "description": "HRM location manager" },
+    { "code": "ORG_FINANCE", "name": "Org Finance", "id": "a1000001-0001-4000-8000-000000000004", "description": "HRM finance" },
+    { "code": "AGENT_USER", "name": "Agent User", "id": "a1000001-0001-4000-8000-000000000005", "description": "HRM staffing agent" },
+    { "code": "WORKER", "name": "Worker", "id": "a1000001-0001-4000-8000-000000000006", "description": "HRM worker" }
   ],
   "permissions": [
     { "code": "MANAGE_USERS", "name": "Manage Users", "id": "94f1f5d4-1ffc-4bc3-98ba-b15985b840a8", "description": "Manage user records" },
@@ -22,7 +28,13 @@
     { "appCode": "ipms", "roleCode": "ADMIN", "id": "dc516398-83e4-40eb-8def-0de926955931" },
     { "appCode": "crm", "roleCode": "ADMIN", "id": "8a124e29-d911-4166-8c4f-0b2c6f12b285" },
     { "appCode": "vault", "roleCode": "ADMIN", "id": "43d428a7-398f-445f-9ffb-0002b584b782" },
-    { "appCode": "staffiq", "roleCode": "ADMIN", "id": "061f7322-7c98-42d5-85b2-f32b7cccf1f4" }
+    { "appCode": "staffiq", "roleCode": "ADMIN", "id": "061f7322-7c98-42d5-85b2-f32b7cccf1f4" },
+    { "appCode": "staffiq", "roleCode": "PLATFORM_ADMIN", "id": "061f7322-7c98-42d5-85b2-f32b7cccf100" },
+    { "appCode": "staffiq", "roleCode": "ORG_ADMIN", "id": "061f7322-7c98-42d5-85b2-f32b7cccf101" },
+    { "appCode": "staffiq", "roleCode": "LOCATION_MANAGER", "id": "061f7322-7c98-42d5-85b2-f32b7cccf102" },
+    { "appCode": "staffiq", "roleCode": "ORG_FINANCE", "id": "061f7322-7c98-42d5-85b2-f32b7cccf103" },
+    { "appCode": "staffiq", "roleCode": "AGENT_USER", "id": "061f7322-7c98-42d5-85b2-f32b7cccf104" },
+    { "appCode": "staffiq", "roleCode": "WORKER", "id": "061f7322-7c98-42d5-85b2-f32b7cccf105" }
   ],
   "applicationPermissions": [
     { "appCode": "core", "permissionCode": "MANAGE_USERS", "id": "4ef9aff3-9d55-42c3-b848-94e5e9ed8c52" },
@@ -41,12 +53,24 @@
     { "appCode": "ipms", "email": "admin@ipms.local", "password": "Admin123!", "firstName": "IPMS", "lastName": "Admin", "mobile": "+10000000002", "birthDate": "1980-01-02", "profile": { "registrationStatus": "Created" }, "assignRole": "ADMIN" },
     { "appCode": "crm", "email": "admin@crm.local", "password": "Admin123!", "firstName": "CRM", "lastName": "Admin", "mobile": "+10000000003", "birthDate": "1980-01-03", "profile": { "registrationStatus": "Created" }, "assignRole": "ADMIN" },
     { "appCode": "vault", "email": "admin@vault.local", "password": "Admin123!", "firstName": "Vault", "lastName": "Admin", "mobile": "+10000000004", "birthDate": "1980-01-04", "profile": { "registrationStatus": "Created" }, "assignRole": "ADMIN" },
-    { "appCode": "staffiq", "email": "admin@staffiq.local", "password": "Admin123!", "firstName": "StaffIQ", "lastName": "Admin", "mobile": "+10000000005", "birthDate": "1980-01-05", "profile": { "registrationStatus": "Created" }, "assignRole": "ADMIN" }
+    { "appCode": "staffiq", "email": "admin@staffiq.local", "password": "Admin123!", "firstName": "StaffIQ", "lastName": "Admin", "mobile": "+10000000005", "birthDate": "1980-01-05", "profile": { "registrationStatus": "Created" }, "assignRole": "ADMIN" },
+    { "appCode": "staffiq", "email": "next.is.future@icloud.com", "password": "password", "firstName": "Platform", "lastName": "Admin", "mobile": "+10000002001", "birthDate": "1985-01-01", "profile": { "registrationStatus": "Created", "profileSlug": "platform-admin" }, "assignRole": "PLATFORM_ADMIN" },
+    { "appCode": "staffiq", "email": "admin@acme.test", "password": "password", "firstName": "Acme", "lastName": "Admin", "mobile": "+10000002002", "birthDate": "1985-02-01", "profile": { "registrationStatus": "Created", "profileSlug": "org-admin" }, "assignRole": "ORG_ADMIN" },
+    { "appCode": "staffiq", "email": "manager@acme.test", "password": "password", "firstName": "Site", "lastName": "Manager", "mobile": "+10000002003", "birthDate": "1985-03-01", "profile": { "registrationStatus": "Created", "profileSlug": "location-manager" }, "assignRole": "LOCATION_MANAGER" },
+    { "appCode": "staffiq", "email": "finance@acme.test", "password": "password", "firstName": "Acme", "lastName": "Finance", "mobile": "+10000002004", "birthDate": "1985-04-01", "profile": { "registrationStatus": "Created", "profileSlug": "org-finance" }, "assignRole": "ORG_FINANCE" },
+    { "appCode": "staffiq", "email": "agent@staffing.test", "password": "password", "firstName": "Staffing", "lastName": "Agent", "mobile": "+10000002005", "birthDate": "1985-05-01", "profile": { "registrationStatus": "Created", "profileSlug": "agent-user" }, "assignRole": "AGENT_USER" },
+    { "appCode": "staffiq", "email": "notApproved@platform.test", "password": "password", "firstName": "Not", "lastName": "Approved", "mobile": "+10000002006", "birthDate": "1985-06-01", "profile": { "registrationStatus": "Created", "profileSlug": "worker-pending" }, "assignRole": "WORKER" }
   ],
   "profileRoles": [
     { "userEmail": "admin@core.local", "appCode": "core", "roleCode": "ADMIN", "id": "f319f569-4845-4825-8cad-fc2faf335f0b" },
     { "userEmail": "admin@ipms.local", "appCode": "ipms", "roleCode": "ADMIN", "id": "86294533-f238-4ecb-a0fa-962b653deebf" },
     { "userEmail": "admin@crm.local", "appCode": "crm", "roleCode": "ADMIN", "id": "790bf3be-ca57-44e7-8209-107b4e0b70ac" },
-    { "userEmail": "admin@vault.local", "appCode": "vault", "roleCode": "ADMIN", "id": "e39d1492-f1b2-44a5-ab2f-c02f4a1f46c3" }
+    { "userEmail": "admin@vault.local", "appCode": "vault", "roleCode": "ADMIN", "id": "e39d1492-f1b2-44a5-ab2f-c02f4a1f46c3" },
+    { "userEmail": "next.is.future@icloud.com", "appCode": "staffiq", "roleCode": "PLATFORM_ADMIN", "id": "e39d1492-f1b2-44a5-ab2f-c02f4a1f46d1" },
+    { "userEmail": "admin@acme.test", "appCode": "staffiq", "roleCode": "ORG_ADMIN", "id": "e39d1492-f1b2-44a5-ab2f-c02f4a1f46d2" },
+    { "userEmail": "manager@acme.test", "appCode": "staffiq", "roleCode": "LOCATION_MANAGER", "id": "e39d1492-f1b2-44a5-ab2f-c02f4a1f46d3" },
+    { "userEmail": "finance@acme.test", "appCode": "staffiq", "roleCode": "ORG_FINANCE", "id": "e39d1492-f1b2-44a5-ab2f-c02f4a1f46d4" },
+    { "userEmail": "agent@staffing.test", "appCode": "staffiq", "roleCode": "AGENT_USER", "id": "e39d1492-f1b2-44a5-ab2f-c02f4a1f46d5" },
+    { "userEmail": "notApproved@platform.test", "appCode": "staffiq", "roleCode": "WORKER", "id": "e39d1492-f1b2-44a5-ab2f-c02f4a1f46d6" }
   ]
 }

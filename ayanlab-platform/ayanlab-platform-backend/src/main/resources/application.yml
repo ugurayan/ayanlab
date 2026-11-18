@@ -109,7 +109,9 @@ springdoc:
     operationsSorter: alpha
 
 server:
-  port: 8080
+  # Host port convention: never bind 8080 on the host (Docker maps 8102:8080).
+  # Local Maven uses SERVER_PORT / --server.port (default 8102 via run-backend.sh).
+  port: ${SERVER_PORT:8102}
   max-http-request-header-size: 64KB
 
 # Unified platform: auth + business APIs, single DB (ayanlab_platform / schema core)

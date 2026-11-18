@@ -1,0 +1,9 @@
+
+> ayanlab-hrm-ui@0.1.0 dev
+> vite --port 3104 --host 0.0.0.0
+
+
+  VITE v7.3.8  ready in 98 ms
+
+  ➜  Local:   http://localhost:3104/
+  ➜  Network: http://10.0.0.195:3104/

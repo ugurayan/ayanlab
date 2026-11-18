@@ -9,7 +9,8 @@ if [[ ! -d node_modules ]]; then
   npm install
 fi
 
-export VITE_PROXY_TARGET="${VITE_PROXY_TARGET:-http://localhost:8080}"
+# Host never uses 8080 — platform API listens on 8102
+export VITE_PROXY_TARGET="${VITE_PROXY_TARGET:-http://localhost:8102}"
 echo "Running ayanlab-platform-ui (Vite)"
 echo "  UI:    http://localhost:3102"
 echo "  proxy: ${VITE_PROXY_TARGET} (/auth, /core)"

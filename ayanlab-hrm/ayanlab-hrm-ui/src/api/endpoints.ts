@@ -1,9 +1,10 @@
 export const endpoints = {
   auth: {
-    login: "/auth/login",
-    me: "/me",
-    signup: "/auth/signup",
-    validation: "/auth/validation"
+    // ayanlab-platform-backend (authApiBaseUrl = http://localhost:8102)
+    login: "/auth/api/login",
+    me: "/auth/api/me",
+    signup: "/auth/api/register",
+    validation: "/auth/api/validation"
   },
   orgs: {
     list: "/orgs",

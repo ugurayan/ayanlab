@@ -68,7 +68,7 @@ const daysAgo = (n: number) => new Date(Date.now() - n * 24 * 60 * 60 * 1000).to
 
 export const mockUsers: Record<string, { password: string; user: User }> = {
   "next.is.future@icloud.com": {
-    password: "Password123@",
+    password: "password",
     user: {
       id: "u_platform_admin",
       email: "next.is.future@icloud.com",

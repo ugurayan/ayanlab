@@ -13,7 +13,8 @@ export function LoginPage() {
   const [apps, setApps] = useState<AppCatalogEntry[]>([]);
   const [appCode, setAppCode] = useState("core");
   const [email, setEmail] = useState("admin@core.local");
-  const [password, setPassword] = useState("");
+  // default-data.json seed password for admin@core.local
+  const [password, setPassword] = useState("Admin123!");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -98,6 +99,46 @@ export function LoginPage() {
         <button type="submit" disabled={loading || !selected}>
           {loading ? t("auth.signingIn") : t("auth.signIn")}
         </button>
+
+        <div className="muted" style={{ marginTop: "1rem", fontSize: "0.85rem" }}>
+          <div style={{ fontWeight: 600, marginBottom: "0.35rem" }}>Local demo (app must match)</div>
+          <button
+            type="button"
+            className="muted"
+            style={{ display: "block", width: "100%", textAlign: "left", marginBottom: "0.25rem" }}
+            onClick={() => {
+              setAppCode("core");
+              setEmail("admin@core.local");
+              setPassword("Admin123!");
+            }}
+          >
+            core → admin@core.local / Admin123!
+          </button>
+          <button
+            type="button"
+            className="muted"
+            style={{ display: "block", width: "100%", textAlign: "left", marginBottom: "0.25rem" }}
+            onClick={() => {
+              setAppCode("core");
+              setEmail("ugur.ayan@gmail.com");
+              setPassword("superadmin");
+            }}
+          >
+            core → ugur.ayan@gmail.com / superadmin
+          </button>
+          <button
+            type="button"
+            className="muted"
+            style={{ display: "block", width: "100%", textAlign: "left" }}
+            onClick={() => {
+              setAppCode("staffiq");
+              setEmail("next.is.future@icloud.com");
+              setPassword("password");
+            }}
+          >
+            staffiq → next.is.future@icloud.com / password
+          </button>
+        </div>
 
         <nav className="auth-links">
           <Link to="/forgot-password">{t("auth.forgot")}</Link>

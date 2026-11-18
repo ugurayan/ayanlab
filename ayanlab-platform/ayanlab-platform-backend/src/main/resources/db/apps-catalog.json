@@ -1,7 +1,7 @@
 {
   "applications": [
     {
-      "id": "00000000-0000-0000-0000-000000000001",
+      "id": "c18c3e8e-a1ef-4a43-bc0e-3bdf287c9387",
       "code": "auth",
       "name": "Authentication",
       "apiBasePath": "/auth/api",
@@ -52,6 +52,7 @@
       "personas": ["WORKER", "HIRING_MANAGER", "ORG_ADMIN"]
     },
     {
+      "id": "a080cf48-93a4-430c-a2d1-d0e3d3d231b2",
       "code": "booking",
       "name": "Appointments",
       "apiBasePath": "/booking/api",
@@ -59,6 +60,7 @@
       "personas": ["PROVIDER", "CUSTOMER", "ORG_ADMIN"]
     },
     {
+      "id": "931908e4-cc69-43d8-9078-11fa0568253f",
       "code": "comm",
       "name": "Communications",
       "apiBasePath": "/comm/api",

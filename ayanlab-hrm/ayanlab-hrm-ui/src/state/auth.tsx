@@ -82,13 +82,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     // Store token
     setToken(session.accessToken);
 
-    // Use permissions from API response directly (API now returns permissions as UUIDs)
-    // Only compute permissions as fallback if API doesn't provide them (for mock/legacy support)
+    // HRM UI uses string role codes (PLATFORM_ADMIN, …); always derive local permissions.
     const normalized: User = {
       ...session.user,
-      permissions: session.user.permissions?.length 
-        ? session.user.permissions 
-        : (USE_MOCKS ? computePermissions(session.user.roles) : [])
+      permissions: session.user.permissions?.length
+        ? session.user.permissions
+        : computePermissions(session.user.roles)
     };
 
     // Store user data
