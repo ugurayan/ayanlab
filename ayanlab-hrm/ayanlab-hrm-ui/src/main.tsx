@@ -1,49 +1,10 @@
-import React, { Suspense } from "react";
-import ReactDOM from "react-dom/client";
-import { RouterProvider } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { router } from "./router";
-import { AuthProvider } from "./state/auth";
-import { LanguageProvider } from "./state/i18n";
-import { LoadingSpinner } from "./ui/components/LoadingSpinner";
-import "./styles.css";
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App.tsx'
+import './index.css'
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: 1,
-      refetchOnWindowFocus: false
-    }
-  }
-});
-
-function App() {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <LanguageProvider>
-        <AuthProvider>
-          <Suspense
-            fallback={
-              <div className="min-h-screen flex items-center justify-center bg-slate-50">
-                <LoadingSpinner type="scale" size={50} text="Loading application..." />
-              </div>
-            }
-          >
-            <RouterProvider router={router} />
-          </Suspense>
-        </AuthProvider>
-      </LanguageProvider>
-    </QueryClientProvider>
-  );
-}
-
-const root = document.getElementById("root");
-if (!root) {
-  throw new Error("Root element not found");
-}
-
-ReactDOM.createRoot(root).render(
+ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <App />
-  </React.StrictMode>
-);
+  </React.StrictMode>,
+)
