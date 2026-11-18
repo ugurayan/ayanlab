@@ -58,7 +58,8 @@ function SignupPageInner() {
   const [adminData, setAdminData] = useState<Partial<AdminSignupData>>({});
 
   const { data: jobRoles = [] } = useJobRoles();
-  const { data: jobRoleCategories = [] } = useJobRoleCategories();
+  const { data: jobRoleCategoriesPage } = useJobRoleCategories(0, 100);
+  const jobRoleCategories = jobRoleCategoriesPage?.items ?? [];
   
   // Validation state
   const [isStepValid, setIsStepValid] = useState(false);

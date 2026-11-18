@@ -131,7 +131,7 @@ export function AppShell() {
   const isUserApproved = user?.userApproved !== false; // Default to true if not set
   const visible = nav.filter((n) => {
     // Settings and Logout are always visible
-    if (n.to === "/app/settings" || n.labelKey === "settings") {
+    if (n.to === "/app/settings" || (n.labelKey as string) === "settings") {
       return true;
     }
     // If profile not approved, hide all other items
@@ -187,7 +187,7 @@ export function AppShell() {
         <nav className="mt-4 flex flex-col gap-1 flex-1 min-h-0 overflow-y-auto">
           {primaryNav.map((item) => {
             const isDisabled =
-              !isProfileApproved && item.to !== "/app/settings" && item.labelKey !== "settings";
+              !isProfileApproved && item.to !== "/app/settings" && (item.labelKey as string) !== "settings";
             return (
               <NavLink
                 key={item.to}
@@ -220,7 +220,7 @@ export function AppShell() {
               </div>
               {adminNav.map((item) => {
                 const isDisabled =
-                  !isProfileApproved && item.to !== "/app/settings" && item.labelKey !== "settings";
+                  !isProfileApproved && item.to !== "/app/settings" && (item.labelKey as string) !== "settings";
                 return (
                   <NavLink
                     key={item.to}
@@ -303,7 +303,7 @@ export function AppShell() {
             <nav className="mt-1 flex flex-col gap-1">
               {primaryNav.map((item) => {
                 const isDisabled =
-                  !isProfileApproved && item.to !== "/app/settings" && item.labelKey !== "settings";
+                  !isProfileApproved && item.to !== "/app/settings" && (item.labelKey as string) !== "settings";
                 return (
                   <NavLink
                     key={item.to}
@@ -338,7 +338,7 @@ export function AppShell() {
                   </div>
                   {adminNav.map((item) => {
                     const isDisabled =
-                      !isProfileApproved && item.to !== "/app/settings" && item.labelKey !== "settings";
+                      !isProfileApproved && item.to !== "/app/settings" && (item.labelKey as string) !== "settings";
                     return (
                       <NavLink
                         key={item.to}
@@ -584,7 +584,7 @@ export function AppShell() {
             <div className="text-xs font-semibold text-slate-500 mb-2">Quick search (mock)</div>
             <div className="grid gap-1 md:grid-cols-3">
               {visible.map((item) => {
-                const isDisabled = !isProfileApproved && item.to !== "/app/settings" && item.labelKey !== "settings";
+                const isDisabled = !isProfileApproved && item.to !== "/app/settings" && (item.labelKey as string) !== "settings";
                 return (
                   <button
                     key={item.to}

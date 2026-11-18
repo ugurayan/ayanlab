@@ -18,7 +18,6 @@ export const authHttp = axios.create({
 http.interceptors.request.use((config) => {
   const token = getToken();
   if (token) {
-    config.headers = config.headers ?? {};
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;
@@ -28,7 +27,6 @@ http.interceptors.request.use((config) => {
 authHttp.interceptors.request.use((config) => {
   const token = getToken();
   if (token) {
-    config.headers = config.headers ?? {};
     config.headers.Authorization = `Bearer ${token}`;
   }
   return config;

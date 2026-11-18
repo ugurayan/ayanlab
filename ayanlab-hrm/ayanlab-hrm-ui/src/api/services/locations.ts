@@ -244,3 +244,12 @@ export async function apiSearchGooglePlaces(query: string, _apiKey?: string): Pr
   };
   return matching.length > 0 ? matching : [suggested];
 }
+
+export async function apiListLocations(): Promise<AddressApi[]> {
+  // TODO: Replace with real API call
+  // const response = await authHttp.get('/api/v1/locations');
+  // return response.data.data;
+  
+  await delay(300);
+  return MOCK_ADDRESSES;
+}

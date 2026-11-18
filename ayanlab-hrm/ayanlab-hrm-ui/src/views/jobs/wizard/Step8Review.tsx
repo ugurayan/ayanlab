@@ -113,7 +113,7 @@ export function Step8Review({ formData, onSubmit, onBack, canGoBack = false, isS
           <div className="space-y-2 text-sm">
             <div><span className="text-slate-500">Location:</span> <span className="font-medium">{formData.workLocationName || 'Not set'}</span></div>
             <div><span className="text-slate-500">Address:</span> <span className="font-medium">{formData.workLocationStreet || 'Not set'}</span></div>
-            <div><span className="text-slate-500">Contact:</span> <span className="font-medium">{formData.onsiteContactName || 'Not set'}</span></div>
+            <div><span className="text-slate-500">Contact:</span> <span className="font-medium">{formData.selectedContactIds?.length ? `${formData.selectedContactIds.length} selected` : 'Not set'}</span></div>
           </div>
         </div>
 
@@ -191,10 +191,10 @@ export function Step8Review({ formData, onSubmit, onBack, canGoBack = false, isS
             {(formData.selectedDressItems?.length ?? 0) > 0 && (
               <div><span className="text-slate-500">{copy.step6?.dressItems ?? 'Dress Items'}:</span> <span className="font-medium">{formData.selectedDressItems?.map((i) => `${i.item} (${i.color})`).join(', ')}</span></div>
             )}
-            {(formData.attireRestrictionLevel && formData.attireRestrictionLevel !== '') && (
+            {formData.attireRestrictionLevel && (
               <div><span className="text-slate-500">{copy.step6?.attireRestrictions ?? 'Attire'}:</span> <span className="font-medium">{formData.attireRestrictionLevel === 'no-preference' ? copy.step6?.noPreference : formData.attireRestrictionLevel === 'basic' ? copy.step6?.attireBasic : formData.attireRestrictionLevel === 'strict' ? copy.step6?.attireStrict : formData.attireRestrictionLevel === 'custom' ? `${formData.selectedAttireRestrictions?.length ?? 0} custom` : formData.attireRestrictionLevel}</span></div>
             )}
-            {(formData.groomingLevel && formData.groomingLevel !== '') && (
+            {formData.groomingLevel && (
               <div><span className="text-slate-500">{copy.step6?.groomingInstructions ?? 'Grooming'}:</span> <span className="font-medium">{formData.groomingLevel === 'no-preference' ? copy.step6?.noPreference : formData.groomingLevel === 'elevated' ? copy.step6?.groomingElevated : formData.groomingLevel === 'professional' ? copy.step6?.groomingProfessional : formData.groomingLevel === 'standard' ? copy.step6?.groomingStandard : formData.groomingLevel === 'custom' ? 'Custom' : formData.groomingLevel}</span></div>
             )}
             {formData.jobDutiesHtml && (

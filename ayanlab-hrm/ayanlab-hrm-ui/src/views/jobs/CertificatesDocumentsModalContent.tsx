@@ -111,7 +111,7 @@ export function CertificatesDocumentsModalContent({
             <Input
               value={documents
                 ?.filter(doc => data.selectedDocuments.includes(doc.id))
-                .map(doc => doc.name || doc.title || doc.id)
+                .map(doc => doc.name || doc.id)
                 .join(", ") || ""}
               readOnly
               className="bg-slate-100 text-slate-600 cursor-not-allowed"
@@ -139,7 +139,7 @@ export function CertificatesDocumentsModalContent({
                   onChange={(e) => handleDocumentToggle(doc.id, e.target.checked)}
                   className="rounded border-slate-300"
                 />
-                <span className="text-sm text-slate-700">{doc.name || doc.title || doc.id}</span>
+                <span className="text-sm text-slate-700">{doc.name || doc.id}</span>
               </label>
             ))}
           </div>

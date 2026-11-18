@@ -124,7 +124,7 @@ export function JobRoleDetail({ role, isOpen, onClose, isCreateMode = false }: J
           <Button type="button" variant="secondary" onClick={onClose}>
             Cancel
           </Button>
-          <Button type="submit" isLoading={createMutation.isLoading || updateMutation.isLoading}>
+          <Button type="submit" isLoading={createMutation.isPending || updateMutation.isPending}>
             {isCreateMode ? 'Create' : 'Save Changes'}
           </Button>
         </div>

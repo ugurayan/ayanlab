@@ -204,10 +204,11 @@ export function JobCreationWizard() {
     // Migrate legacy staff selection values
     const validStaffTypes = ['open-to-all', 'open-to-new', 'smart-assign', 'request-approval', 'top-pros-only'];
     if (merged.staffSelectionType && !validStaffTypes.includes(merged.staffSelectionType)) {
-      merged.staffSelectionType = merged.staffSelectionType === 'new-pros' ? 'open-to-new' : merged.staffSelectionType === 'roster-only' ? 'request-approval' : 'smart-assign';
+      const staffType = merged.staffSelectionType as string;
+      merged.staffSelectionType = staffType === 'new-pros' ? 'open-to-new' : staffType === 'roster-only' ? 'request-approval' : 'smart-assign';
     }
     // Migrate legacy dress type
-    if (merged.selectedDressType === 'custom-dress') merged.selectedDressType = 'custom-uniform';
+    if ((merged.selectedDressType as string) === 'custom-dress') merged.selectedDressType = 'custom-uniform';
     // Ensure Step 6 extended fields exist
     if (merged.attireRestrictionLevel == null) merged.attireRestrictionLevel = '';
     if (merged.groomingLevel == null) merged.groomingLevel = '';

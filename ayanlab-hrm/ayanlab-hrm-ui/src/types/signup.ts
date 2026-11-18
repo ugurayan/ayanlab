@@ -28,7 +28,6 @@ export type BusinessSignupData = {
   // Step 3: Company Information (only if new)
   companyName?: string;
   companyTaxId?: string;
-  itin?: string;
   legalEntityType?: string; // e.g., AG, GmbH, LLC
   officialAddress?: string;
   billingAddress?: string; // if different from official

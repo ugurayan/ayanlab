@@ -95,7 +95,8 @@ export function Step6Dress({ formData, updateFormData, onNext, onBack, canGoBack
   const [openModal, setOpenModal] = useState<'dress-code' | 'dress-items' | 'attire' | 'grooming' | 'job-duties' | 'additional' | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const DRESS_TYPE_LABEL_KEY: Record<NonNullable<JobFormData['selectedDressType']>, string> = {
+  const DRESS_TYPE_LABEL_KEY: Record<JobFormData['selectedDressType'], string> = {
+    '': '',
     casual: 'dressCasual',
     'smart-casual': 'dressSmartCasual',
     business: 'dressOffice',
