@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 2,
+  "appCode": "staffiq",
+  "organizations": [
+    { "code": "ACME_RETAIL", "name": "Acme Retail GmbH", "description": "Mock org_acme (CH)" },
+    { "code": "ZEN_LOGISTICS", "name": "Zen Logistics AG", "description": "Mock org_zen (DE)" }
+  ],
+  "users": [
+    {
+      "email": "admin@staffiq.local",
+      "password": "Admin123!",
+      "firstName": "StaffIQ",
+      "lastName": "Admin",
+      "mobile": "+10000000005",
+      "birthDate": "1980-01-05",
+      "profileSlug": "staffiq-admin",
+      "tenancy": "PERSONAL",
+      "registrationStatus": "Approved",
+      "roles": ["PLATFORM_ADMIN", "SYSTEM_ADMIN"]
+    },
+    {
+      "email": "next.is.future@icloud.com",
+      "password": "password",
+      "firstName": "Platform",
+      "lastName": "Admin",
+      "mobile": "+10000002001",
+      "birthDate": "1985-01-01",
+      "profileSlug": "platform-admin",
+      "tenancy": "PERSONAL",
+      "registrationStatus": "Approved",
+      "roles": ["PLATFORM_ADMIN", "SYSTEM_ADMIN"]
+    },
+    {
+      "email": "admin@acme.test",
+      "password": "password",
+      "firstName": "Acme",
+      "lastName": "Admin",
+      "mobile": "+10000002002",
+      "birthDate": "1985-02-01",
+      "profileSlug": "org-admin",
+      "organizationCode": "ACME_RETAIL",
+      "registrationStatus": "Approved",
+      "roles": ["ORG_ADMIN", "BUSINESS_ADMIN"]
+    },
+    {
+      "email": "manager@acme.test",
+      "password": "password",
+      "firstName": "Site",
+      "lastName": "Manager",
+      "mobile": "+10000002003",
+      "birthDate": "1985-03-01",
+      "profileSlug": "location-manager",
+      "organizationCode": "ACME_RETAIL",
+      "registrationStatus": "Approved",
+      "roles": ["LOCATION_MANAGER", "BUSINESS_MEMBER"]
+    },
+    {
+      "email": "finance@acme.test",
+      "password": "password",
+      "firstName": "Acme",
+      "lastName": "Finance",
+      "mobile": "+10000002004",
+      "birthDate": "1985-04-01",
+      "profileSlug": "org-finance",
+      "organizationCode": "ACME_RETAIL",
+      "registrationStatus": "Approved",
+      "roles": ["ORG_FINANCE", "BUSINESS_ADMIN"]
+    },
+    {
+      "email": "agent@staffing.test",
+      "password": "password",
+      "firstName": "Staffing",
+      "lastName": "Agent",
+      "mobile": "+10000002005",
+      "birthDate": "1985-05-01",
+      "profileSlug": "agent-user",
+      "organizationCode": "ACME_RETAIL",
+      "registrationStatus": "Approved",
+      "roles": ["AGENT_USER", "STAFF"]
+    },
+    {
+      "email": "notApproved@platform.test",
+      "password": "password",
+      "firstName": "Not",
+      "lastName": "Approved",
+      "mobile": "+10000002006",
+      "birthDate": "1985-06-01",
+      "profileSlug": "worker-pending",
+      "tenancy": "PERSONAL",
+      "registrationStatus": "Pending",
+      "roles": ["WORKER"],
+      "permissionOverrides": [
+        { "code": "staffiq:workers:read", "effect": "GRANT" }
+      ]
+    }
+  ]
+}

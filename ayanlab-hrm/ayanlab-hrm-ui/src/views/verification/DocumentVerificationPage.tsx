@@ -21,10 +21,11 @@ import {
   type VerificationColumnConfig,
   type VerificationColumnId,
 } from "./columnConfig";
+import { P } from "../../security/permissions";
 
 export function DocumentVerificationPage() {
   return (
-    <RequirePermission anyOf={["960e176b-26a4-4184-a9d3-39072919518c"]}>
+    <RequirePermission anyOf={[P.verificationRead]}>
       <DocumentVerificationInner />
     </RequirePermission>
   );

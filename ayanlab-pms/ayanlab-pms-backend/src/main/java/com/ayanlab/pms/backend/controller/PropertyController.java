@@ -1,0 +1,58 @@
+package com.ayanlab.pms.backend.controller;
+
+import com.ayanlab.pms.backend.entity.rentals.Property;
+import com.ayanlab.pms.backend.service.IPropertyService;
+
+import com.ayanlab.core.annotation.ClientHeaders;
+import com.ayanlab.core.data.ClientHeadersPayload;
+import com.ayanlab.core.data.responses.ApiResponse;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/pms/api/properties")
+@Tag(name = "IPMS · PropertyController", description = "Property management (Buildium-style CRUD)")
+@RequiredArgsConstructor
+public class PropertyController extends IpmsCrudController<Property> {
+
+    private static final String BASE_PATH = "/pms/api/properties";
+    private final IPropertyService propertyService;
+
+    @Override
+    protected IPropertyService service() {
+        return propertyService;
+    }
+
+    @Override
+    protected String basePath() {
+        return BASE_PATH;
+    }
+
+    @Override
+    protected String operationPrefix() {
+        return "properties";
+    }
+
+    @Override
+    protected String entityLabel() {
+        return "Property";
+    }
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ApiResponse<List<Property>>> list(
+            @ClientHeaders ClientHeadersPayload headers) {
+        return executeList(headers, Map.of(), service()::findAll);
+    }
+
+}

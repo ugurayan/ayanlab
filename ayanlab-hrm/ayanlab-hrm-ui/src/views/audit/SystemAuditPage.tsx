@@ -5,6 +5,7 @@ import { useTranslations } from "../../state/i18n";
 import { Card, CardContent, CardHeader, CardTitle } from "../../ui/components/Card";
 import { Table, Td, Th } from "../../ui/components/Table";
 import { formatDateTime } from "../../lib/format";
+import { P } from "../../security/permissions";
 
 const TEXTS = {
   en: {
@@ -56,7 +57,7 @@ const TEXTS = {
 
 export function SystemAuditPage() {
   return (
-    <RequirePermission anyOf={["eecbbe51-6997-4b24-bdac-94a39928a9f9"]}>
+    <RequirePermission anyOf={[P.auditRead]}>
       <SystemAuditInner />
     </RequirePermission>
   );

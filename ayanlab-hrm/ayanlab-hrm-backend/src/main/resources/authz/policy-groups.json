@@ -1,0 +1,157 @@
+{
+  "schemaVersion": 2,
+  "appCode": "staffiq",
+  "policyGroups": [
+    {
+      "code": "STAFFIQ_PLATFORM_ALL",
+      "name": "Platform Full Access",
+      "description": "Every StaffIQ permission",
+      "permissions": ["staffiq:*:*"]
+    },
+    {
+      "code": "STAFFIQ_BASE",
+      "name": "Base Access",
+      "description": "Dashboard, own profile, inbox and support for every signed-in user",
+      "permissions": [
+        "staffiq:dashboard:read",
+        "staffiq:profile:read", "staffiq:profile:update",
+        "staffiq:inbox:read", "staffiq:inbox:create",
+        "staffiq:support:read", "staffiq:support:create",
+        "staffiq:settings:read"
+      ]
+    },
+    {
+      "code": "STAFFIQ_GUEST",
+      "name": "Guest Access",
+      "description": "Public job board",
+      "permissions": ["staffiq:dashboard:read", "staffiq:jobs:read"]
+    },
+    {
+      "code": "STAFFIQ_ORG_READ",
+      "name": "Organizations Read",
+      "description": "mock org:read",
+      "permissions": ["staffiq:organizations:read"]
+    },
+    {
+      "code": "STAFFIQ_ORG_MANAGE",
+      "name": "Organizations Manage",
+      "description": "mock org:read + org:write",
+      "permissions": ["staffiq:organizations:*"]
+    },
+    {
+      "code": "STAFFIQ_LOCATION_READ",
+      "name": "Locations Read",
+      "description": "mock location:read",
+      "permissions": ["staffiq:locations:read"]
+    },
+    {
+      "code": "STAFFIQ_LOCATION_MANAGE",
+      "name": "Locations Manage",
+      "description": "mock location:read + location:write",
+      "permissions": ["staffiq:locations:*"]
+    },
+    {
+      "code": "STAFFIQ_SHIFT_READ",
+      "name": "Shifts Read",
+      "description": "mock shift:read",
+      "permissions": ["staffiq:shifts:read", "staffiq:jobs:read"]
+    },
+    {
+      "code": "STAFFIQ_SHIFT_MANAGE",
+      "name": "Shifts Manage",
+      "description": "mock shift:read + shift:write (jobs and tasks included)",
+      "permissions": ["staffiq:shifts:*", "staffiq:jobs:*", "staffiq:tasks:*"]
+    },
+    {
+      "code": "STAFFIQ_RECRUITING",
+      "name": "Recruiting",
+      "description": "mock application:read + application:write",
+      "permissions": ["staffiq:applications:*"]
+    },
+    {
+      "code": "STAFFIQ_WORKFORCE_READ",
+      "name": "Workers Read",
+      "description": "mock worker:read",
+      "permissions": ["staffiq:workers:read"]
+    },
+    {
+      "code": "STAFFIQ_WORKFORCE_MANAGE",
+      "name": "Workers Manage",
+      "description": "mock worker:read + worker:write",
+      "permissions": ["staffiq:workers:*"]
+    },
+    {
+      "code": "STAFFIQ_DOCUMENT_READ",
+      "name": "Documents Read",
+      "description": "mock document:read",
+      "permissions": ["staffiq:documents:read"]
+    },
+    {
+      "code": "STAFFIQ_DOCUMENT_REVIEW",
+      "name": "Documents Review",
+      "description": "mock document:read + document:review",
+      "permissions": [
+        "staffiq:documents:read", "staffiq:documents:review",
+        "staffiq:verification:read", "staffiq:verification:review"
+      ]
+    },
+    {
+      "code": "STAFFIQ_FINANCE_READ",
+      "name": "Finance Read",
+      "description": "mock finance:read",
+      "permissions": ["staffiq:finance:read", "staffiq:transactions:read"]
+    },
+    {
+      "code": "STAFFIQ_FINANCE_MANAGE",
+      "name": "Finance Manage",
+      "description": "mock finance:read + finance:write",
+      "permissions": ["staffiq:finance:*", "staffiq:transactions:*"]
+    },
+    {
+      "code": "STAFFIQ_AUDIT_READ",
+      "name": "Audit Read",
+      "description": "mock audit:read",
+      "permissions": ["staffiq:audit:read"]
+    },
+    {
+      "code": "STAFFIQ_TAXONOMY_READ",
+      "name": "Taxonomy Read",
+      "description": "Job roles, industries, skills, certificates, document types",
+      "permissions": [
+        "staffiq:job_roles:read", "staffiq:industries:read", "staffiq:skills:read",
+        "staffiq:certificates:read", "staffiq:document_types:read"
+      ]
+    },
+    {
+      "code": "STAFFIQ_TAXONOMY_MANAGE",
+      "name": "Taxonomy Manage",
+      "description": "Maintain job roles, industries, skills, certificates, document types",
+      "permissions": [
+        "staffiq:job_roles:*", "staffiq:industries:*", "staffiq:skills:*",
+        "staffiq:certificates:*", "staffiq:document_types:*"
+      ]
+    },
+    {
+      "code": "STAFFIQ_WORKER_SELF",
+      "name": "Worker Self-Service",
+      "description": "mock WORKER: shift:read, application:write, document:read",
+      "permissions": [
+        "staffiq:shifts:read", "staffiq:jobs:read",
+        "staffiq:applications:read", "staffiq:applications:create", "staffiq:applications:update",
+        "staffiq:documents:read", "staffiq:documents:create"
+      ]
+    },
+    {
+      "code": "STAFFIQ_SUBSCRIPTION_MANAGE",
+      "name": "Subscriptions Manage",
+      "description": "Organization subscription management",
+      "permissions": ["staffiq:subscriptions:*"]
+    },
+    {
+      "code": "STAFFIQ_RIDES",
+      "name": "Rideshare",
+      "description": "Book rides and view routes",
+      "permissions": ["staffiq:rides:*", "staffiq:routes:read"]
+    }
+  ]
+}

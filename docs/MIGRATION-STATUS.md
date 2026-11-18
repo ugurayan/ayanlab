@@ -16,7 +16,7 @@
 | App | `App` | Same |
 | User, UserType, Role, Permission, Module, Organization | Same names | Profile-centric extensions added |
 | UserRoles, UserPermissions, … | `ProfileRole`, `ProfilePermission`, … | **Redesigned** — do not recreate join tables |
-| AppUsers, AppRoles, … | `ApplicationRole`, `ApplicationPermission`, `OrganizationUser`, … | App/org scope |
+| AppUsers, AppRoles, … | `Role.appId`, `ApplicationPermission`, `OrganizationUser`, … | App/org scope |
 | EmailTemplate | `NotificationTemplate` | Unified templates |
 | TwilioSms | `TwilioSmsLog` | Outbound SMS audit |
 | PasswordHistory, LoginHistory, Translation, LogError, IpLog | Same (added) | Services + auth hooks |

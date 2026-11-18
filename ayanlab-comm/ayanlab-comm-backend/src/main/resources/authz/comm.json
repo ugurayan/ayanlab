@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 2,
+  "appCode": "comm",
+  "resources": [
+    {
+      "code": "dashboard",
+      "module": "dashboard",
+      "name": "Dashboard",
+      "actions": [
+        "read"
+      ]
+    },
+    {
+      "code": "settings",
+      "module": "settings",
+      "name": "Settings",
+      "actions": [
+        "read",
+        "update",
+        "manage"
+      ]
+    },
+    {
+      "code": "subscriptions",
+      "module": "subscriptions",
+      "name": "Subscriptions",
+      "actions": [
+        "read",
+        "manage"
+      ]
+    }
+  ],
+  "policyGroups": [
+    {
+      "code": "COMM_ROLE_ADMIN",
+      "name": "Administrator Permissions",
+      "description": "COMM full access for role ADMIN",
+      "permissions": [
+        "comm:*:*"
+      ]
+    },
+    {
+      "code": "COMM_BASE",
+      "name": "Base Access",
+      "description": "Dashboard and settings for every signed-in user",
+      "permissions": [
+        "comm:dashboard:read",
+        "comm:settings:read"
+      ]
+    }
+  ],
+  "roles": [
+    {
+      "code": "ADMIN",
+      "name": "Administrator",
+      "description": "Full access",
+      "policyGroups": [
+        "COMM_ROLE_ADMIN"
+      ]
+    },
+    {
+      "code": "USER",
+      "name": "User",
+      "description": "Regular user",
+      "policyGroups": [
+        "COMM_BASE"
+      ]
+    }
+  ]
+}

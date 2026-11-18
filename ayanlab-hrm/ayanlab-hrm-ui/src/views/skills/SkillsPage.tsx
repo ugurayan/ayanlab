@@ -18,6 +18,7 @@ import {
   type SkillColumnId,
 } from './columnConfig';
 import { Columns2 } from 'lucide-react';
+import { P } from "../../security/permissions";
 
 export function SkillsPage() {
   const [page, setPage] = useState(0);
@@ -122,7 +123,7 @@ export function SkillsPage() {
               <Columns2 size={18} />
               Columns
             </Button>
-            {has('shift:read') && (
+            {has(P.skillsCreate) && (
               <Button onClick={handleCreateNew}>
                 + Add New Skill
               </Button>

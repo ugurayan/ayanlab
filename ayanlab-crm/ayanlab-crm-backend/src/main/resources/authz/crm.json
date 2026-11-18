@@ -1,0 +1,285 @@
+{
+  "schemaVersion": 2,
+  "appCode": "crm",
+  "resources": [
+    {
+      "code": "dashboard",
+      "module": "dashboard",
+      "name": "Dashboard",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "clients",
+      "module": "clients",
+      "name": "Clients",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "contacts",
+      "module": "contacts",
+      "name": "Contacts",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "opportunities",
+      "module": "opportunities",
+      "name": "Opportunities",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "invoices",
+      "module": "invoices",
+      "name": "Invoices",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "accounting",
+      "module": "accounting",
+      "name": "Accounting",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "reports",
+      "module": "reports",
+      "name": "Reports",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "communication",
+      "module": "communication",
+      "name": "Communication",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "files",
+      "module": "files",
+      "name": "Files",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "settings",
+      "module": "settings",
+      "name": "Settings",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "users",
+      "module": "users",
+      "name": "Users",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "roles",
+      "module": "roles",
+      "name": "Roles",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "subscriptions",
+      "module": "subscriptions",
+      "name": "Subscriptions",
+      "actions": [
+        "read",
+        "manage"
+      ]
+    }
+  ],
+  "policyGroups": [
+    {
+      "code": "CRM_ROLE_ADMIN",
+      "name": "Administrator Permissions",
+      "description": "CRM full access for role ADMIN",
+      "permissions": [
+        "crm:*:*"
+      ]
+    },
+    {
+      "code": "CRM_ACCOUNTING_READ",
+      "name": "CRM Accounting Read",
+      "permissions": [
+        "crm:accounting:read",
+        "crm:invoices:read",
+        "crm:clients:read"
+      ]
+    },
+    {
+      "code": "CRM_ROLE_ORGANIZATION_ADMINISTRATOR",
+      "name": "Organization Administrator Permissions",
+      "description": "CRM permission matrix for role ORGANIZATION_ADMINISTRATOR",
+      "permissions": [
+        "crm:*:*"
+      ]
+    },
+    {
+      "code": "CRM_ROLE_SYSTEM_ADMINISTRATOR",
+      "name": "System Administrator Permissions",
+      "description": "CRM permission matrix for role SYSTEM_ADMINISTRATOR",
+      "permissions": [
+        "crm:*:*"
+      ]
+    },
+    {
+      "code": "CRM_ROLE_VENDOR",
+      "name": "Vendor (Personal) Permissions",
+      "description": "CRM permission matrix for role VENDOR",
+      "permissions": [
+        "crm:dashboard:read",
+        "crm:clients:read",
+        "crm:contacts:read",
+        "crm:invoices:read",
+        "crm:files:read"
+      ]
+    },
+    {
+      "code": "CRM_ROLE_VIEWER",
+      "name": "Viewer (Read Only) Permissions",
+      "description": "CRM permission matrix for role VIEWER",
+      "permissions": [
+        "crm:dashboard:read",
+        "crm:clients:read",
+        "crm:contacts:read",
+        "crm:reports:read",
+        "crm:settings:read"
+      ]
+    }
+  ],
+  "roles": [
+    {
+      "code": "ADMIN",
+      "name": "Administrator",
+      "description": "Full access",
+      "policyGroups": [
+        "CRM_ROLE_ADMIN",
+        "CRM_ACCOUNTING_READ"
+      ]
+    },
+    {
+      "code": "ORGANIZATION_ADMINISTRATOR",
+      "name": "Organization Administrator",
+      "description": "Full access to organization data, users, and settings",
+      "policyGroups": [
+        "CRM_ROLE_ORGANIZATION_ADMINISTRATOR"
+      ]
+    },
+    {
+      "code": "SYSTEM_ADMINISTRATOR",
+      "name": "System Administrator",
+      "description": "Full system access with ability to manage all organizations and system settings",
+      "policyGroups": [
+        "CRM_ROLE_SYSTEM_ADMINISTRATOR"
+      ]
+    },
+    {
+      "code": "VENDOR",
+      "name": "Vendor (Personal)",
+      "description": "Personal vendor account without company affiliation",
+      "policyGroups": [
+        "CRM_ROLE_VENDOR"
+      ]
+    },
+    {
+      "code": "VIEWER",
+      "name": "Viewer (Read Only)",
+      "description": "Read-only access to permitted modules (legacy alias toward SYSTEM_USER)",
+      "policyGroups": [
+        "CRM_ROLE_VIEWER"
+      ]
+    }
+  ]
+}

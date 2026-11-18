@@ -4,7 +4,7 @@ set -euo pipefail
 TARGET="$1"
 SERVICE_NAME="$2"
 SERVER_PORT="$3"
-PACKAGE_PATH="$4"  # e.g. com.ayanlabs.auth
+PACKAGE_PATH="$4"  # e.g. com.ayanlab.auth
 
 mkdir -p "${TARGET}/src/main/java/${PACKAGE_PATH//.//}" \
          "${TARGET}/src/main/resources" \
@@ -25,7 +25,7 @@ plugins {
     id("io.spring.dependency-management") version "1.1.7"
 }
 
-group = "com.ayanlabs"
+group = "com.ayanlab"
 version = "0.1.0-SNAPSHOT"
 
 java {

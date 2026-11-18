@@ -18,6 +18,7 @@ import {
   type DocumentTypeColumnId,
 } from './columnConfig';
 import { Columns2 } from 'lucide-react';
+import { P } from "../../security/permissions";
 
 export function DocumentTypesPage() {
   const [page, setPage] = useState(0);
@@ -131,7 +132,7 @@ export function DocumentTypesPage() {
               <Columns2 size={18} />
               Columns
             </Button>
-            {has('shift:read') && (
+            {has(P.documentTypesCreate) && (
               <Button onClick={handleCreateNew}>
                 + Add New Document Type
               </Button>

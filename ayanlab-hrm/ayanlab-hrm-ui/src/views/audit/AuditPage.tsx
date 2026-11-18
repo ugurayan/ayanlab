@@ -5,10 +5,11 @@ import { useAudit } from "../../data/hooks";
 import { RequirePermission } from "../../router/guards";
 import { formatDateTime } from "../../lib/format";
 import { useTranslations } from "../../state/i18n";
+import { P } from "../../security/permissions";
 
 export function AuditPage() {
   return (
-    <RequirePermission anyOf={["eecbbe51-6997-4b24-bdac-94a39928a9f9"]}>
+    <RequirePermission anyOf={[P.auditRead]}>
       <AuditInner />
     </RequirePermission>
   );

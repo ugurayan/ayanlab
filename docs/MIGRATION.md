@@ -47,8 +47,8 @@ docker build -f docker/Dockerfile.backend \
 
 ## Component scan rules
 
-- **core:** full `com.ayanlabs` (core REST + platform admin).
-- **auth / apps:** `core` services + `security` + product package; **excludes** `com.ayanlabs.core.controller.*` to avoid duplicating core HTTP APIs on every service.
+- **core:** full `com.ayanlab` (core REST + platform admin).
+- **auth / apps:** `core` services + `security` + product package; **excludes** `com.ayanlab.core.controller.*` to avoid duplicating core HTTP APIs on every service.
 
 ## Next steps
 

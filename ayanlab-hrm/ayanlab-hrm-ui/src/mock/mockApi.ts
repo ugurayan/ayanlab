@@ -16,7 +16,7 @@ export async function mockLogin(email: string, password: string): Promise<AuthSe
   }
   const user: User = {
     ...rec.user,
-    permissions: computePermissions(rec.user.roles)
+    permissions: [...new Set([...rec.user.permissions, ...computePermissions(rec.user.roles)])]
   };
   return { accessToken: token(), user };
 }

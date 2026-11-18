@@ -3,6 +3,7 @@ import { RequirePermission } from "../../router/guards";
 import { useUserAudit } from "../../data/hooks";
 import { useTranslations } from "../../state/i18n";
 import { AuditLogTable } from "./AuditLogTable";
+import { P } from "../../security/permissions";
 
 const TEXTS = {
   en: {
@@ -51,7 +52,7 @@ const TEXTS = {
 
 export function UserAuditPage() {
   return (
-    <RequirePermission anyOf={["eecbbe51-6997-4b24-bdac-94a39928a9f9"]}>
+    <RequirePermission anyOf={[P.auditRead]}>
       <UserAuditInner />
     </RequirePermission>
   );

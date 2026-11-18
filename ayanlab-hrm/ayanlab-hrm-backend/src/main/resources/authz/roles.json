@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 2,
+  "appCode": "staffiq",
+  "roles": [
+    {
+      "code": "ADMIN",
+      "name": "Administrator",
+      "description": "Full access",
+      "policyGroups": ["STAFFIQ_PLATFORM_ALL"]
+    },
+    {
+      "code": "PLATFORM_ADMIN",
+      "name": "Platform Admin",
+      "description": "HRM platform administrator",
+      "policyGroups": ["STAFFIQ_PLATFORM_ALL"]
+    },
+    {
+      "code": "ORG_ADMIN",
+      "name": "Org Admin",
+      "description": "HRM organization administrator",
+      "policyGroups": [
+        "STAFFIQ_BASE", "STAFFIQ_ORG_MANAGE", "STAFFIQ_LOCATION_MANAGE", "STAFFIQ_SHIFT_MANAGE",
+        "STAFFIQ_RECRUITING", "STAFFIQ_WORKFORCE_READ", "STAFFIQ_DOCUMENT_REVIEW", "STAFFIQ_FINANCE_READ",
+        "STAFFIQ_AUDIT_READ", "STAFFIQ_TAXONOMY_READ", "STAFFIQ_SUBSCRIPTION_MANAGE"
+      ]
+    },
+    {
+      "code": "ORG_FINANCE",
+      "name": "Org Finance",
+      "description": "HRM finance",
+      "policyGroups": ["STAFFIQ_BASE", "STAFFIQ_FINANCE_MANAGE", "STAFFIQ_ORG_READ", "STAFFIQ_AUDIT_READ"]
+    },
+    {
+      "code": "LOCATION_MANAGER",
+      "name": "Location Manager",
+      "description": "HRM location manager",
+      "policyGroups": [
+        "STAFFIQ_BASE", "STAFFIQ_LOCATION_READ", "STAFFIQ_SHIFT_MANAGE", "STAFFIQ_RECRUITING",
+        "STAFFIQ_WORKFORCE_READ", "STAFFIQ_DOCUMENT_READ", "STAFFIQ_TAXONOMY_READ"
+      ]
+    },
+    {
+      "code": "RECRUITER",
+      "name": "Recruiter",
+      "description": "HRM recruiter",
+      "policyGroups": [
+        "STAFFIQ_BASE", "STAFFIQ_SHIFT_MANAGE", "STAFFIQ_RECRUITING", "STAFFIQ_WORKFORCE_READ",
+        "STAFFIQ_DOCUMENT_READ", "STAFFIQ_TAXONOMY_READ"
+      ]
+    },
+    {
+      "code": "WORKER",
+      "name": "Worker",
+      "description": "HRM worker",
+      "policyGroups": ["STAFFIQ_BASE", "STAFFIQ_WORKER_SELF", "STAFFIQ_TAXONOMY_READ"]
+    },
+    {
+      "code": "AGENT_ADMIN",
+      "name": "Agent Admin",
+      "description": "HRM staffing agency administrator",
+      "policyGroups": [
+        "STAFFIQ_BASE", "STAFFIQ_ORG_MANAGE", "STAFFIQ_SHIFT_MANAGE", "STAFFIQ_RECRUITING",
+        "STAFFIQ_WORKFORCE_READ", "STAFFIQ_DOCUMENT_READ", "STAFFIQ_AUDIT_READ", "STAFFIQ_TAXONOMY_READ"
+      ]
+    },
+    {
+      "code": "AGENT_USER",
+      "name": "Agent User",
+      "description": "HRM staffing agent",
+      "policyGroups": [
+        "STAFFIQ_BASE", "STAFFIQ_ORG_READ", "STAFFIQ_SHIFT_MANAGE", "STAFFIQ_RECRUITING",
+        "STAFFIQ_WORKFORCE_READ", "STAFFIQ_DOCUMENT_READ", "STAFFIQ_TAXONOMY_READ"
+      ]
+    },
+    {
+      "code": "VENDOR_USER",
+      "name": "Vendor User",
+      "description": "HRM document / verification vendor",
+      "policyGroups": ["STAFFIQ_BASE", "STAFFIQ_DOCUMENT_REVIEW"]
+    },
+    {
+      "code": "RIDER",
+      "name": "Rider",
+      "description": "Rideshare user",
+      "policyGroups": ["STAFFIQ_BASE", "STAFFIQ_RIDES"]
+    },
+    {
+      "code": "SYSTEM_ADMIN",
+      "name": "System Admin",
+      "description": "Main role 4a3207bf-cc00-46db-8db7-42e8d9568b8b (dashboard persona)",
+      "policyGroups": ["STAFFIQ_BASE"]
+    },
+    {
+      "code": "STAFF",
+      "name": "Staff",
+      "description": "Main role a0fdb0b8-a079-4315-ae21-31e68cd80778 (dashboard persona)",
+      "policyGroups": ["STAFFIQ_BASE"]
+    },
+    {
+      "code": "BUSINESS_ADMIN",
+      "name": "Business Admin",
+      "description": "Main role 4b029d24-e658-4a65-8d76-ddbc2627a05c (dashboard persona)",
+      "policyGroups": ["STAFFIQ_BASE"]
+    },
+    {
+      "code": "BUSINESS_MEMBER",
+      "name": "Business Member",
+      "description": "Main role 055978b5-7e39-494d-9725-a0dca32dda6c (dashboard persona)",
+      "policyGroups": ["STAFFIQ_BASE"]
+    },
+    {
+      "code": "EMPLOYER",
+      "name": "Employer",
+      "description": "Main role b0633699-641c-47c5-89c6-6a88f7d83754 (dashboard persona)",
+      "policyGroups": ["STAFFIQ_BASE"]
+    },
+    {
+      "code": "GUEST",
+      "name": "Guest",
+      "description": "Main role e0cd0911-c905-436e-b729-6e9be593f4dd (dashboard persona)",
+      "policyGroups": ["STAFFIQ_GUEST"]
+    }
+  ]
+}

@@ -1,8 +1,0 @@
-package com.ayanlabs.propertymgmt.data.enums;
-
-public enum MaintenanceStatusEnum {
-    OPEN,
-    IN_PROGRESS,
-    COMPLETED,
-    CANCELLED
-}

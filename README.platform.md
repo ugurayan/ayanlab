@@ -7,7 +7,7 @@ Tüm ürünlerin paylaştığı **platform**: uygulama kataloğu, RBAC, abonelik
 ### Platform & tenancy
 
 - **App** — `code`, `apiBasePath`, `subscriptionMode`, `multiTenantEnabled`, `moduleAuthEnabled`
-- **Module**, **ApplicationModule**, **ApplicationRole**, **ApplicationPermission**
+- **Module**, **ApplicationModule**, **ApplicationPermission** (rolün app'i `Role.appId`)
 - **Organization**, **OrganizationUser**, org detayları
 - **UserProfile** — çok profilli model (`profileSlug`, `tenancy`, `primaryUserTypeId`)
 - **UserDetail** — profil başına key/value ek alanlar (app özel veri User’dan ayrı)
@@ -17,7 +17,12 @@ Tüm ürünlerin paylaştığı **platform**: uygulama kataloğu, RBAC, abonelik
 - **Role**, **Permission**, **PolicyGroup**, join tabloları
 - **ProfileRole**, **ProfilePermission**, **ProfilePolicyGroup**
 - **AuthorizationResolverService** → `EffectiveAuthorization`
-- Seed: `authorization-catalog.json`, `permission-catalog.json`, `apps-catalog.json`
+- Permission kodu: `{app}:{resource}:{action}`; grant'larda `*` (ör. `staffiq:shifts:*`, `ipms:*:*`)
+- Rol'ler app-scoped (`Role.appId`)
+- Rol → PolicyGroup → Permission tek yol; doğrudan rol izni (`RolePermission`) ve `ApplicationRole` kaldırıldı. Eski tablolar açılış migrasyonunda `*_legacy` olarak yeniden adlandırılır (silinmez).
+- Seed: `db/authz/{core,ipms}.json` (catalog v2), `apps-catalog.json`
+- App-owned catalog: HRM, CRM, Vault, Booking, Comm `src/main/resources/authz/*.json` dosyalarını açılışta `POST /core/api/internal/authorization-catalogs` ile yayınlar (header `X-Internal-Token` = `PLATFORM_INTERNAL_TOKEN`; kapatmak için `AUTHZ_CATALOG_PUBLISH=false`)
+- Token iptali: `App.authzVersion` / `UserProfile.authzVersion` yetki değişiminde artar; token `av` claim'i eskiyse istek yetkisiz işlenir ve yanıtta `X-Authz-Stale: true` döner (istemci `/auth/api/refresh` çağırır). App backend'leri `GET /core/api/internal/authz-versions` ile kontrol eder (`AUTHZ_VERSION_CHECK_MODE=remote`)
 
 ### Subscription & billing
 

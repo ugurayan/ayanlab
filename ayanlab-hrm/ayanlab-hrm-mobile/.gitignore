@@ -18,8 +18,6 @@ coverage/
 
 # Generated platform folders are produced by `flutter create .` in the
 # scaffold script; keep them out of history for template consistency.
-android/
-ios/
 .dart_tool/
 
 # Generated localizations (flutter gen-l10n)

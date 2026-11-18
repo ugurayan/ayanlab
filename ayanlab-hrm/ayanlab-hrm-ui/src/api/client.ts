@@ -1,5 +1,5 @@
-import axios from "axios";
-import { getToken } from "../state/authStorage";
+import axios, { type AxiosResponse, type InternalAxiosRequestConfig } from "axios";
+import { getToken, setToken, setUser } from "../state/authStorage";
 
 /** HRM product API (mock or ayanlab-hrm-backend). */
 export const apiBaseUrl = import.meta.env.VITE_API_BASE_URL ?? "http://localhost:8104/hrm/api";
@@ -53,3 +53,60 @@ authHttp.interceptors.request.use((config) => {
   config.headers["X-Correlation-Id"] = correlationId();
   return config;
 });
+
+/** Sent by the backend when the access token predates a role/permission change. */
+const AUTHZ_STALE_HEADER = "x-authz-stale";
+export const AUTH_USER_REFRESHED_EVENT = "staffiq:auth-user-refreshed";
+
+let refreshInFlight: Promise<boolean> | null = null;
+
+/** Exchanges the refresh token for a token with current permissions and reloads the user. */
+function refreshAuthorization(): Promise<boolean> {
+  if (refreshInFlight) return refreshInFlight;
+  refreshInFlight = (async () => {
+    const refreshToken = localStorage.getItem("refreshToken");
+    if (!refreshToken) return false;
+    try {
+      const res = await axios.post(
+        `${authApiBaseUrl}/auth/api/refresh`,
+        { refreshToken },
+        { headers: { "X-App-Id": appId, "X-Client-Type": "Web", "X-Correlation-Id": correlationId() } }
+      );
+      const data = res.data?.data ?? res.data;
+      if (!data?.accessToken) return false;
+      setToken(data.accessToken);
+      if (data.refreshToken) localStorage.setItem("refreshToken", data.refreshToken);
+      const { apiMe } = await import("./services/auth");
+      setUser(await apiMe());
+      window.dispatchEvent(new Event(AUTH_USER_REFRESHED_EVENT));
+      return true;
+    } catch {
+      return false;
+    }
+  })().finally(() => {
+    refreshInFlight = null;
+  });
+  return refreshInFlight;
+}
+
+type RetriableConfig = InternalAxiosRequestConfig & { _authzRetried?: boolean };
+
+for (const instance of [http, authHttp]) {
+  const retryIfStale = async (response: AxiosResponse | undefined): Promise<AxiosResponse | null> => {
+    const config = response?.config as RetriableConfig | undefined;
+    if (!response || !config || config._authzRetried || response.headers[AUTHZ_STALE_HEADER] !== "true") {
+      return null;
+    }
+    if (!(await refreshAuthorization())) return null;
+    config._authzRetried = true;
+    return instance.request(config);
+  };
+  instance.interceptors.response.use(
+    async (response) => (await retryIfStale(response)) ?? response,
+    async (error) => {
+      const retried = await retryIfStale(error?.response);
+      if (retried) return retried;
+      throw error;
+    }
+  );
+}

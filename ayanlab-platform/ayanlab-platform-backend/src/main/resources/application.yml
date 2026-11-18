@@ -116,6 +116,8 @@ server:
 
 # Unified platform: auth + business APIs, single DB (ayanlab_platform / schema core)
 platform:
+  # Shared secret for service-to-service calls (app catalogs → /core/api/internal/**). Empty = disabled.
+  internal-token: ${PLATFORM_INTERNAL_TOKEN:}
   db:
     seed:
       surface: platform

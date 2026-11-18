@@ -1,0 +1,10 @@
+package com.ayanlab.pms.backend.repository;
+
+import com.ayanlab.pms.backend.entity.leasing.Listing;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface ListingRepository extends IpmsOrgRepository<Listing, java.util.UUID> {
+    java.util.List<Listing> findByOrganizationIdAndPropertyIdAndIsActiveTrueOrderByUpdatedAtDesc(
+            java.util.UUID organizationId, java.util.UUID propertyId);
+}

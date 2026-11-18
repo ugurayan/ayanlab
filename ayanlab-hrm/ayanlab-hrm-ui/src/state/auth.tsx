@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useMemo, useState, useEffect, useCallback } from "react";
 import type { AuthSession, Permission, User } from "../types/auth";
 import { clearAuth, setToken, setUser, getUser, getToken } from "./authStorage";
-import { computePermissions } from "../security/permissions";
+import { hasPermission } from "../security/permissions";
+import { AUTH_USER_REFRESHED_EVENT } from "../api/client";
 
 type AuthCtx = {
   user: User | null;
@@ -52,12 +53,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         import("../api/services/auth")
           .then((m) => m.apiMe())
           .then((freshUser) => {
-            const normalized: User = {
-              ...freshUser,
-              permissions: freshUser.permissions?.length ? freshUser.permissions : computePermissions(freshUser.roles)
-            };
-            setUserState(normalized);
-            setUser(normalized);
+            setUserState(freshUser);
+            setUser(freshUser);
           })
           .catch(() => {
             // Token invalid, clear auth (but don't block render)
@@ -82,17 +79,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     // Store token
     setToken(session.accessToken);
 
-    // HRM UI uses string role codes (PLATFORM_ADMIN, …); always derive local permissions.
-    const normalized: User = {
-      ...session.user,
-      permissions: session.user.permissions?.length
-        ? session.user.permissions
-        : computePermissions(session.user.roles)
-    };
-
-    // Store user data
-    setUser(normalized);
-    setUserState(normalized);
+    setUser(session.user);
+    setUserState(session.user);
   }, []);
 
   const logout = useCallback(() => {
@@ -100,9 +88,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setUserState(null);
   }, []);
 
-  const has = useCallback((p: Permission) => {
-    return permissions.has(p);
-  }, [permissions]);
+  const has = useCallback((p: Permission) => hasPermission(permissions, p), [permissions]);
+
+  useEffect(() => {
+    const reload = () => setUserState(getUser());
+    window.addEventListener(AUTH_USER_REFRESHED_EVENT, reload);
+    return () => window.removeEventListener(AUTH_USER_REFRESHED_EVENT, reload);
+  }, []);
 
   const value: AuthCtx = useMemo(() => ({
     user,

@@ -1,0 +1,317 @@
+{
+  "schemaVersion": 2,
+  "appCode": "core",
+  "resources": [
+    {
+      "code": "bank_accounts",
+      "module": "bank_accounts",
+      "name": "Bank Accounts",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "search",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "bank_cards",
+      "module": "bank_cards",
+      "name": "Bank Cards",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "search",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "payments",
+      "module": "payments",
+      "name": "Payments",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "search",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "invoices",
+      "module": "invoices",
+      "name": "Invoices",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "search",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "subscriptions",
+      "module": "subscriptions",
+      "name": "Subscriptions",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "search",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "transactions",
+      "module": "transactions",
+      "name": "Transactions",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "search",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "files",
+      "module": "files",
+      "name": "Files",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "search",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "templates",
+      "module": "templates",
+      "name": "Templates",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "search",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "admin",
+      "module": "admin",
+      "name": "Admin",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "search",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "users",
+      "module": "users",
+      "name": "Users",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "search",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "roles",
+      "module": "roles",
+      "name": "Roles",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "search",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "permissions",
+      "module": "permissions",
+      "name": "Permissions",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "search",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "approvals",
+      "module": "approvals",
+      "name": "Approvals",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "search",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "email",
+      "module": "email",
+      "name": "Email",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "search",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "policies",
+      "module": "policies",
+      "name": "Policies",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "search",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "profiles",
+      "module": "profiles",
+      "name": "Profiles",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "search",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "apps",
+      "module": "apps",
+      "name": "Apps",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "search",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "organizations",
+      "module": "organizations",
+      "name": "Organizations",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "search",
+        "export",
+        "import"
+      ]
+    }
+  ],
+  "policyGroups": [
+    {
+      "code": "CORE_ROLE_ADMIN",
+      "name": "Administrator Permissions",
+      "description": "CORE full access for role ADMIN",
+      "permissions": [
+        "core:*:*"
+      ]
+    },
+    {
+      "code": "CORE_ADMIN_FULL",
+      "name": "Core Admin Full Access",
+      "description": "Full core administration permissions",
+      "permissions": [
+        "core:users:read",
+        "core:users:create",
+        "core:users:update",
+        "core:users:delete",
+        "core:roles:read",
+        "core:policies:read",
+        "core:policies:manage"
+      ]
+    }
+  ],
+  "roles": [
+    {
+      "code": "ADMIN",
+      "name": "Administrator",
+      "description": "Full access",
+      "policyGroups": [
+        "CORE_ROLE_ADMIN",
+        "CORE_ADMIN_FULL"
+      ]
+    },
+    {
+      "code": "USER",
+      "name": "User",
+      "description": "Regular user",
+      "policyGroups": []
+    }
+  ]
+}

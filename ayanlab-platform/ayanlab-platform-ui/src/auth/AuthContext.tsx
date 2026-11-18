@@ -7,7 +7,7 @@ import {
   useState,
   type ReactNode,
 } from "react";
-import { apiRequest } from "../api/client";
+import { apiRequest, SESSION_REFRESHED_EVENT } from "../api/client";
 import type { ApiResponse, CurrentSession, TokenResponse } from "../api/types";
 import { clientHeaders } from "../api/headers";
 import { correlationId } from "../api/headers";
@@ -34,6 +34,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [me, setMe] = useState<CurrentSession | null>(null);
 
   const refresh = useCallback(() => setSession(getSession()), []);
+
+  useEffect(() => {
+    window.addEventListener(SESSION_REFRESHED_EVENT, refresh);
+    return () => window.removeEventListener(SESSION_REFRESHED_EVENT, refresh);
+  }, [refresh]);
 
   const login = useCallback(async (appId: string, appKey: string, email: string, password: string) => {
     const res = await fetch("/auth/api/login", {

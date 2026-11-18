@@ -11,7 +11,7 @@
         <relativePath/>
     </parent>
 
-    <groupId>com.ayanlabs</groupId>
+    <groupId>com.ayanlab</groupId>
     <artifactId>ayanlab-comm-backend</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <name>ayanlab-comm-backend</name>
@@ -22,7 +22,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.ayanlabs</groupId>
+            <groupId>com.ayanlab</groupId>
             <artifactId>ayanlab-platform-core</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
@@ -59,7 +59,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <mainClass>com.ayanlabs.comm.CommBackendApplication</mainClass>
+                    <mainClass>com.ayanlab.comm.backend.CommBackendApplication</mainClass>
                 </configuration>
             </plugin>
             <plugin>

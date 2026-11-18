@@ -8,7 +8,7 @@
 
 **Tech Stack:** Java 21, Spring Boot 3.3.5, Spring Data JPA (Hibernate `ddl-auto: update`, no Flyway), Spring AOP, JJWT, Jackson, JUnit 5.
 
-**Status (2026-11-18):** Phase 1 and Phase 2 (Tasks 1–8) are implemented. The platform builds and its tests pass, and the HRM backend builds and its catalog tests pass. Not yet verified against a running database: the startup migration (`AuthorizationModelMigration`) and the publish from HRM to the platform. Phase 3 is open.
+**Status (2026-11-18):** Phases 1–3 are implemented. The platform builds and its tests pass. The HRM, CRM, Vault, Booking and Comm backends build and their catalog tests pass. Both UIs typecheck and build. Not yet verified against a running database: the startup migration (`AuthorizationModelMigration`), the catalog publish from the apps, and the `authzVersion` check. PMS still does not compile (pre-existing), so its catalog stays in the platform (`db/authz/ipms.json`).
 
 ## Global Constraints
 
@@ -190,10 +190,13 @@ The aspects currently live in `ayanlab-platform-backend`. App backends only depe
 
 ---
 
-## Phase 3 (follow-up, not in this change)
+## Phase 3: Cleanup, app-owned catalogs, token invalidation
 
-- Remove `RolePermission` from the resolver once admin UIs only use policy groups.
-- Remove `ApplicationRole` (and its controller) after the platform UI shows `Role.appId` directly.
-- Have the HRM UI use backend permission codes (`staffiq:shifts:read`) instead of client-side `computePermissions` and the UUID nav permissions.
-- Publisher for CRM / Vault / PMS / Booking / Comm (move their sections out of `db/authz/` into each app).
-- `authzVersion` claim to invalidate tokens after role or policy changes.
+- **`RolePermission` removed.** The resolver reads roles → policy groups → permissions only. On startup, `AuthorizationModelMigration` converts each role's direct grants into a policy group `{APP}_ROLE_{CODE}_DIRECT` (org roles get an `_{roleId[0..8]}` suffix) and renames the table to `RolePermission_legacy`.
+- **`ApplicationRole` removed**, together with its controller. A role's app is `Role.appId`, and the platform UI shows it in the roles list. The table is renamed to `ApplicationRole_legacy` after global roles have been split per app.
+- **The HRM UI uses backend codes.** The login and `/me` responses supply `permissionCodes`, and `has()` matches wildcards like the backend (`implies`). Navigation and page guards use `staffiq:{resource}:{action}`. `computePermissions` remains only for mock mode and mirrors `authz/roles.json`.
+- **App-owned catalogs.** CRM, Vault, Booking and Comm keep `src/main/resources/authz/{code}.json` and publish it on startup (`AUTHZ_CATALOG_PUBLISH`, default `true`). PMS is still pending: see the status above.
+- **`authzVersion`.**
+  - `App.authzVersion` and `UserProfile.authzVersion` are bumped after commit, whenever a role, policy group, permission or profile grant changes (`AuthzChangeListener` → `AuthzVersionService`).
+  - The token carries `av = "{app}.{profile}"`. When it no longer matches, the request runs unauthenticated and the response has `X-Authz-Stale: true`. Both UIs then call `/auth/api/refresh` once and retry.
+  - Apps check through `GET /core/api/internal/authz-versions` with `X-Internal-Token` (`AUTHZ_VERSION_CHECK_MODE=remote`, 30 s cache). If the platform is unreachable, the check fails open. Tokens without `av` are accepted.

@@ -135,7 +135,7 @@ export const mockUsers: Record<string, { password: string; user: User }> = {
       displayName: "Not Approved User",
       // Technical role + main role: Worker
       roles: ["WORKER", "9c2b8be8-bdec-4484-96b6-a2145b654b4d"],
-      permissions: ["worker:read", "shift:read"],
+      permissions: ["staffiq:workers:read"],
       scope: {},
       profileApproved: false
     }

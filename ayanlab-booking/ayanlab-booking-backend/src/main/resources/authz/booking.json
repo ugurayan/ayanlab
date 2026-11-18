@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 2,
+  "appCode": "booking",
+  "resources": [
+    {
+      "code": "dashboard",
+      "module": "dashboard",
+      "name": "Dashboard",
+      "actions": [
+        "read"
+      ]
+    },
+    {
+      "code": "settings",
+      "module": "settings",
+      "name": "Settings",
+      "actions": [
+        "read",
+        "update",
+        "manage"
+      ]
+    },
+    {
+      "code": "subscriptions",
+      "module": "subscriptions",
+      "name": "Subscriptions",
+      "actions": [
+        "read",
+        "manage"
+      ]
+    }
+  ],
+  "policyGroups": [
+    {
+      "code": "BOOKING_ROLE_ADMIN",
+      "name": "Administrator Permissions",
+      "description": "BOOKING full access for role ADMIN",
+      "permissions": [
+        "booking:*:*"
+      ]
+    },
+    {
+      "code": "BOOKING_BASE",
+      "name": "Base Access",
+      "description": "Dashboard and settings for every signed-in user",
+      "permissions": [
+        "booking:dashboard:read",
+        "booking:settings:read"
+      ]
+    }
+  ],
+  "roles": [
+    {
+      "code": "ADMIN",
+      "name": "Administrator",
+      "description": "Full access",
+      "policyGroups": [
+        "BOOKING_ROLE_ADMIN"
+      ]
+    },
+    {
+      "code": "USER",
+      "name": "User",
+      "description": "Regular user",
+      "policyGroups": [
+        "BOOKING_BASE"
+      ]
+    }
+  ]
+}

@@ -9,6 +9,7 @@ import { RequirePermission } from "../../router/guards";
 import { formatDateTime } from "../../lib/format";
 import { useTranslations } from "../../state/i18n";
 import { TEXTS } from "./i18n";
+import { P } from "../../security/permissions";
 
 function statusTone(s: string) {
   switch (s) {
@@ -21,7 +22,7 @@ function statusTone(s: string) {
 
 export function ShiftsPage() {
   return (
-    <RequirePermission anyOf={["c5d6e7f8-a9b0-1234-5678-234567890abc"]}>
+    <RequirePermission anyOf={[P.shiftsRead]}>
       <ShiftsInner />
     </RequirePermission>
   );

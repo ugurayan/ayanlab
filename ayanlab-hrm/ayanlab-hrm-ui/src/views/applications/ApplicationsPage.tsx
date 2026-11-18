@@ -6,6 +6,7 @@ import { useApplications } from "../../data/hooks";
 import { RequirePermission } from "../../router/guards";
 import { useTranslations } from "../../state/i18n";
 import { TEXTS } from "./i18n";
+import { P } from "../../security/permissions";
 
 function tone(s: string) {
   switch (s) {
@@ -18,7 +19,7 @@ function tone(s: string) {
 
 export function ApplicationsPage() {
   return (
-    <RequirePermission anyOf={["d6e7f8a9-b0c1-2345-6789-34567890abcd"]}>
+    <RequirePermission anyOf={[P.applicationsRead]}>
       <ApplicationsInner />
     </RequirePermission>
   );

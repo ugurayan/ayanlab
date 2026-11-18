@@ -36,6 +36,7 @@ import { useAuth } from "../../state/auth";
 import { Language, useLanguage, useTranslations } from "../../state/i18n";
 import { Button } from "../components/Button";
 import { TEXTS } from "./i18n";
+import { P } from "../../security/permissions";
 
 type NavItem = {
   to: string;
@@ -47,30 +48,29 @@ type NavItem = {
 
 
 const nav = [
-  { to: "/app/dashboard", labelKey: "dashboard", icon: <LayoutDashboard size={18} />, perm: ["94a79627-93b0-4827-a30b-eff05c085774"] },
-  { to: "/app/jobs", labelKey: "jobs", icon: <Briefcase size={18} />, perm: ["7c3a23c7-3e59-4224-9ae7-64428d3382ba"] },
-  { to: "/app/tasks", labelKey: "tasks", icon: <ClipboardList size={18} />, perm: ["bb80d360-7663-4fb4-b423-641231c4540b"] },
-  { to: "/app/inbox", labelKey: "inbox", icon: <Mail size={18} />, perm: ["63991c90-bfe6-4eca-8730-bf66b50325da"] },
-  { to: "/app/orgs", labelKey: "orgs", icon: <Building2 size={18} />, perm: ["9d3964a7-5381-416d-8f9e-baafeabd682f"] },
-  { to: "/app/locations", labelKey: "locations", icon: <MapPin size={18} />, perm: ["a3b4c5d6-e7f8-9012-3456-01234567890a"] },
-  { to: "/app/shifts", labelKey: "shifts", icon: <CalendarClock size={18} />, perm: ["c5d6e7f8-a9b0-1234-5678-234567890abc"] },
-  { to: "/app/applications", labelKey: "applications", icon: <ClipboardList size={18} />, perm: ["d6e7f8a9-b0c1-2345-6789-34567890abcd"] },
-  { to: "/app/workers", labelKey: "workers", icon: <FileCheck2 size={18} />, perm: ["7b932ee5-31ff-499f-bbb3-df50313215fd"] },
-  { to: "/app/documents", labelKey: "documents", icon: <FileCheck2 size={18} />, perm: ["d8694403-dd7a-4aa4-9571-d84986e0c2f2"] },
-  { to: "/app/finance", labelKey: "finance", icon: <Receipt size={18} />, perm: ["eb34fad5-c218-4dda-9147-1290a1d8c419"] },
-  { to: "/app/transactions", labelKey: "transactions", icon: <Receipt size={18} />, perm: ["d258b8ec-a7d5-4912-8b33-aeac498d6f54"] },
-  { to: "/app/audit/user", labelKey: "userAudit", icon: <ShieldCheck size={18} />, perm: ["eecbbe51-6997-4b24-bdac-94a39928a9f9"] },
-  { to: "/app/audit/system", labelKey: "systemAudit", icon: <ShieldCheck size={18} />, perm: ["eecbbe51-6997-4b24-bdac-94a39928a9f9"] },
-  { to: "/app/verification", labelKey: "verification", icon: <CheckCircle2 size={18} />, perm: ["960e176b-26a4-4184-a9d3-39072919518c"] },
-  { to: "/app/support", labelKey: "support", icon: <Star size={18} />, perm: ["9b8fb86e-9ad5-4141-a392-553223883a98"] },
-  { to: "/app/settings", labelKey: "settings", icon: <Settings size={18} />, perm: ["42475b12-bf6e-4c46-81b3-6994da58e366"] },
-  { to: "/app/profile", labelKey: "profile", icon: <Users size={18} />, perm: ["94a79627-93b0-4827-a30b-eff05c085774"] },
-  { to: "/app/job-roles", labelKey: "jobRoles", icon: <Briefcase size={18} />, perm: ["56dd1aa3-8e89-43a2-b932-06d3b915b2ce"] },
-  { to: "/app/industries", labelKey: "industries", icon: <Tag size={18} />, perm: ["980d999f-b05a-420d-91fc-8a1bd072052e"] },
-  // Admin taxonomy pages (share permission with job roles for now)
-  { to: "/app/skills", labelKey: "skills", icon: <Star size={18} />, perm: ["56dd1aa3-8e89-43a2-b932-06d3b915b2ce"] },
-  { to: "/app/certificates", labelKey: "certificates", icon: <FileCheck2 size={18} />, perm: ["56dd1aa3-8e89-43a2-b932-06d3b915b2ce"] },
-  { to: "/app/document-types", labelKey: "documentTypes", icon: <FileCheck2 size={18} />, perm: ["56dd1aa3-8e89-43a2-b932-06d3b915b2ce"] }
+  { to: "/app/dashboard", labelKey: "dashboard", icon: <LayoutDashboard size={18} />, perm: [P.dashboardRead] },
+  { to: "/app/jobs", labelKey: "jobs", icon: <Briefcase size={18} />, perm: [P.jobsRead] },
+  { to: "/app/tasks", labelKey: "tasks", icon: <ClipboardList size={18} />, perm: [P.tasksRead] },
+  { to: "/app/inbox", labelKey: "inbox", icon: <Mail size={18} />, perm: [P.inboxRead] },
+  { to: "/app/orgs", labelKey: "orgs", icon: <Building2 size={18} />, perm: [P.orgsRead] },
+  { to: "/app/locations", labelKey: "locations", icon: <MapPin size={18} />, perm: [P.locationsRead] },
+  { to: "/app/shifts", labelKey: "shifts", icon: <CalendarClock size={18} />, perm: [P.shiftsRead] },
+  { to: "/app/applications", labelKey: "applications", icon: <ClipboardList size={18} />, perm: [P.applicationsRead] },
+  { to: "/app/workers", labelKey: "workers", icon: <FileCheck2 size={18} />, perm: [P.workersRead] },
+  { to: "/app/documents", labelKey: "documents", icon: <FileCheck2 size={18} />, perm: [P.documentsRead] },
+  { to: "/app/finance", labelKey: "finance", icon: <Receipt size={18} />, perm: [P.financeRead] },
+  { to: "/app/transactions", labelKey: "transactions", icon: <Receipt size={18} />, perm: [P.transactionsRead] },
+  { to: "/app/audit/user", labelKey: "userAudit", icon: <ShieldCheck size={18} />, perm: [P.auditRead] },
+  { to: "/app/audit/system", labelKey: "systemAudit", icon: <ShieldCheck size={18} />, perm: [P.auditRead] },
+  { to: "/app/verification", labelKey: "verification", icon: <CheckCircle2 size={18} />, perm: [P.verificationRead] },
+  { to: "/app/support", labelKey: "support", icon: <Star size={18} />, perm: [P.supportRead] },
+  { to: "/app/settings", labelKey: "settings", icon: <Settings size={18} />, perm: [P.settingsRead] },
+  { to: "/app/profile", labelKey: "profile", icon: <Users size={18} />, perm: [P.profileRead] },
+  { to: "/app/job-roles", labelKey: "jobRoles", icon: <Briefcase size={18} />, perm: [P.jobRolesRead] },
+  { to: "/app/industries", labelKey: "industries", icon: <Tag size={18} />, perm: [P.industriesRead] },
+  { to: "/app/skills", labelKey: "skills", icon: <Star size={18} />, perm: [P.skillsRead] },
+  { to: "/app/certificates", labelKey: "certificates", icon: <FileCheck2 size={18} />, perm: [P.certificatesRead] },
+  { to: "/app/document-types", labelKey: "documentTypes", icon: <FileCheck2 size={18} />, perm: [P.documentTypesRead] }
 ] as const;
 
 export function AppShell() {
@@ -139,7 +139,7 @@ export function AppShell() {
       return false;
     }
     // Otherwise, filter by permissions
-    return n.perm.some((p) => has(p as any));
+    return n.perm.some((p) => has(p));
   });
 
   // Group admin-related items for sidebar

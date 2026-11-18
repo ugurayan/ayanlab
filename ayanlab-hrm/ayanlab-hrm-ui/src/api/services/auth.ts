@@ -1,7 +1,7 @@
 import { authHttp, appKey } from "../client";
 import { endpoints } from "../endpoints";
 import type { AuthSession, Role, User } from "../../types/auth";
-import { computePermissions } from "../../security/permissions";
+import { withMainRoleIds } from "../../data/constants/mainRoles";
 
 const getLanguage = (): string => {
   if (typeof window !== "undefined") {
@@ -24,6 +24,7 @@ type PlatformLoginData = {
   };
   access?: {
     roleCodes?: string[];
+    permissionCodes?: string[];
     roles?: string[];
     primaryRoleCode?: string;
     primaryRole?: string;
@@ -100,14 +101,13 @@ export async function apiLogin(
 
     const email = data.user?.email || data.email || emailOrMobile;
 
-    // HRM UI permission model is role-code based (PLATFORM_ADMIN, …), not platform UUID perms.
-    const permissions = computePermissions(roleCodes);
+    const permissions = Array.isArray(data.access?.permissionCodes) ? data.access!.permissionCodes : [];
 
     const user: User = {
       id: data.userId || "",
       email,
       displayName,
-      roles: roleCodes,
+      roles: withMainRoleIds(roleCodes),
       permissions,
       scope: {
         orgId: data.orgId || undefined
@@ -142,20 +142,17 @@ export async function apiLogin(
 export async function apiMe(): Promise<User> {
   const res = await authHttp.get("/auth/api/me");
   const body = res.data?.data ?? res.data;
-  const roleCodes: Role[] = Array.isArray(body?.access?.roleCodes)
-    ? body.access.roleCodes
-    : Array.isArray(body?.access?.roles)
-      ? body.access.roles
-      : Array.isArray(body?.roles)
-        ? body.roles
-        : [];
+  const authorization = body?.authorization ?? body?.access;
+  const roleCodes: Role[] = Array.isArray(authorization?.roleCodes) ? authorization.roleCodes : [];
   return {
     id: body?.userId || body?.user?.id || "",
-    email: body?.user?.email || body?.email || "",
+    email: body?.email || body?.user?.email || "",
     displayName:
-      [body?.user?.firstName, body?.user?.lastName].filter(Boolean).join(" ") || "",
-    roles: roleCodes,
-    permissions: computePermissions(roleCodes),
+      [body?.firstName ?? body?.user?.firstName, body?.lastName ?? body?.user?.lastName]
+        .filter(Boolean)
+        .join(" ") || "",
+    roles: withMainRoleIds(roleCodes),
+    permissions: Array.isArray(authorization?.permissionCodes) ? authorization.permissionCodes : [],
     scope: { orgId: body?.orgId },
     userApproved: true,
     profileApproved: true,

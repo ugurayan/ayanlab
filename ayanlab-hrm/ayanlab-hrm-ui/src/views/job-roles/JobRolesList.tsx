@@ -20,6 +20,7 @@ import {
   type JobRoleColumnId,
 } from './columnConfig';
 import { Columns2 } from 'lucide-react';
+import { P } from "../../security/permissions";
 
 export function JobRolesList() {
   const [page, setPage] = useState(0);
@@ -142,7 +143,7 @@ export function JobRolesList() {
             <Columns2 size={18} />
             Columns
           </Button>
-          {has('shift:read') && (
+          {has(P.jobRolesCreate) && (
             <Button onClick={handleCreateNew}>
               + Add New Job Role
             </Button>

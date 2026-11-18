@@ -1,0 +1,166 @@
+{
+  "schemaVersion": 2,
+  "appCode": "vault",
+  "resources": [
+    {
+      "code": "documents",
+      "module": "documents",
+      "name": "Documents",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "share",
+        "export"
+      ]
+    },
+    {
+      "code": "folders",
+      "module": "folders",
+      "name": "Folders",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "share",
+        "export"
+      ]
+    },
+    {
+      "code": "sharing",
+      "module": "sharing",
+      "name": "Sharing",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "share",
+        "export"
+      ]
+    },
+    {
+      "code": "settings",
+      "module": "settings",
+      "name": "Settings",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "share",
+        "export"
+      ]
+    },
+    {
+      "code": "users",
+      "module": "users",
+      "name": "Users",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "share",
+        "export"
+      ]
+    },
+    {
+      "code": "subscriptions",
+      "module": "subscriptions",
+      "name": "Subscriptions",
+      "actions": [
+        "read",
+        "manage"
+      ]
+    }
+  ],
+  "policyGroups": [
+    {
+      "code": "VAULT_ROLE_ADMIN",
+      "name": "Administrator Permissions",
+      "description": "VAULT full access for role ADMIN",
+      "permissions": [
+        "vault:*:*"
+      ]
+    },
+    {
+      "code": "VAULT_DOCUMENTS_FULL",
+      "name": "Vault Documents Full",
+      "permissions": [
+        "vault:documents:read",
+        "vault:documents:create",
+        "vault:sharing:read"
+      ]
+    },
+    {
+      "code": "VAULT_ROLE_ORGANIZATION_ADMINISTRATOR",
+      "name": "Organization Administrator Permissions",
+      "description": "VAULT permission matrix for role ORGANIZATION_ADMINISTRATOR",
+      "permissions": [
+        "vault:*:*"
+      ]
+    },
+    {
+      "code": "VAULT_ROLE_SYSTEM_ADMINISTRATOR",
+      "name": "System Administrator Permissions",
+      "description": "VAULT permission matrix for role SYSTEM_ADMINISTRATOR",
+      "permissions": [
+        "vault:*:*"
+      ]
+    },
+    {
+      "code": "VAULT_ROLE_VIEWER",
+      "name": "Viewer (Read Only) Permissions",
+      "description": "VAULT permission matrix for role VIEWER",
+      "permissions": [
+        "vault:documents:read",
+        "vault:folders:read",
+        "vault:sharing:read",
+        "vault:settings:read"
+      ]
+    }
+  ],
+  "roles": [
+    {
+      "code": "ADMIN",
+      "name": "Administrator",
+      "description": "Full access",
+      "policyGroups": [
+        "VAULT_ROLE_ADMIN",
+        "VAULT_DOCUMENTS_FULL"
+      ]
+    },
+    {
+      "code": "ORGANIZATION_ADMINISTRATOR",
+      "name": "Organization Administrator",
+      "description": "Full access to organization data, users, and settings",
+      "policyGroups": [
+        "VAULT_ROLE_ORGANIZATION_ADMINISTRATOR"
+      ]
+    },
+    {
+      "code": "SYSTEM_ADMINISTRATOR",
+      "name": "System Administrator",
+      "description": "Full system access with ability to manage all organizations and system settings",
+      "policyGroups": [
+        "VAULT_ROLE_SYSTEM_ADMINISTRATOR"
+      ]
+    },
+    {
+      "code": "VIEWER",
+      "name": "Viewer (Read Only)",
+      "description": "Read-only access to permitted modules (legacy alias toward SYSTEM_USER)",
+      "policyGroups": [
+        "VAULT_ROLE_VIEWER"
+      ]
+    }
+  ]
+}

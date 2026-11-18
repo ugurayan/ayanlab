@@ -21,10 +21,11 @@ import {
   type WorkerColumnId,
 } from "./columnConfig";
 import { WorkerDetail } from "./WorkerDetail";
+import { P } from "../../security/permissions";
 
 export function WorkersPage() {
   return (
-    <RequirePermission anyOf={["7b932ee5-31ff-499f-bbb3-df50313215fd"]}>
+    <RequirePermission anyOf={[P.workersRead]}>
       <WorkersInner />
     </RequirePermission>
   );

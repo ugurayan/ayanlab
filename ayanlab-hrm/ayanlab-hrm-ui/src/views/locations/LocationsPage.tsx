@@ -6,10 +6,11 @@ import { useLocations } from "../../data/hooks";
 import { RequirePermission } from "../../router/guards";
 import { useTranslations } from "../../state/i18n";
 import { TEXTS } from "./i18n";
+import { P } from "../../security/permissions";
 
 export function LocationsPage() {
   return (
-    <RequirePermission anyOf={["a3b4c5d6-e7f8-9012-3456-01234567890a"]}>
+    <RequirePermission anyOf={[P.locationsRead]}>
       <LocationsInner />
     </RequirePermission>
   );

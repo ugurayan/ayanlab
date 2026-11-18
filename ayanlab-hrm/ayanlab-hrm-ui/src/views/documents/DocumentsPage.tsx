@@ -7,10 +7,11 @@ import { formatDate } from "../../lib/format";
 import { useTranslations } from "../../state/i18n";
 import { TEXTS } from "./i18n";
 import { useNavigate } from "react-router-dom";
+import { P } from "../../security/permissions";
 
 export function DocumentsPage() {
   return (
-    <RequirePermission anyOf={["d8694403-dd7a-4aa4-9571-d84986e0c2f2"]}>
+    <RequirePermission anyOf={[P.documentsRead]}>
       <DocumentsInner />
     </RequirePermission>
   );

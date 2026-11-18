@@ -1,0 +1,53 @@
+package com.ayanlab.pms.backend.controller;
+
+import com.ayanlab.core.annotation.ClientHeaders;
+import com.ayanlab.core.data.ClientHeadersPayload;
+import com.ayanlab.core.data.responses.ApiResponse;
+import com.ayanlab.pms.backend.entity.communication.EmailTemplate;
+import com.ayanlab.pms.backend.service.IEmailTemplateService;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.Map;
+
+@RestController
+@RequestMapping("/pms/api/email-templates")
+@Tag(name = "IPMS · EmailTemplateController", description = "EmailTemplate CRUD")
+@RequiredArgsConstructor
+public class EmailTemplateController extends IpmsCrudController<EmailTemplate> {
+
+    private static final String BASE_PATH = "/pms/api/email-templates";
+    private final IEmailTemplateService emailTemplateService;
+
+    @Override
+    protected IEmailTemplateService service() {
+        return emailTemplateService;
+    }
+
+    @Override
+    protected String basePath() {
+        return BASE_PATH;
+    }
+
+    @Override
+    protected String operationPrefix() {
+        return "email-templates";
+    }
+
+    @Override
+    protected String entityLabel() {
+        return "EmailTemplate";
+    }
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ApiResponse<List<EmailTemplate>>> list(
+            @ClientHeaders ClientHeadersPayload headers) {
+        return executeList(headers, Map.of(), service()::findAll);
+    }
+}

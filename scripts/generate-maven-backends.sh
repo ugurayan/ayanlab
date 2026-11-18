@@ -22,7 +22,7 @@ write_pom() {
         <relativePath/>
     </parent>
 
-    <groupId>com.ayanlabs</groupId>
+    <groupId>com.ayanlab</groupId>
     <artifactId>${artifact}</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <name>${artifact}</name>
@@ -33,7 +33,7 @@ write_pom() {
 
     <dependencies>
         <dependency>
-            <groupId>com.ayanlabs</groupId>
+            <groupId>com.ayanlab</groupId>
             <artifactId>ayanlab-platform-core</artifactId>
             <version>1.0.0-SNAPSHOT</version>
         </dependency>
@@ -124,13 +124,13 @@ H2_DEP='        <dependency>
         </dependency>'
 
 products=(
-  "ayanlab-platform|ayanlab-platform-backend|com.ayanlabs.auth.AuthBackendApplication"
-  "ayanlab-vault|ayanlab-vault-backend|com.ayanlabs.vault.VaultBackendApplication"
-  "ayanlab-pms|ayanlab-pms-backend|com.ayanlabs.propertymgmt.PmsBackendApplication"
-  "ayanlab-crm|ayanlab-crm-backend|com.ayanlabs.accounting.CrmBackendApplication"
-  "ayanlab-hrm|ayanlab-hrm-backend|com.ayanlabs.rideshare.HrmBackendApplication"
-  "ayanlab-booking|ayanlab-booking-backend|com.ayanlabs.booking.BookingBackendApplication"
-  "ayanlab-comm|ayanlab-comm-backend|com.ayanlabs.comm.CommBackendApplication"
+  "ayanlab-platform|ayanlab-platform-backend|com.ayanlab.core.backend.PlatformApplication"
+  "ayanlab-vault|ayanlab-vault-backend|com.ayanlab.vault.backend.VaultBackendApplication"
+  "ayanlab-pms|ayanlab-pms-backend|com.ayanlab.pms.backend.PmsBackendApplication"
+  "ayanlab-crm|ayanlab-crm-backend|com.ayanlab.crm.backend.CrmBackendApplication"
+  "ayanlab-hrm|ayanlab-hrm-backend|com.ayanlab.hrm.backend.HrmBackendApplication"
+  "ayanlab-booking|ayanlab-booking-backend|com.ayanlab.booking.backend.BookingBackendApplication"
+  "ayanlab-comm|ayanlab-comm-backend|com.ayanlab.comm.backend.CommBackendApplication"
 )
 
 for row in "${products[@]}"; do
@@ -139,7 +139,7 @@ for row in "${products[@]}"; do
   write_run_local "${ROOT}/${product}" "$artifact"
 done
 
-write_pom "${ROOT}/ayanlab-platform/ayanlab-platform-backend" "ayanlab-platform-backend" "com.ayanlabs.platform.PlatformApplication" "$H2_DEP"
+write_pom "${ROOT}/ayanlab-platform/ayanlab-platform-backend" "ayanlab-platform-backend" "com.ayanlab.core.backend.PlatformApplication" "$H2_DEP"
 write_run_local "${ROOT}/ayanlab-core" "ayanlab-platform-backend"
 
 echo "Maven poms + run-local.sh generated"

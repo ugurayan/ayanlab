@@ -6,10 +6,11 @@ import { useOrgs } from "../../data/hooks";
 import { RequirePermission } from "../../router/guards";
 import { useTranslations } from "../../state/i18n";
 import { TEXTS } from "./i18n";
+import { P } from "../../security/permissions";
 
 export function OrgsPage() {
   return (
-    <RequirePermission anyOf={["9d3964a7-5381-416d-8f9e-baafeabd682f"]}>
+    <RequirePermission anyOf={[P.orgsRead]}>
       <OrgsInner />
     </RequirePermission>
   );

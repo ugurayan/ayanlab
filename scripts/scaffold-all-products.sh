@@ -71,22 +71,22 @@ FOOTER
 
 # auth
 PRODUCT=ayanlab-platform
-"${LIB}/scaffold-backend.sh" "${ROOT}/${PRODUCT}/${PRODUCT}-backend" "${PRODUCT}-backend" "8101" "com.ayanlabs.auth"
+"${LIB}/scaffold-backend.sh" "${ROOT}/${PRODUCT}/${PRODUCT}-backend" "${PRODUCT}-backend" "8101" "com.ayanlab.auth"
 "${LIB}/scaffold-ui.sh" "${ROOT}/${PRODUCT}/${PRODUCT}-ui" "${PRODUCT}-ui" "3101"
 write_product_compose "${PRODUCT}" backend "${PRODUCT}-backend" 8101 ui "${PRODUCT}-ui" 3101
 
 # core
 PRODUCT=ayanlab-platform
-"${LIB}/scaffold-backend.sh" "${ROOT}/${PRODUCT}/${PRODUCT}-backend" "${PRODUCT}-backend" "8102" "com.ayanlabs.core"
+"${LIB}/scaffold-backend.sh" "${ROOT}/${PRODUCT}/${PRODUCT}-backend" "${PRODUCT}-backend" "8102" "com.ayanlab.core"
 write_product_compose "${PRODUCT}" backend "${PRODUCT}-backend" 8102
 
 for spec in \
-  "ayanlab-vault:8103:3103:com.ayanlabs.vault" \
-  "ayanlab-hrm:8104:3104:com.ayanlabs.hrm" \
-  "ayanlab-pms:8105:3105:com.ayanlabs.pms" \
-  "ayanlab-crm:8106:3106:com.ayanlabs.crm" \
-  "ayanlab-booking:8107:3107:com.ayanlabs.booking" \
-  "ayanlab-comm:8108:3108:com.ayanlabs.comm"; do
+  "ayanlab-vault:8103:3103:com.ayanlab.vault" \
+  "ayanlab-hrm:8104:3104:com.ayanlab.hrm" \
+  "ayanlab-pms:8105:3105:com.ayanlab.pms" \
+  "ayanlab-crm:8106:3106:com.ayanlab.crm" \
+  "ayanlab-booking:8107:3107:com.ayanlab.booking" \
+  "ayanlab-comm:8108:3108:com.ayanlab.comm"; do
   IFS=: read -r PRODUCT BPORT UPORT PKG <<< "${spec}"
   "${LIB}/scaffold-backend.sh" "${ROOT}/${PRODUCT}/${PRODUCT}-backend" "${PRODUCT}-backend" "${BPORT}" "${PKG}"
   "${LIB}/scaffold-ui.sh" "${ROOT}/${PRODUCT}/${PRODUCT}-ui" "${PRODUCT}-ui" "${UPORT}"

@@ -26,7 +26,7 @@ Public uçlar (`/auth/api/**`, `/*/api/auth/**`, seçili `/pms/api/...`, swagger
 ## Kod
 
 - Bağımlılık: her `ayanlab-*-backend/pom.xml` + `ayanlab-platform-core`
-- Ortak `OpenAPI` bean: `ayanlab-platform-core` `OpenApiConfig` (`com.ayanlabs.core` component scan)
+- Ortak `OpenAPI` bean: `ayanlab-platform-core` `OpenApiConfig` (`com.ayanlab.core` component scan)
 - `application.yml`: `springdoc.api-docs.path`, `springdoc.swagger-ui.path`
 
 Yeni backend üretirken: `./scripts/generate-maven-backends.sh` şablonda springdoc vardır.

@@ -12,6 +12,7 @@ import { RequirePermission } from "../../router/guards";
 import { useAuth } from "../../state/auth";
 import { useTranslations } from "../../state/i18n";
 import { TEXTS } from "./CreateShiftPage.i18n";
+import { P } from "../../security/permissions";
 
 const schema = z.object({
   locationId: z.string().min(1, "selectLocation"),
@@ -28,7 +29,7 @@ type Form = z.infer<typeof schema>;
 
 export function CreateShiftPage() {
   return (
-    <RequirePermission anyOf={["shift:write"]}>
+    <RequirePermission anyOf={[P.shiftsCreate]}>
       <CreateShiftInner />
     </RequirePermission>
   );

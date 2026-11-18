@@ -110,6 +110,19 @@ server:
 
 # Seed data: default-data.json → authorization catalogs → subscription-data.json → DemoDataLoader
 platform:
+  api-url: ${AYANLAB_PLATFORM_URL:http://localhost:8102}
+  internal-token: ${PLATFORM_INTERNAL_TOKEN:}
+  app-id: 5fd9fde7-e513-40fb-9622-9ce3e9699f89
+  # crm roles, policy groups and permissions (src/main/resources/authz/*.json) are
+  # published to the platform on every startup; the platform import is idempotent.
+  authz:
+    catalog:
+      publish:
+        enabled: ${AUTHZ_CATALOG_PUBLISH:true}
+        locations: classpath:authz/*.json
+    # Reject access tokens whose roles/permissions changed since they were issued.
+    version-check:
+      mode: ${AUTHZ_VERSION_CHECK_MODE:remote}
   db:
     load-default-data: true
     load-authorization-catalog: true

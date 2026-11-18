@@ -18,6 +18,7 @@ import {
   type CertificateColumnId,
 } from './columnConfig';
 import { Columns2 } from 'lucide-react';
+import { P } from "../../security/permissions";
 
 export function CertificatesPage() {
   const [page, setPage] = useState(0);
@@ -122,7 +123,7 @@ export function CertificatesPage() {
               <Columns2 size={18} />
               Columns
             </Button>
-            {has('shift:read') && (
+            {has(P.certificatesCreate) && (
               <Button onClick={handleCreateNew}>
                 + Add New Certificate
               </Button>

@@ -11,6 +11,7 @@ import { useAuth } from "../../state/auth";
 import type { Transaction } from "../../types/transactions";
 import { MoreVertical, Edit, CheckCircle, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "../../lib/cn";
+import { P } from "../../security/permissions";
 
 type FinanceRecordType = "invoice" | "payout" | "adjustment" | "export" | "import" | "job_payment";
 
@@ -60,7 +61,7 @@ const ITEMS_PER_PAGE = 20;
 
 export function FinancePage() {
   return (
-    <RequirePermission anyOf={["eb34fad5-c218-4dda-9147-1290a1d8c419"]}>
+    <RequirePermission anyOf={[P.financeRead]}>
       <FinanceInner />
     </RequirePermission>
   );
