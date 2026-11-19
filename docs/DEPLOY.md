@@ -38,3 +38,18 @@ Override products:
 ```bash
 PRODUCT=auth,core,vault ./scripts/publish-vps.sh
 ```
+
+## PMS (`ayanlab-pms`)
+
+| Bileşen | Host port (tipik) | Compose / script |
+|---------|-------------------|------------------|
+| Backend | `8105` | `./run-apps.sh` → 6 PMS → Backend |
+| Web UI | Vite dev (5173) | `./run-apps.sh` → 6 PMS → UI |
+| Mobile | — | `flutter run` in `ayanlab-pms-mobile` |
+
+- DB şema: `ipms` (PostGIS / Postgres — bkz. [`DATABASES.md`](DATABASES.md))
+- Demo seed: `IPMS_LOAD_DEMO_DATA=true`, `IPMS_DEMO_ORG_ID=<uuid>`
+- Swagger: `http://localhost:8105/swagger-ui.html` (OpenAPI grupları: rental, association, accounting, tr-modules, integrations)
+- Demo turu: [`pms-demo-walkthrough.md`](pms-demo-walkthrough.md)
+
+Üretimde platform (`8102`) + PMS aynı VPC’de; UI `VITE_MOCK_ONLY=false` için [`pms-platform-integration.md`](pms-platform-integration.md).

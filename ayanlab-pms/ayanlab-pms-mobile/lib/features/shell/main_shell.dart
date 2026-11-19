@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/l10n/app_localizations.dart';
+import '../../core/mock/pms_mock.dart';
 import '../../core/state/app_state.dart';
 import '../../core/widgets/language_sheet.dart';
 import '../home/home_page.dart';
@@ -34,7 +35,7 @@ class _MainShellState extends State<MainShell> {
 
     final titles = <String>[
       loc.tabHome,
-      loc.tabSearch,
+      'Modüller',
       loc.tabNotifications,
       loc.tabProfile,
     ];
@@ -57,17 +58,7 @@ class _MainShellState extends State<MainShell> {
       ),
       drawer: _buildDrawer(context, loc, session),
       body: IndexedStack(index: _index, children: tabs),
-      floatingActionButton: _index == 0
-          ? FloatingActionButton.extended(
-              onPressed: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('${loc.fabLabel} (mock)')),
-                );
-              },
-              icon: const Icon(Icons.add),
-              label: Text(loc.fabLabel),
-            )
-          : null,
+      floatingActionButton: _fab(context, session),
       bottomNavigationBar: NavigationBar(
         selectedIndex: _index,
         onDestinationSelected: (i) => setState(() => _index = i),
@@ -118,6 +109,41 @@ class _MainShellState extends State<MainShell> {
               color: Theme.of(context).colorScheme.primary,
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+            child: Text('PMS modülleri',
+                style: Theme.of(context).textTheme.titleSmall),
+          ),
+          for (final m in pmsModules.where(
+            (x) => x.personas.contains(session.persona),
+          ))
+            ListTile(
+              dense: true,
+              leading: Icon(m.icon, size: 22),
+              title: Text(m.title),
+              onTap: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pushNamed(m.route);
+              },
+            ),
+          const Divider(),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+            child: Text('Demo persona',
+                style: Theme.of(context).textTheme.titleSmall),
+          ),
+          for (final p in PmsPersona.values)
+            RadioListTile<PmsPersona>(
+              dense: true,
+              value: p,
+              groupValue: session.persona,
+              title: Text(p.label),
+              secondary: Icon(p.icon),
+              onChanged: (v) {
+                if (v != null) session.setPersona(v);
+              },
+            ),
+          const Divider(),
           _tile(context, Icons.edit_rounded, loc.profileEdit, '/profile/edit'),
           _tile(context, Icons.settings_rounded, loc.settingsTitle, '/settings'),
           _tile(context, Icons.security_rounded, loc.securityTitle, '/security'),
@@ -159,6 +185,30 @@ class _MainShellState extends State<MainShell> {
         ],
       ),
     );
+  }
+
+  Widget? _fab(BuildContext context, SessionNotifier session) {
+    if (_index != 0) return null;
+    switch (session.persona) {
+      case PmsPersona.resident:
+        return FloatingActionButton.extended(
+          onPressed: () => Navigator.of(context).pushNamed('/pms/maintenance'),
+          icon: const Icon(Icons.build_rounded),
+          label: const Text('Talep aç'),
+        );
+      case PmsPersona.field:
+        return FloatingActionButton.extended(
+          onPressed: () => Navigator.of(context).pushNamed('/pms/patrol'),
+          icon: const Icon(Icons.qr_code_scanner_rounded),
+          label: const Text('Tur'),
+        );
+      case PmsPersona.manager:
+        return FloatingActionButton.extended(
+          onPressed: () => Navigator.of(context).pushNamed('/pms/approvals'),
+          icon: const Icon(Icons.fact_check_rounded),
+          label: const Text('Onaylar'),
+        );
+    }
   }
 
   Widget _tile(BuildContext context, IconData icon, String title, String route) {

@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --surface: 255 255 255;
+  --surface-muted: 248 250 252;
+  --surface-elevated: 255 255 255;
+  --border: 226 232 240;
+  --text: 15 23 42;
+  --text-muted: 100 116 139;
+  --accent: 17 94 89;
+  --accent-soft: 204 251 241;
+  --ring: 13 148 136;
+}
+
+.dark {
+  color-scheme: dark;
+  --surface: 15 23 42;
+  --surface-muted: 2 6 23;
+  --surface-elevated: 30 41 59;
+  --border: 51 65 85;
+  --text: 241 245 249;
+  --text-muted: 148 163 184;
+  --accent: 45 212 191;
+  --accent-soft: 19 78 74;
+  --ring: 45 212 191;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  @apply bg-[rgb(var(--surface-muted))] text-[rgb(var(--text))] antialiased transition-colors duration-200;
+}
+
+@layer components {
+  .glass-header {
+    border-bottom: 1px solid rgb(var(--border) / 0.8);
+    background-color: rgb(var(--surface) / 0.88);
+    backdrop-filter: blur(12px);
+  }
+  .nav-item-active {
+    @apply bg-teal-500/10 font-semibold text-teal-900 dark:bg-teal-400/10 dark:text-teal-100;
+  }
+  .sr-only {
+    @apply absolute m-[-1px] h-px w-px overflow-hidden whitespace-nowrap border-0 p-0;
+    clip: rect(0, 0, 0, 0);
+  }
+}

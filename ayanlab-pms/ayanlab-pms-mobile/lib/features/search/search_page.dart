@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../../core/l10n/app_localizations.dart';
-import '../../core/mock/mock_data.dart';
+import '../../core/mock/pms_mock.dart';
+import '../../core/state/app_state.dart';
 
-/// Search/Explore tab: mock search field, filter chips and result list.
+/// Modules tab: searchable PMS routes for the active persona (mock).
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
 
@@ -13,73 +14,46 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   String _query = '';
-  int _filter = 0;
 
   @override
   Widget build(BuildContext context) {
-    final loc = AppLocalizations.of(context)!;
-
-    final results = _query.isEmpty
-        ? mockRecentItems
-        : mockRecentItems
-            .where((i) =>
-                i.title.toLowerCase().contains(_query.toLowerCase()) ||
-                i.subtitle.toLowerCase().contains(_query.toLowerCase()))
-            .toList();
+    final persona = context.watch<SessionNotifier>().persona;
+    final modules = pmsModules
+        .where((m) => m.personas.contains(persona))
+        .where((m) {
+          if (_query.isEmpty) return true;
+          final q = _query.toLowerCase();
+          return m.title.toLowerCase().contains(q) ||
+              m.subtitle.toLowerCase().contains(q);
+        })
+        .toList();
 
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.all(16),
-          child: TextField(
+          padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+          child: SearchBar(
+            hintText: 'Modül ara (aidat, tur, kargo…)',
+            leading: const Icon(Icons.search_rounded),
             onChanged: (v) => setState(() => _query = v),
-            decoration: InputDecoration(
-              hintText: loc.searchHint,
-              prefixIcon: const Icon(Icons.search_rounded),
-              border: const OutlineInputBorder(),
-            ),
           ),
         ),
-        SizedBox(
-          height: 40,
+        Expanded(
           child: ListView(
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: const EdgeInsets.all(16),
             children: [
-              for (var i = 0; i < 4; i++)
-                Padding(
-                  padding: const EdgeInsetsDirectional.only(end: 8),
-                  child: FilterChip(
-                    label: Text('${loc.searchFilters} ${i + 1}'),
-                    selected: _filter == i,
-                    onSelected: (_) => setState(() => _filter = i),
+              for (final m in modules)
+                Card(
+                  child: ListTile(
+                    leading: Icon(m.icon),
+                    title: Text(m.title),
+                    subtitle: Text(m.subtitle),
+                    trailing: const Icon(Icons.chevron_right_rounded),
+                    onTap: () => Navigator.of(context).pushNamed(m.route),
                   ),
                 ),
             ],
           ),
-        ),
-        Expanded(
-          child: results.isEmpty
-              ? Center(child: Text(loc.searchEmpty))
-              : ListView(
-                  padding: const EdgeInsets.all(16),
-                  children: [
-                    for (final item in results)
-                      Card(
-                        child: ListTile(
-                          leading: Icon(item.icon),
-                          title: Text(item.title),
-                          subtitle: Text(item.subtitle),
-                          trailing: const Icon(Icons.chevron_right_rounded),
-                          onTap: () {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text('${item.title} (mock)')),
-                            );
-                          },
-                        ),
-                      ),
-                  ],
-                ),
         ),
       ],
     );

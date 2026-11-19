@@ -16,6 +16,7 @@ import 'features/profile/help_page.dart';
 import 'features/profile/security_page.dart';
 import 'features/profile/settings_page.dart';
 import 'features/profile/terms_page.dart';
+import 'features/pms/pms_pages.dart';
 import 'features/shell/main_shell.dart';
 
 Future<void> main() async {
@@ -69,6 +70,14 @@ class AyanLabApp extends StatelessWidget {
         '/help': (_) => const HelpPage(),
         '/about': (_) => const AboutPage(),
         '/terms': (_) => const TermsPage(),
+        '/pms/dues': (_) => const DuesPage(),
+        '/pms/maintenance': (_) => const MaintenancePage(),
+        '/pms/violations': (_) => const ViolationsPage(),
+        '/pms/approvals': (_) => const ApprovalsPage(),
+        '/pms/patrol': (_) => const PatrolPage(),
+        '/pms/parcels': (_) => const ParcelsPage(),
+        '/pms/ats': (_) => const AtsPage(),
+        '/pms/announcements': (_) => const AnnouncementsPage(),
       },
     );
   }

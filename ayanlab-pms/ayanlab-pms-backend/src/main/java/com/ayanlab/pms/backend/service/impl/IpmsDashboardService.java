@@ -7,6 +7,7 @@ import com.ayanlab.core.repository.ApplicationOrganizationRepository;
 import com.ayanlab.core.repository.UserRepository;
 import com.ayanlab.pms.backend.data.enums.*;
 import com.ayanlab.pms.backend.data.responses.*;
+import com.ayanlab.pms.backend.entity.associations.Violation;
 import com.ayanlab.pms.backend.entity.leasing.Lease;
 import com.ayanlab.pms.backend.entity.leasing.RentersInsurancePolicy;
 import com.ayanlab.pms.backend.entity.maintenance.FieldStaffPresence;
@@ -54,6 +55,8 @@ public class IpmsDashboardService implements IIpmsDashboardService {
     private final RentersInsurancePolicyRepository rentersInsurancePolicyRepository;
     private final IpmsActivityEventRepository activityEventRepository;
     private final FieldStaffPresenceRepository fieldStaffPresenceRepository;
+    private final ViolationRepository violationRepository;
+    private final TaskRepository taskRepository;
 
     private static final DateTimeFormatter TIME_FMT = DateTimeFormatter.ofPattern("h:mm a");
     private static final ZoneId ZONE = ZoneId.systemDefault();
@@ -540,6 +543,166 @@ public class IpmsDashboardService implements IIpmsDashboardService {
             case OFF_DUTY -> "Off duty";
             case AVAILABLE -> "Available";
         };
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public DashboardPmWidgetsResponse pmWidgets(CoreContext context) {
+        UUID orgId = requireOrgId(context);
+        UUID appId = context.getAppId();
+        LocalDate today = LocalDate.now();
+
+        Map<UUID, Property> properties = propertyRepository
+                .findByOrganizationIdAndIsActiveTrueOrderByUpdatedAtDesc(orgId)
+                .stream()
+                .collect(Collectors.toMap(Property::getId, p -> p, (a, b) -> a));
+
+        List<DashboardPmWidgetsResponse.BalanceWidget> balances = outstandingBalanceRepository
+                .findByOrganizationIdAndIsActiveTrueOrderByUpdatedAtDesc(orgId)
+                .stream()
+                .filter(b -> b.getStatus() == OutstandingBalanceStatusEnum.OPEN
+                        || b.getStatus() == OutstandingBalanceStatusEnum.PARTIAL)
+                .limit(8)
+                .map(b -> {
+                    long due = Math.max(0L, (b.getAmountDueCents() == null ? 0L : b.getAmountDueCents())
+                            - (b.getAmountPaidCents() == null ? 0L : b.getAmountPaidCents()));
+                    int days = b.getDueDate() == null
+                            ? 0
+                            : (int) ChronoUnit.DAYS.between(b.getDueDate(), today);
+                    if (days < 0) {
+                        days = 0;
+                    }
+                    String party = b.getDescription() != null && !b.getDescription().isBlank()
+                            ? b.getDescription()
+                            : "Resident";
+                    return new DashboardPmWidgetsResponse.BalanceWidget(
+                            b.getId(),
+                            "—",
+                            party,
+                            "TENANT",
+                            due,
+                            days
+                    );
+                })
+                .toList();
+
+        List<DashboardPmWidgetsResponse.MaintenanceWidget> maintenance = maintenanceRequestRepository
+                .findByOrganizationIdAndIsActiveTrueOrderByUpdatedAtDesc(orgId)
+                .stream()
+                .filter(m -> m.getStatus() != MaintenanceStatusEnum.COMPLETED
+                        && m.getStatus() != MaintenanceStatusEnum.CANCELLED)
+                .limit(6)
+                .map(m -> {
+                    String propName = "—";
+                    if (m.getPropertyId() != null) {
+                        Property p = properties.get(m.getPropertyId());
+                        if (p != null && p.getName() != null) {
+                            propName = p.getName();
+                        }
+                    }
+                    String status = m.getStatus() == MaintenanceStatusEnum.OPEN ? "OPEN" : "OPEN";
+                    return new DashboardPmWidgetsResponse.MaintenanceWidget(
+                            m.getId(),
+                            propName,
+                            m.getTitle(),
+                            status,
+                            m.getCreatedAt()
+                    );
+                })
+                .toList();
+
+        List<DashboardPmWidgetsResponse.ActivityWidget> activity = (appId == null
+                ? List.<IpmsActivityEvent>of()
+                : activityEventRepository.findByAppIdAndOrganizationIdAndIsActiveTrueOrderByOccurredAtDesc(appId, orgId))
+                .stream()
+                .limit(6)
+                .map(e -> new DashboardPmWidgetsResponse.ActivityWidget(
+                        e.getId(),
+                        e.getTitle(),
+                        e.getOccurredAt() != null ? e.getOccurredAt() : e.getCreatedAt()
+                ))
+                .toList();
+
+        List<DashboardPmWidgetsResponse.InsuranceGapWidget> insuranceGaps = rentersInsurancePolicyRepository
+                .findByOrganizationIdAndIsActiveTrueOrderByUpdatedAtDesc(orgId)
+                .stream()
+                .filter(p -> p.getStatus() == RentersInsuranceStatusEnum.UNINSURED
+                        || p.getStatus() == RentersInsuranceStatusEnum.EXPIRED)
+                .limit(6)
+                .map(p -> new DashboardPmWidgetsResponse.InsuranceGapWidget(
+                        "Resident",
+                        p.getStatus() == RentersInsuranceStatusEnum.EXPIRED ? "EXPIRED" : "MISSING"
+                ))
+                .toList();
+
+        LocalDate expiringBefore = today.plusDays(60);
+        List<DashboardPmWidgetsResponse.ExpiringLeaseWidget> expiringLeases = leaseRepository
+                .findByOrganizationIdAndIsActiveTrueOrderByUpdatedAtDesc(orgId)
+                .stream()
+                .filter(l -> l.getStatus() == LeaseStatusEnum.ACTIVE)
+                .filter(l -> l.getEndDate() != null && !l.getEndDate().isAfter(expiringBefore))
+                .limit(8)
+                .map(l -> new DashboardPmWidgetsResponse.ExpiringLeaseWidget(
+                        l.getId(),
+                        "EXPIRING",
+                        l.getEndDate().toString()
+                ))
+                .toList();
+
+        long vacant = propertyUnitRepository
+                .findByOrganizationIdAndIsActiveTrueOrderByUpdatedAtDesc(orgId)
+                .stream()
+                .filter(u -> u.getStatus() == UnitStatusEnum.VACANT)
+                .count();
+
+        List<DashboardPmWidgetsResponse.ViolationWidget> violations = violationRepository
+                .findByOrganizationIdAndIsActiveTrueOrderByUpdatedAtDesc(orgId)
+                .stream()
+                .filter(v -> v.getStatus() == ViolationStatusEnum.OPEN
+                        || v.getStatus() == ViolationStatusEnum.UNDER_REVIEW)
+                .limit(8)
+                .map(this::toViolationWidget)
+                .toList();
+
+        long delinquent = violations.stream()
+                .mapToLong(DashboardPmWidgetsResponse.ViolationWidget::fineCents)
+                .sum();
+
+        int openTasks = (int) taskRepository.findByOrganizationIdAndIsActiveTrueOrderByUpdatedAtDesc(orgId)
+                .stream()
+                .filter(t -> t.getStatus() == TaskStatusEnum.TODO || t.getStatus() == TaskStatusEnum.IN_PROGRESS)
+                .count();
+
+        return new DashboardPmWidgetsResponse(
+                balances,
+                maintenance,
+                activity,
+                insuranceGaps,
+                expiringLeases,
+                new DashboardPmWidgetsResponse.ListingStatsWidget((int) vacant, 0),
+                violations,
+                delinquent,
+                List.of(),
+                openTasks
+        );
+    }
+
+    private DashboardPmWidgetsResponse.ViolationWidget toViolationWidget(Violation v) {
+        String uiStatus = switch (v.getStatus() == null ? ViolationStatusEnum.OPEN : v.getStatus()) {
+            case OPEN -> "OPEN";
+            case UNDER_REVIEW -> "HEARING";
+            case RESOLVED, DISMISSED -> "CLOSED";
+        };
+        return new DashboardPmWidgetsResponse.ViolationWidget(
+                v.getId(),
+                v.getAssociationId(),
+                "—",
+                uiStatus,
+                v.getFineAmountCents() == null ? 0L : v.getFineAmountCents(),
+                "General",
+                v.getDescription() != null ? v.getDescription() : v.getTitle(),
+                v.getCreatedAt()
+        );
     }
 
     private UUID requireOrgId(CoreContext context) {

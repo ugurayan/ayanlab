@@ -1,6 +1,33 @@
 {
   "schemaVersion": 2,
   "appCode": "ipms",
+  "organizations": [
+    {
+      "code": "DEMO_ORG",
+      "name": "Demo Organization",
+      "description": "Shared dev org (AuthDemoDataLoader)"
+    },
+    {
+      "code": "sunrise",
+      "name": "Sunrise Property Management LLC",
+      "description": "IPMS demo property management company"
+    },
+    {
+      "code": "bayarea",
+      "name": "Bay Area Rentals Inc.",
+      "description": "IPMS demo rental portfolio"
+    },
+    {
+      "code": "hankhand",
+      "name": "Hank the Handyman Services",
+      "description": "IPMS demo maintenance vendor org"
+    },
+    {
+      "code": "demo_ayanlab",
+      "name": "AyanLab Demo Sites",
+      "description": "Mock UI personas (@demo.ayanlab)"
+    }
+  ],
   "resources": [
     {
       "code": "dashboard",
@@ -340,6 +367,193 @@
         "read",
         "manage"
       ]
+    },
+    {
+      "code": "architectural_requests",
+      "module": "associations",
+      "name": "Architectural Requests",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "approve",
+        "export"
+      ]
+    },
+    {
+      "code": "assessments",
+      "module": "associations",
+      "name": "Assessments / Aidat",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "approve",
+        "export"
+      ]
+    },
+    {
+      "code": "occupants",
+      "module": "associations",
+      "name": "Owner / Occupant Matrix",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "export"
+      ]
+    },
+    {
+      "code": "portals",
+      "module": "portals",
+      "name": "Resident & Owner Portals",
+      "actions": [
+        "read",
+        "update",
+        "manage"
+      ]
+    },
+    {
+      "code": "late_penalties",
+      "module": "tr_compliance",
+      "name": "Late Penalty Rules",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage"
+      ]
+    },
+    {
+      "code": "meter_readings",
+      "module": "tr_compliance",
+      "name": "Meter Readings",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "export"
+      ]
+    },
+    {
+      "code": "enforcement_cases",
+      "module": "tr_compliance",
+      "name": "Enforcement / İcra",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "export"
+      ]
+    },
+    {
+      "code": "debt_inquiry",
+      "module": "tr_compliance",
+      "name": "ATS Debt Inquiry Codes",
+      "actions": [
+        "read",
+        "create",
+        "manage"
+      ]
+    },
+    {
+      "code": "parcels",
+      "module": "tr_operations",
+      "name": "Parcel Deliveries",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete"
+      ]
+    },
+    {
+      "code": "patrol_routes",
+      "module": "tr_operations",
+      "name": "Patrol Routes",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage"
+      ]
+    },
+    {
+      "code": "access_control",
+      "module": "tr_operations",
+      "name": "Access Control Events",
+      "actions": [
+        "read",
+        "create",
+        "export"
+      ]
+    },
+    {
+      "code": "timesheets",
+      "module": "tr_operations",
+      "name": "Staff Timesheets",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "export"
+      ]
+    },
+    {
+      "code": "equipment_assets",
+      "module": "maintenance",
+      "name": "Equipment Assets",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage"
+      ]
+    },
+    {
+      "code": "commercial_lease_terms",
+      "module": "leasing",
+      "name": "Commercial Lease Terms",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "export"
+      ]
+    },
+    {
+      "code": "cooperative_shares",
+      "module": "associations",
+      "name": "Cooperative Share Registry",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "export"
+      ]
+    },
+    {
+      "code": "coop_board_packets",
+      "module": "associations",
+      "name": "Co-op Board Packets",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage"
+      ]
     }
   ],
   "policyGroups": [
@@ -449,6 +663,13 @@
         "ipms:leasing:approve",
         "ipms:leasing:export",
         "ipms:leasing:manage",
+        "ipms:commercial_lease_terms:read",
+        "ipms:commercial_lease_terms:create",
+        "ipms:commercial_lease_terms:update",
+        "ipms:cooperative_shares:read",
+        "ipms:cooperative_shares:update",
+        "ipms:coop_board_packets:read",
+        "ipms:coop_board_packets:update",
         "ipms:accounting:read",
         "ipms:accounting:export",
         "ipms:maintenance:read",
@@ -476,7 +697,24 @@
         "ipms:analytics:read",
         "ipms:addons:read",
         "ipms:settings:read",
-        "ipms:users:read"
+        "ipms:users:read",
+        "ipms:architectural_requests:read",
+        "ipms:architectural_requests:approve",
+        "ipms:assessments:read",
+        "ipms:assessments:update",
+        "ipms:occupants:read",
+        "ipms:occupants:update",
+        "ipms:late_penalties:read",
+        "ipms:meter_readings:read",
+        "ipms:meter_readings:create",
+        "ipms:enforcement_cases:read",
+        "ipms:parcels:read",
+        "ipms:parcels:update",
+        "ipms:patrol_routes:read",
+        "ipms:access_control:read",
+        "ipms:timesheets:read",
+        "ipms:equipment_assets:read",
+        "ipms:portals:read"
       ]
     },
     {
@@ -503,7 +741,12 @@
         "ipms:leasing:read",
         "ipms:tasks:read",
         "ipms:analytics:read",
-        "ipms:settings:read"
+        "ipms:settings:read",
+        "ipms:assessments:read",
+        "ipms:assessments:export",
+        "ipms:late_penalties:read",
+        "ipms:meter_readings:read",
+        "ipms:debt_inquiry:read"
       ]
     },
     {
@@ -653,6 +896,42 @@
         "ipms:files:read",
         "ipms:files:create",
         "ipms:reports:read",
+        "ipms:settings:read",
+        "ipms:associations:read",
+        "ipms:violations:read",
+        "ipms:assessments:read",
+        "ipms:parcels:read",
+        "ipms:debt_inquiry:read",
+        "ipms:portals:read",
+        "ipms:architectural_requests:read",
+        "ipms:architectural_requests:create",
+        "ipms:cooperative_shares:read",
+        "ipms:coop_board_packets:read"
+      ]
+    },
+    {
+      "code": "IPMS_ROLE_FIELD_STAFF",
+      "name": "Field Staff Permissions",
+      "description": "Mobile field: patrol, access log, assigned work orders",
+      "permissions": [
+        "ipms:dashboard:read",
+        "ipms:patrol_routes:read",
+        "ipms:patrol_routes:update",
+        "ipms:patrol_routes:manage",
+        "ipms:work_orders:read",
+        "ipms:work_orders:update",
+        "ipms:maintenance:read",
+        "ipms:maintenance:update",
+        "ipms:tasks:read",
+        "ipms:tasks:update",
+        "ipms:communication:read",
+        "ipms:files:read",
+        "ipms:files:create",
+        "ipms:properties:read",
+        "ipms:access_control:read",
+        "ipms:access_control:create",
+        "ipms:parcels:read",
+        "ipms:equipment_assets:read",
         "ipms:settings:read"
       ]
     },
@@ -774,6 +1053,14 @@
       "policyGroups": [
         "IPMS_ROLE_VIEWER"
       ]
+    },
+    {
+      "code": "FIELD_STAFF",
+      "name": "Field Staff",
+      "description": "Patrol and on-site maintenance (Apsiyon Field)",
+      "policyGroups": [
+        "IPMS_ROLE_FIELD_STAFF"
+      ]
     }
   ],
   "users": [
@@ -893,6 +1180,76 @@
           "code": "ipms:leasing:delete",
           "effect": "GRANT"
         }
+      ]
+    },
+    {
+      "email": "pm@demo.ayanlab",
+      "password": "password",
+      "firstName": "Pam",
+      "lastName": "Manager",
+      "mobile": "+905551001001",
+      "profileSlug": "pm-demo",
+      "organizationCode": "demo_ayanlab",
+      "tenancy": "ORGANIZATION",
+      "registrationStatus": "Created",
+      "roles": [
+        "PROPERTY_MANAGER"
+      ]
+    },
+    {
+      "email": "accountant@demo.ayanlab",
+      "password": "password",
+      "firstName": "Ada",
+      "lastName": "Accountant",
+      "mobile": "+905551001002",
+      "profileSlug": "accountant-demo",
+      "organizationCode": "demo_ayanlab",
+      "tenancy": "ORGANIZATION",
+      "registrationStatus": "Created",
+      "roles": [
+        "ACCOUNTANT"
+      ]
+    },
+    {
+      "email": "leasing@demo.ayanlab",
+      "password": "password",
+      "firstName": "Lea",
+      "lastName": "Singh",
+      "mobile": "+905551001003",
+      "profileSlug": "leasing-demo",
+      "organizationCode": "demo_ayanlab",
+      "tenancy": "ORGANIZATION",
+      "registrationStatus": "Created",
+      "roles": [
+        "LEASING_AGENT"
+      ]
+    },
+    {
+      "email": "owner@demo.ayanlab",
+      "password": "password",
+      "firstName": "Oya",
+      "lastName": "Malik",
+      "mobile": "+905551001004",
+      "profileSlug": "owner-demo",
+      "organizationCode": "demo_ayanlab",
+      "tenancy": "ORGANIZATION",
+      "registrationStatus": "Created",
+      "roles": [
+        "PROPERTY_OWNER"
+      ]
+    },
+    {
+      "email": "field@demo.ayanlab",
+      "password": "password",
+      "firstName": "Ferhat",
+      "lastName": "Saha",
+      "mobile": "+905551001005",
+      "profileSlug": "field-demo",
+      "organizationCode": "demo_ayanlab",
+      "tenancy": "ORGANIZATION",
+      "registrationStatus": "Created",
+      "roles": [
+        "FIELD_STAFF"
       ]
     }
   ]

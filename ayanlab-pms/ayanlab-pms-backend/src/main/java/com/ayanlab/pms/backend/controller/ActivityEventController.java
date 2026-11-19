@@ -1,6 +1,7 @@
 package com.ayanlab.pms.backend.controller;
 
 import com.ayanlab.core.annotation.ClientHeaders;
+import com.ayanlab.core.annotation.RequirePermission;
 import com.ayanlab.core.controller.BaseController;
 import com.ayanlab.core.data.ClientHeadersPayload;
 import com.ayanlab.core.data.responses.ApiResponse;
@@ -22,6 +23,7 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/pms/api/activity-events")
 @Tag(name = "IPMS · ActivityEventController", description = "Platform / org activity feed")
+@RequirePermission("ipms:dashboard:read")
 @RequiredArgsConstructor
 public class ActivityEventController extends BaseController {
 

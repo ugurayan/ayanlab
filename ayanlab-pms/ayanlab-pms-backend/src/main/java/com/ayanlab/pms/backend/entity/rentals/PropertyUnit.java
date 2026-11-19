@@ -57,6 +57,16 @@ public class PropertyUnit extends BaseEntity implements OrgScoped {
     @Column(name = "depositAmountCents")
     private Long depositAmountCents;
 
+    /** Unit-level GL mapping (Buildium-style unit accounting). */
+    @Column(name = "incomeAccountCode", length = 32)
+    private String incomeAccountCode;
+
+    @Column(name = "expenseAccountCode", length = 32)
+    private String expenseAccountCode;
+
+    @Column(name = "reserveAccountCode", length = 32)
+    private String reserveAccountCode;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     @Builder.Default

@@ -1,0 +1,31 @@
+{
+  "propertyTypes": [
+    {
+      "code": "multi_family",
+      "name": "Multi-family",
+      "description": "Apartment / condo portfolio",
+      "category": "RESIDENTIAL",
+      "sortOrder": 10
+    },
+    {
+      "code": "single_family",
+      "name": "Single-family rental",
+      "description": "Detached rental home",
+      "category": "RESIDENTIAL",
+      "sortOrder": 20
+    },
+    {
+      "code": "hoa_site",
+      "name": "HOA / Site",
+      "description": "Association-managed property",
+      "category": "SPECIALTY",
+      "sortOrder": 30
+    },
+    {
+      "code": "commercial_avm",
+      "name": "Commercial / AVM",
+      "description": "Retail strip, AVM, office — commercial lease variant backlog",
+      "category": "COMMERCIAL",
+      "sortOrder": 40
+    }
+  ]

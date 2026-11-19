@@ -1,0 +1,83 @@
+{
+  "organizationCode": "demo_ayanlab",
+  "property": {
+    "code": "panorama",
+    "name": "Panorama Rezidans",
+    "addressLine1": "Barbaros Bulvarı 72",
+    "city": "İstanbul",
+    "state": "34",
+    "zipCode": "34353",
+    "country": "TR"
+  },
+  "association": {
+    "code": "panorama-hoa",
+    "name": "Panorama Site Yönetimi",
+    "associationType": "HOA",
+    "city": "İstanbul"
+  },
+  "tr": {
+    "latePenaltyRule": {
+      "name": "Apsis default",
+      "rateBps": 150,
+      "graceDays": 5,
+      "compound": false
+    },
+    "meterReadings": [
+      {
+        "unitLabel": "A-12",
+        "meterType": "WATER",
+        "previousValue": 1200,
+        "currentValue": 1248
+      },
+      {
+        "unitLabel": "B-03",
+        "meterType": "ELECTRIC",
+        "previousValue": 5400,
+        "currentValue": 5522
+      }
+    ],
+    "debtInquiryCodes": [
+      {
+        "partyName": "Mehmet Yılmaz",
+        "code10": "4829103756",
+        "unitLabel": "A-12"
+      }
+    ],
+    "parcelDeliveries": [
+      {
+        "carrier": "Yurtiçi",
+        "trackingNumber": "YK-TR-99281",
+        "lockerCode": "L-14",
+        "unitLabel": "B-03",
+        "status": "PENDING"
+      }
+    ],
+    "enforcementCases": [
+      {
+        "ownerName": "Ayşe Demir",
+        "unitLabel": "C-08",
+        "amountCents": 125000,
+        "status": "OPEN",
+        "timelineJson": "[{\"at\":\"2026-01-15T10:00:00Z\",\"note\":\"Dosya açıldı\"}]"
+      }
+    ],
+    "patrolRoute": {
+      "name": "Gece devriye — Batı blok",
+      "checkpoints": [
+        { "name": "Kapı A", "sortOrder": 1 },
+        { "name": "Otopark P1", "sortOrder": 2 },
+        { "name": "Havuz", "sortOrder": 3 }
+      ]
+    },
+    "accessControlEvents": [
+      {
+        "plateOrCard": "34 ABC 123",
+        "eventType": "ENTRY",
+        "gateName": "Ana giriş"
+      }
+    ],
+    "staffTimesheets": [
+      { "staffName": "Ali Güvenlik", "workDate": "2026-03-10", "hoursWorked": 8 }
+    ]
+  }
+}

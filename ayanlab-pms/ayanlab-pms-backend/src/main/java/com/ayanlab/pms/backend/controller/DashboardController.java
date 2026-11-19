@@ -1,6 +1,7 @@
 package com.ayanlab.pms.backend.controller;
 
 import com.ayanlab.core.annotation.ClientHeaders;
+import com.ayanlab.core.annotation.RequirePermission;
 import com.ayanlab.core.controller.BaseController;
 import com.ayanlab.core.data.ClientHeadersPayload;
 import com.ayanlab.core.data.responses.ApiResponse;
@@ -22,12 +23,27 @@ import java.util.Map;
 @RestController
 @RequestMapping("/pms/api/dashboard")
 @Tag(name = "IPMS · Dashboard", description = "Role dashboard summary endpoints (Phase B)")
+@RequirePermission("ipms:dashboard:read")
 @RequiredArgsConstructor
 public class DashboardController extends BaseController {
 
     private static final String BASE_PATH = "/pms/api/dashboard";
 
     private final IIpmsDashboardService dashboardService;
+
+    @GetMapping(value = "/pm/widgets", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ApiResponse<DashboardPmWidgetsResponse>> pmWidgets(
+            @ClientHeaders ClientHeadersPayload headers) {
+        TracedCall call = tracedCall(log, "dashboard-pm-widgets", "GET", BASE_PATH + "/pm/widgets", headers, null, null);
+        try {
+            DashboardPmWidgetsResponse data = dashboardService.pmWidgets(call.context());
+            call.trace().success(Map.of("success", true));
+            return ok(data, call.context());
+        } catch (Exception e) {
+            call.trace().error(e);
+            throw e;
+        }
+    }
 
     @GetMapping(value = "/pm/revenue-summary", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ApiResponse<DashboardRevenueSummaryResponse>> revenueSummary(

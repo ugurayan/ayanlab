@@ -18,3 +18,5 @@ Eski `/ayanlabs/api/...` ve `/api/core/...` kullanımı kaldırıldı.
 Swagger her serviste aynı host portunda: `/swagger-ui/index.html` — bkz. [`API-SWAGGER.md`](API-SWAGGER.md).
 
 Sabitler: `com.ayanlab.core.web.ApiPathPrefixes`
+
+PMS + platform auth/proxy: [`pms-platform-integration.md`](pms-platform-integration.md).

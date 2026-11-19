@@ -104,15 +104,31 @@ springdoc:
     operationsSorter: alpha
 
 server:
-  port: 8080
+  port: ${SERVER_PORT:8105}
   # Access tokens embed large permission lists; default 8KB Tomcat limit returns opaque 400s.
   max-http-request-header-size: 64KB
 
-# Seed data: default-data.json → authorization catalogs → subscription-data.json → DemoDataLoader
+# Auth: IPMS catalog lives on platform (db/authz/ipms.json). Copy in classpath:authz/ for tests + optional publish.
 platform:
+  api-url: ${AYANLAB_PLATFORM_URL:http://localhost:8102}
+  internal-token: ${PLATFORM_INTERNAL_TOKEN:}
+  app-id: ad94b2d2-5022-4818-a785-55807ab139ba
+  authz:
+    catalog:
+      publish:
+        enabled: ${AUTHZ_CATALOG_PUBLISH:false}
+        locations: classpath:authz/*.json
+    version-check:
+      mode: ${AUTHZ_VERSION_CHECK_MODE:remote}
   db:
-    load-default-data: true
-    load-authorization-catalog: true
+    load-default-data: false
+    load-authorization-catalog: false
     load-ipms-property-types: true
-    load-subscription-data: true
-    load-demo-data: true
+    load-subscription-data: false
+    load-demo-data: false
+
+# Demo domain seed (set org UUID from platform after login / org admin UI)
+ipms:
+  demo:
+    enabled: ${IPMS_LOAD_DEMO_DATA:false}
+    organization-id: ${IPMS_DEMO_ORG_ID:}

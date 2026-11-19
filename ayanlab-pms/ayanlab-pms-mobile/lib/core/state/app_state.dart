@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../mock/pms_mock.dart';
+
 /// Mock session: no API, login just flips a flag and stores a display name.
 class SessionNotifier extends ChangeNotifier {
   SessionNotifier(this._prefs);
@@ -12,30 +14,51 @@ class SessionNotifier extends ChangeNotifier {
   static const _keyLoggedIn = 'mock.logged_in';
   static const _keyName = 'mock.user_name';
   static const _keyEmail = 'mock.user_email';
+  static const _keyPersona = 'mock.persona';
 
   bool _loggedIn = false;
   String _name = '';
   String _email = '';
+  PmsPersona _persona = PmsPersona.manager;
 
   bool get isLoggedIn => _loggedIn;
   String get name => _name;
   String get email => _email;
+  PmsPersona get persona => _persona;
 
   void restore() {
     _loggedIn = _prefs.getBool(_keyLoggedIn) ?? false;
-    _name = _prefs.getString(_keyName) ?? 'Alex Demo';
-    _email = _prefs.getString(_keyEmail) ?? 'alex.demo@example.com';
+    _name = _prefs.getString(_keyName) ?? 'Demo PM';
+    _email = _prefs.getString(_keyEmail) ?? 'pm@demo.ayanlab';
+    _persona = PmsPersona.values[
+        _prefs.getInt(_keyPersona) ?? personaFromEmail(_email).index];
     notifyListeners();
   }
 
-  void login({String email = 'alex.demo@example.com'}) {
+  void login({String email = 'pm@demo.ayanlab'}) {
     _loggedIn = true;
     _email = email;
-    _name = email.split('@').first;
+    _name = _displayName(email);
+    _persona = personaFromEmail(email);
     _prefs.setBool(_keyLoggedIn, true);
     _prefs.setString(_keyName, _name);
     _prefs.setString(_keyEmail, _email);
+    _prefs.setInt(_keyPersona, _persona.index);
     notifyListeners();
+  }
+
+  void setPersona(PmsPersona persona) {
+    _persona = persona;
+    _prefs.setInt(_keyPersona, persona.index);
+    notifyListeners();
+  }
+
+  static String _displayName(String email) {
+    final e = email.toLowerCase();
+    for (final d in demoLogins) {
+      if (d.email == e) return d.label;
+    }
+  return email.split('@').first;
   }
 
   void logout() {

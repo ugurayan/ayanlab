@@ -1,0 +1,1254 @@
+{
+  "schemaVersion": 2,
+  "appCode": "ipms",
+  "organizations": [
+    {
+      "code": "DEMO_ORG",
+      "name": "Demo Organization",
+      "description": "Shared dev org (AuthDemoDataLoader)"
+    },
+    {
+      "code": "sunrise",
+      "name": "Sunrise Property Management LLC",
+      "description": "IPMS demo property management company"
+    },
+    {
+      "code": "bayarea",
+      "name": "Bay Area Rentals Inc.",
+      "description": "IPMS demo rental portfolio"
+    },
+    {
+      "code": "hankhand",
+      "name": "Hank the Handyman Services",
+      "description": "IPMS demo maintenance vendor org"
+    },
+    {
+      "code": "demo_ayanlab",
+      "name": "AyanLab Demo Sites",
+      "description": "Mock UI personas (@demo.ayanlab)"
+    }
+  ],
+  "resources": [
+    {
+      "code": "dashboard",
+      "module": "dashboard",
+      "name": "Dashboard",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "approve",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "properties",
+      "module": "properties",
+      "name": "Properties",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "approve",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "tenants",
+      "module": "tenants",
+      "name": "Tenants",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "approve",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "applicants",
+      "module": "applicants",
+      "name": "Applicants",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "approve",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "rental_owners",
+      "module": "rental_owners",
+      "name": "Rental Owners",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "approve",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "associations",
+      "module": "associations",
+      "name": "Associations",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "approve",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "violations",
+      "module": "violations",
+      "name": "Violations",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "approve",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "leasing",
+      "module": "leasing",
+      "name": "Leasing",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "approve",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "accounting",
+      "module": "accounting",
+      "name": "Accounting",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "approve",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "maintenance",
+      "module": "maintenance",
+      "name": "Maintenance",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "approve",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "vendors",
+      "module": "vendors",
+      "name": "Vendors",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "approve",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "work_orders",
+      "module": "work_orders",
+      "name": "Work Orders",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "approve",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "tasks",
+      "module": "tasks",
+      "name": "Tasks",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "approve",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "communication",
+      "module": "communication",
+      "name": "Communication",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "approve",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "files",
+      "module": "files",
+      "name": "Files",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "approve",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "reports",
+      "module": "reports",
+      "name": "Reports",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "approve",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "analytics",
+      "module": "analytics",
+      "name": "Analytics",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "approve",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "addons",
+      "module": "addons",
+      "name": "Addons",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "approve",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "settings",
+      "module": "settings",
+      "name": "Settings",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "approve",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "users",
+      "module": "users",
+      "name": "Users",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "approve",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "roles",
+      "module": "roles",
+      "name": "Roles",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "approve",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "permissions",
+      "module": "permissions",
+      "name": "Permissions",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "approve",
+        "export",
+        "import"
+      ]
+    },
+    {
+      "code": "subscriptions",
+      "module": "subscriptions",
+      "name": "Subscriptions",
+      "actions": [
+        "read",
+        "manage"
+      ]
+    },
+    {
+      "code": "architectural_requests",
+      "module": "associations",
+      "name": "Architectural Requests",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "approve",
+        "export"
+      ]
+    },
+    {
+      "code": "assessments",
+      "module": "associations",
+      "name": "Assessments / Aidat",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage",
+        "approve",
+        "export"
+      ]
+    },
+    {
+      "code": "occupants",
+      "module": "associations",
+      "name": "Owner / Occupant Matrix",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "export"
+      ]
+    },
+    {
+      "code": "portals",
+      "module": "portals",
+      "name": "Resident & Owner Portals",
+      "actions": [
+        "read",
+        "update",
+        "manage"
+      ]
+    },
+    {
+      "code": "late_penalties",
+      "module": "tr_compliance",
+      "name": "Late Penalty Rules",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage"
+      ]
+    },
+    {
+      "code": "meter_readings",
+      "module": "tr_compliance",
+      "name": "Meter Readings",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "export"
+      ]
+    },
+    {
+      "code": "enforcement_cases",
+      "module": "tr_compliance",
+      "name": "Enforcement / İcra",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "export"
+      ]
+    },
+    {
+      "code": "debt_inquiry",
+      "module": "tr_compliance",
+      "name": "ATS Debt Inquiry Codes",
+      "actions": [
+        "read",
+        "create",
+        "manage"
+      ]
+    },
+    {
+      "code": "parcels",
+      "module": "tr_operations",
+      "name": "Parcel Deliveries",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete"
+      ]
+    },
+    {
+      "code": "patrol_routes",
+      "module": "tr_operations",
+      "name": "Patrol Routes",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage"
+      ]
+    },
+    {
+      "code": "access_control",
+      "module": "tr_operations",
+      "name": "Access Control Events",
+      "actions": [
+        "read",
+        "create",
+        "export"
+      ]
+    },
+    {
+      "code": "timesheets",
+      "module": "tr_operations",
+      "name": "Staff Timesheets",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "export"
+      ]
+    },
+    {
+      "code": "equipment_assets",
+      "module": "maintenance",
+      "name": "Equipment Assets",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage"
+      ]
+    },
+    {
+      "code": "commercial_lease_terms",
+      "module": "leasing",
+      "name": "Commercial Lease Terms",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "export"
+      ]
+    },
+    {
+      "code": "cooperative_shares",
+      "module": "associations",
+      "name": "Cooperative Share Registry",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "export"
+      ]
+    },
+    {
+      "code": "coop_board_packets",
+      "module": "associations",
+      "name": "Co-op Board Packets",
+      "actions": [
+        "read",
+        "create",
+        "update",
+        "delete",
+        "manage"
+      ]
+    }
+  ],
+  "policyGroups": [
+    {
+      "code": "IPMS_ROLE_ADMIN",
+      "name": "Administrator Permissions",
+      "description": "IPMS full access for role ADMIN",
+      "permissions": [
+        "ipms:*:*"
+      ]
+    },
+    {
+      "code": "IPMS_ROLE_SYSTEM_ADMINISTRATOR",
+      "name": "System Administrator Permissions",
+      "description": "IPMS permission matrix for role SYSTEM_ADMINISTRATOR",
+      "permissions": [
+        "ipms:*:*"
+      ]
+    },
+    {
+      "code": "IPMS_ROLE_SYSTEM_USER",
+      "name": "System User Permissions",
+      "description": "IPMS permission matrix for role SYSTEM_USER",
+      "permissions": [
+        "ipms:dashboard:read",
+        "ipms:users:read",
+        "ipms:reports:read",
+        "ipms:analytics:read",
+        "ipms:files:read",
+        "ipms:settings:read"
+      ]
+    },
+    {
+      "code": "IPMS_ROLE_ORGANIZATION_ADMINISTRATOR",
+      "name": "Organization Administrator Permissions",
+      "description": "IPMS permission matrix for role ORGANIZATION_ADMINISTRATOR",
+      "permissions": [
+        "ipms:*:*"
+      ],
+      "excludes": [
+        "ipms:permissions:*",
+        "ipms:roles:manage",
+        "ipms:roles:delete",
+        "ipms:roles:approve",
+        "ipms:roles:export",
+        "ipms:roles:import",
+        "ipms:users:manage",
+        "ipms:users:delete",
+        "ipms:users:approve",
+        "ipms:users:export",
+        "ipms:users:import",
+        "ipms:settings:manage",
+        "ipms:settings:approve",
+        "ipms:settings:export",
+        "ipms:settings:import",
+        "ipms:addons:manage",
+        "ipms:addons:create",
+        "ipms:addons:delete",
+        "ipms:addons:update",
+        "ipms:addons:approve",
+        "ipms:addons:export",
+        "ipms:addons:import",
+        "ipms:analytics:manage",
+        "ipms:analytics:approve",
+        "ipms:analytics:export",
+        "ipms:analytics:import",
+        "ipms:reports:manage",
+        "ipms:reports:approve",
+        "ipms:associations:manage",
+        "ipms:associations:delete",
+        "ipms:violations:manage",
+        "ipms:violations:approve"
+      ]
+    },
+    {
+      "code": "IPMS_ROLE_PROPERTY_MANAGER",
+      "name": "Property Manager Permissions",
+      "description": "IPMS permission matrix for role PROPERTY_MANAGER",
+      "permissions": [
+        "ipms:dashboard:read",
+        "ipms:properties:read",
+        "ipms:properties:create",
+        "ipms:properties:update",
+        "ipms:properties:delete",
+        "ipms:properties:export",
+        "ipms:properties:manage",
+        "ipms:tenants:read",
+        "ipms:tenants:create",
+        "ipms:tenants:update",
+        "ipms:tenants:delete",
+        "ipms:tenants:export",
+        "ipms:applicants:read",
+        "ipms:applicants:update",
+        "ipms:applicants:approve",
+        "ipms:rental_owners:read",
+        "ipms:rental_owners:create",
+        "ipms:rental_owners:update",
+        "ipms:associations:read",
+        "ipms:associations:update",
+        "ipms:violations:read",
+        "ipms:violations:create",
+        "ipms:violations:update",
+        "ipms:violations:approve",
+        "ipms:leasing:read",
+        "ipms:leasing:create",
+        "ipms:leasing:update",
+        "ipms:leasing:approve",
+        "ipms:leasing:export",
+        "ipms:leasing:manage",
+        "ipms:commercial_lease_terms:read",
+        "ipms:commercial_lease_terms:create",
+        "ipms:commercial_lease_terms:update",
+        "ipms:cooperative_shares:read",
+        "ipms:cooperative_shares:update",
+        "ipms:coop_board_packets:read",
+        "ipms:coop_board_packets:update",
+        "ipms:accounting:read",
+        "ipms:accounting:export",
+        "ipms:maintenance:read",
+        "ipms:maintenance:create",
+        "ipms:maintenance:update",
+        "ipms:maintenance:approve",
+        "ipms:maintenance:manage",
+        "ipms:vendors:read",
+        "ipms:vendors:update",
+        "ipms:work_orders:read",
+        "ipms:work_orders:create",
+        "ipms:work_orders:update",
+        "ipms:work_orders:approve",
+        "ipms:work_orders:delete",
+        "ipms:tasks:read",
+        "ipms:tasks:create",
+        "ipms:tasks:update",
+        "ipms:communication:read",
+        "ipms:communication:create",
+        "ipms:files:read",
+        "ipms:files:create",
+        "ipms:files:export",
+        "ipms:reports:read",
+        "ipms:reports:export",
+        "ipms:analytics:read",
+        "ipms:addons:read",
+        "ipms:settings:read",
+        "ipms:users:read",
+        "ipms:architectural_requests:read",
+        "ipms:architectural_requests:approve",
+        "ipms:assessments:read",
+        "ipms:assessments:update",
+        "ipms:occupants:read",
+        "ipms:occupants:update",
+        "ipms:late_penalties:read",
+        "ipms:meter_readings:read",
+        "ipms:meter_readings:create",
+        "ipms:enforcement_cases:read",
+        "ipms:parcels:read",
+        "ipms:parcels:update",
+        "ipms:patrol_routes:read",
+        "ipms:access_control:read",
+        "ipms:timesheets:read",
+        "ipms:equipment_assets:read",
+        "ipms:portals:read"
+      ]
+    },
+    {
+      "code": "IPMS_ROLE_ACCOUNTANT",
+      "name": "Accountant Permissions",
+      "description": "IPMS permission matrix for role ACCOUNTANT",
+      "permissions": [
+        "ipms:dashboard:read",
+        "ipms:accounting:read",
+        "ipms:accounting:create",
+        "ipms:accounting:update",
+        "ipms:accounting:delete",
+        "ipms:accounting:approve",
+        "ipms:accounting:export",
+        "ipms:accounting:import",
+        "ipms:reports:read",
+        "ipms:reports:export",
+        "ipms:files:read",
+        "ipms:files:export",
+        "ipms:properties:read",
+        "ipms:rental_owners:read",
+        "ipms:associations:read",
+        "ipms:violations:read",
+        "ipms:leasing:read",
+        "ipms:tasks:read",
+        "ipms:analytics:read",
+        "ipms:settings:read",
+        "ipms:assessments:read",
+        "ipms:assessments:export",
+        "ipms:late_penalties:read",
+        "ipms:meter_readings:read",
+        "ipms:debt_inquiry:read"
+      ]
+    },
+    {
+      "code": "IPMS_ROLE_MAINTENANCE_ORGANIZATION",
+      "name": "Maintenance Organization Permissions",
+      "description": "IPMS permission matrix for role MAINTENANCE_ORGANIZATION",
+      "permissions": [
+        "ipms:dashboard:read",
+        "ipms:maintenance:read",
+        "ipms:maintenance:update",
+        "ipms:maintenance:manage",
+        "ipms:vendors:read",
+        "ipms:vendors:create",
+        "ipms:vendors:update",
+        "ipms:vendors:manage",
+        "ipms:work_orders:read",
+        "ipms:work_orders:create",
+        "ipms:work_orders:update",
+        "ipms:work_orders:approve",
+        "ipms:work_orders:manage",
+        "ipms:tasks:read",
+        "ipms:tasks:create",
+        "ipms:tasks:update",
+        "ipms:communication:read",
+        "ipms:communication:create",
+        "ipms:files:read",
+        "ipms:files:create",
+        "ipms:users:read",
+        "ipms:users:create",
+        "ipms:users:update",
+        "ipms:roles:read",
+        "ipms:settings:read",
+        "ipms:settings:update",
+        "ipms:properties:read",
+        "ipms:reports:read"
+      ]
+    },
+    {
+      "code": "IPMS_ROLE_MAINTENANCE_STAFF",
+      "name": "Maintenance Staff Permissions",
+      "description": "IPMS permission matrix for role MAINTENANCE_STAFF",
+      "permissions": [
+        "ipms:dashboard:read",
+        "ipms:maintenance:read",
+        "ipms:maintenance:create",
+        "ipms:maintenance:update",
+        "ipms:vendors:read",
+        "ipms:work_orders:read",
+        "ipms:work_orders:create",
+        "ipms:work_orders:update",
+        "ipms:tasks:read",
+        "ipms:tasks:update",
+        "ipms:files:read",
+        "ipms:communication:read",
+        "ipms:properties:read",
+        "ipms:settings:read"
+      ]
+    },
+    {
+      "code": "IPMS_ROLE_VENDOR",
+      "name": "Vendor (Personal) Permissions",
+      "description": "IPMS permission matrix for role VENDOR",
+      "permissions": [
+        "ipms:dashboard:read",
+        "ipms:vendors:read",
+        "ipms:vendors:update",
+        "ipms:work_orders:read",
+        "ipms:work_orders:update",
+        "ipms:maintenance:read",
+        "ipms:maintenance:update",
+        "ipms:tasks:read",
+        "ipms:tasks:update",
+        "ipms:files:read",
+        "ipms:communication:read",
+        "ipms:settings:read"
+      ]
+    },
+    {
+      "code": "IPMS_ROLE_LEASING_AGENT",
+      "name": "Leasing Agent Permissions",
+      "description": "IPMS permission matrix for role LEASING_AGENT",
+      "permissions": [
+        "ipms:dashboard:read",
+        "ipms:properties:read",
+        "ipms:properties:export",
+        "ipms:applicants:read",
+        "ipms:applicants:create",
+        "ipms:applicants:update",
+        "ipms:applicants:approve",
+        "ipms:leasing:read",
+        "ipms:leasing:create",
+        "ipms:leasing:update",
+        "ipms:leasing:approve",
+        "ipms:rental_owners:read",
+        "ipms:files:read",
+        "ipms:files:create",
+        "ipms:communication:read",
+        "ipms:communication:create",
+        "ipms:tasks:read",
+        "ipms:tasks:create",
+        "ipms:reports:read",
+        "ipms:reports:export",
+        "ipms:violations:read",
+        "ipms:associations:read",
+        "ipms:analytics:read",
+        "ipms:settings:read",
+        "ipms:tenants:read",
+        "ipms:tenants:create",
+        "ipms:tenants:update",
+        "ipms:vendors:read",
+        "ipms:addons:read",
+        "ipms:users:read"
+      ]
+    },
+    {
+      "code": "IPMS_ROLE_TENANT",
+      "name": "Tenant Permissions",
+      "description": "IPMS permission matrix for role TENANT",
+      "permissions": [
+        "ipms:dashboard:read",
+        "ipms:leasing:read",
+        "ipms:maintenance:read",
+        "ipms:maintenance:create",
+        "ipms:communication:read",
+        "ipms:communication:create",
+        "ipms:files:read",
+        "ipms:accounting:read",
+        "ipms:tasks:read",
+        "ipms:properties:read",
+        "ipms:settings:read"
+      ]
+    },
+    {
+      "code": "IPMS_ROLE_PROPERTY_OWNER",
+      "name": "Property Owner (Personal) Permissions",
+      "description": "IPMS permission matrix for role PROPERTY_OWNER",
+      "permissions": [
+        "ipms:dashboard:read",
+        "ipms:properties:read",
+        "ipms:properties:update",
+        "ipms:leasing:read",
+        "ipms:accounting:read",
+        "ipms:maintenance:read",
+        "ipms:maintenance:create",
+        "ipms:communication:read",
+        "ipms:communication:create",
+        "ipms:files:read",
+        "ipms:files:create",
+        "ipms:reports:read",
+        "ipms:settings:read",
+        "ipms:associations:read",
+        "ipms:violations:read",
+        "ipms:assessments:read",
+        "ipms:parcels:read",
+        "ipms:debt_inquiry:read",
+        "ipms:portals:read",
+        "ipms:architectural_requests:read",
+        "ipms:architectural_requests:create"
+      ]
+    },
+    {
+      "code": "IPMS_ROLE_FIELD_STAFF",
+      "name": "Field Staff Permissions",
+      "description": "Mobile field: patrol, access log, assigned work orders",
+      "permissions": [
+        "ipms:dashboard:read",
+        "ipms:patrol_routes:read",
+        "ipms:patrol_routes:update",
+        "ipms:patrol_routes:manage",
+        "ipms:work_orders:read",
+        "ipms:work_orders:update",
+        "ipms:maintenance:read",
+        "ipms:maintenance:update",
+        "ipms:tasks:read",
+        "ipms:tasks:update",
+        "ipms:communication:read",
+        "ipms:files:read",
+        "ipms:files:create",
+        "ipms:properties:read",
+        "ipms:access_control:read",
+        "ipms:access_control:create",
+        "ipms:parcels:read",
+        "ipms:equipment_assets:read",
+        "ipms:settings:read"
+      ]
+    },
+    {
+      "code": "IPMS_ROLE_VIEWER",
+      "name": "Viewer (Read Only) Permissions",
+      "description": "IPMS permission matrix for role VIEWER",
+      "permissions": [
+        "ipms:dashboard:read",
+        "ipms:properties:read",
+        "ipms:reports:read",
+        "ipms:analytics:read",
+        "ipms:files:read",
+        "ipms:settings:read"
+      ]
+    }
+  ],
+  "roles": [
+    {
+      "code": "ADMIN",
+      "name": "Administrator",
+      "description": "Full access",
+      "policyGroups": [
+        "IPMS_ROLE_ADMIN"
+      ]
+    },
+    {
+      "code": "SYSTEM_ADMINISTRATOR",
+      "name": "System Administrator",
+      "description": "Full system access with ability to manage all organizations and system settings",
+      "policyGroups": [
+        "IPMS_ROLE_SYSTEM_ADMINISTRATOR"
+      ]
+    },
+    {
+      "code": "SYSTEM_USER",
+      "name": "System User",
+      "description": "Platform staff with baseline read-only access; SYSTEM_ADMINISTRATOR may grant extras",
+      "policyGroups": [
+        "IPMS_ROLE_SYSTEM_USER"
+      ]
+    },
+    {
+      "code": "ORGANIZATION_ADMINISTRATOR",
+      "name": "Organization Administrator",
+      "description": "Full access to organization data, users, and settings",
+      "policyGroups": [
+        "IPMS_ROLE_ORGANIZATION_ADMINISTRATOR"
+      ]
+    },
+    {
+      "code": "PROPERTY_MANAGER",
+      "name": "Property Manager",
+      "description": "Manage properties, tenants, leases, and maintenance",
+      "policyGroups": [
+        "IPMS_ROLE_PROPERTY_MANAGER"
+      ]
+    },
+    {
+      "code": "ACCOUNTANT",
+      "name": "Accountant",
+      "description": "Manage financial records, transactions, and reports",
+      "policyGroups": [
+        "IPMS_ROLE_ACCOUNTANT"
+      ]
+    },
+    {
+      "code": "MAINTENANCE_ORGANIZATION",
+      "name": "Maintenance Organization",
+      "description": "External vendor/maintenance company admin for assigned work orders and staff",
+      "policyGroups": [
+        "IPMS_ROLE_MAINTENANCE_ORGANIZATION"
+      ]
+    },
+    {
+      "code": "MAINTENANCE_STAFF",
+      "name": "Maintenance Staff",
+      "description": "View and manage maintenance requests and work orders",
+      "policyGroups": [
+        "IPMS_ROLE_MAINTENANCE_STAFF"
+      ]
+    },
+    {
+      "code": "VENDOR",
+      "name": "Vendor (Personal)",
+      "description": "Personal vendor account without company affiliation",
+      "policyGroups": [
+        "IPMS_ROLE_VENDOR"
+      ]
+    },
+    {
+      "code": "LEASING_AGENT",
+      "name": "Leasing Agent",
+      "description": "Manage applicants, leases, and property listings",
+      "policyGroups": [
+        "IPMS_ROLE_LEASING_AGENT"
+      ]
+    },
+    {
+      "code": "TENANT",
+      "name": "Tenant",
+      "description": "View own lease, submit maintenance requests, and make payments",
+      "policyGroups": [
+        "IPMS_ROLE_TENANT"
+      ]
+    },
+    {
+      "code": "PROPERTY_OWNER",
+      "name": "Property Owner (Personal)",
+      "description": "Personal property owner account without management company affiliation",
+      "policyGroups": [
+        "IPMS_ROLE_PROPERTY_OWNER"
+      ]
+    },
+    {
+      "code": "VIEWER",
+      "name": "Viewer (Read Only)",
+      "description": "Read-only access to permitted modules (legacy alias toward SYSTEM_USER)",
+      "policyGroups": [
+        "IPMS_ROLE_VIEWER"
+      ]
+    },
+    {
+      "code": "FIELD_STAFF",
+      "name": "Field Staff",
+      "description": "Patrol and on-site maintenance (Apsiyon Field)",
+      "policyGroups": [
+        "IPMS_ROLE_FIELD_STAFF"
+      ]
+    }
+  ],
+  "users": [
+    {
+      "email": "admin@ipm-app.com",
+      "password": "Admin123!",
+      "firstName": "Jay",
+      "lastName": "Anderson",
+      "mobile": "+10000001001",
+      "roles": [
+        "SYSTEM_ADMINISTRATOR"
+      ]
+    },
+    {
+      "email": "owner@ipm-app.com",
+      "password": "Admin123!",
+      "firstName": "Sarah",
+      "lastName": "Mitchell",
+      "mobile": "+10000001002",
+      "roles": [
+        "ORGANIZATION_ADMINISTRATOR"
+      ]
+    },
+    {
+      "email": "tenant@ipm-app.com",
+      "password": "Admin123!",
+      "firstName": "Mike",
+      "lastName": "Johnson",
+      "mobile": "+10000001003",
+      "roles": [
+        "TENANT"
+      ],
+      "permissionOverrides": [
+        {
+          "code": "ipms:reports:read",
+          "effect": "GRANT"
+        },
+        {
+          "code": "ipms:accounting:export",
+          "effect": "DENY"
+        }
+      ]
+    },
+    {
+      "email": "demo@demo.com",
+      "password": "Admin123!",
+      "firstName": "Demo",
+      "lastName": "User",
+      "mobile": "+10000001004",
+      "roles": [
+        "SYSTEM_ADMINISTRATOR"
+      ]
+    },
+    {
+      "email": "manager@ipm-app.com",
+      "password": "Admin123!",
+      "firstName": "David",
+      "lastName": "Chen",
+      "mobile": "+10000001005",
+      "roles": [
+        "PROPERTY_MANAGER"
+      ],
+      "permissionOverrides": [
+        {
+          "code": "ipms:analytics:export",
+          "effect": "GRANT"
+        },
+        {
+          "code": "ipms:users:create",
+          "effect": "GRANT"
+        }
+      ]
+    },
+    {
+      "email": "accountant@ipm-app.com",
+      "password": "Admin123!",
+      "firstName": "Lisa",
+      "lastName": "Wong",
+      "mobile": "+10000001006",
+      "roles": [
+        "ACCOUNTANT"
+      ],
+      "permissionOverrides": [
+        {
+          "code": "ipms:settings:read",
+          "effect": "GRANT"
+        }
+      ]
+    },
+    {
+      "email": "maintenance@ipm-app.com",
+      "password": "Admin123!",
+      "firstName": "Carlos",
+      "lastName": "Rodriguez",
+      "mobile": "+10000001007",
+      "roles": [
+        "MAINTENANCE_STAFF"
+      ],
+      "permissionOverrides": [
+        {
+          "code": "ipms:maintenance:approve",
+          "effect": "GRANT"
+        }
+      ]
+    },
+    {
+      "email": "leasing@ipm-app.com",
+      "password": "Admin123!",
+      "firstName": "Emma",
+      "lastName": "Williams",
+      "mobile": "+10000001008",
+      "roles": [
+        "LEASING_AGENT"
+      ],
+      "permissionOverrides": [
+        {
+          "code": "ipms:leasing:delete",
+          "effect": "GRANT"
+        }
+      ]
+    },
+    {
+      "email": "pm@demo.ayanlab",
+      "password": "password",
+      "firstName": "Pam",
+      "lastName": "Manager",
+      "mobile": "+905551001001",
+      "profileSlug": "pm-demo",
+      "organizationCode": "demo_ayanlab",
+      "tenancy": "ORGANIZATION",
+      "registrationStatus": "Created",
+      "roles": [
+        "PROPERTY_MANAGER"
+      ]
+    },
+    {
+      "email": "accountant@demo.ayanlab",
+      "password": "password",
+      "firstName": "Ada",
+      "lastName": "Accountant",
+      "mobile": "+905551001002",
+      "profileSlug": "accountant-demo",
+      "organizationCode": "demo_ayanlab",
+      "tenancy": "ORGANIZATION",
+      "registrationStatus": "Created",
+      "roles": [
+        "ACCOUNTANT"
+      ]
+    },
+    {
+      "email": "leasing@demo.ayanlab",
+      "password": "password",
+      "firstName": "Lea",
+      "lastName": "Singh",
+      "mobile": "+905551001003",
+      "profileSlug": "leasing-demo",
+      "organizationCode": "demo_ayanlab",
+      "tenancy": "ORGANIZATION",
+      "registrationStatus": "Created",
+      "roles": [
+        "LEASING_AGENT"
+      ]
+    },
+    {
+      "email": "owner@demo.ayanlab",
+      "password": "password",
+      "firstName": "Oya",
+      "lastName": "Malik",
+      "mobile": "+905551001004",
+      "profileSlug": "owner-demo",
+      "organizationCode": "demo_ayanlab",
+      "tenancy": "ORGANIZATION",
+      "registrationStatus": "Created",
+      "roles": [
+        "PROPERTY_OWNER"
+      ]
+    },
+    {
+      "email": "field@demo.ayanlab",
+      "password": "password",
+      "firstName": "Ferhat",
+      "lastName": "Saha",
+      "mobile": "+905551001005",
+      "profileSlug": "field-demo",
+      "organizationCode": "demo_ayanlab",
+      "tenancy": "ORGANIZATION",
+      "registrationStatus": "Created",
+      "roles": [
+        "FIELD_STAFF"
+      ]
+    }
+  ]
+}

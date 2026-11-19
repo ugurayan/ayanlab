@@ -93,6 +93,8 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <mainClass>com.ayanlab.core.backend.PlatformApplication</mainClass>
+                    <!-- Keep thin jar as the main artifact so app backends (PMS, …) can depend on it. -->
+                    <classifier>exec</classifier>
                 </configuration>
             </plugin>
             <plugin>

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../core/l10n/app_localizations.dart';
-import '../../core/mock/mock_data.dart';
+import '../../core/mock/pms_mock.dart';
+import '../../core/state/app_state.dart';
 
-/// Notifications tab: mock list with read state and mark-all action.
+/// Notifications tab: persona-specific mock list.
 class NotificationsPage extends StatefulWidget {
   const NotificationsPage({super.key});
 
@@ -12,17 +14,21 @@ class NotificationsPage extends StatefulWidget {
 }
 
 class _NotificationsPageState extends State<NotificationsPage> {
-  late List<MockNotification> _items;
+  PmsPersona? _persona;
+  List<MockNotification> _items = [];
 
-  @override
-  void initState() {
-    super.initState();
-    _items = List.of(mockNotifications);
+  void _sync(PmsPersona persona) {
+    if (_persona != persona) {
+      _persona = persona;
+      _items = List.of(PmsMock.instance.notificationsFor(persona));
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     final loc = AppLocalizations.of(context)!;
+    final persona = context.watch<SessionNotifier>().persona;
+    _sync(persona);
 
     return Column(
       children: [
@@ -30,8 +36,12 @@ class _NotificationsPageState extends State<NotificationsPage> {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Row(
             children: [
-              Expanded(child: Text(loc.tabNotifications,
-                  style: Theme.of(context).textTheme.titleMedium)),
+              Expanded(
+                child: Text(
+                  '${loc.tabNotifications} · ${persona.label}',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ),
               TextButton(
                 onPressed: () => setState(() {
                   _items = [

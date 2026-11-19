@@ -6,6 +6,7 @@ import com.ayanlab.core.data.ClientHeadersPayload;
 import com.ayanlab.core.data.CoreContext;
 import com.ayanlab.core.data.responses.ApiResponse;
 import com.ayanlab.core.entity.BaseEntity;
+import com.ayanlab.pms.backend.security.IpmsAuthz;
 import com.ayanlab.pms.backend.service.IIpmsOrgScopedService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +36,7 @@ public abstract class IpmsCrudController<T extends BaseEntity> extends BaseContr
             ClientHeadersPayload headers,
             Map<String, Object> traceParams,
             Function<CoreContext, List<T>> loader) {
+        IpmsAuthz.requireOperation(operationPrefix(), "read");
         TracedCall call = tracedCall(log, operationPrefix() + "-list", "GET", basePath(), headers, null, traceParams);
         try {
             List<T> data = loader.apply(call.context());
@@ -52,6 +54,7 @@ public abstract class IpmsCrudController<T extends BaseEntity> extends BaseContr
             @ClientHeaders ClientHeadersPayload headers) {
         Map<String, Object> params = new LinkedHashMap<>();
         params.put("id", id);
+        IpmsAuthz.requireOperation(operationPrefix(), "read");
         TracedCall call = tracedCall(log, operationPrefix() + "-get", "GET", basePath() + "/{id}", headers, null, params);
         try {
             T found = service().findById(id, call.context());
@@ -67,6 +70,7 @@ public abstract class IpmsCrudController<T extends BaseEntity> extends BaseContr
     public ResponseEntity<ApiResponse<T>> create(
             @RequestBody T body,
             @ClientHeaders ClientHeadersPayload headers) {
+        IpmsAuthz.requireOperation(operationPrefix(), "create");
         TracedCall call = tracedCall(log, operationPrefix() + "-create", "POST", basePath(), headers, body, null);
         try {
             T created = service().create(body, call.context());
@@ -86,6 +90,7 @@ public abstract class IpmsCrudController<T extends BaseEntity> extends BaseContr
         Map<String, Object> params = new LinkedHashMap<>();
         params.put("id", id);
         body.setId(id);
+        IpmsAuthz.requireOperation(operationPrefix(), "update");
         TracedCall call = tracedCall(log, operationPrefix() + "-update", "PUT", basePath() + "/{id}", headers, body, params);
         try {
             T updated = service().update(body, call.context());
@@ -101,6 +106,7 @@ public abstract class IpmsCrudController<T extends BaseEntity> extends BaseContr
     public ResponseEntity<ApiResponse<Object>> deleteById(
             @PathVariable UUID id,
             @ClientHeaders ClientHeadersPayload headers) {
+        IpmsAuthz.requireOperation(operationPrefix(), "delete");
         TracedCall call = tracedCall(log, operationPrefix() + "-delete", "DELETE", basePath() + "/{id}", headers, null, Map.of("id", id));
         try {
             service().deleteById(id, call.context());

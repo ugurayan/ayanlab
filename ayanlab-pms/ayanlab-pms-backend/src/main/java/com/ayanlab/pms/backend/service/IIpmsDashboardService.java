@@ -38,4 +38,6 @@ public interface IIpmsDashboardService {
     DashboardStaffScheduleResponse staffSchedule(CoreContext context);
 
     DashboardStaffCompletedResponse staffCompleted(CoreContext context);
+
+    DashboardPmWidgetsResponse pmWidgets(CoreContext context);
 }

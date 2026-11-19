@@ -62,6 +62,23 @@ public abstract class AbstractIpmsOrgService<T extends BaseEntity & OrgScoped, R
     }
 
     @Override
+    @Transactional
+    public void hardDeleteById(UUID id, CoreContext context) {
+        T found = findById(id, context);
+        repository.delete(found);
+    }
+
+    @Override
+    @Transactional
+    public T setActive(UUID id, boolean active, CoreContext context) {
+        T found = findById(id, context);
+        found.setIsActive(active);
+        found = map(found, context.getUserId(), ActionEnum.UPDATE);
+        found.setIsActive(active);
+        return repository.save(found);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public T findById(UUID id, CoreContext context) {
         UUID orgId = requireOrgId(context);

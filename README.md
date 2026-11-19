@@ -10,6 +10,7 @@
 | Veritabanları | [`docs/DATABASES.md`](docs/DATABASES.md) |
 | **Portlar** | [`docs/PORTS.md`](docs/PORTS.md) |
 | **API yolları** | [`docs/API-PATHS.md`](docs/API-PATHS.md) |
+| **PMS demo turu** | [`docs/pms-demo-walkthrough.md`](docs/pms-demo-walkthrough.md) |
 | **Swagger / OpenAPI** | [`docs/API-SWAGGER.md`](docs/API-SWAGGER.md) |
 | Docker sorunları | [`docs/TROUBLESHOOTING-DOCKER.md`](docs/TROUBLESHOOTING-DOCKER.md) |
 

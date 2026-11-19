@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/l10n/app_localizations.dart';
+import '../../core/mock/pms_mock.dart';
 import '../../core/state/app_state.dart';
 
 /// Mock login: any input signs in and opens the main shell.
@@ -28,6 +29,12 @@ class _LoginPageState extends State<LoginPage> {
     if (!_formKey.currentState!.validate()) return;
     context.read<SessionNotifier>().login(email: _email.text.trim());
     Navigator.of(context).pushNamedAndRemoveUntil('/shell', (_) => false);
+  }
+
+  void _quickLogin(String email) {
+    _email.text = email;
+    _password.text = 'password';
+    _submit();
   }
 
   @override
@@ -96,6 +103,21 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: _submit,
                     child: Text(loc.signIn),
                   ),
+                  const SizedBox(height: 20),
+                  Text(
+                    'Demo hesaplar (web UI ile aynı)',
+                    style: Theme.of(context).textTheme.titleSmall,
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 8),
+                  for (final d in demoLogins)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 6),
+                      child: OutlinedButton(
+                        onPressed: () => _quickLogin(d.email),
+                        child: Text(d.label),
+                      ),
+                    ),
                   const SizedBox(height: 16),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
