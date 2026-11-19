@@ -46,11 +46,11 @@ sed -i '' '/^android\/$/d;/^ios\/$/d' "$TARGET/.gitignore"
 
 # Generate platform folders (android/ios) from the existing pubspec
 if command -v flutter >/dev/null 2>&1; then
-  (cd "$TARGET" && flutter create . --platforms ios,android --org com.ayanlab --project-name "${PKG}")
+  (cd "$TARGET" && flutter create . --platforms ios,android,macos --org com.ayanlab --project-name "${PKG}")
   (cd "$TARGET" && flutter pub get)
 else
   echo "!! flutter not found: platform folders not generated." >&2
-  echo "   Run 'flutter create . --platforms ios,android --org com.ayanlab --project-name ${PKG}' later." >&2
+  echo "   Run 'flutter create . --platforms ios,android,macos --org com.ayanlab --project-name ${PKG}' later." >&2
 fi
 
 echo "==> Done: $TARGET"
