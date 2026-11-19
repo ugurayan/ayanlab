@@ -240,11 +240,12 @@ run_mobile() {
     red "flutter bulunamadı — Flutter SDK kurulu değil"
     return 1
   fi
-  yellow "Mobile başlatılıyor (flutter run): $mobile_dir"
+  yellow "Mobile başlatılıyor (flutter run, FLUTTER_DEVICE=${FLUTTER_DEVICE:-macos}): $mobile_dir"
   (cd "$mobile_dir" && flutter pub get) || { red "flutter pub get başarısız"; return 1; }
-  (cd "$mobile_dir" && nohup flutter run > "$ROOT/logs/$p-mobile.log" 2>&1 &
+  (cd "$mobile_dir" && nohup flutter run -d "${FLUTTER_DEVICE:-macos}" > "$ROOT/logs/$p-mobile.log" 2>&1 &
     echo $! > "$ROOT/logs/$p-mobile.pid")
-  green "Mobile başlatıldı — log: logs/$p-mobile.log (bağlı cihaz/emülatör gerekir)"
+  green "Mobile başlatıldı — log: logs/$p-mobile.log"
+  green "Cihaz değiştirmek için: FLUTTER_DEVICE=ios ./run-apps.sh (iOS simülatör gerekir)"
 }
 
 run_component() {

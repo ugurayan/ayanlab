@@ -9,6 +9,26 @@ source "$ROOT/scripts/lib/resolve-env-file.sh"
 # shellcheck source=scripts/lib/mvn-install-libs.sh
 source "$ROOT/scripts/lib/mvn-install-libs.sh"
 
+# Mobile (Flutter): ./run-local.sh mobile [extra flutter run args]
+# Device override: FLUTTER_DEVICE=ios ./run-local.sh mobile
+run_mobile() {
+  local mobile_dir="$HERE/ayanlab-vault-mobile"
+  if ! command -v flutter >/dev/null 2>&1; then
+    echo "flutter not found — Flutter SDK gerekli" >&2
+    exit 1
+  fi
+  echo "Running flutter (${FLUTTER_DEVICE:-macos}): $mobile_dir"
+  cd "$mobile_dir"
+  flutter pub get
+  exec flutter run -d "${FLUTTER_DEVICE:-macos}" "$@"
+}
+
+if [[ "${1:-}" == "mobile" ]]; then
+  shift
+  run_mobile "$@"
+fi
+
+
 mvn_install_libs "$ROOT"
 cd "$HERE/ayanlab-vault-backend"
 load_env_file "$ROOT"

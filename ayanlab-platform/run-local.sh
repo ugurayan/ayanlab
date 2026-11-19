@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
-# Interactive launcher for platform + product backends / platform UI.
+# Interactive launcher for platform + product backends / platform UI / mobile apps.
 # Usage:
 #   ./run-local.sh              → menu
 #   ./run-local.sh backend      → platform JVM
 #   ./run-local.sh ui           → React admin UI
-#   ./run-local.sh vault        → delegate to ayanlab-vault/run-local.sh
+#   ./run-local.sh vault        → delegate to ayanlab-vault/run-local.sh (backend)
+#   ./run-local.sh hrm mobile   → run ayanlab-hrm-mobile (Flutter, default macos)
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 ROOT="$(cd "$HERE/.." && pwd)"
@@ -59,6 +60,14 @@ AyanLab — local run (ENV=local)
     7) ayanlab-booking-backend
     8) ayanlab-comm-backend
 
+  Mobile apps (Flutter — default device: macos, FLUTTER_DEVICE ile override)
+    9)  hrm mobile
+    10) pms mobile
+    11) crm mobile
+    12) vault mobile
+    13) booking mobile
+    14) comm mobile
+
     q) Quit
 
 MENU
@@ -103,7 +112,7 @@ if [[ ! -t 0 ]]; then
 fi
 
 while true; do
-  printf "Choice [1-8/q]: "
+  printf "Choice [1-14/q]: "
   read -r choice
   case "$choice" in
     1) run_backend ;;
@@ -114,6 +123,12 @@ while true; do
     6) run_product hrm ;;
     7) run_product booking ;;
     8) run_product comm ;;
+    9)  run_product hrm mobile ;;
+    10) run_product pms mobile ;;
+    11) run_product crm mobile ;;
+    12) run_product vault mobile ;;
+    13) run_product booking mobile ;;
+    14) run_product comm mobile ;;
     q|Q) exit 0 ;;
     *) echo "Invalid choice." ;;
   esac
