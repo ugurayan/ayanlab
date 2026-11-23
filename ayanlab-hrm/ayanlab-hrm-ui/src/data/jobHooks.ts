@@ -1,7 +1,14 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { jobApi } from "../mock/jobApi";
 import type { JobRole, Skill, DressCode, ContractType, ContactType, FreeTimeWindow, ExpertiseLevel, Certificate, JobDocument, JobTemplate } from "../types/jobs";
-import { apiGetIndustries, apiGetJobRolesByCategory, apiGetCertificatesByJobRole, apiGetSkillsByJobRole } from "../api/services/jobs";
+import {
+  apiGetIndustries,
+  apiGetJobRolesByCategory,
+  apiGetCertificatesByJobRole,
+  apiGetSkillsByJobRole,
+  apiGetContractTypes,
+  apiGetJobDocumentsByRole,
+} from "../api/services/jobs";
 import { apiGetJobRoleWages } from "../api/services/jobRoleWages";
 import { useLanguage } from "../state/i18n";
 
@@ -81,10 +88,15 @@ export const useDressCode = (id: string) => {
   });
 };
 
+async function loadContractTypes() {
+  const fromApi = await apiGetContractTypes();
+  return fromApi.length ? fromApi : jobApi.getContractTypes();
+}
+
 export const useContractTypes = () => {
   return useQuery({
     queryKey: ["contractTypes"],
-    queryFn: () => jobApi.getContractTypes(),
+    queryFn: loadContractTypes,
     staleTime: 5 * 60 * 1000,
   });
 };
@@ -93,7 +105,7 @@ export const useContractTypesWithLanguage = () => {
   const { language } = useLanguage();
   return useQuery({
     queryKey: ["contractTypes", language],
-    queryFn: () => jobApi.getContractTypes(),
+    queryFn: loadContractTypes,
     staleTime: ONE_DAY_MS,
     gcTime: ONE_DAY_MS,
   });
@@ -129,7 +141,6 @@ export const useCertificatesByRole = (roleId: string | null, language: string) =
     queryKey: ["certificates", "role", roleId, language],
     queryFn: () => {
       if (!roleId) return Promise.resolve([]);
-      if (USE_MOCKS) return jobApi.getCertificatesByRole(roleId);
       return apiGetCertificatesByJobRole(roleId, language);
     },
     enabled: !!roleId,
@@ -137,13 +148,12 @@ export const useCertificatesByRole = (roleId: string | null, language: string) =
   });
 };
 
-/** Documents by job role – mock API returns { id, name }[] with sample data; real API can be wired later. */
 export const useDocumentsByRole = (roleId: string | null) => {
   return useQuery({
     queryKey: ["documents", "role", roleId],
     queryFn: () => {
       if (!roleId) return Promise.resolve([]);
-      return jobApi.getDocumentsByRole(roleId);
+      return apiGetJobDocumentsByRole(roleId);
     },
     enabled: !!roleId,
     staleTime: 5 * 60 * 1000,

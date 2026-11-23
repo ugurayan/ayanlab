@@ -1,21 +1,85 @@
 #!/usr/bin/env bash
 # Interactive launcher for platform + product backends / platform UI / mobile apps.
+# No Docker — loads repo-root .env.* and passes POSTGIS_* / JWT_* / etc. to Spring (mvn bootRun).
 # Usage:
-#   ./run-local.sh              → menu
-#   ./run-local.sh backend      → platform JVM
-#   ./run-local.sh ui           → React admin UI
-#   ./run-local.sh vault        → delegate to ayanlab-vault/run-local.sh (backend)
-#   ./run-local.sh hrm mobile   → run ayanlab-hrm-mobile (Flutter, default macos)
+#   ./run-local.sh [.env.local|.env.remote|.env.prod] [target ...]
+#   ./run-local.sh local backend          # shorthand
+#   ./run-local.sh --env-file ../.env.remote vault
+#   ./run-local.sh                        → menu (default: .env.local)
+#   ./run-local.sh backend                → platform JVM
+#   ./run-local.sh ui                     → React admin UI
+#   ./run-local.sh vault                  → delegate to ayanlab-vault/run-local.sh
+#   ./run-local.sh hrm mobile             → Flutter (default device: macos)
+
+################################################################################
+# cd ayanlab-platform
+# ./run-local.sh .env.remote backend
+# ./run-local.sh .env.local vault
+# ./run-local.sh .env.prod crm
+
+# # kısa isimler
+# ./run-local.sh remote backend
+# ./run-local.sh local
+
+# # özel yol
+# ./run-local.sh --env-file /path/to/.env.prod vault
+# ./run-local.sh -e remote hrm mobile
+################################################################################
+
+
 set -euo pipefail
 HERE="$(cd "$(dirname "$0")" && pwd)"
 ROOT="$(cd "$HERE/.." && pwd)"
-export ENV="${ENV:-local}"
+# shellcheck source=../scripts/lib/resolve-env-file.sh
+source "$ROOT/scripts/lib/resolve-env-file.sh"
+
+# Env spec must run in this shell (not a subshell) so ENV / ENV_FILE reach run-backend.sh.
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --env-file)
+      [[ $# -ge 2 ]] || { echo "Missing path after --env-file" >&2; exit 1; }
+      apply_env_spec "$2" "$ROOT" || exit 1
+      shift 2
+      ;;
+    -e)
+      [[ $# -ge 2 ]] || { echo "Missing env after -e" >&2; exit 1; }
+      apply_env_spec "$2" "$ROOT" || exit 1
+      shift 2
+      ;;
+    .env.local|.env.remote|.env.prod)
+      apply_env_spec "$1" "$ROOT" || exit 1
+      shift
+      ;;
+    local|dev|remote|prod|production)
+      apply_env_spec "$1" "$ROOT" || exit 1
+      shift
+      ;;
+    *)
+      break
+      ;;
+  esac
+done
+
+if [[ -z "${ENV_FILE:-}" ]]; then
+  export ENV="${ENV:-local}"
+  ENV_FILE="${ROOT}/$(resolve_env_file)"
+  export ENV_FILE
+fi
+
+require_env_file() {
+  if [[ ! -f "${ENV_FILE}" ]]; then
+    echo "Missing ${ENV_FILE} — cp .env.local.example .env.local at repo root" >&2
+    exit 1
+  fi
+}
 
 run_backend() {
+  require_env_file
   exec "$HERE/scripts/run-backend.sh" "$@"
 }
 
 run_ui() {
+  require_env_file
   exec "$HERE/scripts/run-ui.sh" "$@"
 }
 
@@ -39,14 +103,16 @@ run_product() {
     echo "Missing $ROOT/$dir/run-local.sh" >&2
     exit 1
   fi
-  echo "Delegating to $name ($dir/run-local.sh)"
+  require_env_file
+  echo "Delegating to $name ($dir/run-local.sh)  env=${ENV_FILE}"
   exec "$ROOT/$dir/run-local.sh" "$@"
 }
 
 print_menu() {
-  cat <<'MENU'
+  cat <<MENU
 
-AyanLab — local run (ENV=local)
+AyanLab — apps on this machine (ENV=${ENV})
+  env file: ${ENV_FILE}
 
   Platform
     1) ayanlab-platform-backend   (Spring Boot API)
@@ -89,13 +155,20 @@ if [[ $# -gt 0 ]]; then
       run_product "$key" "$@"
       ;;
     -h|--help|help)
-      sed -n '2,8p' "$0"
+      sed -n '2,11p' "$0"
+      echo ""
+      echo "Env (optional, before target):"
+      echo "  .env.local | .env.remote | .env.prod"
+      echo "  local | remote | prod"
+      echo "  --env-file <path>   -e <name>"
+      echo ""
+      echo "  (No Docker — DB from POSTGIS_* / *_DB_* in the env file.)"
       echo ""
       echo "Examples:"
-      echo "  ENV=local ./run-local.sh"
-      echo "  ENV=local ./run-local.sh backend"
-      echo "  ENV=local ./run-local.sh ui"
-      echo "  ENV=local ./run-local.sh vault"
+      echo "  ./run-local.sh .env.remote backend"
+      echo "  ./run-local.sh remote vault"
+      echo "  ./run-local.sh .env.local"
+      echo "  ENV_FILE=\$PWD/../.env.prod ./run-local.sh crm"
       exit 0
       ;;
     *)
@@ -105,9 +178,10 @@ if [[ $# -gt 0 ]]; then
   esac
 fi
 
+require_env_file
 print_menu
 if [[ ! -t 0 ]]; then
-  echo "No TTY — pass a target, e.g. ./run-local.sh backend" >&2
+  echo "No TTY — pass a target, e.g. ./run-local.sh .env.remote backend" >&2
   exit 1
 fi
 

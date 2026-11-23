@@ -6,6 +6,8 @@ import type { Language } from '../../../state/i18n';
 import { ChevronDown, X, Plus } from 'lucide-react';
 import type { JobFormData } from '../types';
 import type { StepErrors } from './validation';
+import { WIZARD_TITLE_SURFACE, WizardStepHeader, WizardSectionTitle } from './WizardSectionHeading';
+import { formatWizard, useJobWizardCopy } from '../i18n/wizardTexts';
 
 const CUSTOM_CERT_ID = '__custom__';
 const CUSTOM_DOC_ID = '__custom__';
@@ -101,6 +103,9 @@ interface MultiSelectDropdownProps<T extends string> {
   getSelectedLabel?: (id: string) => string;
   disabled?: boolean;
   loading?: boolean;
+  loadingLabel?: string;
+  selectedCountLabel?: (count: number) => string;
+  customOptionLabel?: string;
 }
 
 function MultiSelectDropdown<T extends string>({
@@ -118,11 +123,14 @@ function MultiSelectDropdown<T extends string>({
   getSelectedLabel,
   disabled,
   loading,
+  loadingLabel = 'Loading...',
+  selectedCountLabel,
+  customOptionLabel = 'Custom',
 }: MultiSelectDropdownProps<T>) {
   const total = selectedIds.length;
   return (
     <div>
-      <label className="block text-sm font-medium text-slate-700 mb-1">{label}</label>
+      <p className={`block text-sm font-semibold text-slate-900 mb-1 ${WIZARD_TITLE_SURFACE}`}>{label}</p>
       <div className="relative">
         <button
           type="button"
@@ -131,7 +139,7 @@ function MultiSelectDropdown<T extends string>({
           className="w-full flex items-center justify-between gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-left text-sm text-slate-700 hover:border-slate-300 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-60"
         >
           <span className="truncate">
-            {loading ? 'Loading...' : total === 0 ? triggerLabel : `${total} selected`}
+            {loading ? loadingLabel : total === 0 ? triggerLabel : (selectedCountLabel ? selectedCountLabel(total) : `${total} selected`)}
           </span>
           <ChevronDown className={`w-4 h-4 shrink-0 text-slate-400 transition-transform ${open ? 'rotate-180' : ''}`} />
         </button>
@@ -166,7 +174,7 @@ function MultiSelectDropdown<T extends string>({
                     onChange={(e) => onCustomToggle?.(e.target.checked)}
                     className="rounded border-slate-300 text-blue-600"
                   />
-                  <span className="text-sm text-slate-700">Custom</span>
+                  <span className="text-sm text-slate-700">{customOptionLabel}</span>
                 </label>
               )}
               {customChecked && customContent}
@@ -208,6 +216,9 @@ interface Step5CertificatesProps {
 }
 
 export function Step5Certificates({ formData, updateFormData, onNext, onBack, canGoBack = false }: Step5CertificatesProps) {
+  const w = useJobWizardCopy();
+  const c = w.common;
+  const s = w.step5;
   const { language } = useLanguage();
   const { data: certificates = [], isLoading: certsLoading, isError: certsError } = useCertificatesByRole(formData.selectedRoleId || null, language);
   const { data: documents = [], isLoading: docsLoading } = useDocumentsByRole(formData.selectedRoleId || null);
@@ -396,17 +407,20 @@ export function Step5Certificates({ formData, updateFormData, onNext, onBack, ca
     return l ? getLocalizedLabel(l, language) : id;
   };
 
+  const dropdownI18n = {
+    loadingLabel: c.loading,
+    selectedCountLabel: (count: number) => formatWizard(s.selectedCount, { count }),
+    customOptionLabel: c.custom,
+  };
+
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold text-slate-900 mb-2">Certificates & Documents</h2>
-        <p className="text-sm text-slate-600">Select required certificates and documents for this job.</p>
-      </div>
+      <WizardStepHeader title={s.title} subtitle={s.subtitle} />
 
       <div className="bg-white rounded-2xl border border-slate-200 p-6 space-y-6">
         {/* Certificates */}
         <div>
-          <h3 className="text-sm font-semibold text-slate-800 mb-2">Certificates</h3>
+          <WizardSectionTitle title={s.certificates} description={s.certificatesHint} />
           <label className="flex items-center gap-2 p-2 mb-2">
             <input
               type="checkbox"
@@ -414,12 +428,13 @@ export function Step5Certificates({ formData, updateFormData, onNext, onBack, ca
               onChange={(e) => setNoCertificates(e.target.checked)}
               className="rounded border-slate-300"
             />
-            <span className="text-sm font-medium text-slate-700">No certificates</span>
+            <span className="text-sm font-medium text-slate-700">{s.noCertificates}</span>
           </label>
           {!noCertificates && (
             <MultiSelectDropdown
-              label="Choose certificates"
-              triggerLabel="Choose certificates (multi-select)"
+              {...dropdownI18n}
+              label={s.chooseCertificates}
+              triggerLabel={s.chooseCertificates}
               options={certOptions}
               selectedIds={certSelectedIds}
               onToggle={toggleCertificate}
@@ -442,7 +457,7 @@ export function Step5Certificates({ formData, updateFormData, onNext, onBack, ca
                         type="text"
                         value={customCertName}
                         onChange={(e) => setCustomCertName(e.target.value)}
-                        placeholder="Certificate name"
+                        placeholder={s.certificateNamePlaceholder}
                         className="flex-1 rounded-lg border border-slate-200 px-2 py-1.5 text-sm"
                       />
                       <label className="flex items-center gap-1 text-xs text-slate-600 shrink-0">
@@ -452,7 +467,7 @@ export function Step5Certificates({ formData, updateFormData, onNext, onBack, ca
                           onChange={(e) => setCustomCertRequired(e.target.checked)}
                           className="rounded border-slate-300"
                         />
-                        Required
+                        {s.customRequired}
                       </label>
                       <button
                         type="button"
@@ -481,13 +496,13 @@ export function Step5Certificates({ formData, updateFormData, onNext, onBack, ca
             />
           )}
           {!formData.selectedRoleId && !noCertificates && (
-            <p className="text-xs text-slate-500 mt-1">Select a job role in Step 1 to load certificates.</p>
+            <p className="text-xs text-slate-500 mt-1">{s.selectRoleHint}</p>
           )}
           {formData.selectedRoleId && !noCertificates && !certsLoading && certsError && (
-            <p className="text-xs text-red-600 mt-1">Failed to load certificates. Check that you are signed in and the API is available.</p>
+            <p className="text-xs text-red-600 mt-1">{s.certificatesLoadFail}</p>
           )}
           {formData.selectedRoleId && !noCertificates && !certsLoading && !certsError && certificates.length === 0 && (
-            <p className="text-xs text-slate-500 mt-1">No certificates returned for this job role. You can add a custom certificate below.</p>
+            <p className="text-xs text-slate-500 mt-1">{s.noCertificatesForRole}</p>
           )}
         </div>
 
@@ -495,7 +510,7 @@ export function Step5Certificates({ formData, updateFormData, onNext, onBack, ca
 
         {/* Required Documents */}
         <div>
-          <h3 className="text-sm font-semibold text-slate-800 mb-2">Required Documents</h3>
+          <WizardSectionTitle title={s.documents} description={s.documentsHint} />
           <label className="flex items-center gap-2 p-2 mb-2">
             <input
               type="checkbox"
@@ -503,12 +518,13 @@ export function Step5Certificates({ formData, updateFormData, onNext, onBack, ca
               onChange={(e) => setNoDocuments(e.target.checked)}
               className="rounded border-slate-300"
             />
-            <span className="text-sm font-medium text-slate-700">No documents</span>
+            <span className="text-sm font-medium text-slate-700">{s.noDocuments}</span>
           </label>
           {!noDocuments && (
             <MultiSelectDropdown
-              label="Choose documents"
-              triggerLabel="Choose documents (multi-select)"
+              {...dropdownI18n}
+              label={s.chooseDocuments}
+              triggerLabel={s.chooseDocuments}
               options={docOptions}
               selectedIds={docSelectedIds}
               onToggle={toggleDocument}
@@ -529,7 +545,7 @@ export function Step5Certificates({ formData, updateFormData, onNext, onBack, ca
                     type="text"
                     value={customDocName}
                     onChange={(e) => setCustomDocName(e.target.value)}
-                    placeholder="Document name"
+                    placeholder={s.documentNamePlaceholder}
                     className="flex-1 rounded-lg border border-slate-200 px-2 py-1.5 text-sm"
                   />
                   <button
@@ -545,7 +561,7 @@ export function Step5Certificates({ formData, updateFormData, onNext, onBack, ca
             />
           )}
           {!formData.selectedRoleId && !noDocuments && (
-            <p className="text-xs text-slate-500 mt-1">Select a job role in Step 1 to see documents (mock API for now).</p>
+            <p className="text-xs text-slate-500 mt-1">{s.selectRoleDocsHint}</p>
           )}
         </div>
 
@@ -553,7 +569,7 @@ export function Step5Certificates({ formData, updateFormData, onNext, onBack, ca
 
         {/* Driving Licence */}
         <div>
-          <h3 className="text-sm font-semibold text-slate-800 mb-2">Driving Licence</h3>
+          <WizardSectionTitle title={s.drivingLicence} description={s.drivingLicenceHint} />
           <label className="flex items-center gap-2 p-2 mb-2">
             <input
               type="checkbox"
@@ -561,12 +577,13 @@ export function Step5Certificates({ formData, updateFormData, onNext, onBack, ca
               onChange={(e) => setNoDrivingLicence(e.target.checked)}
               className="rounded border-slate-300"
             />
-            <span className="text-sm font-medium text-slate-700">No driving licence needed</span>
+            <span className="text-sm font-medium text-slate-700">{s.noDrivingLicence}</span>
           </label>
           {!noDrivingLicence && (
             <MultiSelectDropdown
-              label="Choose driving licence types"
-              triggerLabel="Choose driving licence types (multi-select)"
+              {...dropdownI18n}
+              label={s.chooseLicence}
+              triggerLabel={s.chooseLicence}
               options={licenceOptions}
               selectedIds={selectedLicences}
               onToggle={toggleDrivingLicence}
@@ -581,10 +598,11 @@ export function Step5Certificates({ formData, updateFormData, onNext, onBack, ca
 
         {/* Education */}
         <div>
-          <h3 className="text-sm font-semibold text-slate-800 mb-2">Education</h3>
+          <WizardSectionTitle title={s.education} />
           <MultiSelectDropdown
-            label="Choose education"
-            triggerLabel="Choose education (multi-select)"
+            {...dropdownI18n}
+            label={s.chooseEducation}
+            triggerLabel={s.chooseEducation}
             options={eduOptions}
             selectedIds={educationLevels}
             onToggle={toggleEducation}
@@ -598,10 +616,11 @@ export function Step5Certificates({ formData, updateFormData, onNext, onBack, ca
 
         {/* Departments */}
         <div>
-          <h3 className="text-sm font-semibold text-slate-800 mb-2">Departments</h3>
+          <WizardSectionTitle title={s.departments} />
           <MultiSelectDropdown
-            label="Choose departments"
-            triggerLabel="Choose departments (multi-select)"
+            {...dropdownI18n}
+            label={s.chooseDepartments}
+            triggerLabel={s.chooseDepartments}
             options={deptOptions}
             selectedIds={deptSelectedIds}
             onToggle={toggleDepartment}
@@ -620,7 +639,7 @@ export function Step5Certificates({ formData, updateFormData, onNext, onBack, ca
                   type="text"
                   value={customDeptName}
                   onChange={(e) => setCustomDeptName(e.target.value)}
-                  placeholder="Department name"
+                  placeholder={s.departmentNamePlaceholder}
                   className="flex-1 rounded-lg border border-slate-200 px-2 py-1.5 text-sm"
                 />
                 <button
@@ -640,14 +659,14 @@ export function Step5Certificates({ formData, updateFormData, onNext, onBack, ca
 
         {/* References needed */}
         <div>
-          <h3 className="text-sm font-semibold text-slate-800 mb-2">References needed</h3>
-          <label className="block text-sm font-medium text-slate-700 mb-1">How many references</label>
+          <WizardSectionTitle title={s.references} />
+          <label className="block text-sm font-medium text-slate-700 mb-1">{s.howManyReferences}</label>
           <select
             value={referenceCount}
             onChange={(e) => updateFormData({ referenceCount: Number(e.target.value) })}
             className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-[120px]"
           >
-            <option value={0}>None</option>
+            <option value={0}>{c.none}</option>
             {REFERENCE_OPTIONS.map((n) => (
               <option key={n} value={n}>
                 {n}
@@ -662,9 +681,9 @@ export function Step5Certificates({ formData, updateFormData, onNext, onBack, ca
         {(onNext || onBack) && (
           <div className="flex justify-between items-center gap-4 pt-6 pb-2">
             <Button variant="secondary" onClick={onBack} disabled={!canGoBack}>
-              Back
+              {c.back}
             </Button>
-            <Button onClick={onNext}>Next</Button>
+            <Button onClick={onNext}>{c.next}</Button>
           </div>
         )}
       </div>

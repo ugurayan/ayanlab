@@ -6,7 +6,7 @@ import { listDepartments, getIssuesByDepartment } from "../mock/departmentApi";
 import type { Shift, Worker } from "../mock/mockDb";
 import type { VerificationTask, VerificationTaskStatus } from "../types/verification";
 
-const USE_MOCKS = (import.meta.env.VITE_USE_MOCKS ?? "true") === "true";
+const USE_MOCKS = (import.meta.env.VITE_USE_MOCKS ?? "false") === "true";
 
 export function useOrgs() {
   return useQuery({ queryKey: ["orgs"], queryFn: async () => {
@@ -100,7 +100,8 @@ export function useUpdateWorker() {
   return useMutation({
     mutationFn: async ({ workerId, patch }: { workerId: string; patch: Partial<Worker> }) => {
       if (USE_MOCKS) return updateWorkerApi(workerId, patch);
-      throw new Error("Not implemented");
+      const { apiUpdateWorker } = await import("../api/services/workers");
+      return apiUpdateWorker(workerId, patch);
     },
     onSuccess: async () => {
       await qc.invalidateQueries({ queryKey: ["workers"] });
@@ -111,7 +112,8 @@ export function useUpdateWorker() {
 export function useJobProfiles(workerId?: string) {
   return useQuery({ queryKey: ["jobProfiles", workerId], queryFn: async () => {
     if (USE_MOCKS) return listJobProfiles(workerId);
-    return [];
+    const { apiListProfiles } = await import("../api/services/hrmResources");
+    return apiListProfiles(workerId);
   }});
 }
 
@@ -167,6 +169,7 @@ export function useSystemAudit(page: number, size: number) {
   return useQuery({
     queryKey: ["audit", "system", page, size],
     queryFn: async () => {
+      if (USE_MOCKS) return listSystemAudit();
       const { apiListSystemAudit } = await import("../api/services/audit");
       return apiListSystemAudit(page, size);
     },
@@ -176,35 +179,40 @@ export function useSystemAudit(page: number, size: number) {
 export function useTasks() {
   return useQuery({ queryKey: ["tasks"], queryFn: async () => {
     if (USE_MOCKS) return listTasks();
-    return [];
+    const { apiListTasks } = await import("../api/services/hrmResources");
+    return apiListTasks();
   }});
 }
 
 export function useJobs() {
   return useQuery({ queryKey: ["jobs"], queryFn: async () => {
     if (USE_MOCKS) return listJobs();
-    return [];
+    const { apiListJobs } = await import("../api/services/hrmResources");
+    return apiListJobs();
   }});
 }
 
 export function useTransactions() {
   return useQuery({ queryKey: ["transactions"], queryFn: async () => {
     if (USE_MOCKS) return listTransactions();
-    return [];
+    const { apiListTransactions } = await import("../api/services/hrmResources");
+    return apiListTransactions();
   }});
 }
 
 export function useVerificationTasks() {
   return useQuery({ queryKey: ["verificationTasks"], queryFn: async () => {
     if (USE_MOCKS) return listVerificationTasks();
-    return [];
+    const { apiListVerificationTasks } = await import("../api/services/hrmResources");
+    return apiListVerificationTasks();
   }});
 }
 
 export function useVerificationTask(id: string) {
   return useQuery({ queryKey: ["verificationTask", id], queryFn: async () => {
     if (USE_MOCKS) return getVerificationTask(id);
-    return null;
+    const { apiGetVerificationTask } = await import("../api/services/hrmResources");
+    return apiGetVerificationTask(id);
   }});
 }
 
@@ -213,7 +221,8 @@ export function useUpdateVerificationTask() {
   return useMutation({
     mutationFn: async ({ id, status, reviewedBy, reviewNotes }: { id: string; status: VerificationTaskStatus; reviewedBy: string; reviewNotes?: string }) => {
       if (USE_MOCKS) return updateVerificationTaskStatus(id, status, reviewedBy, reviewNotes);
-      throw new Error("Not implemented");
+      const { apiUpdateVerificationStatus } = await import("../api/services/hrmResources");
+      return apiUpdateVerificationStatus(id, status, reviewedBy, reviewNotes);
     },
     onSuccess: async () => {
       await qc.invalidateQueries({ queryKey: ["verificationTasks"] });
@@ -237,7 +246,8 @@ export function useAssignVerificationTask() {
 export function useDepartments() {
   return useQuery({ queryKey: ["departments"], queryFn: async () => {
     if (USE_MOCKS) return listDepartments();
-    return [];
+    const { apiListDepartments } = await import("../api/services/hrmResources");
+    return apiListDepartments();
   }});
 }
 

@@ -5,28 +5,12 @@ import { useLanguage } from '../../../state/i18n';
 import { ChevronDown, X, Search, Loader2, Plus } from 'lucide-react';
 import type { JobFormData } from '../types';
 import type { StepErrors } from './validation';
+import { WizardStepHeader, WizardSectionTitle, WizardFieldLabel } from './WizardSectionHeading';
+import { formatWizard, useJobWizardCopy } from '../i18n/wizardTexts';
 
-const EXPERTISE_OPTIONS = [
-  { value: 'same-job-title', label: 'Worked before with same job title' },
-  { value: 'similar-role', label: 'Worked in similar role' },
-  { value: 'formally-trained', label: 'Formally trained' },
-  { value: 'some-experience', label: 'Some experience' },
-  { value: 'no-experience', label: 'No experience / Willing to learn' },
-] as const;
+import { SPOKEN_LANGUAGE_OPTIONS } from "../../../i18n/localeCatalog";
 
-const EXPERIENCE_DURATION_OPTIONS = [
-  { value: 'none', label: 'No experience' },
-  { value: '3m', label: '3 months' },
-  { value: '6m', label: '6 months' },
-  { value: '1yr', label: '1 year' },
-  { value: '2yr', label: '2 years' },
-  { value: '3yr', label: '3 years' },
-  { value: '4yr', label: '4 years' },
-  { value: '5yr', label: '5 years' },
-  { value: 'custom', label: 'Custom' },
-] as const;
-
-const LANGUAGE_OPTIONS = ['English', 'German', 'French', 'Italian', 'Spanish'];
+const LANGUAGE_OPTIONS = SPOKEN_LANGUAGE_OPTIONS;
 const PROFICIENCY_LEVELS = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2', 'Native'] as const;
 
 interface Step4RequirementsProps {
@@ -44,6 +28,9 @@ function FieldError({ message }: { message?: string }) {
 }
 
 export function Step4Requirements({ formData, updateFormData, onNext, onBack, canGoBack = false, errors = {} }: Step4RequirementsProps) {
+  const w = useJobWizardCopy();
+  const c = w.common;
+  const s = w.step4;
   const { language } = useLanguage();
   const { data: skills = [], isLoading: skillsLoading, isError: skillsError } = useSkillsByJobRole(formData.selectedRoleId || null, language);
   const [skillsOpen, setSkillsOpen] = useState(false);
@@ -147,23 +134,16 @@ export function Step4Requirements({ formData, updateFormData, onNext, onBack, ca
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold text-slate-900 mb-2">Requirements, Skills, Experience and Language</h2>
-        <p className="text-sm text-slate-600">Specify what skills, experience, and languages are required.</p>
-      </div>
+      <WizardStepHeader title={s.title} subtitle={s.subtitle} />
 
       <div className="bg-white rounded-2xl border border-slate-200 p-6 space-y-6">
         {/* Required Skills: multi-select + list with expertise & experience */}
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-2">Required Skills</label>
+          <WizardSectionTitle title={s.requiredSkills} description={s.requiredSkillsHint} required />
           {!formData.selectedRoleId ? (
-            <p className="text-sm text-slate-500 py-3 rounded-xl bg-slate-50 border border-slate-200 px-3">
-              Select a job role in Step 1 to see available skills for this role.
-            </p>
-          ) : skillsError ? (
-            <p className="text-sm text-red-600 py-3 rounded-xl bg-red-50 border border-red-200 px-3">
-              Failed to load skills. Check that you are signed in and the API is available (GET /skill/list/by-job-role?jobRoleId=...&language=...).
-            </p>
+            <p className="text-sm text-slate-500 py-3 rounded-xl bg-slate-50 border border-slate-200 px-3">{s.selectRoleFirst}</p>
+          ) : skillsError && skills.length === 0 ? (
+            <p className="text-sm text-amber-800 py-3 rounded-xl bg-amber-50 border border-amber-200 px-3">{s.skillsLoadWarning}</p>
           ) : (
             <>
               <div className="relative">
@@ -174,10 +154,10 @@ export function Step4Requirements({ formData, updateFormData, onNext, onBack, ca
                 >
                   <span className="truncate">
                     {skillsLoading
-                      ? 'Loading skills...'
+                      ? s.loadingSkills
                       : selectedSkillIds.size === 0
-                        ? 'Choose skills (multi-select)'
-                        : `${selectedSkillIds.size} skill${selectedSkillIds.size === 1 ? '' : 's'} selected`}
+                        ? s.chooseSkills
+                        : formatWizard(s.skillsSelected, { count: selectedSkillIds.size })}
                   </span>
                   {skillsLoading ? (
                     <Loader2 className="w-4 h-4 shrink-0 animate-spin text-slate-400" />
@@ -196,7 +176,7 @@ export function Step4Requirements({ formData, updateFormData, onNext, onBack, ca
                             type="text"
                             value={skillsSearch}
                             onChange={(e) => setSkillsSearch(e.target.value)}
-                            placeholder="Search skills..."
+                            placeholder={s.searchSkills}
                             className="w-full pl-8 pr-3 py-2 rounded-lg border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                           />
                         </div>
@@ -219,24 +199,24 @@ export function Step4Requirements({ formData, updateFormData, onNext, onBack, ca
                             ))}
                           </ul>
                         ) : formData.selectedRoleId && !skillsLoading ? (
-                          <p className="text-sm text-slate-500 py-2 text-center">No skills match your search.</p>
+                          <p className="text-sm text-slate-500 py-2 text-center">{s.noSkillsMatch}</p>
                         ) : null}
                       </div>
                       {/* Add your own skill */}
                       <div className="p-2 border-t border-slate-200 bg-slate-50/50">
-                        <p className="text-xs font-medium text-slate-600 mb-1.5">Add your own skill</p>
+                        <p className="text-xs font-medium text-slate-600 mb-1.5">{s.addOwnSkill}</p>
                         <div className="flex gap-2">
                           <input
                             type="text"
                             value={customSkillInput}
                             onChange={(e) => setCustomSkillInput(e.target.value)}
                             onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), addCustomSkill())}
-                            placeholder="Type skill name..."
+                            placeholder={s.skillNamePlaceholder}
                             className="flex-1 min-w-0 rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                           />
                           <Button type="button" size="sm" onClick={addCustomSkill} disabled={!customSkillInput.trim()}>
                             <Plus className="w-4 h-4 mr-1 inline" />
-                            Add
+                            {c.add}
                           </Button>
                         </div>
                       </div>
@@ -249,9 +229,9 @@ export function Step4Requirements({ formData, updateFormData, onNext, onBack, ca
               {skillRequirements.length > 0 && (
                 <div className="mt-4 rounded-xl border border-slate-200 overflow-hidden">
                   <div className="bg-slate-50 px-3 py-2 grid grid-cols-12 gap-2 text-xs font-medium text-slate-600 border-b border-slate-200">
-                    <div className="col-span-4">Skill</div>
-                    <div className="col-span-4">Expertise level</div>
-                    <div className="col-span-4">Experience</div>
+                    <div className="col-span-4">{s.skillColumn}</div>
+                    <div className="col-span-4">{s.expertiseColumn}</div>
+                    <div className="col-span-4">{s.experienceColumn}</div>
                   </div>
                   <ul className="divide-y divide-slate-100">
                     {skillRequirements.map((req) => (
@@ -263,7 +243,7 @@ export function Step4Requirements({ formData, updateFormData, onNext, onBack, ca
                             onChange={(e) => updateSkillRequirement(req.skillId, 'expertiseLevel', e.target.value)}
                             className="w-full rounded-lg border border-slate-200 px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                           >
-                            {EXPERTISE_OPTIONS.map((opt) => (
+                            {s.expertiseOptions.map((opt) => (
                               <option key={opt.value} value={opt.value}>
                                 {opt.label}
                               </option>
@@ -276,7 +256,7 @@ export function Step4Requirements({ formData, updateFormData, onNext, onBack, ca
                             onChange={(e) => updateSkillRequirement(req.skillId, 'experienceDuration', e.target.value)}
                             className="flex-1 min-w-0 rounded-lg border border-slate-200 px-2 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
                           >
-                            {EXPERIENCE_DURATION_OPTIONS.map((opt) => (
+                            {s.experienceOptions.map((opt) => (
                               <option key={opt.value} value={opt.value}>
                                 {opt.label}
                               </option>
@@ -297,8 +277,8 @@ export function Step4Requirements({ formData, updateFormData, onNext, onBack, ca
                                 onChange={(e) => updateSkillRequirement(req.skillId, 'customUnit', e.target.value as 'months' | 'years')}
                                 className="rounded-lg border border-slate-200 px-2 py-1.5 text-sm"
                               >
-                                <option value="months">months</option>
-                                <option value="years">years</option>
+                                <option value="months">{s.months}</option>
+                                <option value="years">{s.years}</option>
                               </select>
                             </span>
                           )}
@@ -324,14 +304,14 @@ export function Step4Requirements({ formData, updateFormData, onNext, onBack, ca
 
         {/* Languages: dropdown + level A1–C2 / Native + certification needed + Add, then list */}
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-2">Languages</label>
+          <WizardSectionTitle title={s.languages} description={s.languagesHint} />
           <div className="flex flex-wrap items-end gap-2">
             <select
               value={langToAdd}
               onChange={(e) => setLangToAdd(e.target.value)}
               className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 min-w-[140px]"
             >
-              <option value="">Select language</option>
+              <option value="">{s.selectLanguage}</option>
               {LANGUAGE_OPTIONS.map((lang) => (
                 <option key={lang} value={lang}>
                   {lang}
@@ -356,11 +336,11 @@ export function Step4Requirements({ formData, updateFormData, onNext, onBack, ca
                 onChange={(e) => setCertificationToAdd(e.target.checked)}
                 className="rounded border-slate-300 text-blue-600 focus:ring-blue-500"
               />
-              Certification needed
+              {c.certificationNeeded}
             </label>
             <Button type="button" variant="secondary" size="sm" onClick={addLanguage}>
               <Plus className="w-4 h-4 mr-1" />
-              Add
+              {c.add}
             </Button>
           </div>
           {languageRequirements.length > 0 && (
@@ -373,7 +353,7 @@ export function Step4Requirements({ formData, updateFormData, onNext, onBack, ca
                   <span className="font-medium text-slate-800">
                     {entry.language} – {entry.level}
                     {entry.certificationNeeded && (
-                      <span className="ml-2 text-xs font-normal text-slate-600">(Certification required)</span>
+                      <span className="ml-2 text-xs font-normal text-slate-600">{s.certificationRequired}</span>
                     )}
                   </span>
                   <button
@@ -393,23 +373,23 @@ export function Step4Requirements({ formData, updateFormData, onNext, onBack, ca
 
         {/* Job Duties – separated by horizontal line */}
         <div className="pt-6 mt-6 border-t border-slate-200">
-          <label className="block text-sm font-medium text-slate-700 mb-1">Job Duties</label>
+          <WizardFieldLabel>{s.jobDuties}</WizardFieldLabel>
           <textarea
             className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[120px]"
             value={formData.jobDuties}
             onChange={(e) => updateFormData({ jobDuties: e.target.value })}
-            placeholder="List specific tasks and responsibilities..."
+            placeholder={s.jobDutiesPlaceholder}
           />
         </div>
 
         {/* Additional Instructions – separated by horizontal line */}
         <div className="pt-6 mt-6 border-t border-slate-200">
-          <label className="block text-sm font-medium text-slate-700 mb-1">Additional Instructions</label>
+          <WizardFieldLabel>{s.additionalInstructions}</WizardFieldLabel>
           <textarea
             className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px]"
             value={formData.otherInstructions}
             onChange={(e) => updateFormData({ otherInstructions: e.target.value })}
-            placeholder="Any additional instructions for workers..."
+            placeholder={s.additionalInstructionsPlaceholder}
           />
         </div>
 
@@ -417,9 +397,9 @@ export function Step4Requirements({ formData, updateFormData, onNext, onBack, ca
         {(onNext || onBack) && (
           <div className="flex justify-between items-center gap-4 pt-6 mt-6 pb-2 border-t border-slate-200">
             <Button variant="secondary" onClick={onBack} disabled={!canGoBack}>
-              Back
+              {c.back}
             </Button>
-            <Button onClick={onNext}>Next</Button>
+            <Button onClick={onNext}>{c.next}</Button>
           </div>
         )}
       </div>

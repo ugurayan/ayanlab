@@ -1,7 +1,8 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import { columnMessages } from "./columnMessages";
-import { LANGUAGE_LABELS, sortedLocales } from "./languageNames";
-import { LOCALES, LOCALE_META, messages, type Locale } from "./messages";
+import { localeDisplayName, orderedLocales } from "./localeCatalog";
+import { LOCALES, LOCALE_META, type Locale } from "./localeCatalog";
+import { messages } from "./messages";
 
 export type Theme = "light" | "dark";
 
@@ -104,9 +105,9 @@ export function PrefsControls() {
         value={locale}
         onChange={(e) => setLocale(e.target.value as Locale)}
       >
-        {sortedLocales(locale).map((code) => (
+        {orderedLocales().map((code) => (
           <option key={code} value={code}>
-            {LANGUAGE_LABELS[locale][code]}
+            {localeDisplayName(code, locale)}
           </option>
         ))}
       </select>

@@ -34,6 +34,7 @@ import {
 import { cn } from "../../lib/cn";
 import { useAuth } from "../../state/auth";
 import { Language, useLanguage, useTranslations } from "../../state/i18n";
+import { APP_LANGUAGE_CODES, localeOptionLabel } from "../../i18n/localeCatalog";
 import { Button } from "../components/Button";
 import { TEXTS } from "./i18n";
 import { P } from "../../security/permissions";
@@ -443,11 +444,13 @@ export function AppShell() {
   <select
     value={language}
     onChange={(e) => setLanguage(e.target.value as Language)}
-    className="bg-transparent text-xs font-medium text-slate-700 outline-none border-none focus:ring-0"
+    className="bg-transparent text-xs font-medium text-slate-700 outline-none border-none focus:ring-0 max-w-[9rem]"
   >
-    <option value="en">EN</option>
-    <option value="de">DE</option>
-    <option value="tr">TR</option>
+    {APP_LANGUAGE_CODES.map((code) => (
+      <option key={code} value={code}>
+        {localeOptionLabel(code, language)}
+      </option>
+    ))}
   </select>
 </div>
 

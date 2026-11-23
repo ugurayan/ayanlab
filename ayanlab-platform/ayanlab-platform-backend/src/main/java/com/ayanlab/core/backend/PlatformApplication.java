@@ -33,7 +33,7 @@ public class PlatformApplication {
         if (schemasEnv != null && !schemasEnv.isBlank()) {
             schemas = Arrays.stream(schemasEnv.split(",")).map(String::trim).filter(s -> !s.isEmpty()).collect(Collectors.toList());
         } else {
-            schemas = readSchemasFromApplicationYaml().orElse(List.of(schema, "ipms", "crm", "vault", "staffiq"));
+            schemas = readSchemasFromApplicationYaml().orElse(List.of(schema));
         }
 
         if (!ensureDatabaseReady(host, port, dbName, dbUser, dbPassword)) {

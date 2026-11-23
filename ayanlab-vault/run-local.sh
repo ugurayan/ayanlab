@@ -43,5 +43,5 @@ fi
 
 echo "Running Maven spring-boot:run"
 echo "  env file: ${ENV_FILE}"
-echo "  database: ${POSTGIS_HOST:-?}/${POSTGIS_DB:-?} schema=${POSTGIS_SCHEMA:-?}"
+echo "  database: ${POSTGIS_HOST:-?}:${POSTGIS_PORT:-5432}/${POSTGIS_DB:-?} schema=${POSTGIS_SCHEMA:-?}"
 exec mvn -s "$ROOT/.mvn/settings-central.xml" spring-boot:run "$@"

@@ -4,6 +4,7 @@ import { useTranslations } from '../../../state/i18n';
 import { TEXTS } from '../i18n';
 import type { JobFormData } from '../types';
 import type { StepErrors } from './validation';
+import { WizardStepHeader } from './WizardSectionHeading';
 
 const STAFF_OPTION_IDS: Array<JobFormData['staffSelectionType']> = [
   'open-to-all',
@@ -49,10 +50,7 @@ export function Step7Staff({ formData, updateFormData, onNext, onBack, canGoBack
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold text-slate-900 mb-2">{staff.step7Title}</h2>
-        <p className="text-sm text-slate-600">{staff.step7Subtitle}</p>
-      </div>
+      <WizardStepHeader title={staff.step7Title} subtitle={staff.step7Subtitle} />
 
       <div className="space-y-3">
         {STAFF_OPTION_IDS.map((id) => (

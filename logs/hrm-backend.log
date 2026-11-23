@@ -1,82 +1,73 @@
 Running Maven spring-boot:run
-  env file: /Users/ugurayan/Projects/ayanlab/.env.local
+  env file: /Users/ugurayan/Projects/2027/ayanlab/.env.local
   database: localhost/ayanlab_hrm schema=staffiq
 [INFO] Scanning for projects...
 [INFO] 
-[INFO] ------------------< com.ayanlabs:ayanlab-hrm-backend >------------------
+[INFO] ------------------< com.ayanlab:ayanlab-hrm-backend >-------------------
 [INFO] Building ayanlab-hrm-backend 1.0.0-SNAPSHOT
 [INFO]   from pom.xml
 [INFO] --------------------------------[ jar ]---------------------------------
 [INFO] 
 [INFO] >>> spring-boot:3.3.5:run (default-cli) > test-compile @ ayanlab-hrm-backend >>>
+[INFO] Artifact org.checkerframework:checker-qual:jar:3.42.0 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [maven-central-only (https://repo.maven.apache.org/maven2, default, releases)]
+[INFO] Artifact org.checkerframework:checker-qual:jar:3.42.0 is present in the local repository, but cached from a remote repository ID that is unavailable in current build context, verifying that is downloadable from [maven-central-only (https://repo.maven.apache.org/maven2, default, releases)]
+Downloading from maven-central-only: https://repo.maven.apache.org/maven2/org/checkerframework/checker-qual/3.42.0/checker-qual-3.42.0.jar
+Downloaded from maven-central-only: https://repo.maven.apache.org/maven2/org/checkerframework/checker-qual/3.42.0/checker-qual-3.42.0.jar (0 B at 0 B/s)
 [INFO] 
 [INFO] --- resources:3.3.1:resources (default-resources) @ ayanlab-hrm-backend ---
 [INFO] Copying 1 resource from src/main/resources to target/classes
-[INFO] Copying 0 resource from src/main/resources to target/classes
+[INFO] Copying 4 resources from src/main/resources to target/classes
 [INFO] 
 [INFO] --- compiler:3.13.0:compile (default-compile) @ ayanlab-hrm-backend ---
 [INFO] Recompiling the module because of changed source code.
-[INFO] Compiling 4 source files with javac [debug parameters release 21] to target/classes
-[INFO] -------------------------------------------------------------
-[ERROR] COMPILATION ERROR : 
-[INFO] -------------------------------------------------------------
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[9,34] cannot find symbol
-  symbol:   class SubscriptionDtos
-  location: package com.ayanlabs.core.data.dto
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[15,33] package com.ayanlabs.core.service does not exist
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[39,19] cannot find symbol
-  symbol:   class ISubscriptionService
-  location: class com.ayanlabs.rideshare.controller.SubscriptionController
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[42,60] package SubscriptionDtos does not exist
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[57,60] package SubscriptionDtos does not exist
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[73,55] package SubscriptionDtos does not exist
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[91,60] package SubscriptionDtos does not exist
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[112,55] package SubscriptionDtos does not exist
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[46,34] package SubscriptionDtos does not exist
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[47,61] package SubscriptionDtos does not exist
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[62,34] package SubscriptionDtos does not exist
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[63,61] package SubscriptionDtos does not exist
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[79,29] package SubscriptionDtos does not exist
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[80,56] package SubscriptionDtos does not exist
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[99,34] package SubscriptionDtos does not exist
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[101,61] package SubscriptionDtos does not exist
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[121,29] package SubscriptionDtos does not exist
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[123,56] package SubscriptionDtos does not exist
-[INFO] 18 errors 
-[INFO] -------------------------------------------------------------
-[INFO] ------------------------------------------------------------------------
-[INFO] BUILD FAILURE
-[INFO] ------------------------------------------------------------------------
-[INFO] Total time:  0.996 s
-[INFO] Finished at: 2026-11-18T00:11:17-08:00
-[INFO] ------------------------------------------------------------------------
-[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:3.13.0:compile (default-compile) on project ayanlab-hrm-backend: Compilation failure: Compilation failure: 
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[9,34] cannot find symbol
-[ERROR]   symbol:   class SubscriptionDtos
-[ERROR]   location: package com.ayanlabs.core.data.dto
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[15,33] package com.ayanlabs.core.service does not exist
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[39,19] cannot find symbol
-[ERROR]   symbol:   class ISubscriptionService
-[ERROR]   location: class com.ayanlabs.rideshare.controller.SubscriptionController
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[42,60] package SubscriptionDtos does not exist
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[57,60] package SubscriptionDtos does not exist
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[73,55] package SubscriptionDtos does not exist
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[91,60] package SubscriptionDtos does not exist
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[112,55] package SubscriptionDtos does not exist
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[46,34] package SubscriptionDtos does not exist
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[47,61] package SubscriptionDtos does not exist
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[62,34] package SubscriptionDtos does not exist
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[63,61] package SubscriptionDtos does not exist
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[79,29] package SubscriptionDtos does not exist
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[80,56] package SubscriptionDtos does not exist
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[99,34] package SubscriptionDtos does not exist
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[101,61] package SubscriptionDtos does not exist
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[121,29] package SubscriptionDtos does not exist
-[ERROR] /Users/ugurayan/Projects/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/main/java/com/ayanlabs/rideshare/controller/SubscriptionController.java:[123,56] package SubscriptionDtos does not exist
-[ERROR] -> [Help 1]
-[ERROR] 
-[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
-[ERROR] Re-run Maven using the -X switch to enable full debug logging.
-[ERROR] 
-[ERROR] For more information about the errors and possible solutions, please read the following articles:
-[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+[INFO] Compiling 3 source files with javac [debug parameters release 21] to target/classes
+[INFO] Annotation processing is enabled because one or more processors were found
+  on the class path. A future release of javac may disable annotation processing
+  unless at least one processor is specified by name (-processor), or a search
+  path is specified (--processor-path, --processor-module-path), or annotation
+  processing is enabled explicitly (-proc:only, -proc:full).
+  Use -Xlint:-options to suppress this message.
+  Use -proc:none to disable annotation processing.
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ ayanlab-hrm-backend ---
+[INFO] skip non existing resourceDirectory /Users/ugurayan/Projects/2027/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.13.0:testCompile (default-testCompile) @ ayanlab-hrm-backend ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 1 source file with javac [debug parameters release 21] to target/test-classes
+[INFO] Annotation processing is enabled because one or more processors were found
+  on the class path. A future release of javac may disable annotation processing
+  unless at least one processor is specified by name (-processor), or a search
+  path is specified (--processor-path, --processor-module-path), or annotation
+  processing is enabled explicitly (-proc:only, -proc:full).
+  Use -Xlint:-options to suppress this message.
+  Use -proc:none to disable annotation processing.
+[INFO] 
+[INFO] <<< spring-boot:3.3.5:run (default-cli) < test-compile @ ayanlab-hrm-backend <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:3.3.5:run (default-cli) @ ayanlab-hrm-backend ---
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.3.5)
+
+2026-11-22T21:56:20.007-08:00  INFO 55341 --- [ayanlab-hrm-backend] [           main] c.a.hrm.backend.HrmBackendApplication    : Starting HrmBackendApplication using Java 21.0.8 with PID 55341 (/Users/ugurayan/Projects/2027/ayanlab/ayanlab-hrm/ayanlab-hrm-backend/target/classes started by ugurayan in /Users/ugurayan/Projects/2027/ayanlab/ayanlab-hrm/ayanlab-hrm-backend)
+2026-11-22T21:56:20.010-08:00  INFO 55341 --- [ayanlab-hrm-backend] [           main] c.a.hrm.backend.HrmBackendApplication    : No active profile set, falling back to 1 default profile: "default"
+2026-11-22T21:56:21.821-08:00  INFO 55341 --- [ayanlab-hrm-backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8104 (http)
+2026-11-22T21:56:21.835-08:00  INFO 55341 --- [ayanlab-hrm-backend] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-11-22T21:56:21.835-08:00  INFO 55341 --- [ayanlab-hrm-backend] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.31]
+2026-11-22T21:56:21.891-08:00  INFO 55341 --- [ayanlab-hrm-backend] [           main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2026-11-22T21:56:21.892-08:00  INFO 55341 --- [ayanlab-hrm-backend] [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1833 ms
+2026-11-22T21:56:23.115-08:00  INFO 55341 --- [ayanlab-hrm-backend] [           main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-11-22T21:56:23.847-08:00  INFO 55341 --- [ayanlab-hrm-backend] [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8104 (http) with context path '/'
+2026-11-22T21:56:23.861-08:00  INFO 55341 --- [ayanlab-hrm-backend] [           main] c.a.hrm.backend.HrmBackendApplication    : Started HrmBackendApplication in 4.321 seconds (process running for 4.685)
+2026-11-22T21:57:24.093-08:00  WARN 55341 --- [ayanlab-hrm-backend] [talog-publisher] c.a.c.a.c.AuthorizationCatalogPublisher  : [AuthorizationCatalogPublisher] Attempt 1/20 failed (request timed out), retrying in 2000 ms
+2026-11-22T21:57:30.359-08:00  WARN 55341 --- [ayanlab-hrm-backend] [talog-publisher] c.a.c.a.c.AuthorizationCatalogPublisher  : [AuthorizationCatalogPublisher] Attempt 2/20 failed (HTTP 500), retrying in 4000 ms
+2026-11-22T21:58:03.036-08:00  INFO 55341 --- [ayanlab-hrm-backend] [talog-publisher] c.a.c.a.c.AuthorizationCatalogPublisher  : [AuthorizationCatalogPublisher] Published catalog 'staffiq': {"correlationId":"819d5452-2d7d-454e-8cd1-2a9b14810dd2","success":true,"data":{"appCode":"staffiq","organizations":0,"permissions":0,"policyGroups":0,"policyGroupLinks":0,"roles":0,"users":0,"userGrants":0},"timestamp":"2026-11-23T05:58:03.033310Z"}

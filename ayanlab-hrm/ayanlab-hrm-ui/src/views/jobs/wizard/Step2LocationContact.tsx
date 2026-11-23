@@ -7,6 +7,8 @@ import type { StepErrors } from './validation';
 import { useAddressesByProfile } from '../../../data/hooks/useLocations';
 import { useContactsByProfile } from '../../../data/hooks/useContacts';
 import { AddLocationModal } from './AddLocationModal';
+import { WizardStepHeader } from './WizardSectionHeading';
+import { formatWizard, useJobWizardCopy } from '../i18n/wizardTexts';
 
 const CONTACT_DROPDOWN_CLOSE_DELAY_MS = 1000;
 
@@ -32,6 +34,9 @@ export function Step2LocationContact({
   canGoBack = false, 
   errors = {} 
 }: Step2LocationContactProps) {
+  const w = useJobWizardCopy();
+  const c = w.common;
+  const s = w.step2;
   const [isAddLocationModalOpen, setIsAddLocationModalOpen] = useState(false);
   const [showContactDropdown, setShowContactDropdown] = useState(false);
   const contactDropdownCloseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -117,14 +122,11 @@ export function Step2LocationContact({
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold text-slate-900 mb-2">Location and Contact Person</h2>
-        <p className="text-sm text-slate-600">Set the work location and onsite contact information.</p>
-      </div>
+      <WizardStepHeader title={s.title} subtitle={s.subtitle} />
 
       {hasErrors && (
         <div className="rounded-xl border border-red-200 bg-red-50 p-4">
-          <p className="text-sm font-medium text-red-800">Please fix the following before continuing:</p>
+          <p className="text-sm font-medium text-red-800">{c.fixErrorsTitle}</p>
           <ul className="mt-2 list-inside list-disc text-sm text-red-700">
             {Object.entries(errors).map(([key, message]) => (
               <li key={key}>{message}</li>
@@ -137,7 +139,7 @@ export function Step2LocationContact({
         {/* Select Location */}
         <div>
           <label className="block text-sm font-medium text-slate-700 mb-2">
-            Select work location *
+            {s.selectWorkLocation} *
           </label>
           <div className="flex items-center gap-2">
             <select
@@ -148,7 +150,7 @@ export function Step2LocationContact({
               onChange={(e) => handleAddressChange(e.target.value)}
               disabled={isLoadingAddresses}
             >
-              <option value="">Select a location</option>
+              <option value="">{s.selectLocation}</option>
               {addresses?.map((addr) => (
                 <option key={addr.id} value={addr.id}>
                   {addr.name} - {addr.city}
@@ -175,7 +177,7 @@ export function Step2LocationContact({
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-xs font-medium uppercase tracking-wide text-slate-500">
-                  Selected location
+                  {s.selectedLocation}
                 </p>
                 <p className="mt-0.5 text-base font-semibold text-slate-900">
                   {selectedAddress?.name ?? formData.workLocationName}
@@ -196,13 +198,13 @@ export function Step2LocationContact({
         {/* Location Notes */}
         <div>
           <label className="block text-sm font-medium text-slate-700 mb-1">
-            Location Notes / Directions
+            {s.locationNotes}
           </label>
           <textarea
             className="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px]"
             value={formData.workLocationNotes}
             onChange={(e) => updateFormData({ workLocationNotes: e.target.value })}
-            placeholder="Add clear directions or important notes about the location..."
+            placeholder={s.locationNotesPlaceholder}
           />
         </div>
 
@@ -211,7 +213,7 @@ export function Step2LocationContact({
 
         {/* Door Options - one line */}
         <div>
-          <span className="block text-sm font-medium text-slate-700 mb-2">Entrance</span>
+          <span className="block text-sm font-medium text-slate-700 mb-2">{s.entrance}</span>
           <div className="flex flex-wrap items-center gap-6">
             <label className="flex items-center gap-2 cursor-pointer">
               <input
@@ -220,7 +222,7 @@ export function Step2LocationContact({
                 onChange={(e) => updateFormData({ useBackDoor: e.target.checked })}
                 className="rounded border-slate-300"
               />
-              <span className="text-sm text-slate-700">Use back door entrance</span>
+              <span className="text-sm text-slate-700">{s.useBackDoor}</span>
             </label>
             <label className="flex items-center gap-2 cursor-pointer">
               <input
@@ -229,7 +231,7 @@ export function Step2LocationContact({
                 onChange={(e) => updateFormData({ useFrontDoor: e.target.checked })}
                 className="rounded border-slate-300"
               />
-              <span className="text-sm text-slate-700">Use front door entrance</span>
+              <span className="text-sm text-slate-700">{s.useFrontDoor}</span>
             </label>
           </div>
         </div>
@@ -239,7 +241,7 @@ export function Step2LocationContact({
 
         {/* Meal Options - one line */}
         <div>
-          <span className="block text-sm font-medium text-slate-700 mb-2">Meals</span>
+          <span className="block text-sm font-medium text-slate-700 mb-2">{s.meals}</span>
           <div className="flex flex-wrap items-center gap-6">
             <label className="flex items-center gap-2 cursor-pointer">
               <input
@@ -248,7 +250,7 @@ export function Step2LocationContact({
                 onChange={(e) => updateFormData({ hasFreeBreakfast: e.target.checked })}
                 className="rounded border-slate-300"
               />
-              <span className="text-sm text-slate-700">Free breakfast</span>
+              <span className="text-sm text-slate-700">{s.freeBreakfast}</span>
             </label>
             <label className="flex items-center gap-2 cursor-pointer">
               <input
@@ -257,7 +259,7 @@ export function Step2LocationContact({
                 onChange={(e) => updateFormData({ hasFreeLunch: e.target.checked })}
                 className="rounded border-slate-300"
               />
-              <span className="text-sm text-slate-700">Free lunch</span>
+              <span className="text-sm text-slate-700">{s.freeLunch}</span>
             </label>
             <label className="flex items-center gap-2 cursor-pointer">
               <input
@@ -266,7 +268,7 @@ export function Step2LocationContact({
                 onChange={(e) => updateFormData({ hasFreeDinner: e.target.checked })}
                 className="rounded border-slate-300"
               />
-              <span className="text-sm text-slate-700">Free dinner</span>
+              <span className="text-sm text-slate-700">{s.freeDinner}</span>
             </label>
           </div>
         </div>
@@ -277,7 +279,7 @@ export function Step2LocationContact({
         {/* Onsite Contact */}
         <div>
           <label className="block text-sm font-medium text-slate-700 mb-2">
-            Onsite Contact *
+            {s.onsiteContact} *
           </label>
           
           {/* Selected Contacts Display */}
@@ -360,8 +362,8 @@ export function Step2LocationContact({
               disabled={isLoadingContacts}
             >
               {selectedContacts.length === 0
-                ? 'Select contacts...'
-                : `${selectedContacts.length} contact(s) selected`}
+                ? s.selectContacts
+                : formatWizard(s.contactsSelected, { count: selectedContacts.length })}
             </button>
           </div>
           <FieldError message={errors.selectedContactIds} />
@@ -375,10 +377,10 @@ export function Step2LocationContact({
               onClick={onBack}
               disabled={!canGoBack}
             >
-              Back
+              {c.back}
             </Button>
             <Button onClick={onNext}>
-              Next
+              {c.next}
             </Button>
           </div>
         )}

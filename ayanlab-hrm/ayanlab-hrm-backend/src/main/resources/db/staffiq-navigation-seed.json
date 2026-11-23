@@ -1,0 +1,2092 @@
+{
+  "locales": [
+    {
+      "code": "en",
+      "displayName": "English",
+      "bcp47Tag": "en",
+      "sortOrder": 1,
+      "enabled": true
+    },
+    {
+      "code": "zh",
+      "displayName": "Mandarin Chinese",
+      "bcp47Tag": "zh-CN",
+      "sortOrder": 2,
+      "enabled": true
+    },
+    {
+      "code": "hi",
+      "displayName": "Hindi",
+      "bcp47Tag": "hi",
+      "sortOrder": 3,
+      "enabled": true
+    },
+    {
+      "code": "es",
+      "displayName": "Spanish",
+      "bcp47Tag": "es",
+      "sortOrder": 4,
+      "enabled": true
+    },
+    {
+      "code": "ar",
+      "displayName": "Standard Arabic",
+      "bcp47Tag": "ar",
+      "sortOrder": 5,
+      "enabled": true
+    },
+    {
+      "code": "fr",
+      "displayName": "French",
+      "bcp47Tag": "fr",
+      "sortOrder": 6,
+      "enabled": true
+    },
+    {
+      "code": "bn",
+      "displayName": "Bengali",
+      "bcp47Tag": "bn",
+      "sortOrder": 7,
+      "enabled": true
+    },
+    {
+      "code": "pt",
+      "displayName": "Portuguese",
+      "bcp47Tag": "pt",
+      "sortOrder": 8,
+      "enabled": true
+    },
+    {
+      "code": "id",
+      "displayName": "Indonesian",
+      "bcp47Tag": "id",
+      "sortOrder": 9,
+      "enabled": true
+    },
+    {
+      "code": "ur",
+      "displayName": "Urdu",
+      "bcp47Tag": "ur",
+      "sortOrder": 10,
+      "enabled": true
+    },
+    {
+      "code": "ru",
+      "displayName": "Russian",
+      "bcp47Tag": "ru",
+      "sortOrder": 11,
+      "enabled": true
+    },
+    {
+      "code": "de",
+      "displayName": "German",
+      "bcp47Tag": "de",
+      "sortOrder": 12,
+      "enabled": true
+    },
+    {
+      "code": "ja",
+      "displayName": "Japanese",
+      "bcp47Tag": "ja",
+      "sortOrder": 13,
+      "enabled": true
+    },
+    {
+      "code": "pcm",
+      "displayName": "Nigerian Pidgin",
+      "bcp47Tag": "pcm",
+      "sortOrder": 14,
+      "enabled": true
+    },
+    {
+      "code": "mr",
+      "displayName": "Marathi",
+      "bcp47Tag": "mr",
+      "sortOrder": 15,
+      "enabled": true
+    },
+    {
+      "code": "vi",
+      "displayName": "Vietnamese",
+      "bcp47Tag": "vi",
+      "sortOrder": 16,
+      "enabled": true
+    },
+    {
+      "code": "te",
+      "displayName": "Telugu",
+      "bcp47Tag": "te",
+      "sortOrder": 17,
+      "enabled": true
+    },
+    {
+      "code": "sw",
+      "displayName": "Swahili",
+      "bcp47Tag": "sw",
+      "sortOrder": 18,
+      "enabled": true
+    },
+    {
+      "code": "ha",
+      "displayName": "Hausa",
+      "bcp47Tag": "ha",
+      "sortOrder": 19,
+      "enabled": true
+    },
+    {
+      "code": "it",
+      "displayName": "Italian",
+      "bcp47Tag": "it",
+      "sortOrder": 20,
+      "enabled": true
+    },
+    {
+      "code": "pl",
+      "displayName": "Polish",
+      "bcp47Tag": "pl",
+      "sortOrder": 21,
+      "enabled": true
+    },
+    {
+      "code": "uk",
+      "displayName": "Ukrainian",
+      "bcp47Tag": "uk",
+      "sortOrder": 22,
+      "enabled": true
+    },
+    {
+      "code": "ro",
+      "displayName": "Romanian",
+      "bcp47Tag": "ro",
+      "sortOrder": 23,
+      "enabled": true
+    },
+    {
+      "code": "nl",
+      "displayName": "Dutch",
+      "bcp47Tag": "nl",
+      "sortOrder": 24,
+      "enabled": true
+    },
+    {
+      "code": "tr",
+      "displayName": "Turkish",
+      "bcp47Tag": "tr",
+      "sortOrder": 25,
+      "enabled": true
+    }
+  ],
+  "menuItems": [
+    {
+      "code": "dashboard",
+      "routePath": "/app/dashboard",
+      "section": "PRIMARY",
+      "iconKey": "layout-dashboard",
+      "sortOrder": 10,
+      "requiredPermission": "staffiq:dashboard:read"
+    },
+    {
+      "code": "jobs",
+      "routePath": "/app/jobs",
+      "section": "PRIMARY",
+      "iconKey": "briefcase",
+      "sortOrder": 20,
+      "requiredPermission": "staffiq:jobs:read"
+    },
+    {
+      "code": "tasks",
+      "routePath": "/app/tasks",
+      "section": "PRIMARY",
+      "iconKey": "clipboard-list",
+      "sortOrder": 30,
+      "requiredPermission": "staffiq:tasks:read"
+    },
+    {
+      "code": "inbox",
+      "routePath": "/app/inbox",
+      "section": "PRIMARY",
+      "iconKey": "mail",
+      "sortOrder": 40,
+      "requiredPermission": "staffiq:inbox:read"
+    },
+    {
+      "code": "orgs",
+      "routePath": "/app/orgs",
+      "section": "PRIMARY",
+      "iconKey": "building-2",
+      "sortOrder": 50,
+      "requiredPermission": "staffiq:organizations:read"
+    },
+    {
+      "code": "locations",
+      "routePath": "/app/locations",
+      "section": "PRIMARY",
+      "iconKey": "map-pin",
+      "sortOrder": 60,
+      "requiredPermission": "staffiq:locations:read"
+    },
+    {
+      "code": "shifts",
+      "routePath": "/app/shifts",
+      "section": "PRIMARY",
+      "iconKey": "calendar-clock",
+      "sortOrder": 70,
+      "requiredPermission": "staffiq:shifts:read"
+    },
+    {
+      "code": "applications",
+      "routePath": "/app/applications",
+      "section": "PRIMARY",
+      "iconKey": "clipboard-list",
+      "sortOrder": 80,
+      "requiredPermission": "staffiq:applications:read"
+    },
+    {
+      "code": "workers",
+      "routePath": "/app/workers",
+      "section": "PRIMARY",
+      "iconKey": "users",
+      "sortOrder": 90,
+      "requiredPermission": "staffiq:workers:read"
+    },
+    {
+      "code": "documents",
+      "routePath": "/app/documents",
+      "section": "PRIMARY",
+      "iconKey": "file-check-2",
+      "sortOrder": 100,
+      "requiredPermission": "staffiq:documents:read"
+    },
+    {
+      "code": "finance",
+      "routePath": "/app/finance",
+      "section": "PRIMARY",
+      "iconKey": "receipt",
+      "sortOrder": 110,
+      "requiredPermission": "staffiq:finance:read"
+    },
+    {
+      "code": "transactions",
+      "routePath": "/app/transactions",
+      "section": "PRIMARY",
+      "iconKey": "receipt",
+      "sortOrder": 120,
+      "requiredPermission": "staffiq:transactions:read"
+    },
+    {
+      "code": "userAudit",
+      "routePath": "/app/audit/user",
+      "section": "PRIMARY",
+      "iconKey": "shield-check",
+      "sortOrder": 130,
+      "requiredPermission": "staffiq:audit:read"
+    },
+    {
+      "code": "systemAudit",
+      "routePath": "/app/audit/system",
+      "section": "PRIMARY",
+      "iconKey": "shield-check",
+      "sortOrder": 140,
+      "requiredPermission": "staffiq:audit:read"
+    },
+    {
+      "code": "support",
+      "routePath": "/app/support",
+      "section": "PRIMARY",
+      "iconKey": "star",
+      "sortOrder": 150,
+      "requiredPermission": "staffiq:support:read"
+    },
+    {
+      "code": "settings",
+      "routePath": "/app/settings",
+      "section": "PRIMARY",
+      "iconKey": "settings",
+      "sortOrder": 160,
+      "requiredPermission": "staffiq:settings:read"
+    },
+    {
+      "code": "profile",
+      "routePath": "/app/profile",
+      "section": "PRIMARY",
+      "iconKey": "users",
+      "sortOrder": 170,
+      "requiredPermission": "staffiq:profile:read"
+    },
+    {
+      "code": "verification",
+      "routePath": "/app/verification",
+      "section": "ADMIN",
+      "iconKey": "check-circle-2",
+      "sortOrder": 210,
+      "requiredPermission": "staffiq:verification:read"
+    },
+    {
+      "code": "jobRoles",
+      "routePath": "/app/job-roles",
+      "section": "ADMIN",
+      "iconKey": "briefcase",
+      "sortOrder": 220,
+      "requiredPermission": "staffiq:job_roles:read"
+    },
+    {
+      "code": "industries",
+      "routePath": "/app/industries",
+      "section": "ADMIN",
+      "iconKey": "tag",
+      "sortOrder": 230,
+      "requiredPermission": "staffiq:industries:read"
+    },
+    {
+      "code": "skills",
+      "routePath": "/app/skills",
+      "section": "ADMIN",
+      "iconKey": "star",
+      "sortOrder": 240,
+      "requiredPermission": "staffiq:skills:read"
+    },
+    {
+      "code": "certificates",
+      "routePath": "/app/certificates",
+      "section": "ADMIN",
+      "iconKey": "file-check-2",
+      "sortOrder": 250,
+      "requiredPermission": "staffiq:certificates:read"
+    },
+    {
+      "code": "documentTypes",
+      "routePath": "/app/document-types",
+      "section": "ADMIN",
+      "iconKey": "file-check-2",
+      "sortOrder": 260,
+      "requiredPermission": "staffiq:document_types:read"
+    }
+  ],
+  "menuItemLabels": [
+    {
+      "menuItemCode": "dashboard",
+      "localeCode": "ar",
+      "label": "Dashboard"
+    },
+    {
+      "menuItemCode": "jobs",
+      "localeCode": "ar",
+      "label": "Jobs"
+    },
+    {
+      "menuItemCode": "tasks",
+      "localeCode": "ar",
+      "label": "Tasks"
+    },
+    {
+      "menuItemCode": "inbox",
+      "localeCode": "ar",
+      "label": "Messages"
+    },
+    {
+      "menuItemCode": "orgs",
+      "localeCode": "ar",
+      "label": "Organizations"
+    },
+    {
+      "menuItemCode": "locations",
+      "localeCode": "ar",
+      "label": "Locations"
+    },
+    {
+      "menuItemCode": "shifts",
+      "localeCode": "ar",
+      "label": "Shifts"
+    },
+    {
+      "menuItemCode": "applications",
+      "localeCode": "ar",
+      "label": "Applications"
+    },
+    {
+      "menuItemCode": "workers",
+      "localeCode": "ar",
+      "label": "Workers"
+    },
+    {
+      "menuItemCode": "documents",
+      "localeCode": "ar",
+      "label": "Documents"
+    },
+    {
+      "menuItemCode": "finance",
+      "localeCode": "ar",
+      "label": "Finance"
+    },
+    {
+      "menuItemCode": "transactions",
+      "localeCode": "ar",
+      "label": "Transactions"
+    },
+    {
+      "menuItemCode": "userAudit",
+      "localeCode": "ar",
+      "label": "User audit"
+    },
+    {
+      "menuItemCode": "systemAudit",
+      "localeCode": "ar",
+      "label": "System audit"
+    },
+    {
+      "menuItemCode": "support",
+      "localeCode": "ar",
+      "label": "Help Center"
+    },
+    {
+      "menuItemCode": "settings",
+      "localeCode": "ar",
+      "label": "Settings"
+    },
+    {
+      "menuItemCode": "profile",
+      "localeCode": "ar",
+      "label": "My Profile"
+    },
+    {
+      "menuItemCode": "verification",
+      "localeCode": "ar",
+      "label": "Document Verification"
+    },
+    {
+      "menuItemCode": "jobRoles",
+      "localeCode": "ar",
+      "label": "Job Roles"
+    },
+    {
+      "menuItemCode": "industries",
+      "localeCode": "ar",
+      "label": "Job Role Categories"
+    },
+    {
+      "menuItemCode": "skills",
+      "localeCode": "ar",
+      "label": "Skills"
+    },
+    {
+      "menuItemCode": "certificates",
+      "localeCode": "ar",
+      "label": "Certificates"
+    },
+    {
+      "menuItemCode": "documentTypes",
+      "localeCode": "ar",
+      "label": "Document Types"
+    },
+    {
+      "menuItemCode": "dashboard",
+      "localeCode": "bn",
+      "label": "Dashboard"
+    },
+    {
+      "menuItemCode": "jobs",
+      "localeCode": "bn",
+      "label": "Jobs"
+    },
+    {
+      "menuItemCode": "tasks",
+      "localeCode": "bn",
+      "label": "Tasks"
+    },
+    {
+      "menuItemCode": "inbox",
+      "localeCode": "bn",
+      "label": "Messages"
+    },
+    {
+      "menuItemCode": "orgs",
+      "localeCode": "bn",
+      "label": "Organizations"
+    },
+    {
+      "menuItemCode": "locations",
+      "localeCode": "bn",
+      "label": "Locations"
+    },
+    {
+      "menuItemCode": "shifts",
+      "localeCode": "bn",
+      "label": "Shifts"
+    },
+    {
+      "menuItemCode": "applications",
+      "localeCode": "bn",
+      "label": "Applications"
+    },
+    {
+      "menuItemCode": "workers",
+      "localeCode": "bn",
+      "label": "Workers"
+    },
+    {
+      "menuItemCode": "documents",
+      "localeCode": "bn",
+      "label": "Documents"
+    },
+    {
+      "menuItemCode": "finance",
+      "localeCode": "bn",
+      "label": "Finance"
+    },
+    {
+      "menuItemCode": "transactions",
+      "localeCode": "bn",
+      "label": "Transactions"
+    },
+    {
+      "menuItemCode": "userAudit",
+      "localeCode": "bn",
+      "label": "User audit"
+    },
+    {
+      "menuItemCode": "systemAudit",
+      "localeCode": "bn",
+      "label": "System audit"
+    },
+    {
+      "menuItemCode": "support",
+      "localeCode": "bn",
+      "label": "Help Center"
+    },
+    {
+      "menuItemCode": "settings",
+      "localeCode": "bn",
+      "label": "Settings"
+    },
+    {
+      "menuItemCode": "profile",
+      "localeCode": "bn",
+      "label": "My Profile"
+    },
+    {
+      "menuItemCode": "verification",
+      "localeCode": "bn",
+      "label": "Document Verification"
+    },
+    {
+      "menuItemCode": "jobRoles",
+      "localeCode": "bn",
+      "label": "Job Roles"
+    },
+    {
+      "menuItemCode": "industries",
+      "localeCode": "bn",
+      "label": "Job Role Categories"
+    },
+    {
+      "menuItemCode": "skills",
+      "localeCode": "bn",
+      "label": "Skills"
+    },
+    {
+      "menuItemCode": "certificates",
+      "localeCode": "bn",
+      "label": "Certificates"
+    },
+    {
+      "menuItemCode": "documentTypes",
+      "localeCode": "bn",
+      "label": "Document Types"
+    },
+    {
+      "menuItemCode": "dashboard",
+      "localeCode": "en",
+      "label": "Dashboard"
+    },
+    {
+      "menuItemCode": "jobs",
+      "localeCode": "en",
+      "label": "Jobs"
+    },
+    {
+      "menuItemCode": "tasks",
+      "localeCode": "en",
+      "label": "Tasks"
+    },
+    {
+      "menuItemCode": "inbox",
+      "localeCode": "en",
+      "label": "Messages"
+    },
+    {
+      "menuItemCode": "orgs",
+      "localeCode": "en",
+      "label": "Organizations"
+    },
+    {
+      "menuItemCode": "locations",
+      "localeCode": "en",
+      "label": "Locations"
+    },
+    {
+      "menuItemCode": "shifts",
+      "localeCode": "en",
+      "label": "Shifts"
+    },
+    {
+      "menuItemCode": "applications",
+      "localeCode": "en",
+      "label": "Applications"
+    },
+    {
+      "menuItemCode": "workers",
+      "localeCode": "en",
+      "label": "Workers"
+    },
+    {
+      "menuItemCode": "documents",
+      "localeCode": "en",
+      "label": "Documents"
+    },
+    {
+      "menuItemCode": "finance",
+      "localeCode": "en",
+      "label": "Finance"
+    },
+    {
+      "menuItemCode": "transactions",
+      "localeCode": "en",
+      "label": "Transactions"
+    },
+    {
+      "menuItemCode": "userAudit",
+      "localeCode": "en",
+      "label": "User audit"
+    },
+    {
+      "menuItemCode": "systemAudit",
+      "localeCode": "en",
+      "label": "System audit"
+    },
+    {
+      "menuItemCode": "support",
+      "localeCode": "en",
+      "label": "Help Center"
+    },
+    {
+      "menuItemCode": "settings",
+      "localeCode": "en",
+      "label": "Settings"
+    },
+    {
+      "menuItemCode": "profile",
+      "localeCode": "en",
+      "label": "My Profile"
+    },
+    {
+      "menuItemCode": "verification",
+      "localeCode": "en",
+      "label": "Document Verification"
+    },
+    {
+      "menuItemCode": "jobRoles",
+      "localeCode": "en",
+      "label": "Job Roles"
+    },
+    {
+      "menuItemCode": "industries",
+      "localeCode": "en",
+      "label": "Job Role Categories"
+    },
+    {
+      "menuItemCode": "skills",
+      "localeCode": "en",
+      "label": "Skills"
+    },
+    {
+      "menuItemCode": "certificates",
+      "localeCode": "en",
+      "label": "Certificates"
+    },
+    {
+      "menuItemCode": "documentTypes",
+      "localeCode": "en",
+      "label": "Document Types"
+    },
+    {
+      "menuItemCode": "dashboard",
+      "localeCode": "fr",
+      "label": "Dashboard"
+    },
+    {
+      "menuItemCode": "jobs",
+      "localeCode": "fr",
+      "label": "Jobs"
+    },
+    {
+      "menuItemCode": "tasks",
+      "localeCode": "fr",
+      "label": "Tasks"
+    },
+    {
+      "menuItemCode": "inbox",
+      "localeCode": "fr",
+      "label": "Messages"
+    },
+    {
+      "menuItemCode": "orgs",
+      "localeCode": "fr",
+      "label": "Organizations"
+    },
+    {
+      "menuItemCode": "locations",
+      "localeCode": "fr",
+      "label": "Locations"
+    },
+    {
+      "menuItemCode": "shifts",
+      "localeCode": "fr",
+      "label": "Shifts"
+    },
+    {
+      "menuItemCode": "applications",
+      "localeCode": "fr",
+      "label": "Applications"
+    },
+    {
+      "menuItemCode": "workers",
+      "localeCode": "fr",
+      "label": "Workers"
+    },
+    {
+      "menuItemCode": "documents",
+      "localeCode": "fr",
+      "label": "Documents"
+    },
+    {
+      "menuItemCode": "finance",
+      "localeCode": "fr",
+      "label": "Finance"
+    },
+    {
+      "menuItemCode": "transactions",
+      "localeCode": "fr",
+      "label": "Transactions"
+    },
+    {
+      "menuItemCode": "userAudit",
+      "localeCode": "fr",
+      "label": "User audit"
+    },
+    {
+      "menuItemCode": "systemAudit",
+      "localeCode": "fr",
+      "label": "System audit"
+    },
+    {
+      "menuItemCode": "support",
+      "localeCode": "fr",
+      "label": "Help Center"
+    },
+    {
+      "menuItemCode": "settings",
+      "localeCode": "fr",
+      "label": "Settings"
+    },
+    {
+      "menuItemCode": "profile",
+      "localeCode": "fr",
+      "label": "My Profile"
+    },
+    {
+      "menuItemCode": "verification",
+      "localeCode": "fr",
+      "label": "Document Verification"
+    },
+    {
+      "menuItemCode": "jobRoles",
+      "localeCode": "fr",
+      "label": "Job Roles"
+    },
+    {
+      "menuItemCode": "industries",
+      "localeCode": "fr",
+      "label": "Job Role Categories"
+    },
+    {
+      "menuItemCode": "skills",
+      "localeCode": "fr",
+      "label": "Skills"
+    },
+    {
+      "menuItemCode": "certificates",
+      "localeCode": "fr",
+      "label": "Certificates"
+    },
+    {
+      "menuItemCode": "documentTypes",
+      "localeCode": "fr",
+      "label": "Document Types"
+    },
+    {
+      "menuItemCode": "dashboard",
+      "localeCode": "hi",
+      "label": "Dashboard"
+    },
+    {
+      "menuItemCode": "jobs",
+      "localeCode": "hi",
+      "label": "Jobs"
+    },
+    {
+      "menuItemCode": "tasks",
+      "localeCode": "hi",
+      "label": "Tasks"
+    },
+    {
+      "menuItemCode": "inbox",
+      "localeCode": "hi",
+      "label": "Messages"
+    },
+    {
+      "menuItemCode": "orgs",
+      "localeCode": "hi",
+      "label": "Organizations"
+    },
+    {
+      "menuItemCode": "locations",
+      "localeCode": "hi",
+      "label": "Locations"
+    },
+    {
+      "menuItemCode": "shifts",
+      "localeCode": "hi",
+      "label": "Shifts"
+    },
+    {
+      "menuItemCode": "applications",
+      "localeCode": "hi",
+      "label": "Applications"
+    },
+    {
+      "menuItemCode": "workers",
+      "localeCode": "hi",
+      "label": "Workers"
+    },
+    {
+      "menuItemCode": "documents",
+      "localeCode": "hi",
+      "label": "Documents"
+    },
+    {
+      "menuItemCode": "finance",
+      "localeCode": "hi",
+      "label": "Finance"
+    },
+    {
+      "menuItemCode": "transactions",
+      "localeCode": "hi",
+      "label": "Transactions"
+    },
+    {
+      "menuItemCode": "userAudit",
+      "localeCode": "hi",
+      "label": "User audit"
+    },
+    {
+      "menuItemCode": "systemAudit",
+      "localeCode": "hi",
+      "label": "System audit"
+    },
+    {
+      "menuItemCode": "support",
+      "localeCode": "hi",
+      "label": "Help Center"
+    },
+    {
+      "menuItemCode": "settings",
+      "localeCode": "hi",
+      "label": "Settings"
+    },
+    {
+      "menuItemCode": "profile",
+      "localeCode": "hi",
+      "label": "My Profile"
+    },
+    {
+      "menuItemCode": "verification",
+      "localeCode": "hi",
+      "label": "Document Verification"
+    },
+    {
+      "menuItemCode": "jobRoles",
+      "localeCode": "hi",
+      "label": "Job Roles"
+    },
+    {
+      "menuItemCode": "industries",
+      "localeCode": "hi",
+      "label": "Job Role Categories"
+    },
+    {
+      "menuItemCode": "skills",
+      "localeCode": "hi",
+      "label": "Skills"
+    },
+    {
+      "menuItemCode": "certificates",
+      "localeCode": "hi",
+      "label": "Certificates"
+    },
+    {
+      "menuItemCode": "documentTypes",
+      "localeCode": "hi",
+      "label": "Document Types"
+    },
+    {
+      "menuItemCode": "dashboard",
+      "localeCode": "id",
+      "label": "Dashboard"
+    },
+    {
+      "menuItemCode": "jobs",
+      "localeCode": "id",
+      "label": "Jobs"
+    },
+    {
+      "menuItemCode": "tasks",
+      "localeCode": "id",
+      "label": "Tasks"
+    },
+    {
+      "menuItemCode": "inbox",
+      "localeCode": "id",
+      "label": "Messages"
+    },
+    {
+      "menuItemCode": "orgs",
+      "localeCode": "id",
+      "label": "Organizations"
+    },
+    {
+      "menuItemCode": "locations",
+      "localeCode": "id",
+      "label": "Locations"
+    },
+    {
+      "menuItemCode": "shifts",
+      "localeCode": "id",
+      "label": "Shifts"
+    },
+    {
+      "menuItemCode": "applications",
+      "localeCode": "id",
+      "label": "Applications"
+    },
+    {
+      "menuItemCode": "workers",
+      "localeCode": "id",
+      "label": "Workers"
+    },
+    {
+      "menuItemCode": "documents",
+      "localeCode": "id",
+      "label": "Documents"
+    },
+    {
+      "menuItemCode": "finance",
+      "localeCode": "id",
+      "label": "Finance"
+    },
+    {
+      "menuItemCode": "transactions",
+      "localeCode": "id",
+      "label": "Transactions"
+    },
+    {
+      "menuItemCode": "userAudit",
+      "localeCode": "id",
+      "label": "User audit"
+    },
+    {
+      "menuItemCode": "systemAudit",
+      "localeCode": "id",
+      "label": "System audit"
+    },
+    {
+      "menuItemCode": "support",
+      "localeCode": "id",
+      "label": "Help Center"
+    },
+    {
+      "menuItemCode": "settings",
+      "localeCode": "id",
+      "label": "Settings"
+    },
+    {
+      "menuItemCode": "profile",
+      "localeCode": "id",
+      "label": "My Profile"
+    },
+    {
+      "menuItemCode": "verification",
+      "localeCode": "id",
+      "label": "Document Verification"
+    },
+    {
+      "menuItemCode": "jobRoles",
+      "localeCode": "id",
+      "label": "Job Roles"
+    },
+    {
+      "menuItemCode": "industries",
+      "localeCode": "id",
+      "label": "Job Role Categories"
+    },
+    {
+      "menuItemCode": "skills",
+      "localeCode": "id",
+      "label": "Skills"
+    },
+    {
+      "menuItemCode": "certificates",
+      "localeCode": "id",
+      "label": "Certificates"
+    },
+    {
+      "menuItemCode": "documentTypes",
+      "localeCode": "id",
+      "label": "Document Types"
+    },
+    {
+      "menuItemCode": "dashboard",
+      "localeCode": "zh",
+      "label": "Dashboard"
+    },
+    {
+      "menuItemCode": "jobs",
+      "localeCode": "zh",
+      "label": "Jobs"
+    },
+    {
+      "menuItemCode": "tasks",
+      "localeCode": "zh",
+      "label": "Tasks"
+    },
+    {
+      "menuItemCode": "inbox",
+      "localeCode": "zh",
+      "label": "Messages"
+    },
+    {
+      "menuItemCode": "orgs",
+      "localeCode": "zh",
+      "label": "Organizations"
+    },
+    {
+      "menuItemCode": "locations",
+      "localeCode": "zh",
+      "label": "Locations"
+    },
+    {
+      "menuItemCode": "shifts",
+      "localeCode": "zh",
+      "label": "Shifts"
+    },
+    {
+      "menuItemCode": "applications",
+      "localeCode": "zh",
+      "label": "Applications"
+    },
+    {
+      "menuItemCode": "workers",
+      "localeCode": "zh",
+      "label": "Workers"
+    },
+    {
+      "menuItemCode": "documents",
+      "localeCode": "zh",
+      "label": "Documents"
+    },
+    {
+      "menuItemCode": "finance",
+      "localeCode": "zh",
+      "label": "Finance"
+    },
+    {
+      "menuItemCode": "transactions",
+      "localeCode": "zh",
+      "label": "Transactions"
+    },
+    {
+      "menuItemCode": "userAudit",
+      "localeCode": "zh",
+      "label": "User audit"
+    },
+    {
+      "menuItemCode": "systemAudit",
+      "localeCode": "zh",
+      "label": "System audit"
+    },
+    {
+      "menuItemCode": "support",
+      "localeCode": "zh",
+      "label": "Help Center"
+    },
+    {
+      "menuItemCode": "settings",
+      "localeCode": "zh",
+      "label": "Settings"
+    },
+    {
+      "menuItemCode": "profile",
+      "localeCode": "zh",
+      "label": "My Profile"
+    },
+    {
+      "menuItemCode": "verification",
+      "localeCode": "zh",
+      "label": "Document Verification"
+    },
+    {
+      "menuItemCode": "jobRoles",
+      "localeCode": "zh",
+      "label": "Job Roles"
+    },
+    {
+      "menuItemCode": "industries",
+      "localeCode": "zh",
+      "label": "Job Role Categories"
+    },
+    {
+      "menuItemCode": "skills",
+      "localeCode": "zh",
+      "label": "Skills"
+    },
+    {
+      "menuItemCode": "certificates",
+      "localeCode": "zh",
+      "label": "Certificates"
+    },
+    {
+      "menuItemCode": "documentTypes",
+      "localeCode": "zh",
+      "label": "Document Types"
+    },
+    {
+      "menuItemCode": "dashboard",
+      "localeCode": "pt",
+      "label": "Dashboard"
+    },
+    {
+      "menuItemCode": "jobs",
+      "localeCode": "pt",
+      "label": "Jobs"
+    },
+    {
+      "menuItemCode": "tasks",
+      "localeCode": "pt",
+      "label": "Tasks"
+    },
+    {
+      "menuItemCode": "inbox",
+      "localeCode": "pt",
+      "label": "Messages"
+    },
+    {
+      "menuItemCode": "orgs",
+      "localeCode": "pt",
+      "label": "Organizations"
+    },
+    {
+      "menuItemCode": "locations",
+      "localeCode": "pt",
+      "label": "Locations"
+    },
+    {
+      "menuItemCode": "shifts",
+      "localeCode": "pt",
+      "label": "Shifts"
+    },
+    {
+      "menuItemCode": "applications",
+      "localeCode": "pt",
+      "label": "Applications"
+    },
+    {
+      "menuItemCode": "workers",
+      "localeCode": "pt",
+      "label": "Workers"
+    },
+    {
+      "menuItemCode": "documents",
+      "localeCode": "pt",
+      "label": "Documents"
+    },
+    {
+      "menuItemCode": "finance",
+      "localeCode": "pt",
+      "label": "Finance"
+    },
+    {
+      "menuItemCode": "transactions",
+      "localeCode": "pt",
+      "label": "Transactions"
+    },
+    {
+      "menuItemCode": "userAudit",
+      "localeCode": "pt",
+      "label": "User audit"
+    },
+    {
+      "menuItemCode": "systemAudit",
+      "localeCode": "pt",
+      "label": "System audit"
+    },
+    {
+      "menuItemCode": "support",
+      "localeCode": "pt",
+      "label": "Help Center"
+    },
+    {
+      "menuItemCode": "settings",
+      "localeCode": "pt",
+      "label": "Settings"
+    },
+    {
+      "menuItemCode": "profile",
+      "localeCode": "pt",
+      "label": "My Profile"
+    },
+    {
+      "menuItemCode": "verification",
+      "localeCode": "pt",
+      "label": "Document Verification"
+    },
+    {
+      "menuItemCode": "jobRoles",
+      "localeCode": "pt",
+      "label": "Job Roles"
+    },
+    {
+      "menuItemCode": "industries",
+      "localeCode": "pt",
+      "label": "Job Role Categories"
+    },
+    {
+      "menuItemCode": "skills",
+      "localeCode": "pt",
+      "label": "Skills"
+    },
+    {
+      "menuItemCode": "certificates",
+      "localeCode": "pt",
+      "label": "Certificates"
+    },
+    {
+      "menuItemCode": "documentTypes",
+      "localeCode": "pt",
+      "label": "Document Types"
+    },
+    {
+      "menuItemCode": "dashboard",
+      "localeCode": "ru",
+      "label": "Dashboard"
+    },
+    {
+      "menuItemCode": "jobs",
+      "localeCode": "ru",
+      "label": "Jobs"
+    },
+    {
+      "menuItemCode": "tasks",
+      "localeCode": "ru",
+      "label": "Tasks"
+    },
+    {
+      "menuItemCode": "inbox",
+      "localeCode": "ru",
+      "label": "Messages"
+    },
+    {
+      "menuItemCode": "orgs",
+      "localeCode": "ru",
+      "label": "Organizations"
+    },
+    {
+      "menuItemCode": "locations",
+      "localeCode": "ru",
+      "label": "Locations"
+    },
+    {
+      "menuItemCode": "shifts",
+      "localeCode": "ru",
+      "label": "Shifts"
+    },
+    {
+      "menuItemCode": "applications",
+      "localeCode": "ru",
+      "label": "Applications"
+    },
+    {
+      "menuItemCode": "workers",
+      "localeCode": "ru",
+      "label": "Workers"
+    },
+    {
+      "menuItemCode": "documents",
+      "localeCode": "ru",
+      "label": "Documents"
+    },
+    {
+      "menuItemCode": "finance",
+      "localeCode": "ru",
+      "label": "Finance"
+    },
+    {
+      "menuItemCode": "transactions",
+      "localeCode": "ru",
+      "label": "Transactions"
+    },
+    {
+      "menuItemCode": "userAudit",
+      "localeCode": "ru",
+      "label": "User audit"
+    },
+    {
+      "menuItemCode": "systemAudit",
+      "localeCode": "ru",
+      "label": "System audit"
+    },
+    {
+      "menuItemCode": "support",
+      "localeCode": "ru",
+      "label": "Help Center"
+    },
+    {
+      "menuItemCode": "settings",
+      "localeCode": "ru",
+      "label": "Settings"
+    },
+    {
+      "menuItemCode": "profile",
+      "localeCode": "ru",
+      "label": "My Profile"
+    },
+    {
+      "menuItemCode": "verification",
+      "localeCode": "ru",
+      "label": "Document Verification"
+    },
+    {
+      "menuItemCode": "jobRoles",
+      "localeCode": "ru",
+      "label": "Job Roles"
+    },
+    {
+      "menuItemCode": "industries",
+      "localeCode": "ru",
+      "label": "Job Role Categories"
+    },
+    {
+      "menuItemCode": "skills",
+      "localeCode": "ru",
+      "label": "Skills"
+    },
+    {
+      "menuItemCode": "certificates",
+      "localeCode": "ru",
+      "label": "Certificates"
+    },
+    {
+      "menuItemCode": "documentTypes",
+      "localeCode": "ru",
+      "label": "Document Types"
+    },
+    {
+      "menuItemCode": "dashboard",
+      "localeCode": "es",
+      "label": "Dashboard"
+    },
+    {
+      "menuItemCode": "jobs",
+      "localeCode": "es",
+      "label": "Jobs"
+    },
+    {
+      "menuItemCode": "tasks",
+      "localeCode": "es",
+      "label": "Tasks"
+    },
+    {
+      "menuItemCode": "inbox",
+      "localeCode": "es",
+      "label": "Messages"
+    },
+    {
+      "menuItemCode": "orgs",
+      "localeCode": "es",
+      "label": "Organizations"
+    },
+    {
+      "menuItemCode": "locations",
+      "localeCode": "es",
+      "label": "Locations"
+    },
+    {
+      "menuItemCode": "shifts",
+      "localeCode": "es",
+      "label": "Shifts"
+    },
+    {
+      "menuItemCode": "applications",
+      "localeCode": "es",
+      "label": "Applications"
+    },
+    {
+      "menuItemCode": "workers",
+      "localeCode": "es",
+      "label": "Workers"
+    },
+    {
+      "menuItemCode": "documents",
+      "localeCode": "es",
+      "label": "Documents"
+    },
+    {
+      "menuItemCode": "finance",
+      "localeCode": "es",
+      "label": "Finance"
+    },
+    {
+      "menuItemCode": "transactions",
+      "localeCode": "es",
+      "label": "Transactions"
+    },
+    {
+      "menuItemCode": "userAudit",
+      "localeCode": "es",
+      "label": "User audit"
+    },
+    {
+      "menuItemCode": "systemAudit",
+      "localeCode": "es",
+      "label": "System audit"
+    },
+    {
+      "menuItemCode": "support",
+      "localeCode": "es",
+      "label": "Help Center"
+    },
+    {
+      "menuItemCode": "settings",
+      "localeCode": "es",
+      "label": "Settings"
+    },
+    {
+      "menuItemCode": "profile",
+      "localeCode": "es",
+      "label": "My Profile"
+    },
+    {
+      "menuItemCode": "verification",
+      "localeCode": "es",
+      "label": "Document Verification"
+    },
+    {
+      "menuItemCode": "jobRoles",
+      "localeCode": "es",
+      "label": "Job Roles"
+    },
+    {
+      "menuItemCode": "industries",
+      "localeCode": "es",
+      "label": "Job Role Categories"
+    },
+    {
+      "menuItemCode": "skills",
+      "localeCode": "es",
+      "label": "Skills"
+    },
+    {
+      "menuItemCode": "certificates",
+      "localeCode": "es",
+      "label": "Certificates"
+    },
+    {
+      "menuItemCode": "documentTypes",
+      "localeCode": "es",
+      "label": "Document Types"
+    },
+    {
+      "menuItemCode": "dashboard",
+      "localeCode": "tr",
+      "label": "Panel"
+    },
+    {
+      "menuItemCode": "jobs",
+      "localeCode": "tr",
+      "label": "İşler"
+    },
+    {
+      "menuItemCode": "tasks",
+      "localeCode": "tr",
+      "label": "Görevler"
+    },
+    {
+      "menuItemCode": "inbox",
+      "localeCode": "tr",
+      "label": "Mesajlar"
+    },
+    {
+      "menuItemCode": "orgs",
+      "localeCode": "tr",
+      "label": "Organizasyonlar"
+    },
+    {
+      "menuItemCode": "locations",
+      "localeCode": "tr",
+      "label": "Lokasyonlar"
+    },
+    {
+      "menuItemCode": "shifts",
+      "localeCode": "tr",
+      "label": "Vardiyalar"
+    },
+    {
+      "menuItemCode": "applications",
+      "localeCode": "tr",
+      "label": "Başvurular"
+    },
+    {
+      "menuItemCode": "workers",
+      "localeCode": "tr",
+      "label": "Çalışanlar"
+    },
+    {
+      "menuItemCode": "documents",
+      "localeCode": "tr",
+      "label": "Belgeler"
+    },
+    {
+      "menuItemCode": "finance",
+      "localeCode": "tr",
+      "label": "Finans"
+    },
+    {
+      "menuItemCode": "transactions",
+      "localeCode": "tr",
+      "label": "İşlemler"
+    },
+    {
+      "menuItemCode": "userAudit",
+      "localeCode": "tr",
+      "label": "Kullanıcı denetimi"
+    },
+    {
+      "menuItemCode": "systemAudit",
+      "localeCode": "tr",
+      "label": "Sistem denetimi"
+    },
+    {
+      "menuItemCode": "support",
+      "localeCode": "tr",
+      "label": "Yardım Merkezi"
+    },
+    {
+      "menuItemCode": "settings",
+      "localeCode": "tr",
+      "label": "Ayarlar"
+    },
+    {
+      "menuItemCode": "profile",
+      "localeCode": "tr",
+      "label": "Profilim"
+    },
+    {
+      "menuItemCode": "verification",
+      "localeCode": "tr",
+      "label": "Belge Doğrulama"
+    },
+    {
+      "menuItemCode": "jobRoles",
+      "localeCode": "tr",
+      "label": "İş Rolleri"
+    },
+    {
+      "menuItemCode": "industries",
+      "localeCode": "tr",
+      "label": "İş Rolü Kategorileri"
+    },
+    {
+      "menuItemCode": "skills",
+      "localeCode": "tr",
+      "label": "Yetenekler"
+    },
+    {
+      "menuItemCode": "certificates",
+      "localeCode": "tr",
+      "label": "Sertifikalar"
+    },
+    {
+      "menuItemCode": "documentTypes",
+      "localeCode": "tr",
+      "label": "Doküman Tipleri"
+    },
+    {
+      "menuItemCode": "dashboard",
+      "localeCode": "ur",
+      "label": "Dashboard"
+    },
+    {
+      "menuItemCode": "jobs",
+      "localeCode": "ur",
+      "label": "Jobs"
+    },
+    {
+      "menuItemCode": "tasks",
+      "localeCode": "ur",
+      "label": "Tasks"
+    },
+    {
+      "menuItemCode": "inbox",
+      "localeCode": "ur",
+      "label": "Messages"
+    },
+    {
+      "menuItemCode": "orgs",
+      "localeCode": "ur",
+      "label": "Organizations"
+    },
+    {
+      "menuItemCode": "locations",
+      "localeCode": "ur",
+      "label": "Locations"
+    },
+    {
+      "menuItemCode": "shifts",
+      "localeCode": "ur",
+      "label": "Shifts"
+    },
+    {
+      "menuItemCode": "applications",
+      "localeCode": "ur",
+      "label": "Applications"
+    },
+    {
+      "menuItemCode": "workers",
+      "localeCode": "ur",
+      "label": "Workers"
+    },
+    {
+      "menuItemCode": "documents",
+      "localeCode": "ur",
+      "label": "Documents"
+    },
+    {
+      "menuItemCode": "finance",
+      "localeCode": "ur",
+      "label": "Finance"
+    },
+    {
+      "menuItemCode": "transactions",
+      "localeCode": "ur",
+      "label": "Transactions"
+    },
+    {
+      "menuItemCode": "userAudit",
+      "localeCode": "ur",
+      "label": "User audit"
+    },
+    {
+      "menuItemCode": "systemAudit",
+      "localeCode": "ur",
+      "label": "System audit"
+    },
+    {
+      "menuItemCode": "support",
+      "localeCode": "ur",
+      "label": "Help Center"
+    },
+    {
+      "menuItemCode": "settings",
+      "localeCode": "ur",
+      "label": "Settings"
+    },
+    {
+      "menuItemCode": "profile",
+      "localeCode": "ur",
+      "label": "My Profile"
+    },
+    {
+      "menuItemCode": "verification",
+      "localeCode": "ur",
+      "label": "Document Verification"
+    },
+    {
+      "menuItemCode": "jobRoles",
+      "localeCode": "ur",
+      "label": "Job Roles"
+    },
+    {
+      "menuItemCode": "industries",
+      "localeCode": "ur",
+      "label": "Job Role Categories"
+    },
+    {
+      "menuItemCode": "skills",
+      "localeCode": "ur",
+      "label": "Skills"
+    },
+    {
+      "menuItemCode": "certificates",
+      "localeCode": "ur",
+      "label": "Certificates"
+    },
+    {
+      "menuItemCode": "documentTypes",
+      "localeCode": "ur",
+      "label": "Document Types"
+    },
+    {
+      "menuItemCode": "dashboard",
+      "localeCode": "de",
+      "label": "Übersicht"
+    },
+    {
+      "menuItemCode": "jobs",
+      "localeCode": "de",
+      "label": "Jobs"
+    },
+    {
+      "menuItemCode": "tasks",
+      "localeCode": "de",
+      "label": "Aufgaben"
+    },
+    {
+      "menuItemCode": "inbox",
+      "localeCode": "de",
+      "label": "Nachrichten"
+    },
+    {
+      "menuItemCode": "orgs",
+      "localeCode": "de",
+      "label": "Organisationen"
+    },
+    {
+      "menuItemCode": "locations",
+      "localeCode": "de",
+      "label": "Standorte"
+    },
+    {
+      "menuItemCode": "shifts",
+      "localeCode": "de",
+      "label": "Schichten"
+    },
+    {
+      "menuItemCode": "applications",
+      "localeCode": "de",
+      "label": "Bewerbungen"
+    },
+    {
+      "menuItemCode": "workers",
+      "localeCode": "de",
+      "label": "Mitarbeitende"
+    },
+    {
+      "menuItemCode": "documents",
+      "localeCode": "de",
+      "label": "Dokumente"
+    },
+    {
+      "menuItemCode": "finance",
+      "localeCode": "de",
+      "label": "Finanzen"
+    },
+    {
+      "menuItemCode": "transactions",
+      "localeCode": "de",
+      "label": "Transaktionen"
+    },
+    {
+      "menuItemCode": "userAudit",
+      "localeCode": "de",
+      "label": "Benutzer-Audit"
+    },
+    {
+      "menuItemCode": "systemAudit",
+      "localeCode": "de",
+      "label": "System-Audit"
+    },
+    {
+      "menuItemCode": "support",
+      "localeCode": "de",
+      "label": "Hilfecenter"
+    },
+    {
+      "menuItemCode": "settings",
+      "localeCode": "de",
+      "label": "Einstellungen"
+    },
+    {
+      "menuItemCode": "profile",
+      "localeCode": "de",
+      "label": "Mein Profil"
+    },
+    {
+      "menuItemCode": "verification",
+      "localeCode": "de",
+      "label": "Dokumentenprüfung"
+    },
+    {
+      "menuItemCode": "jobRoles",
+      "localeCode": "de",
+      "label": "Jobrollen"
+    },
+    {
+      "menuItemCode": "industries",
+      "localeCode": "de",
+      "label": "Jobrollenkategorien"
+    },
+    {
+      "menuItemCode": "skills",
+      "localeCode": "de",
+      "label": "Fähigkeiten"
+    },
+    {
+      "menuItemCode": "certificates",
+      "localeCode": "de",
+      "label": "Zertifikate"
+    },
+    {
+      "menuItemCode": "documentTypes",
+      "localeCode": "de",
+      "label": "Dokumenttypen"
+    },
+    {
+      "menuItemCode": "dashboard",
+      "localeCode": "it",
+      "label": "Dashboard"
+    },
+    {
+      "menuItemCode": "jobs",
+      "localeCode": "it",
+      "label": "Jobs"
+    },
+    {
+      "menuItemCode": "tasks",
+      "localeCode": "it",
+      "label": "Tasks"
+    },
+    {
+      "menuItemCode": "inbox",
+      "localeCode": "it",
+      "label": "Messages"
+    },
+    {
+      "menuItemCode": "orgs",
+      "localeCode": "it",
+      "label": "Organizations"
+    },
+    {
+      "menuItemCode": "locations",
+      "localeCode": "it",
+      "label": "Locations"
+    },
+    {
+      "menuItemCode": "shifts",
+      "localeCode": "it",
+      "label": "Shifts"
+    },
+    {
+      "menuItemCode": "applications",
+      "localeCode": "it",
+      "label": "Applications"
+    },
+    {
+      "menuItemCode": "workers",
+      "localeCode": "it",
+      "label": "Workers"
+    },
+    {
+      "menuItemCode": "documents",
+      "localeCode": "it",
+      "label": "Documents"
+    },
+    {
+      "menuItemCode": "finance",
+      "localeCode": "it",
+      "label": "Finance"
+    },
+    {
+      "menuItemCode": "transactions",
+      "localeCode": "it",
+      "label": "Transactions"
+    },
+    {
+      "menuItemCode": "userAudit",
+      "localeCode": "it",
+      "label": "User audit"
+    },
+    {
+      "menuItemCode": "systemAudit",
+      "localeCode": "it",
+      "label": "System audit"
+    },
+    {
+      "menuItemCode": "support",
+      "localeCode": "it",
+      "label": "Help Center"
+    },
+    {
+      "menuItemCode": "settings",
+      "localeCode": "it",
+      "label": "Settings"
+    },
+    {
+      "menuItemCode": "profile",
+      "localeCode": "it",
+      "label": "My Profile"
+    },
+    {
+      "menuItemCode": "verification",
+      "localeCode": "it",
+      "label": "Document Verification"
+    },
+    {
+      "menuItemCode": "jobRoles",
+      "localeCode": "it",
+      "label": "Job Roles"
+    },
+    {
+      "menuItemCode": "industries",
+      "localeCode": "it",
+      "label": "Job Role Categories"
+    },
+    {
+      "menuItemCode": "skills",
+      "localeCode": "it",
+      "label": "Skills"
+    },
+    {
+      "menuItemCode": "certificates",
+      "localeCode": "it",
+      "label": "Certificates"
+    },
+    {
+      "menuItemCode": "documentTypes",
+      "localeCode": "it",
+      "label": "Document Types"
+    },
+    {
+      "menuItemCode": "dashboard",
+      "localeCode": "pl",
+      "label": "Dashboard"
+    },
+    {
+      "menuItemCode": "jobs",
+      "localeCode": "pl",
+      "label": "Jobs"
+    },
+    {
+      "menuItemCode": "tasks",
+      "localeCode": "pl",
+      "label": "Tasks"
+    },
+    {
+      "menuItemCode": "inbox",
+      "localeCode": "pl",
+      "label": "Messages"
+    },
+    {
+      "menuItemCode": "orgs",
+      "localeCode": "pl",
+      "label": "Organizations"
+    },
+    {
+      "menuItemCode": "locations",
+      "localeCode": "pl",
+      "label": "Locations"
+    },
+    {
+      "menuItemCode": "shifts",
+      "localeCode": "pl",
+      "label": "Shifts"
+    },
+    {
+      "menuItemCode": "applications",
+      "localeCode": "pl",
+      "label": "Applications"
+    },
+    {
+      "menuItemCode": "workers",
+      "localeCode": "pl",
+      "label": "Workers"
+    },
+    {
+      "menuItemCode": "documents",
+      "localeCode": "pl",
+      "label": "Documents"
+    },
+    {
+      "menuItemCode": "finance",
+      "localeCode": "pl",
+      "label": "Finance"
+    },
+    {
+      "menuItemCode": "transactions",
+      "localeCode": "pl",
+      "label": "Transactions"
+    },
+    {
+      "menuItemCode": "userAudit",
+      "localeCode": "pl",
+      "label": "User audit"
+    },
+    {
+      "menuItemCode": "systemAudit",
+      "localeCode": "pl",
+      "label": "System audit"
+    },
+    {
+      "menuItemCode": "support",
+      "localeCode": "pl",
+      "label": "Help Center"
+    },
+    {
+      "menuItemCode": "settings",
+      "localeCode": "pl",
+      "label": "Settings"
+    },
+    {
+      "menuItemCode": "profile",
+      "localeCode": "pl",
+      "label": "My Profile"
+    },
+    {
+      "menuItemCode": "verification",
+      "localeCode": "pl",
+      "label": "Document Verification"
+    },
+    {
+      "menuItemCode": "jobRoles",
+      "localeCode": "pl",
+      "label": "Job Roles"
+    },
+    {
+      "menuItemCode": "industries",
+      "localeCode": "pl",
+      "label": "Job Role Categories"
+    },
+    {
+      "menuItemCode": "skills",
+      "localeCode": "pl",
+      "label": "Skills"
+    },
+    {
+      "menuItemCode": "certificates",
+      "localeCode": "pl",
+      "label": "Certificates"
+    },
+    {
+      "menuItemCode": "documentTypes",
+      "localeCode": "pl",
+      "label": "Document Types"
+    }
+  ]
+}

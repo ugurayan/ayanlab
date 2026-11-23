@@ -1,14 +1,13 @@
 export const endpoints = {
   auth: {
-    // ayanlab-platform-backend (authApiBaseUrl = http://localhost:8102)
     login: "/auth/api/login",
     me: "/auth/api/me",
     signup: "/auth/api/register",
     validation: "/auth/api/validation"
   },
   orgs: {
-    list: "/orgs",
-    detail: (id: string) => `/orgs/${id}`
+    list: "/organizations",
+    detail: (id: string) => `/organizations/${id}`
   },
   locations: {
     list: "/locations"
@@ -22,63 +21,76 @@ export const endpoints = {
     list: "/applications"
   },
   workers: {
-    list: "/workers"
+    list: "/workers",
+    detail: (id: string) => `/workers/${id}`
   },
   documents: {
-    list: "/documents",
-    reviews: "/admin/document-reviews"
+    list: "/documents"
   },
   finance: {
-    invoices: "/finance/invoices",
-    payouts: "/finance/payouts"
+    invoices: "/finance-records"
   },
   audit: {
-    list: "/admin/audit",
-    user: "/admin/audit/user",
-    // System audit is served by the auth service (authHttp) at /system-audit
-    system: "/system-audit"
+    list: "/user-audits",
+    user: "/user-audits",
+    system: "/system-audits"
+  },
+  resources: {
+    jobs: "/jobs",
+    tasks: "/tasks",
+    transactions: "/transactions",
+    financeRecords: "/finance-records",
+    documentVerifications: "/document-verifications",
+    documentVerification: (id: string) => `/document-verifications/${id}`,
+    userAudits: "/user-audits",
+    systemAudits: "/system-audits",
+    departments: "/departments",
+    profiles: "/profiles"
   },
   jobs: {
-    industries: "/job-category/list/id-name",
-    rolesByCategory: (categoryId: string) => `/job-role/category/${categoryId}/active`
+    industries: "/job-role-categories",
+    roles: "/job-roles",
+    contractTypes: "/contract-types",
+    jobDocuments: "/job-documents",
+    rolesByCategory: (categoryId: string) => `/job-roles?categoryId=${encodeURIComponent(categoryId)}`
   },
   jobRoles: {
-    list: "/job-role",
-    create: "/job-role",
-    update: (id: string) => `/job-role/${id}`,
-    delete: (id: string) => `/job-role/${id}`
+    list: "/job-roles",
+    create: "/job-roles",
+    update: (id: string) => `/job-roles/${id}`,
+    delete: (id: string) => `/job-roles/${id}`
   },
   jobCategories: {
-    listAll: "/job-category/list-all",
-    create: "/job-category",
-    update: (id: string) => `/job-category/${id}`,
-    delete: (id: string) => `/job-category/${id}`
+    listAll: "/job-role-categories",
+    create: "/job-role-categories",
+    update: (id: string) => `/job-role-categories/${id}`,
+    delete: (id: string) => `/job-role-categories/${id}`
   },
   maps: {
     search: (address: string) => `/google-maps/search?address=${encodeURIComponent(address)}`
   },
   certificates: {
-    list: "/certificate/list",
+    list: "/certificates",
     listByJobRole: (jobRoleId: string, language: string) =>
-      `/certificate/list/by-job-role?jobRoleId=${encodeURIComponent(jobRoleId)}&language=${encodeURIComponent(language)}`,
-    create: "/certificate",
-    update: (id: string) => `/certificate/${id}`,
-    delete: (id: string) => `/certificate/${id}`,
-    byJobRole: (jobRoleId: string) => `/certificate/by-job-role?jobRoleId=${jobRoleId}`
+      `/certificates?jobRoleId=${encodeURIComponent(jobRoleId)}&language=${encodeURIComponent(language)}`,
+    create: "/certificates",
+    update: (id: string) => `/certificates/${id}`,
+    delete: (id: string) => `/certificates/${id}`,
+    byJobRole: (jobRoleId: string) => `/certificates?jobRoleId=${jobRoleId}`
   },
   skills: {
-    list: "/skill/list",
+    list: "/skills",
     listByJobRole: (jobRoleId: string, language: string) =>
-      `/skill/list/by-job-role?jobRoleId=${encodeURIComponent(jobRoleId)}&language=${encodeURIComponent(language)}`,
-    create: "/skill",
-    update: (id: string) => `/skill/${id}`,
-    delete: (id: string) => `/skill/${id}`
+      `/skills?jobRoleId=${encodeURIComponent(jobRoleId)}&language=${encodeURIComponent(language)}`,
+    create: "/skills",
+    update: (id: string) => `/skills/${id}`,
+    delete: (id: string) => `/skills/${id}`
   },
   documentTypes: {
-    list: "/document-type/list",
-    create: "/document-type",
-    update: (id: string) => `/document-type/${id}`,
-    delete: (id: string) => `/document-type/${id}`
+    list: "/documents",
+    create: "/documents",
+    update: (id: string) => `/documents/${id}`,
+    delete: (id: string) => `/documents/${id}`
   },
   dashboard: {
     widgets: "/dashboard/widgets",

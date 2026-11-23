@@ -1,4 +1,4 @@
-import type { Locale } from "./messages";
+import type { Locale } from "./localeCatalog";
 
 const COL_EN: Record<string, string> = {
   "col.id": "Id",
@@ -469,4 +469,17 @@ export const columnMessages: Record<Locale, Record<string, string>> = {
     "col.userId": "صارف شناخت",
     "col.organizationId": "تنظیم شناخت",
   },
+  de: { ...COL_EN },
+  it: { ...COL_EN },
+  pl: { ...COL_EN },
+  ja: { ...COL_EN },
+  pcm: { ...COL_EN },
+  mr: { ...COL_EN },
+  vi: { ...COL_EN },
+  te: { ...COL_EN },
+  sw: { ...COL_EN },
+  ha: { ...COL_EN },
+  uk: { ...COL_EN },
+  ro: { ...COL_EN },
+  nl: { ...COL_EN },
 };

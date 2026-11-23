@@ -16,3 +16,35 @@ Ensured schema exists: vault
 Ensured schema exists: staffiq
 Patched core.ProfilePermission.effect (backfill GRANT, NOT NULL)
 Ensured table core.ApplicationUser
+Cannot connect to target DB jdbc:postgresql://localhost:5433/ayanlab_platform: Connection to localhost:5433 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
+Warning: could not inspect databases: Connection to localhost:5433 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
+Cannot connect to target DB jdbc:postgresql://localhost:5433/ayanlab_platform: Connection to localhost:5433 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
+Connecting to maintenance DB: jdbc:postgresql://localhost:5433/postgres as user 'platform_admin'
+Warning: ensureDatabaseExists failed: Connection to localhost:5433 refused. Check that the hostname and port are correct and that the postmaster is accepting TCP/IP connections.
+Database 'ayanlab_platform' does not exist on localhost:5433 and user 'platform_admin' cannot create it.
+Create it once as a Postgres superuser (on the VPS):
+  docker exec -it postgis psql -U postgres -d postgres -c "CREATE DATABASE \"ayanlab_platform\" OWNER platform_admin;"
+Connect with psql: docker exec -it postgis psql -U platform_admin -d postgres
+Or set POSTGIS_DB to an existing database name from your PostGIS compose.
+Aborting startup due to DB connectivity issues.
+Target database is reachable: ayanlab
+Connecting to target DB: jdbc:postgresql://147.93.138.158:5432/ayanlab as user 'platform_admin' to ensure schemas
+Warning: could not ensure schemas: ERROR: permission denied for database ayanlab
+Target database is reachable: ayanlab
+Connecting to target DB: jdbc:postgresql://147.93.138.158:5432/ayanlab as user 'platform_admin' to ensure schemas
+Warning: could not ensure schemas: ERROR: permission denied for database ayanlab
+Target database is reachable: ayanlab
+Connecting to target DB: jdbc:postgresql://147.93.138.158:5432/ayanlab as user 'platform_admin' to ensure schemas
+Warning: could not ensure schemas: ERROR: permission denied for database ayanlab
+Target database is reachable: ayanlab
+Connecting to target DB: jdbc:postgresql://147.93.138.158:5432/ayanlab as user 'platform_admin' to ensure schemas
+Warning: could not ensure schemas: ERROR: permission denied for database ayanlab
+Target database is reachable: ayanlab
+Connecting to target DB: jdbc:postgresql://147.93.138.158:5432/ayanlab as user 'platform_admin' to ensure schemas
+Warning: could not ensure schemas: ERROR: permission denied for database ayanlab
+Target database is reachable: ayanlab
+Connecting to target DB: jdbc:postgresql://147.93.138.158:5432/ayanlab as user 'platform_admin' to ensure schemas
+Warning: could not ensure schemas: ERROR: permission denied for database ayanlab
+Target database is reachable: ayanlab
+Connecting to target DB: jdbc:postgresql://147.93.138.158:5432/ayanlab as user 'platform_admin' to ensure schemas
+Warning: could not ensure schemas: ERROR: permission denied for database ayanlab

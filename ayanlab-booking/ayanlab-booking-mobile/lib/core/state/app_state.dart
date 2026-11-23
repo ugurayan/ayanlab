@@ -55,21 +55,35 @@ class LocaleNotifier extends ChangeNotifier {
 
   /// Supported language tags (matches the ARB files).
   static const supportedTags = <String>[
-    'en', 'zh', 'hi', 'es', 'fr', 'ar', 'bn', 'pt', 'ru', 'tr', 'ur',
+    'en', 'zh', 'hi', 'es', 'ar', 'fr', 'bn', 'pt', 'id', 'ur', 'ru', 'de', 'ja', 'pcm', 'mr', 'vi', 'te', 'sw', 'ha', 'it', 'pl', 'uk', 'ro', 'nl', 'tr',
   ];
 
   static const displayNames = <String, String>{
     'en': 'English',
-    'zh': '中文 (Chinese)',
+    'zh': '中文 (Mandarin Chinese)',
     'hi': 'हिन्दी (Hindi)',
-    'es': 'Español',
-    'fr': 'Français',
-    'ar': 'العربية (Arabic)',
+    'es': 'Español (Spanish)',
+    'ar': 'العربية (Standard Arabic)',
+    'fr': 'Français (French)',
     'bn': 'বাংলা (Bengali)',
-    'pt': 'Português',
-    'ru': 'Русский',
-    'tr': 'Türkçe',
+    'pt': 'Português (Portuguese)',
+    'id': 'Bahasa Indonesia (Indonesian)',
     'ur': 'اردو (Urdu)',
+    'ru': 'Русский (Russian)',
+    'de': 'Deutsch (German)',
+    'ja': '日本語 (Japanese)',
+    'pcm': 'Nigerian Pidgin',
+    'mr': 'मराठी (Marathi)',
+    'vi': 'Tiếng Việt (Vietnamese)',
+    'te': 'తెలుగు (Telugu)',
+    'sw': 'Kiswahili (Swahili)',
+    'ha': 'Hausa',
+    'it': 'Italiano (Italian)',
+    'pl': 'Polski (Polish)',
+    'uk': 'Українська (Ukrainian)',
+    'ro': 'Română (Romanian)',
+    'nl': 'Nederlands (Dutch)',
+    'tr': 'Türkçe (Turkish)',
   };
 
   String? _tag;

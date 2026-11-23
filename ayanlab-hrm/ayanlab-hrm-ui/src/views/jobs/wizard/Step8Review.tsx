@@ -4,6 +4,8 @@ import { MapPin, Calendar, FileText, Shirt, Users } from 'lucide-react';
 import { useTranslations } from '../../../state/i18n';
 import { TEXTS } from '../i18n';
 import type { JobFormData } from '../types';
+import { WIZARD_TITLE_SURFACE, WizardStepHeader } from './WizardSectionHeading';
+import { formatWizard, useJobWizardCopy } from '../i18n/wizardTexts';
 import { getProfileTaxAndFee } from '../../../data/profileUiData';
 
 const STAFF_SELECTION_TITLE_KEYS: Record<JobFormData['staffSelectionType'], keyof typeof TEXTS.en.staff> = {
@@ -39,6 +41,10 @@ function countRecurringDates(start: string, end: string, shiftDays: string[]): n
 }
 
 export function Step8Review({ formData, onSubmit, onBack, canGoBack = false, isSubmitting = false }: Step8ReviewProps) {
+  const w = useJobWizardCopy();
+  const c = w.common;
+  const r = w.step8;
+  const days = w.step3.days;
   const copy = useTranslations(TEXTS);
   const staff = copy.staff;
   const scheduleDateCount = formData.recurringSchedule
@@ -80,114 +86,111 @@ export function Step8Review({ formData, onSubmit, onBack, canGoBack = false, isS
 
   return (
     <div className="space-y-6 pb-8">
-      <div>
-        <h2 className="text-2xl font-bold text-slate-900 mb-2">Review your booking</h2>
-        <p className="text-sm text-slate-600">Review all details before confirming your job posting.</p>
-      </div>
+      <WizardStepHeader title={r.title} subtitle={r.subtitle} />
 
       <div className="space-y-4">
         {/* Job Definition */}
         <div className="bg-white rounded-2xl border border-slate-200 p-6">
-          <div className="flex items-center justify-between mb-4">
+          <div className={`flex items-center justify-between mb-4 ${WIZARD_TITLE_SURFACE}`}>
             <h3 className="font-semibold text-slate-900 flex items-center gap-2">
               <FileText size={18} />
-              Job Definition
+              {r.sections.jobDefinition}
             </h3>
-            <Button variant="secondary" size="sm">Edit</Button>
+            <Button variant="secondary" size="sm">{c.edit}</Button>
           </div>
           <div className="space-y-2 text-sm">
-            <div><span className="text-slate-500">Title:</span> <span className="font-medium">{formData.title || 'Not set'}</span></div>
-            <div><span className="text-slate-500">Description:</span> <span className="font-medium">{formData.description || 'Not set'}</span></div>
+            <div><span className="text-slate-500">{r.labels.title}:</span> <span className="font-medium">{formData.title || c.notSet}</span></div>
+            <div><span className="text-slate-500">{r.labels.description}:</span> <span className="font-medium">{formData.description || c.notSet}</span></div>
           </div>
         </div>
 
         {/* Location */}
         <div className="bg-white rounded-2xl border border-slate-200 p-6">
-          <div className="flex items-center justify-between mb-4">
+          <div className={`flex items-center justify-between mb-4 ${WIZARD_TITLE_SURFACE}`}>
             <h3 className="font-semibold text-slate-900 flex items-center gap-2">
               <MapPin size={18} />
-              Location
+              {r.sections.location}
             </h3>
-            <Button variant="secondary" size="sm">Edit</Button>
+            <Button variant="secondary" size="sm">{c.edit}</Button>
           </div>
           <div className="space-y-2 text-sm">
-            <div><span className="text-slate-500">Location:</span> <span className="font-medium">{formData.workLocationName || 'Not set'}</span></div>
-            <div><span className="text-slate-500">Address:</span> <span className="font-medium">{formData.workLocationStreet || 'Not set'}</span></div>
-            <div><span className="text-slate-500">Contact:</span> <span className="font-medium">{formData.selectedContactIds?.length ? `${formData.selectedContactIds.length} selected` : 'Not set'}</span></div>
+            <div><span className="text-slate-500">{r.labels.location}:</span> <span className="font-medium">{formData.workLocationName || c.notSet}</span></div>
+            <div><span className="text-slate-500">{r.labels.address}:</span> <span className="font-medium">{formData.workLocationStreet || c.notSet}</span></div>
+            <div><span className="text-slate-500">{r.labels.contact}:</span> <span className="font-medium">{formData.selectedContactIds?.length ? formatWizard(r.labels.selected, { count: formData.selectedContactIds.length }) : c.notSet}</span></div>
           </div>
         </div>
 
         {/* Schedule */}
         <div className="bg-white rounded-2xl border border-slate-200 p-6">
-          <div className="flex items-center justify-between mb-4">
+          <div className={`flex items-center justify-between mb-4 ${WIZARD_TITLE_SURFACE}`}>
             <h3 className="font-semibold text-slate-900 flex items-center gap-2">
               <Calendar size={18} />
-              Schedule & Positions
+              {r.sections.schedule}
             </h3>
-            <Button variant="secondary" size="sm">Edit</Button>
+            <Button variant="secondary" size="sm">{c.edit}</Button>
           </div>
           <div className="space-y-2 text-sm">
             {formData.recurringSchedule ? (
               <>
-                <div><span className="text-slate-500">Type:</span> <span className="font-medium">Recurring</span></div>
-                <div><span className="text-slate-500">Range:</span> <span className="font-medium">{formData.recurringStartDate} to {formData.recurringEndDate}</span></div>
-                <div><span className="text-slate-500">Days:</span> <span className="font-medium">{(formData.shiftDays ?? []).map(d => d.charAt(0).toUpperCase() + d.slice(1)).join(', ') || 'None'}</span></div>
+                <div><span className="text-slate-500">{r.labels.type}:</span> <span className="font-medium">{r.labels.recurring}</span></div>
+                <div><span className="text-slate-500">{r.labels.range}:</span> <span className="font-medium">{formData.recurringStartDate} — {formData.recurringEndDate}</span></div>
+                <div><span className="text-slate-500">{r.labels.days}:</span> <span className="font-medium">{(formData.shiftDays ?? []).map((d) => days[d] ?? d).join(', ') || c.none}</span></div>
               </>
             ) : (
-              <div><span className="text-slate-500">Dates:</span> <span className="font-medium">{formData.selectedDates.length} date(s) selected</span></div>
+              <div><span className="text-slate-500">{r.labels.dates}:</span> <span className="font-medium">{formatWizard(r.labels.selected, { count: formData.selectedDates.length })}</span></div>
             )}
-            <div><span className="text-slate-500">Time:</span> <span className="font-medium">{formData.scheduleStartTime} - {formData.scheduleEndTime}</span></div>
-            <div><span className="text-slate-500">Break:</span> <span className="font-medium">{formData.totalUnpaidBreak}</span></div>
-            <div><span className="text-slate-500">Employees needed:</span> <span className="font-medium">{formData.employeesNeeded || 'Not set'}</span></div>
-            <div><span className="text-slate-500">Wage:</span> <span className="font-medium">{formData.wageAmount} {formData.wageType}</span></div>
+            <div><span className="text-slate-500">{r.labels.time}:</span> <span className="font-medium">{formData.scheduleStartTime} - {formData.scheduleEndTime}</span></div>
+            <div><span className="text-slate-500">{r.labels.break}:</span> <span className="font-medium">{formData.totalUnpaidBreak}</span></div>
+            <div><span className="text-slate-500">{r.labels.employees}:</span> <span className="font-medium">{formData.employeesNeeded || c.notSet}</span></div>
+            <div><span className="text-slate-500">{r.labels.wage}:</span> <span className="font-medium">{formData.wageAmount} {formData.wageType}</span></div>
           </div>
         </div>
 
         {/* Requirements */}
         <div className="bg-white rounded-2xl border border-slate-200 p-6">
-          <div className="flex items-center justify-between mb-4">
+          <div className={`flex items-center justify-between mb-4 ${WIZARD_TITLE_SURFACE}`}>
             <h3 className="font-semibold text-slate-900 flex items-center gap-2">
               <FileText size={18} />
-              Requirements
+              {r.sections.requirements}
             </h3>
-            <Button variant="secondary" size="sm">Edit</Button>
+            <Button variant="secondary" size="sm">{c.edit}</Button>
           </div>
           <div className="space-y-2 text-sm">
-            <div><span className="text-slate-500">Skills:</span> <span className="font-medium">{(formData.skillRequirements?.length ?? formData.selectedSkills.length)} selected</span></div>
-            <div><span className="text-slate-500">Languages:</span> <span className="font-medium">{formData.languageRequirements?.length ? formData.languageRequirements.map((l) => `${l.language} (${l.level}${l.certificationNeeded ? ', cert. required' : ''})`).join(', ') : (formData.selectedLanguages?.join(', ') || 'None')}</span></div>
+            <div><span className="text-slate-500">{r.labels.skills}:</span> <span className="font-medium">{formatWizard(r.labels.selected, { count: formData.skillRequirements?.length ?? formData.selectedSkills.length })}</span></div>
+            <div><span className="text-slate-500">{r.labels.languages}:</span> <span className="font-medium">{formData.languageRequirements?.length ? formData.languageRequirements.map((l) => `${l.language} (${l.level}${l.certificationNeeded ? `, ${r.labels.certRequired}` : ''})`).join(', ') : (formData.selectedLanguages?.join(', ') || c.none)}</span></div>
           </div>
         </div>
 
         {/* Certificates & Documents */}
         <div className="bg-white rounded-2xl border border-slate-200 p-6">
-          <div className="flex items-center justify-between mb-4">
+          <div className={`flex items-center justify-between mb-4 ${WIZARD_TITLE_SURFACE}`}>
             <h3 className="font-semibold text-slate-900 flex items-center gap-2">
               <FileText size={18} />
-              Certificates & Documents
+              {r.sections.certificates}
             </h3>
-            <Button variant="secondary" size="sm">Edit</Button>
+            <Button variant="secondary" size="sm">{c.edit}</Button>
           </div>
           <div className="space-y-2 text-sm">
-            <div><span className="text-slate-500">Certificates:</span> <span className="font-medium">{formData.noCertificates ? 'None' : `${(formData.selectedCertificates?.length ?? 0) + (formData.customCertificates?.length ?? 0)} selected`}</span></div>
-            <div><span className="text-slate-500">Documents:</span> <span className="font-medium">{formData.noDocuments ? 'None' : `${(formData.selectedDocuments?.length ?? 0) + (formData.customDocuments?.length ?? 0)} selected`}</span></div>
-            <div><span className="text-slate-500">Education:</span> <span className="font-medium">{(formData.selectedEducationLevels?.length ?? 0) ? formData.selectedEducationLevels.join(', ') : 'None'}</span></div>
-            <div><span className="text-slate-500">Departments:</span> <span className="font-medium">{((formData.selectedDepartments?.length ?? 0) + (formData.customDepartments?.length ?? 0)) ? [...(formData.selectedDepartments ?? []), ...(formData.customDepartments ?? [])].join(', ') : 'None'}</span></div>
-            <div><span className="text-slate-500">Driving licence:</span> <span className="font-medium">{formData.noDrivingLicence ? 'None needed' : (formData.selectedDrivingLicences?.length ? formData.selectedDrivingLicences.join(', ') : 'None')}</span></div>
-            <div><span className="text-slate-500">References needed:</span> <span className="font-medium">{(formData.referenceCount ?? 0) || 'None'}</span></div>
+            <div><span className="text-slate-500">{w.step5.certificates}:</span> <span className="font-medium">{formData.noCertificates ? c.none : formatWizard(r.labels.selected, { count: (formData.selectedCertificates?.length ?? 0) + (formData.customCertificates?.length ?? 0) })}</span></div>
+            <div><span className="text-slate-500">{w.step5.documents}:</span> <span className="font-medium">{formData.noDocuments ? c.none : formatWizard(r.labels.selected, { count: (formData.selectedDocuments?.length ?? 0) + (formData.customDocuments?.length ?? 0) })}</span></div>
+            <div><span className="text-slate-500">{w.step5.education}:</span> <span className="font-medium">{(formData.selectedEducationLevels?.length ?? 0) ? formData.selectedEducationLevels.join(', ') : c.none}</span></div>
+            <div><span className="text-slate-500">{w.step5.departments}:</span> <span className="font-medium">{((formData.selectedDepartments?.length ?? 0) + (formData.customDepartments?.length ?? 0)) ? [...(formData.selectedDepartments ?? []), ...(formData.customDepartments ?? [])].join(', ') : c.none}</span></div>
+            <div><span className="text-slate-500">{w.step5.drivingLicence}:</span> <span className="font-medium">{formData.noDrivingLicence ? w.step5.noDrivingLicence : (formData.selectedDrivingLicences?.length ? formData.selectedDrivingLicences.join(', ') : c.none)}</span></div>
+            <div><span className="text-slate-500">{w.step5.references}:</span> <span className="font-medium">{(formData.referenceCount ?? 0) || c.none}</span></div>
           </div>
         </div>
 
         {/* Dress Requirements */}
         <div className="bg-white rounded-2xl border border-slate-200 p-6">
-          <div className="flex items-center justify-between mb-4">
+          <div className={`flex items-center justify-between mb-4 ${WIZARD_TITLE_SURFACE}`}>
             <h3 className="font-semibold text-slate-900 flex items-center gap-2">
               <Shirt size={18} />
               {copy.step6?.title ?? 'Dress Requirements'}
             </h3>
-            <Button variant="secondary" size="sm">Edit</Button>
+            <Button variant="secondary" size="sm">{c.edit}</Button>
           </div>
           <div className="text-sm space-y-2">
-            <div><span className="text-slate-500">{copy.step6?.dressCode ?? 'Dress Code'}:</span> <span className="font-medium">{formData.selectedDressType ? (copy.step6 as Record<string, string>)?.[formData.selectedDressType === 'casual' ? 'dressCasual' : formData.selectedDressType === 'smart-casual' ? 'dressSmartCasual' : formData.selectedDressType === 'business' ? 'dressOffice' : formData.selectedDressType === 'dress-provided' ? 'dressProvided' : formData.selectedDressType === 'custom-uniform' ? 'dressCreateUniform' : 'dressNoPreference'] ?? formData.selectedDressType : 'Not set'}</span></div>
+            <div><span className="text-slate-500">{copy.step6?.dressCode ?? 'Dress Code'}:</span> <span className="font-medium">{formData.selectedDressType ? (copy.step6 as Record<string, string>)?.[formData.selectedDressType === 'casual' ? 'dressCasual' : formData.selectedDressType === 'smart-casual' ? 'dressSmartCasual' : formData.selectedDressType === 'business' ? 'dressOffice' : formData.selectedDressType === 'dress-provided' ? 'dressProvided' : formData.selectedDressType === 'custom-uniform' ? 'dressCreateUniform' : 'dressNoPreference'] ?? formData.selectedDressType : c.notSet}</span></div>
             {(formData.selectedDressItems?.length ?? 0) > 0 && (
               <div><span className="text-slate-500">{copy.step6?.dressItems ?? 'Dress Items'}:</span> <span className="font-medium">{formData.selectedDressItems?.map((i) => `${i.item} (${i.color})`).join(', ')}</span></div>
             )}
@@ -195,7 +198,7 @@ export function Step8Review({ formData, onSubmit, onBack, canGoBack = false, isS
               <div><span className="text-slate-500">{copy.step6?.attireRestrictions ?? 'Attire'}:</span> <span className="font-medium">{formData.attireRestrictionLevel === 'no-preference' ? copy.step6?.noPreference : formData.attireRestrictionLevel === 'basic' ? copy.step6?.attireBasic : formData.attireRestrictionLevel === 'strict' ? copy.step6?.attireStrict : formData.attireRestrictionLevel === 'custom' ? `${formData.selectedAttireRestrictions?.length ?? 0} custom` : formData.attireRestrictionLevel}</span></div>
             )}
             {formData.groomingLevel && (
-              <div><span className="text-slate-500">{copy.step6?.groomingInstructions ?? 'Grooming'}:</span> <span className="font-medium">{formData.groomingLevel === 'no-preference' ? copy.step6?.noPreference : formData.groomingLevel === 'elevated' ? copy.step6?.groomingElevated : formData.groomingLevel === 'professional' ? copy.step6?.groomingProfessional : formData.groomingLevel === 'standard' ? copy.step6?.groomingStandard : formData.groomingLevel === 'custom' ? 'Custom' : formData.groomingLevel}</span></div>
+              <div><span className="text-slate-500">{copy.step6?.groomingInstructions ?? 'Grooming'}:</span> <span className="font-medium">{formData.groomingLevel === 'no-preference' ? copy.step6?.noPreference : formData.groomingLevel === 'elevated' ? copy.step6?.groomingElevated : formData.groomingLevel === 'professional' ? copy.step6?.groomingProfessional : formData.groomingLevel === 'standard' ? copy.step6?.groomingStandard : formData.groomingLevel === 'custom' ? c.custom : formData.groomingLevel}</span></div>
             )}
             {formData.jobDutiesHtml && (
               <div><span className="text-slate-500">{copy.step6?.jobDuties ?? 'Job Duties'}:</span> <span className="font-medium line-clamp-2">{formData.jobDutiesHtml.replace(/<[^>]+>/g, ' ').trim().slice(0, 120)}{formData.jobDutiesHtml.length > 120 ? '…' : ''}</span></div>
@@ -211,12 +214,12 @@ export function Step8Review({ formData, onSubmit, onBack, canGoBack = false, isS
 
         {/* Staff Selection */}
         <div className="bg-white rounded-2xl border border-slate-200 p-6">
-          <div className="flex items-center justify-between mb-4">
+          <div className={`flex items-center justify-between mb-4 ${WIZARD_TITLE_SURFACE}`}>
             <h3 className="font-semibold text-slate-900 flex items-center gap-2">
               <Users size={18} />
               {staff.reviewSectionTitle}
             </h3>
-            <Button variant="secondary" size="sm">Edit</Button>
+            <Button variant="secondary" size="sm">{c.edit}</Button>
           </div>
           <div className="text-sm">
             <span className="text-slate-500">{staff.reviewSelectionType}:</span>{' '}
@@ -228,7 +231,7 @@ export function Step8Review({ formData, onSubmit, onBack, canGoBack = false, isS
 
         {/* Billing Information */}
         <div className="bg-white rounded-2xl border border-slate-200 p-6">
-          <h3 className="font-semibold text-slate-900 mb-4">Billing Information</h3>
+          <h3 className={`font-semibold text-slate-900 mb-4 ${WIZARD_TITLE_SURFACE}`}>Billing Information</h3>
           <div className="space-y-1 text-sm mb-3">
             <div className="flex justify-between">
               <span className="text-slate-600">Base (persons × wage × {formData.wageType === 'hourly' ? 'hours' : 'dates'})</span>
@@ -286,10 +289,10 @@ export function Step8Review({ formData, onSubmit, onBack, canGoBack = false, isS
             onClick={onBack}
             disabled={!canGoBack || !onBack || isSubmitting}
           >
-            Back
+            {c.back}
           </Button>
           <Button onClick={onSubmit} className="px-8" disabled={isSubmitting}>
-            {isSubmitting ? 'Creating Job...' : 'Confirm & Create Job'}
+            {isSubmitting ? r.submitting : r.submit}
           </Button>
         </div>
       </div>

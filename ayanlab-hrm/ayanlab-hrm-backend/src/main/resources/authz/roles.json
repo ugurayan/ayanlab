@@ -28,7 +28,7 @@
       "code": "ORG_FINANCE",
       "name": "Org Finance",
       "description": "HRM finance",
-      "policyGroups": ["STAFFIQ_BASE", "STAFFIQ_FINANCE_MANAGE", "STAFFIQ_ORG_READ", "STAFFIQ_AUDIT_READ"]
+      "policyGroups": ["STAFFIQ_FINANCE_ONLY"]
     },
     {
       "code": "LOCATION_MANAGER",
@@ -52,7 +52,7 @@
       "code": "WORKER",
       "name": "Worker",
       "description": "HRM worker",
-      "policyGroups": ["STAFFIQ_BASE", "STAFFIQ_WORKER_SELF", "STAFFIQ_TAXONOMY_READ"]
+      "policyGroups": ["STAFFIQ_BASE", "STAFFIQ_WORKER_SELF", "STAFFIQ_TAXONOMY_READ", "STAFFIQ_PROFILE_DATA_MANAGE"]
     },
     {
       "code": "AGENT_ADMIN",

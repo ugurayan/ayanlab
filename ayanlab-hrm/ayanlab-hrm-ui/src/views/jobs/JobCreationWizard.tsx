@@ -12,6 +12,8 @@ import { Step7Staff } from './wizard/Step7Staff';
 import { Step8Review } from './wizard/Step8Review';
 import type { JobFormData } from './types';
 import { validateStep, type StepErrors } from './wizard/validation';
+import { useJobWizardCopy } from './i18n/wizardTexts';
+import { useLanguage } from '../../state/i18n';
 
 const JOB_WIZARD_STORAGE_KEY = 'job-creation-wizard-data';
 const ONE_DAY_MS = 24 * 60 * 60 * 1000; // 1 day in milliseconds
@@ -71,15 +73,15 @@ function clearStorage(): void {
   }
 }
 
-const STEPS = [
-  { id: 1, title: 'Job definition', icon: FileText },
-  { id: 2, title: 'Location and Contact Person', icon: MapPin },
-  { id: 3, title: 'Schedule', icon: Calendar },
-  { id: 4, title: 'Requirements, Skills, Experience and Language', icon: FileText },
-  { id: 5, title: 'Certificate & Documents', icon: FileText },
-  { id: 6, title: 'Dress Requirements', icon: Shirt },
-  { id: 7, title: 'Staff Selection Step', icon: Users },
-  { id: 8, title: 'Review and Confirm', icon: CheckCircle2 },
+const STEP_ICONS = [
+  { id: 1, icon: FileText },
+  { id: 2, icon: MapPin },
+  { id: 3, icon: Calendar },
+  { id: 4, icon: FileText },
+  { id: 5, icon: FileText },
+  { id: 6, icon: Shirt },
+  { id: 7, icon: Users },
+  { id: 8, icon: CheckCircle2 },
 ] as const;
 
 const getDefaultFormData = (): JobFormData => ({
@@ -176,6 +178,12 @@ const getDefaultFormData = (): JobFormData => ({
 
 export function JobCreationWizard() {
   const navigate = useNavigate();
+  const w = useJobWizardCopy();
+  const { language } = useLanguage();
+  const steps = STEP_ICONS.map((step) => ({
+    ...step,
+    title: w.nav[`step${step.id}` as keyof typeof w.nav],
+  }));
   const [currentStep, setCurrentStep] = useState(1);
   const [completedSteps, setCompletedSteps] = useState<Set<number>>(new Set());
   const [stepErrors, setStepErrors] = useState<StepErrors>({});
@@ -226,7 +234,7 @@ export function JobCreationWizard() {
 
   const handleNext = useCallback(() => {
     // Validate current step before proceeding
-    const result = validateStep(currentStep, formData);
+    const result = validateStep(currentStep, formData, language);
     if (!result.valid) {
       setStepErrors(result.errors);
       return;
@@ -234,11 +242,11 @@ export function JobCreationWizard() {
 
     // Clear errors and proceed
     setStepErrors({});
-    if (currentStep < STEPS.length) {
+    if (currentStep < steps.length) {
       setCompletedSteps(prev => new Set(prev).add(currentStep));
       setCurrentStep(prev => prev + 1);
     }
-  }, [currentStep, formData]);
+  }, [currentStep, formData, language, steps.length]);
 
   const handleBack = useCallback(() => {
     // Clear errors when going back
@@ -270,15 +278,15 @@ export function JobCreationWizard() {
       clearStorage();
       
       // Navigate to jobs list
-      alert('Job created successfully!');
+      alert(w.alerts.submitSuccess);
       navigate('/app/jobs');
     } catch (error) {
       console.error('Failed to create job:', error);
-      alert('Failed to create job. Please try again.');
+      alert(w.alerts.submitFail);
     } finally {
       setIsSubmitting(false);
     }
-  }, [formData, navigate]);
+  }, [formData, navigate, w.alerts]);
 
   const updateFormData = useCallback((updates: Partial<JobFormData>) => {
     setFormData(prev => ({ ...prev, ...updates }));
@@ -332,12 +340,12 @@ export function JobCreationWizard() {
       {/* Left Sidebar - Step Navigation */}
       <aside className="w-64 bg-white border-r border-slate-200 p-6 flex flex-col h-full overflow-hidden">
         <div className="mb-8">
-          <h2 className="text-lg font-semibold text-slate-900">Create Job</h2>
-          <p className="text-sm text-slate-500 mt-1">Step-by-step wizard</p>
+          <h2 className="text-lg font-semibold text-slate-900">{w.shell.title}</h2>
+          <p className="text-sm text-slate-500 mt-1">{w.shell.subtitle}</p>
         </div>
         
         <nav className="flex-1 space-y-1 overflow-y-auto min-h-0">
-          {STEPS.map((step, index) => {
+          {steps.map((step) => {
             const Icon = step.icon;
             const isCompleted = completedSteps.has(step.id);
             const isActive = currentStep === step.id;
@@ -370,7 +378,7 @@ export function JobCreationWizard() {
                   )}
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="text-xs font-medium">Step {step.id}</div>
+                  <div className="text-xs font-medium">{w.shell.stepLabel} {step.id}</div>
                   <div className="text-xs text-slate-600 mt-0.5">{step.title}</div>
                 </div>
                 {isActive && <ChevronRight size={16} className="text-blue-700" />}
@@ -385,7 +393,7 @@ export function JobCreationWizard() {
             onClick={() => navigate('/app/jobs')}
             className="w-full"
           >
-            Exit
+            {w.shell.exit}
           </Button>
         </div>
       </aside>
@@ -405,25 +413,23 @@ export function JobCreationWizard() {
       <aside className="w-80 bg-white border-l border-slate-200 p-6 hidden xl:block h-full overflow-y-auto">
         <div className="space-y-6">
           <div>
-            <h3 className="text-sm font-semibold text-slate-900 mb-2">How to book?</h3>
-            <p className="text-xs text-slate-600 mb-3">
-              Learn how to create a booking with easy to follow steps.
-            </p>
+            <h3 className="text-sm font-semibold text-slate-900 mb-2">{w.shell.helpTitle}</h3>
+            <p className="text-xs text-slate-600 mb-3">{w.shell.helpBody}</p>
             <Button variant="secondary" className="w-full">
-              Watch tutorial
+              {w.shell.watchTutorial}
             </Button>
           </div>
 
           <div className="pt-6 border-t border-slate-200">
-            <h3 className="text-sm font-semibold text-slate-900 mb-2">Questions about booking?</h3>
+            <h3 className="text-sm font-semibold text-slate-900 mb-2">{w.shell.supportTitle}</h3>
             <div className="flex items-center gap-3 mb-3">
               <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center">
                 <Headphones size={20} className="text-slate-600" />
               </div>
               <div>
-                <p className="text-xs text-slate-600">Contact support</p>
-                <a href="#" className="text-xs text-blue-600 hover:underline">Chat now</a>
-                <span className="text-xs text-slate-400 mx-1">or</span>
+                <p className="text-xs text-slate-600">{w.shell.contactSupport}</p>
+                <a href="#" className="text-xs text-blue-600 hover:underline">{w.shell.chatNow}</a>
+                <span className="text-xs text-slate-400 mx-1">{w.shell.or}</span>
                 <a href="mailto:support@example.com" className="text-xs text-blue-600 hover:underline">
                   support@example.com
                 </a>

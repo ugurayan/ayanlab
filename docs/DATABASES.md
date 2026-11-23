@@ -13,7 +13,9 @@
 Kimlik ve iş API’leri tek JVM (`ayanlab-platform-backend`) üzerinde; tablolar `ayanlab_platform` / `core` şemasında.
 
 Credentials live in `.env.local` (`*_DB_USER`, `*_DB_PASSWORD`).  
-Docker first boot: `docker/postgres/init/01-create-databases.sh`.
+Docker first boot: `docker/postgres/init/01-create-databases.sh`.  
+Manual / host Postgres: `psql -U ayanlab_super -d postgres -f docs/db/01.init.postgresql.sql` (see file header).  
+Remote VPS (single DB + schemas): `./scripts/remote_db_initialization.sh` reads `.env.remote` (`REMOTE_HOST_*`, `*_DB_*`).
 
 Timezone: `TZ=America/Los_Angeles`.
 

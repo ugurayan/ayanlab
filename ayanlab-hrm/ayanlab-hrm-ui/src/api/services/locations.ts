@@ -246,10 +246,25 @@ export async function apiSearchGooglePlaces(query: string, _apiKey?: string): Pr
 }
 
 export async function apiListLocations(): Promise<AddressApi[]> {
-  // TODO: Replace with real API call
-  // const response = await authHttp.get('/api/v1/locations');
-  // return response.data.data;
-  
-  await delay(300);
-  return MOCK_ADDRESSES;
+  const USE_MOCKS = (import.meta.env.VITE_USE_MOCKS ?? "false") === "true";
+  if (USE_MOCKS) {
+    await delay(300);
+    return MOCK_ADDRESSES;
+  }
+  const { http } = await import("../client");
+  const { endpoints } = await import("../endpoints");
+  const { unwrapHrmData } = await import("../hrmApi");
+  const res = await http.get(endpoints.locations.list);
+  const rows = unwrapHrmData<Array<{ id: string; name: string; city?: string; orgId?: string }>>(res.data);
+  return rows.map((row) => ({
+    id: row.id,
+    name: row.name,
+    street: row.name,
+    city: row.city ?? "",
+    state: "",
+    zipcode: "",
+    country: "",
+    lat: 0,
+    lng: 0,
+  }));
 }

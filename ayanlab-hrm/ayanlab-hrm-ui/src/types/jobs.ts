@@ -2,15 +2,25 @@ export type JobType = "temporary" | "permanent";
 export type JobSchedule = "full-time" | "part-time";
 export type JobWorkMode = "on-site" | "hybrid" | "remote";
 
+export type JobIndustry = {
+  id: string;
+  name: string;
+  description?: string;
+};
+
 export type JobRole = {
   id: string;
+  name?: string;
   nameKey: string; // Translation key for role name
+  description?: string;
   descriptionKey: string; // Translation key for role description
+  categoryId?: string;
   requiredSkills: string[]; // Array of skill IDs
 };
 
 export type Skill = {
   id: string;
+  name?: string;
   nameKey: string; // Translation key for skill name
   category: string; // Skill category
 };

@@ -1,40 +1,65 @@
-import type { JobRole, Skill, DressCode, ContractType, ContactType, FreeTimeWindow, ExpertiseLevel, Certificate, JobDocument, JobTemplate } from "../types/jobs";
+import type { JobIndustry, JobRole, Skill, DressCode, ContractType, ContactType, FreeTimeWindow, ExpertiseLevel, Certificate, JobDocument, JobTemplate } from "../types/jobs";
+
+export const JOB_INDUSTRIES: JobIndustry[] = [
+  { id: "food_beverage", name: "Food & Beverage", description: "Cafes, restaurants and kitchens" },
+  { id: "retail", name: "Retail & Sales", description: "Stores, checkout and merchandising" },
+  { id: "logistics", name: "Logistics & Warehouse", description: "Inventory, picking and warehouse work" },
+  { id: "facilities", name: "Facilities & Maintenance", description: "Repairs and on-site maintenance" }
+];
 
 export const JOB_ROLES: JobRole[] = [
   {
     id: "barista",
+    name: "Barista",
     nameKey: "roles.barista",
+    description: "Prepares and serves coffee and other drinks.",
     descriptionKey: "roles.barista.description",
+    categoryId: "food_beverage",
     requiredSkills: ["coffee_making", "customer_service", "cash_handling", "hygiene"]
   },
   {
     id: "waiter",
+    name: "Waitress / Waiter",
     nameKey: "roles.waiter",
+    description: "Takes orders and serves guests.",
     descriptionKey: "roles.waiter.description",
+    categoryId: "food_beverage",
     requiredSkills: ["customer_service", "order_taking", "cash_handling", "teamwork"]
   },
   {
     id: "handyman",
+    name: "Handyman",
     nameKey: "roles.handyman",
+    description: "Handles basic repairs and maintenance.",
     descriptionKey: "roles.handyman.description",
+    categoryId: "facilities",
     requiredSkills: ["basic_repairs", "tools", "problem_solving", "physical_fitness"]
   },
   {
     id: "kitchen",
+    name: "Kitchen assistant",
     nameKey: "roles.kitchen",
+    description: "Prepares food and keeps the kitchen running.",
     descriptionKey: "roles.kitchen.description",
+    categoryId: "food_beverage",
     requiredSkills: ["food_preparation", "hygiene", "kitchen_equipment", "time_management"]
   },
   {
     id: "cashier",
+    name: "Cashier",
     nameKey: "roles.cashier",
+    description: "Handles payments and checkout.",
     descriptionKey: "roles.cashier.description",
+    categoryId: "retail",
     requiredSkills: ["cash_handling", "customer_service", "accuracy", "basic_math"]
   },
   {
     id: "warehouse",
+    name: "Warehouse operative",
     nameKey: "roles.warehouse",
+    description: "Moves stock and keeps inventory organized.",
     descriptionKey: "roles.warehouse.description",
+    categoryId: "logistics",
     requiredSkills: ["inventory_management", "heavy_lifting", "safety_procedures", "organization"]
   }
 ];

@@ -1,0 +1,230 @@
+{
+  "schemaVersion": 1,
+  "locales": [
+    {
+      "code": "en",
+      "sortOrder": 1,
+      "displayName": "English",
+      "nativeName": "English",
+      "bcp47": "en",
+      "rtl": false,
+      "trLabel": "İngilizce"
+    },
+    {
+      "code": "zh",
+      "sortOrder": 2,
+      "displayName": "Mandarin Chinese",
+      "nativeName": "中文",
+      "bcp47": "zh-CN",
+      "rtl": false,
+      "trLabel": "Mandarin Çincesi"
+    },
+    {
+      "code": "hi",
+      "sortOrder": 3,
+      "displayName": "Hindi",
+      "nativeName": "हिन्दी",
+      "bcp47": "hi",
+      "rtl": false,
+      "trLabel": "Hintçe"
+    },
+    {
+      "code": "es",
+      "sortOrder": 4,
+      "displayName": "Spanish",
+      "nativeName": "Español",
+      "bcp47": "es",
+      "rtl": false,
+      "trLabel": "İspanyolca"
+    },
+    {
+      "code": "ar",
+      "sortOrder": 5,
+      "displayName": "Standard Arabic",
+      "nativeName": "العربية",
+      "bcp47": "ar",
+      "rtl": true,
+      "trLabel": "Standart Arapça"
+    },
+    {
+      "code": "fr",
+      "sortOrder": 6,
+      "displayName": "French",
+      "nativeName": "Français",
+      "bcp47": "fr",
+      "rtl": false,
+      "trLabel": "Fransızca"
+    },
+    {
+      "code": "bn",
+      "sortOrder": 7,
+      "displayName": "Bengali",
+      "nativeName": "বাংলা",
+      "bcp47": "bn",
+      "rtl": false,
+      "trLabel": "Bengalce"
+    },
+    {
+      "code": "pt",
+      "sortOrder": 8,
+      "displayName": "Portuguese",
+      "nativeName": "Português",
+      "bcp47": "pt",
+      "rtl": false,
+      "trLabel": "Portekizce"
+    },
+    {
+      "code": "id",
+      "sortOrder": 9,
+      "displayName": "Indonesian",
+      "nativeName": "Bahasa Indonesia",
+      "bcp47": "id",
+      "rtl": false,
+      "trLabel": "Endonezce"
+    },
+    {
+      "code": "ur",
+      "sortOrder": 10,
+      "displayName": "Urdu",
+      "nativeName": "اردو",
+      "bcp47": "ur",
+      "rtl": true,
+      "trLabel": "Urduca"
+    },
+    {
+      "code": "ru",
+      "sortOrder": 11,
+      "displayName": "Russian",
+      "nativeName": "Русский",
+      "bcp47": "ru",
+      "rtl": false,
+      "trLabel": "Rusça"
+    },
+    {
+      "code": "de",
+      "sortOrder": 12,
+      "displayName": "German",
+      "nativeName": "Deutsch",
+      "bcp47": "de",
+      "rtl": false,
+      "trLabel": "Almanca"
+    },
+    {
+      "code": "ja",
+      "sortOrder": 13,
+      "displayName": "Japanese",
+      "nativeName": "日本語",
+      "bcp47": "ja",
+      "rtl": false,
+      "trLabel": "Japonca"
+    },
+    {
+      "code": "pcm",
+      "sortOrder": 14,
+      "displayName": "Nigerian Pidgin",
+      "nativeName": "Nigerian Pidgin",
+      "bcp47": "pcm",
+      "rtl": false,
+      "trLabel": "Nijerya Pidgini"
+    },
+    {
+      "code": "mr",
+      "sortOrder": 15,
+      "displayName": "Marathi",
+      "nativeName": "मराठी",
+      "bcp47": "mr",
+      "rtl": false,
+      "trLabel": "Marathi"
+    },
+    {
+      "code": "vi",
+      "sortOrder": 16,
+      "displayName": "Vietnamese",
+      "nativeName": "Tiếng Việt",
+      "bcp47": "vi",
+      "rtl": false,
+      "trLabel": "Vietnamca"
+    },
+    {
+      "code": "te",
+      "sortOrder": 17,
+      "displayName": "Telugu",
+      "nativeName": "తెలుగు",
+      "bcp47": "te",
+      "rtl": false,
+      "trLabel": "Telugu"
+    },
+    {
+      "code": "sw",
+      "sortOrder": 18,
+      "displayName": "Swahili",
+      "nativeName": "Kiswahili",
+      "bcp47": "sw",
+      "rtl": false,
+      "trLabel": "Svahili"
+    },
+    {
+      "code": "ha",
+      "sortOrder": 19,
+      "displayName": "Hausa",
+      "nativeName": "Hausa",
+      "bcp47": "ha",
+      "rtl": false,
+      "trLabel": "Hausa"
+    },
+    {
+      "code": "it",
+      "sortOrder": 20,
+      "displayName": "Italian",
+      "nativeName": "Italiano",
+      "bcp47": "it",
+      "rtl": false,
+      "trLabel": "İtalyanca"
+    },
+    {
+      "code": "pl",
+      "sortOrder": 21,
+      "displayName": "Polish",
+      "nativeName": "Polski",
+      "bcp47": "pl",
+      "rtl": false,
+      "trLabel": "Lehçe"
+    },
+    {
+      "code": "uk",
+      "sortOrder": 22,
+      "displayName": "Ukrainian",
+      "nativeName": "Українська",
+      "bcp47": "uk",
+      "rtl": false,
+      "trLabel": "Ukraynaca"
+    },
+    {
+      "code": "ro",
+      "sortOrder": 23,
+      "displayName": "Romanian",
+      "nativeName": "Română",
+      "bcp47": "ro",
+      "rtl": false,
+      "trLabel": "Rumence"
+    },
+    {
+      "code": "nl",
+      "sortOrder": 24,
+      "displayName": "Dutch",
+      "nativeName": "Nederlands",
+      "bcp47": "nl",
+      "rtl": false,
+      "trLabel": "Felemenkçe"
+    },
+    {
+      "code": "tr",
+      "sortOrder": 25,
+      "displayName": "Turkish",
+      "nativeName": "Türkçe",
+      "bcp47": "tr",
+      "rtl": false,
+      "trLabel": "Türkçe"
+    }
+  ]
+}

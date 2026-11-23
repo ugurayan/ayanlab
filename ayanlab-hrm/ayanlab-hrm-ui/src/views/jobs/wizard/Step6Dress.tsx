@@ -7,6 +7,7 @@ import { useTranslations } from '../../../state/i18n';
 import { TEXTS } from '../i18n';
 import type { JobFormData } from '../types';
 import type { StepErrors } from './validation';
+import { WizardStepHeader } from './WizardSectionHeading';
 
 const BASE_IMG = 'https://storage.googleapis.com/public-buckets/staff-iq/';
 const DRESS_CODE_OPTIONS: Array<{ id: JobFormData['selectedDressType']; image: string | null }> = [
@@ -136,10 +137,7 @@ export function Step6Dress({ formData, updateFormData, onNext, onBack, canGoBack
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold text-slate-900 mb-2">{s6.title}</h2>
-        <p className="text-sm text-slate-600">{s6.subtitle}</p>
-      </div>
+      <WizardStepHeader title={s6.title} subtitle={s6.subtitle} />
 
       <div className="space-y-4">
         {/* Dress Code */}

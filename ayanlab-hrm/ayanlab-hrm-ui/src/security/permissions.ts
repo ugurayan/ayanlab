@@ -31,7 +31,14 @@ export const P = {
   certificatesRead: "staffiq:certificates:read",
   certificatesCreate: "staffiq:certificates:create",
   documentTypesRead: "staffiq:document_types:read",
-  documentTypesCreate: "staffiq:document_types:create"
+  documentTypesCreate: "staffiq:document_types:create",
+  contractTypesRead: "staffiq:contract_types:read",
+  contactTypesRead: "staffiq:contact_types:read",
+  dressCodesRead: "staffiq:dress_codes:read",
+  freeTimeWindowsRead: "staffiq:free_time_windows:read",
+  expertiseLevelsRead: "staffiq:expertise_levels:read",
+  jobDocumentsRead: "staffiq:job_documents:read",
+  jobTemplatesRead: "staffiq:job_templates:read"
 } as const;
 
 /** Mirrors PermissionCodes.fromLegacy: app:module:resource:action → app:resource:action. */
@@ -64,9 +71,12 @@ const BASE = [
 ];
 const TAXONOMY_READ = [
   "staffiq:job_roles:read", "staffiq:industries:read", "staffiq:skills:read",
-  "staffiq:certificates:read", "staffiq:document_types:read"
+  "staffiq:certificates:read", "staffiq:document_types:read",
+  "staffiq:contract_types:read", "staffiq:contact_types:read", "staffiq:dress_codes:read",
+  "staffiq:free_time_windows:read", "staffiq:expertise_levels:read",
+  "staffiq:job_documents:read", "staffiq:job_templates:read"
 ];
-const SHIFT_MANAGE = ["staffiq:shifts:*", "staffiq:jobs:*", "staffiq:tasks:*"];
+const SHIFT_MANAGE = ["staffiq:shifts:*", "staffiq:jobs:*", "staffiq:tasks:*", "staffiq:job_templates:*"];
 const DOCUMENT_REVIEW = [
   "staffiq:documents:read", "staffiq:documents:review",
   "staffiq:verification:read", "staffiq:verification:review"

@@ -1,6 +1,6 @@
-import type { Language } from '../../../../state/i18n';
+import type { UiTranslationLanguage } from '../../../../state/i18n';
 
-export const CONTRACT_TYPE_TRANSLATIONS: Record<Language, Record<string, string>> = {
+export const CONTRACT_TYPE_TRANSLATIONS: Record<UiTranslationLanguage, Record<string, string>> = {
   en: {
     '1099': '1099 (Independent Contractor)',
     'w2_permanent': 'W-2 Permanent Employee',
@@ -42,6 +42,6 @@ export const CONTRACT_TYPE_TRANSLATIONS: Record<Language, Record<string, string>
   },
 };
 
-export function getContractTypeName(id: string, language: Language): string {
+export function getContractTypeName(id: string, language: UiTranslationLanguage): string {
   return CONTRACT_TYPE_TRANSLATIONS[language]?.[id] || id;
 }

@@ -2,6 +2,7 @@
 .env
 .env.local
 .env.prod
+.env.remote
 
 config/secrets/
 secrets/
@@ -34,3 +35,6 @@ docker/data/
 # Local logs / pids (run-apps.sh)
 logs/
 *.pid
+
+# PostgreSQL
+*.sql

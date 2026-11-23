@@ -104,7 +104,7 @@ springdoc:
     operationsSorter: alpha
 
 server:
-  port: 8080
+  port: ${SERVER_PORT:8104}
   # Access tokens embed large permission lists; default 8KB Tomcat limit returns opaque 400s.
   max-http-request-header-size: 64KB
 
@@ -129,3 +129,15 @@ platform:
     load-ipms-property-types: true
     load-subscription-data: true
     load-demo-data: true
+
+# UI mock → JPA (truncate + reload on each startup by default)
+hrm:
+  platform-auth:
+    enabled: ${HRM_PLATFORM_AUTH_ENABLED:true}
+
+staffiq:
+  db:
+    reload-mock-data-on-startup: ${STAFFIQ_RELOAD_MOCK_DATA:true}
+    mock-data-resource: classpath:db/staffiq-mock-data.json
+    reload-navigation-on-startup: ${STAFFIQ_RELOAD_NAVIGATION:true}
+    navigation-seed-resource: classpath:db/staffiq-navigation-seed.json

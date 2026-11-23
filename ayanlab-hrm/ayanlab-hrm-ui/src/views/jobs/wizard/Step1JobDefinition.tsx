@@ -4,8 +4,10 @@ import { useJobIndustries, useJobRolesByCategory, useContractTypesWithLanguage }
 import type { JobFormData } from '../types';
 import type { StepErrors } from './validation';
 import { Button } from '../../../ui/components/Button';
-import { useLanguage } from '../../../state/i18n';
+import { resolveTranslationLanguage, useLanguage } from '../../../state/i18n';
 import { getContractTypeName } from './i18n/contractTypes';
+import { WizardStepHeader, WizardFieldLabel } from './WizardSectionHeading';
+import { useJobWizardCopy } from '../i18n/wizardTexts';
 
 interface Step1JobDefinitionProps {
   formData: JobFormData;
@@ -22,6 +24,9 @@ function FieldError({ message }: { message?: string }) {
 }
 
 export function Step1JobDefinition({ formData, updateFormData, onNext, onBack, canGoBack = false, errors = {} }: Step1JobDefinitionProps) {
+  const w = useJobWizardCopy();
+  const c = w.common;
+  const s = w.step1;
   const { language } = useLanguage();
   const { data: industries } = useJobIndustries();
   const { data: jobRoles } = useJobRolesByCategory(formData.selectedIndustryId || null);
@@ -32,29 +37,22 @@ export function Step1JobDefinition({ formData, updateFormData, onNext, onBack, c
 
   return (
     <div className="space-y-6">
-      <div>
-        <h2 className="text-2xl font-bold text-slate-900 mb-2">Job Definition</h2>
-        <p className="text-sm text-slate-600">Define the basic information about your job posting.</p>
-      </div>
+      <WizardStepHeader title={s.title} subtitle={s.subtitle} />
 
       <div className="bg-white rounded-2xl border border-slate-200 p-6 space-y-4">
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1">
-            Job Title *
-          </label>
+          <WizardFieldLabel required>{s.jobTitle}</WizardFieldLabel>
           <Input
             value={formData.title}
             onChange={(e) => updateFormData({ title: e.target.value })}
-            placeholder="e.g. Sales Associate 80-100%"
+            placeholder={s.titlePlaceholder}
             className={errorClass('title')}
           />
           <FieldError message={errors.title} />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1">
-            Job Industry *
-          </label>
+          <WizardFieldLabel required>{s.jobIndustry}</WizardFieldLabel>
           <select
             className={`w-full rounded-xl border bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 ${hasError('selectedIndustryId') ? 'border-red-400 focus:ring-red-500' : 'border-slate-200 focus:ring-blue-500'}`}
             value={formData.selectedIndustryId}
@@ -65,7 +63,7 @@ export function Step1JobDefinition({ formData, updateFormData, onNext, onBack, c
               });
             }}
           >
-            <option value="">Select an industry</option>
+            <option value="">{c.selectIndustry}</option>
             {industries?.map((industry) => (
               <option key={industry.id} value={industry.id}>
                 {industry.name}
@@ -76,9 +74,7 @@ export function Step1JobDefinition({ formData, updateFormData, onNext, onBack, c
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1">
-            Job Role *
-          </label>
+          <WizardFieldLabel required>{s.jobRole}</WizardFieldLabel>
           <select
             className={`w-full rounded-xl border bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 ${hasError('selectedRoleId') ? 'border-red-400 focus:ring-red-500' : 'border-slate-200 focus:ring-blue-500'}`}
             value={formData.selectedRoleId}
@@ -86,7 +82,7 @@ export function Step1JobDefinition({ formData, updateFormData, onNext, onBack, c
             disabled={!formData.selectedIndustryId}
           >
             <option value="">
-              {formData.selectedIndustryId ? 'Select a role' : 'Select an industry first'}
+              {formData.selectedIndustryId ? c.selectRole : c.selectIndustryFirst}
             </option>
             {jobRoles?.map((role) => (
               <option key={role.id} value={role.id}>
@@ -98,31 +94,27 @@ export function Step1JobDefinition({ formData, updateFormData, onNext, onBack, c
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1">
-            Job Description *
-          </label>
+          <WizardFieldLabel required>{s.jobDescription}</WizardFieldLabel>
           <textarea
             className={`w-full rounded-xl border bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 min-h-[120px] ${hasError('description') ? 'border-red-400 focus:ring-red-500' : 'border-slate-200 focus:ring-blue-500'}`}
             value={formData.description}
             onChange={(e) => updateFormData({ description: e.target.value })}
-            placeholder="Describe the role, responsibilities and requirements..."
+            placeholder={s.descriptionPlaceholder}
           />
           <FieldError message={errors.description} />
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1">
-            Contract Type *
-          </label>
+          <WizardFieldLabel required>{s.contractType}</WizardFieldLabel>
           <select
             className={`w-full rounded-xl border bg-white px-3 py-2 text-sm focus:outline-none focus:ring-2 ${hasError('selectedContractTypeId') ? 'border-red-400 focus:ring-red-500' : 'border-slate-200 focus:ring-blue-500'}`}
             value={formData.selectedContractTypeId}
             onChange={(e) => updateFormData({ selectedContractTypeId: e.target.value })}
           >
-            <option value="">Select contract type</option>
+            <option value="">{c.selectContract}</option>
             {contractTypes?.map((type) => (
               <option key={type.id} value={type.id}>
-                {getContractTypeName(type.id, language)}
+                {getContractTypeName(type.id, resolveTranslationLanguage(language))}
               </option>
             ))}
           </select>
@@ -137,10 +129,10 @@ export function Step1JobDefinition({ formData, updateFormData, onNext, onBack, c
               onClick={onBack}
               disabled={!canGoBack}
             >
-              Back
+              {c.back}
             </Button>
             <Button onClick={onNext}>
-              Next
+              {c.next}
             </Button>
           </div>
         )}

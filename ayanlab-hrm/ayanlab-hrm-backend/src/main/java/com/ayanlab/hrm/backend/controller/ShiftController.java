@@ -1,0 +1,103 @@
+package com.ayanlab.hrm.backend.controller;
+
+import com.ayanlab.core.annotation.ClientHeaders;
+import com.ayanlab.core.annotation.RequirePermission;
+import com.ayanlab.core.controller.BaseController;
+import com.ayanlab.core.data.ClientHeadersPayload;
+import com.ayanlab.core.data.responses.ApiResponse;
+import com.ayanlab.hrm.backend.entity.Shift;
+import com.ayanlab.hrm.backend.service.ShiftService;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@Slf4j
+@RestController
+@RequestMapping("/hrm/api/shifts")
+@RequiredArgsConstructor
+@Tag(name = "HRM · Shift", description = "Shift CRUD")
+public class ShiftController extends BaseController {
+
+    private static final String BASE = "/hrm/api/shifts";
+    private final ShiftService service;
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequirePermission("staffiq:shifts:read")
+    public ResponseEntity<ApiResponse<List<Shift>>> list(@ClientHeaders ClientHeadersPayload headers) {
+        TracedCall call = tracedCall(log, "shifts-list", "GET", BASE, headers, null, null);
+        try {
+            List<Shift> data = service.findAll(call.context());
+            call.trace().success(Map.of("count", data.size()));
+            return ok(data, call.context());
+        } catch (Exception e) {
+            call.trace().error(e);
+            throw e;
+        }
+    }
+
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequirePermission("staffiq:shifts:read")
+    public ResponseEntity<ApiResponse<Shift>> get(
+            @PathVariable String id, @ClientHeaders ClientHeadersPayload headers) {
+        TracedCall call = tracedCall(log, "shifts-get", "GET", BASE + "/{id}", headers, null, Map.of("id", id));
+        try {
+            Shift data = service.findById(id, call.context());
+            call.trace().success(Map.of("id", id));
+            return ok(data, call.context());
+        } catch (Exception e) {
+            call.trace().error(e);
+            throw e;
+        }
+    }
+
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequirePermission("staffiq:shifts:create")
+    public ResponseEntity<ApiResponse<Shift>> create(
+            @RequestBody Shift body, @ClientHeaders ClientHeadersPayload headers) {
+        TracedCall call = tracedCall(log, "shifts-create", "POST", BASE, headers, body, null);
+        try {
+            Shift created = service.create(body, call.context());
+            call.trace().success(Map.of("id", created.getId()));
+            return createdBody(created, "Shift created", call.context());
+        } catch (Exception e) {
+            call.trace().error(e);
+            throw e;
+        }
+    }
+
+    @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @RequirePermission("staffiq:shifts:update")
+    public ResponseEntity<ApiResponse<Shift>> update(
+            @PathVariable String id, @RequestBody Shift body, @ClientHeaders ClientHeadersPayload headers) {
+        body.setId(id);
+        TracedCall call = tracedCall(log, "shifts-update", "PUT", BASE + "/{id}", headers, body, Map.of("id", id));
+        try {
+            Shift updated = service.update(body, call.context());
+            call.trace().success(Map.of("id", id));
+            return ok(updated, call.context());
+        } catch (Exception e) {
+            call.trace().error(e);
+            throw e;
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    @RequirePermission("staffiq:shifts:delete")
+    public ResponseEntity<ApiResponse<Object>> delete(@PathVariable String id, @ClientHeaders ClientHeadersPayload headers) {
+        TracedCall call = tracedCall(log, "shifts-delete", "DELETE", BASE + "/{id}", headers, null, Map.of("id", id));
+        try {
+            service.deleteById(id, call.context());
+            call.trace().success(Map.of("id", id));
+            return ok(null, call.context());
+        } catch (Exception e) {
+            call.trace().error(e);
+            throw e;
+        }
+    }
+}

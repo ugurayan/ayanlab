@@ -4,7 +4,7 @@ import { Button } from "../../ui/components/Button";
 import { Input } from "../../ui/components/Input";
 import type { InboxFolder, InboxMessage, InboxAttachment } from "../../types/inbox";
 import { cn } from "../../lib/cn";
-import { useTranslations, useLanguage } from "../../state/i18n";
+import { resolveTranslationLanguage, useTranslations, useLanguage } from "../../state/i18n";
 import { TEXTS } from "./i18n";
 import { useDepartments, useDepartmentIssues, useJobs } from "../../data/hooks";
 import { X, Paperclip, ChevronDown, ChevronUp, History } from "lucide-react";
@@ -116,7 +116,10 @@ export function InboxPage() {
   const copy = useTranslations(TEXTS);
   const { language } = useLanguage();
   const { data: departments = [] } = useDepartments();
-  const { data: issues = [] } = useDepartmentIssues(composeDepartmentId || null, language);
+  const { data: issues = [] } = useDepartmentIssues(
+    composeDepartmentId || null,
+    resolveTranslationLanguage(language),
+  );
   const { data: jobs = [] } = useJobs();
 
   const filtered = useMemo(

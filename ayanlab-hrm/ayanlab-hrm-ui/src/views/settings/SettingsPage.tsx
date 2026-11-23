@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../../ui/components/Ca
 import { Button } from "../../ui/components/Button";
 import { Input } from "../../ui/components/Input";
 import type { AccountSettings as AccountSettingsModel, LanguageLevel } from "../../types/settings";
+import { AYANLAB_LOCALES } from "../../i18n/localeCatalog";
 import { useTranslations } from "../../state/i18n";
 import { SETTINGS_TEXTS, FOOTER_TEXTS, ACCOUNT_TEXTS, SECURITY_TEXTS } from "./i18n";
 import { useAuth } from "../../state/auth";
@@ -849,9 +850,11 @@ function AppSettings() {
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
             >
-              <option value="en">English</option>
-              <option value="de">German</option>
-              <option value="tr">Turkish</option>
+              {AYANLAB_LOCALES.map((l) => (
+                <option key={l.code} value={l.code}>
+                  {l.displayName}
+                </option>
+              ))}
             </select>
           </div>
           <div className="space-y-1">

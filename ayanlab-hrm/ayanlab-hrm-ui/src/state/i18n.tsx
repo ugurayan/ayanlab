@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
+import { type AppLanguage, APP_LANGUAGE_CODES, isAppLanguage } from "../i18n/localeCatalog";
 
-export type Language = "en" | "de" | "tr";
+export type Language = AppLanguage;
 
 type I18nContextValue = {
   language: Language;
@@ -16,7 +17,7 @@ function resolveInitialLanguage(): Language {
     return "en";
   }
   const stored = window.localStorage.getItem(STORAGE_KEY);
-  if (stored === "de" || stored === "tr" || stored === "en") {
+  if (stored && isAppLanguage(stored)) {
     return stored;
   }
   return "en";
@@ -30,6 +31,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
       return;
     }
     window.localStorage.setItem(STORAGE_KEY, language);
+    document.documentElement.lang = language;
   }, [language]);
 
   return (
@@ -47,7 +49,25 @@ export function useLanguage() {
   return ctx;
 }
 
-export function useTranslations(variants: Record<Language, any>): any {
-  const { language } = useLanguage();
-  return variants[language] ?? variants.en;
+/** Locales with full UI translation bundles (others fall back to English). */
+export type UiTranslationLanguage = "en" | "de" | "tr";
+
+export function resolveTranslationLanguage(language: Language): UiTranslationLanguage {
+  if (language === "de" || language === "tr") return language;
+  return "en";
 }
+
+/** UI copy bundles: only `en` / `de` / `tr` are translated; picker locales otherwise fall back to English. */
+export function useTranslations<T>(variants: {
+  en: T;
+  de?: unknown;
+  tr?: unknown;
+}): T {
+  const { language } = useLanguage();
+  const key = resolveTranslationLanguage(language);
+  if (key === "de" && variants.de !== undefined) return variants.de as T;
+  if (key === "tr" && variants.tr !== undefined) return variants.tr as T;
+  return variants.en;
+}
+
+export { APP_LANGUAGE_CODES };

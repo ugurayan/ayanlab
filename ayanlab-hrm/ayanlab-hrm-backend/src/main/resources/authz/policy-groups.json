@@ -17,6 +17,40 @@
         "staffiq:profile:read", "staffiq:profile:update",
         "staffiq:inbox:read", "staffiq:inbox:create",
         "staffiq:support:read", "staffiq:support:create",
+        "staffiq:settings:read",
+        "staffiq:education:read", "staffiq:education:create", "staffiq:education:update",
+        "staffiq:experiences:read", "staffiq:experiences:create", "staffiq:experiences:update",
+        "staffiq:languages:read", "staffiq:languages:create", "staffiq:languages:update",
+        "staffiq:contacts:read", "staffiq:contacts:create", "staffiq:contacts:update",
+        "staffiq:profile_locations:read", "staffiq:profile_locations:create", "staffiq:profile_locations:update",
+        "staffiq:worker_skills:read", "staffiq:worker_skills:create", "staffiq:worker_skills:update",
+        "staffiq:worker_certificates:read", "staffiq:worker_certificates:create", "staffiq:worker_certificates:update"
+      ]
+    },
+    {
+      "code": "STAFFIQ_PROFILE_DATA_MANAGE",
+      "name": "Profile Data Manage",
+      "description": "Full CRUD on worker profile payloads (education, skills, documents, etc.)",
+      "permissions": [
+        "staffiq:profile:*",
+        "staffiq:education:*",
+        "staffiq:experiences:*",
+        "staffiq:languages:*",
+        "staffiq:contacts:*",
+        "staffiq:profile_locations:*",
+        "staffiq:worker_skills:*",
+        "staffiq:worker_certificates:*",
+        "staffiq:documents:*"
+      ]
+    },
+    {
+      "code": "STAFFIQ_FINANCE_ONLY",
+      "name": "Finance Department",
+      "description": "Finance UI: finance and transactions only (department-scoped persona)",
+      "permissions": [
+        "staffiq:dashboard:read",
+        "staffiq:finance:*",
+        "staffiq:transactions:*",
         "staffiq:settings:read"
       ]
     },
@@ -60,7 +94,7 @@
       "code": "STAFFIQ_SHIFT_MANAGE",
       "name": "Shifts Manage",
       "description": "mock shift:read + shift:write (jobs and tasks included)",
-      "permissions": ["staffiq:shifts:*", "staffiq:jobs:*", "staffiq:tasks:*"]
+      "permissions": ["staffiq:shifts:*", "staffiq:jobs:*", "staffiq:tasks:*", "staffiq:job_templates:*"]
     },
     {
       "code": "STAFFIQ_RECRUITING",
@@ -78,7 +112,14 @@
       "code": "STAFFIQ_WORKFORCE_MANAGE",
       "name": "Workers Manage",
       "description": "mock worker:read + worker:write",
-      "permissions": ["staffiq:workers:*"]
+      "permissions": [
+        "staffiq:workers:*",
+        "staffiq:profile:read",
+        "staffiq:education:read", "staffiq:experiences:read", "staffiq:languages:read",
+        "staffiq:contacts:read", "staffiq:profile_locations:read",
+        "staffiq:worker_skills:read", "staffiq:worker_certificates:read",
+        "staffiq:documents:read"
+      ]
     },
     {
       "code": "STAFFIQ_DOCUMENT_READ",
@@ -91,8 +132,8 @@
       "name": "Documents Review",
       "description": "mock document:read + document:review",
       "permissions": [
-        "staffiq:documents:read", "staffiq:documents:review",
-        "staffiq:verification:read", "staffiq:verification:review"
+        "staffiq:documents:*",
+        "staffiq:verification:*"
       ]
     },
     {
@@ -111,24 +152,30 @@
       "code": "STAFFIQ_AUDIT_READ",
       "name": "Audit Read",
       "description": "mock audit:read",
-      "permissions": ["staffiq:audit:read"]
+      "permissions": ["staffiq:audit:read", "staffiq:audit:export"]
     },
     {
       "code": "STAFFIQ_TAXONOMY_READ",
       "name": "Taxonomy Read",
-      "description": "Job roles, industries, skills, certificates, document types",
+      "description": "Job roles, industries, skills, certificates, document types, and job posting catalogs",
       "permissions": [
         "staffiq:job_roles:read", "staffiq:industries:read", "staffiq:skills:read",
-        "staffiq:certificates:read", "staffiq:document_types:read"
+        "staffiq:certificates:read", "staffiq:document_types:read",
+        "staffiq:contract_types:read", "staffiq:contact_types:read", "staffiq:dress_codes:read",
+        "staffiq:free_time_windows:read", "staffiq:expertise_levels:read",
+        "staffiq:job_documents:read", "staffiq:job_templates:read"
       ]
     },
     {
       "code": "STAFFIQ_TAXONOMY_MANAGE",
       "name": "Taxonomy Manage",
-      "description": "Maintain job roles, industries, skills, certificates, document types",
+      "description": "Maintain job roles, industries, skills, certificates, document types, and job posting catalogs",
       "permissions": [
         "staffiq:job_roles:*", "staffiq:industries:*", "staffiq:skills:*",
-        "staffiq:certificates:*", "staffiq:document_types:*"
+        "staffiq:certificates:*", "staffiq:document_types:*",
+        "staffiq:contract_types:*", "staffiq:contact_types:*", "staffiq:dress_codes:*",
+        "staffiq:free_time_windows:*", "staffiq:expertise_levels:*",
+        "staffiq:job_documents:*", "staffiq:job_templates:*"
       ]
     },
     {

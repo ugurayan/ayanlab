@@ -1,6 +1,9 @@
-import { authHttp } from "../client";
+import { http } from "../client";
 import { endpoints } from "../endpoints";
-import { getToken } from "../../state/authStorage";
+import { unwrapHrmData } from "../hrmApi";
+import { jobApi } from "../../mock/jobApi";
+import { JOB_INDUSTRIES, JOB_ROLES, SKILLS } from "../../mock/jobData";
+import { TEXTS } from "../../views/jobs/i18n";
 
 // Generate correlation ID
 const generateCorrelationId = () => {
@@ -50,12 +53,41 @@ export type JobIndustry = {
   name: string;
 };
 
-export type IndustriesResponse = {
-  correlationId: string;
-  success: boolean;
-  message: string;
-  data: JobIndustry[];
+type CatalogRow = {
+  id: string;
+  details?: Record<string, unknown>;
 };
+
+function detailText(row: CatalogRow, key: string, fallback = ""): string {
+  const value = row.details?.[key];
+  return typeof value === "string" && value.trim() ? value : fallback;
+}
+
+function catalogRows(payload: unknown): CatalogRow[] {
+  const rows = unwrapHrmData<CatalogRow[]>(payload);
+  return Array.isArray(rows) ? rows : [];
+}
+
+function detailStringArray(row: CatalogRow | undefined, key: string): string[] {
+  const value = row?.details?.[key];
+  if (!Array.isArray(value)) return [];
+  return value.filter((item): item is string => typeof item === "string");
+}
+
+function skillLabel(id: string, language: string): string {
+  const lang = (language in TEXTS ? language : "en") as keyof typeof TEXTS;
+  const fromI18n = TEXTS[lang].skills[id as keyof (typeof TEXTS)["en"]["skills"]];
+  if (typeof fromI18n === "string") return fromI18n;
+  const row = SKILLS.find((s) => s.id === id);
+  if (row?.name) return row.name;
+  return id.replace(/_/g, " ");
+}
+
+function skillsForRoleFromMock(jobRoleId: string, language: string): SkillByJobRole[] {
+  const role = JOB_ROLES.find((r) => r.id === jobRoleId);
+  if (!role) return [];
+  return role.requiredSkills.map((id) => ({ id, name: skillLabel(id, language) }));
+}
 
 export type ApiJobRole = {
   id: string;
@@ -63,84 +95,75 @@ export type ApiJobRole = {
   description: string;
 };
 
-export type JobRolesResponse = {
-  correlationId: string;
-  success: boolean;
-  message: string;
-  data: ApiJobRole[];
-};
-
 export async function apiGetIndustries(language?: string): Promise<JobIndustry[]> {
   const lang = language || getLanguage();
-  const correlationId = generateCorrelationId();
-  const cacheKey = `job-industries:${lang}`;
+  const cacheKey = `job-industries:hrm:${lang}`;
 
   const cached = getCache<JobIndustry[]>(cacheKey);
-  if (cached) return cached;
+  if (cached?.length) return cached;
 
   try {
-    const res = await authHttp.get<IndustriesResponse>(
-      `${endpoints.jobs.industries}?language=${lang}`,
-      {
-        headers: {
-          'X-Correlation-ID': correlationId,
-          'accept': 'application/json'
-        }
-      }
-    );
-
-    if (!res.data.success || !res.data.data) {
-      throw new Error(res.data.message || "Failed to fetch industries");
-    }
-
-    // Always return industries sorted by name (ascending)
-    const sorted = [...res.data.data].sort((a, b) => a.name.localeCompare(b.name));
-
+    const res = await http.get(endpoints.jobs.industries);
+    const sorted = catalogRows(res.data)
+      .map((row) => ({ id: row.id, name: detailText(row, "name", row.id) }))
+      .filter((row) => row.id)
+      .sort((a, b) => a.name.localeCompare(b.name));
+    if (!sorted.length) return JOB_INDUSTRIES;
     setCache(cacheKey, sorted);
     return sorted;
-  } catch (error: any) {
+  } catch (error) {
     console.error("Error fetching industries:", error);
-    if (error.response) {
-      throw new Error(error.response.data?.message || "Failed to fetch industries");
-    }
-    throw new Error("Failed to fetch industries");
+    return JOB_INDUSTRIES;
   }
 }
 
+function fallbackRoles(categoryId: string): ApiJobRole[] {
+  return JOB_ROLES.filter((role) => role.categoryId === categoryId).map((role) => ({
+    id: role.id,
+    name: role.name || role.nameKey,
+    description: role.description || role.descriptionKey
+  }));
+}
+
 export async function apiGetJobRolesByCategory(categoryId: string): Promise<ApiJobRole[]> {
-  const correlationId = generateCorrelationId();
-  const cacheKey = `job-roles-by-category:${categoryId}`;
+  const cacheKey = `job-roles-by-category:hrm:${categoryId}`;
 
   const cached = getCache<ApiJobRole[]>(cacheKey);
-  if (cached) return cached;
+  if (cached?.length) return cached;
 
   if (!categoryId) {
     throw new Error("Category ID is required");
   }
 
   try {
-    const res = await authHttp.get<JobRolesResponse>(
-      endpoints.jobs.rolesByCategory(categoryId),
-      {
-        headers: {
-          'X-Correlation-ID': correlationId,
-          'accept': 'application/json'
-        }
-      }
-    );
-
-    if (!res.data.success || !res.data.data) {
-      throw new Error(res.data.message || "Failed to fetch job roles");
-    }
-
-    setCache(cacheKey, res.data.data);
-    return res.data.data;
-  } catch (error: any) {
+    const res = await http.get(endpoints.jobs.roles);
+    const roles = catalogRows(res.data)
+      .filter((row) => detailText(row, "categoryId") === categoryId)
+      .map((row) => ({
+        id: row.id,
+        name: detailText(row, "name", row.id),
+        description: detailText(row, "description", detailText(row, "descriptionKey"))
+      }));
+    if (!roles.length) return fallbackRoles(categoryId);
+    setCache(cacheKey, roles);
+    return roles;
+  } catch (error) {
     console.error("Error fetching job roles by category:", error);
-    if (error.response) {
-      throw new Error(error.response.data?.message || "Failed to fetch job roles");
-    }
-    throw new Error("Failed to fetch job roles");
+    return fallbackRoles(categoryId);
+  }
+}
+
+export async function apiGetContractTypes(): Promise<{ id: string; nameKey: string }[]> {
+  try {
+    const res = await http.get(endpoints.jobs.contractTypes);
+    const rows = catalogRows(res.data).map((row) => ({
+      id: row.id,
+      nameKey: detailText(row, "nameKey", detailText(row, "name", row.id))
+    }));
+    return rows.filter((row) => row.id);
+  } catch (error) {
+    console.error("Error fetching contract types:", error);
+    return [];
   }
 }
 
@@ -157,46 +180,44 @@ export type CertificatesResponse = {
   timestamp: number;
 };
 
-export async function apiGetCertificatesByJobRole(
-  jobRoleId: string,
-  language: string
-): Promise<Certificate[]> {
-  const correlationId = generateCorrelationId();
-  const token = getToken();
-  const lang = language || getLanguage();
-
-  if (!token) {
-    throw new Error("Authentication token not found.");
-  }
-
-  if (!jobRoleId) {
-    throw new Error("Job Role ID is required");
-  }
-
+export async function apiGetCertificatesByJobRole(jobRoleId: string, _language: string): Promise<Certificate[]> {
+  if (!jobRoleId) return [];
   try {
-    const response = await authHttp.get<CertificatesResponse>(
-      endpoints.certificates.listByJobRole(jobRoleId, lang),
-      {
-        headers: {
-          "X-Correlation-ID": correlationId,
-          accept: "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    if (!response.data.success || !response.data.data) {
-      throw new Error(response.data.message || "Failed to fetch certificates");
-    }
-
-    return response.data.data;
-  } catch (error: any) {
-    console.error("Error fetching certificates by job role:", error);
-    if (error.response) {
-      throw new Error(error.response.data?.message || "Failed to fetch certificates");
-    }
-    throw new Error("Failed to fetch certificates");
+    const res = await http.get(endpoints.certificates.list);
+    const mapped = catalogRows(res.data)
+      .filter((row) => {
+        const roleIds = detailStringArray(row, "roleIds");
+        return roleIds.length === 0 || roleIds.includes(jobRoleId);
+      })
+      .map((row) => ({
+        id: row.id,
+        name: detailText(row, "name", row.id),
+      }));
+    if (mapped.length) return mapped;
+  } catch (error) {
+    console.error("Error fetching certificates:", error);
   }
+  return jobApi.getCertificatesByRole(jobRoleId);
+}
+
+export async function apiGetJobDocumentsByRole(jobRoleId: string): Promise<Certificate[]> {
+  if (!jobRoleId) return [];
+  try {
+    const res = await http.get(endpoints.jobs.jobDocuments);
+    const mapped = catalogRows(res.data)
+      .filter((row) => {
+        const roleIds = detailStringArray(row, "roleIds");
+        return roleIds.length === 0 || roleIds.includes(jobRoleId);
+      })
+      .map((row) => ({
+        id: row.id,
+        name: detailText(row, "name", row.id),
+      }));
+    if (mapped.length) return mapped;
+  } catch (error) {
+    console.error("Error fetching job documents:", error);
+  }
+  return jobApi.getDocumentsByRole(jobRoleId);
 }
 
 export type SkillByJobRole = {
@@ -212,45 +233,29 @@ export type SkillsByJobRoleResponse = {
   timestamp: number;
 };
 
-export async function apiGetSkillsByJobRole(
-  jobRoleId: string,
-  language: string
-): Promise<SkillByJobRole[]> {
-  const correlationId = generateCorrelationId();
-  const token = getToken();
-
-  if (!token) {
-    throw new Error("Authentication token not found.");
-  }
-
-  if (!jobRoleId) {
-    throw new Error("Job Role ID is required");
-  }
-
+export async function apiGetSkillsByJobRole(jobRoleId: string, language: string): Promise<SkillByJobRole[]> {
+  if (!jobRoleId) return [];
   const lang = language || getLanguage();
-
   try {
-    const response = await authHttp.get<SkillsByJobRoleResponse>(
-      endpoints.skills.listByJobRole(jobRoleId, lang),
-      {
-        headers: {
-          "X-Correlation-ID": correlationId,
-          accept: "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      }
+    const [rolesRes, skillsRes] = await Promise.all([
+      http.get(endpoints.jobs.roles),
+      http.get(endpoints.skills.list),
+    ]);
+    const role = catalogRows(rolesRes.data).find((row) => row.id === jobRoleId);
+    const requiredIds =
+      detailStringArray(role, "requiredSkills").length > 0
+        ? detailStringArray(role, "requiredSkills")
+        : (JOB_ROLES.find((r) => r.id === jobRoleId)?.requiredSkills ?? []);
+    const skillsById = new Map(
+      catalogRows(skillsRes.data).map((row) => [row.id, detailText(row, "name", skillLabel(row.id, lang))])
     );
-
-    if (!response.data.success || !response.data.data) {
-      throw new Error(response.data.message || "Failed to fetch skills");
-    }
-
-    return response.data.data;
-  } catch (error: any) {
+    const list = requiredIds.map((id) => ({
+      id,
+      name: skillsById.get(id) ?? skillLabel(id, lang),
+    }));
+    if (list.length) return list;
+  } catch (error) {
     console.error("Error fetching skills by job role:", error);
-    if (error.response) {
-      throw new Error(error.response.data?.message || "Failed to fetch skills");
-    }
-    throw new Error("Failed to fetch skills");
   }
+  return skillsForRoleFromMock(jobRoleId, lang);
 }

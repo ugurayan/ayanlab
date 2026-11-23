@@ -1,20 +1,4 @@
-export const LOCALES = ["ar", "bn", "id", "fr", "hi", "en", "es", "zh", "pt", "ru", "tr", "ur"] as const;
-export type Locale = (typeof LOCALES)[number];
-
-export const LOCALE_META: Record<Locale, { rtl?: boolean }> = {
-  ar: { rtl: true },
-  bn: {},
-  id: {},
-  fr: {},
-  hi: {},
-  en: {},
-  es: {},
-  zh: {},
-  pt: {},
-  ru: {},
-  tr: {},
-  ur: { rtl: true },
-};
+import { LOCALES, LOCALE_META, type Locale } from "./localeCatalog";
 
 type Dict = Record<string, string>;
 
@@ -561,4 +545,17 @@ export const messages: Record<Locale, Dict> = {
     "entity.apps": "Apps",
     "entity.profiles": "Perfiles",
   },
+  de: {},
+  it: {},
+  pl: {},
+  ja: {},
+  pcm: {},
+  mr: {},
+  vi: {},
+  te: {},
+  sw: {},
+  ha: {},
+  uk: {},
+  ro: {},
+  nl: {},
 };
