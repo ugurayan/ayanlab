@@ -2,9 +2,9 @@ package com.ayanlab.core.service.impl;
 
 import com.ayanlab.core.authz.catalog.AppAuthorizationCatalog;
 import com.ayanlab.core.authz.catalog.AppAuthorizationCatalog.*;
-import com.ayanlab.core.data.enums.PermissionEffectEnum;
-import com.ayanlab.core.data.enums.ProfileTenancyEnum;
-import com.ayanlab.core.data.enums.RegistrationStatusEnum;
+import com.ayanlab.core.enums.PermissionEffectEnum;
+import com.ayanlab.core.enums.ProfileTenancyEnum;
+import com.ayanlab.core.enums.RegistrationStatusEnum;
 import com.ayanlab.core.entity.*;
 import com.ayanlab.core.exception.CoreException;
 import com.ayanlab.core.repository.*;
@@ -17,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.util.*;
 
@@ -77,7 +78,8 @@ public class AuthorizationCatalogImportService {
         for (OrganizationSpec spec : catalog.organizationsOrEmpty()) {
             Organization org = organizationRepository.findFirstByCode(spec.code()).orElseGet(() -> {
                 Organization created = Organization.builder().code(spec.code()).name(spec.name()).description(spec.description()).build();
-                IdGenerator.assignIfAbsent(created);
+                created.setId(stableOrganizationId(spec.code()));
+                created.markNew();
                 c.organizations++;
                 return organizationRepository.save(created);
             });
@@ -259,6 +261,11 @@ public class AuthorizationCatalogImportService {
                 }
             }
         }
+    }
+
+    /** Same bytes as HRM {@code Ids.parse("staffiq-org:" + code)} so both sides share one organization id. */
+    static UUID stableOrganizationId(String code) {
+        return UUID.nameUUIDFromBytes(("staffiq-org:" + code).getBytes(StandardCharsets.UTF_8));
     }
 
     private static ProfileTenancyEnum parseTenancy(String value) {

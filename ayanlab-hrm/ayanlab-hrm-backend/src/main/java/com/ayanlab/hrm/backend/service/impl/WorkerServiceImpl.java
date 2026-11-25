@@ -4,7 +4,7 @@ import com.ayanlab.hrm.backend.entity.Worker;
 import com.ayanlab.hrm.backend.repository.WorkerRepository;
 import com.ayanlab.hrm.backend.service.WorkerService;
 import com.ayanlab.hrm.backend.service.platform.HrmPlatformAuthorizationService;
-import com.ayanlab.core.data.CoreContext;
+import com.ayanlab.core.dto.CoreContext;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -34,7 +34,7 @@ public class WorkerServiceImpl implements WorkerService {
     }
 
     @Override
-    public Worker findById(String id, CoreContext context) {
+    public Worker findById(UUID id, CoreContext context) {
         platformAuthorization.requirePermission(context, PERM_READ);
         return repository
                 .findById(id)
@@ -45,8 +45,8 @@ public class WorkerServiceImpl implements WorkerService {
     @Transactional
     public Worker create(Worker body, CoreContext context) {
         platformAuthorization.requirePermission(context, PERM_CREATE);
-        if (body.getId() == null || body.getId().isBlank()) {
-            body.setId(UUID.randomUUID().toString());
+        if (body.getId() == null) {
+            body.setId(UUID.randomUUID());
         }
         return repository.save(body);
     }
@@ -63,7 +63,7 @@ public class WorkerServiceImpl implements WorkerService {
 
     @Override
     @Transactional
-    public void deleteById(String id, CoreContext context) {
+    public void deleteById(UUID id, CoreContext context) {
         platformAuthorization.requirePermission(context, PERM_DELETE);
         if (!repository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Worker not found");

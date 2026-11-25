@@ -1,6 +1,6 @@
 package com.ayanlab.core.service;
 
-import com.ayanlab.core.data.enums.PaymentStatusEnum;
+import com.ayanlab.core.enums.PaymentStatusEnum;
 import com.ayanlab.core.entity.Payment;
 
 import java.util.List;

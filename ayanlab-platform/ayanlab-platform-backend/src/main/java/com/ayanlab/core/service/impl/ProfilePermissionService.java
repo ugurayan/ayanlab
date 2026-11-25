@@ -1,8 +1,8 @@
 package com.ayanlab.core.service.impl;
 
-import com.ayanlab.core.data.CoreContext;
-import com.ayanlab.core.data.enums.ActionEnum;
-import com.ayanlab.core.data.enums.PermissionEffectEnum;
+import com.ayanlab.core.dto.CoreContext;
+import com.ayanlab.core.enums.ActionEnum;
+import com.ayanlab.core.enums.PermissionEffectEnum;
 import com.ayanlab.core.entity.ProfilePermission;
 import com.ayanlab.core.exception.CoreException;
 import com.ayanlab.core.repository.ProfilePermissionRepository;
@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.UUID;
 
-import static com.ayanlab.core.data.mapper.BaseMapper.map;
+import static com.ayanlab.core.mapping.BaseMapper.map;
 
 @Service
 @RequiredArgsConstructor

@@ -1,8 +1,8 @@
 package com.ayanlab.pms.backend.entity.leasing;
 
 import com.ayanlab.core.entity.BaseEntity;
-import com.ayanlab.pms.backend.data.OrgScoped;
-import com.ayanlab.pms.backend.data.enums.LeaseRenewalStatusEnum;
+import com.ayanlab.pms.backend.dto.OrgScoped;
+import com.ayanlab.pms.backend.enums.LeaseRenewalStatusEnum;
 import jakarta.persistence.*;
 import lombok.*;
 

@@ -3,8 +3,8 @@ package com.ayanlab.hrm.backend.controller;
 import com.ayanlab.core.annotation.ClientHeaders;
 import com.ayanlab.core.annotation.RequirePermission;
 import com.ayanlab.core.controller.BaseController;
-import com.ayanlab.core.data.ClientHeadersPayload;
-import com.ayanlab.core.data.responses.ApiResponse;
+import com.ayanlab.core.dto.ClientHeadersPayload;
+import com.ayanlab.core.dto.response.ApiResponse;
 import com.ayanlab.hrm.backend.entity.Document;
 import com.ayanlab.hrm.backend.service.DocumentService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -44,7 +45,7 @@ public class DocumentController extends BaseController {
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @RequirePermission("staffiq:documents:read")
     public ResponseEntity<ApiResponse<Document>> get(
-            @PathVariable String id, @ClientHeaders ClientHeadersPayload headers) {
+            @PathVariable UUID id, @ClientHeaders ClientHeadersPayload headers) {
         TracedCall call = tracedCall(log, "documents-get", "GET", BASE + "/{id}", headers, null, Map.of("id", id));
         try {
             Document data = service.findById(id, call.context());
@@ -74,7 +75,7 @@ public class DocumentController extends BaseController {
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @RequirePermission("staffiq:documents:update")
     public ResponseEntity<ApiResponse<Document>> update(
-            @PathVariable String id, @RequestBody Document body, @ClientHeaders ClientHeadersPayload headers) {
+            @PathVariable UUID id, @RequestBody Document body, @ClientHeaders ClientHeadersPayload headers) {
         body.setId(id);
         TracedCall call = tracedCall(log, "documents-update", "PUT", BASE + "/{id}", headers, body, Map.of("id", id));
         try {
@@ -89,7 +90,7 @@ public class DocumentController extends BaseController {
 
     @DeleteMapping("/{id}")
     @RequirePermission("staffiq:documents:delete")
-    public ResponseEntity<ApiResponse<Object>> delete(@PathVariable String id, @ClientHeaders ClientHeadersPayload headers) {
+    public ResponseEntity<ApiResponse<Object>> delete(@PathVariable UUID id, @ClientHeaders ClientHeadersPayload headers) {
         TracedCall call = tracedCall(log, "documents-delete", "DELETE", BASE + "/{id}", headers, null, Map.of("id", id));
         try {
             service.deleteById(id, call.context());

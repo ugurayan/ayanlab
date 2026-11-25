@@ -1,13 +1,14 @@
 package com.ayanlab.core.provider;
 
-import com.ayanlab.core.data.dto.ResourceScopeDto;
-import com.ayanlab.core.data.enums.ResourceScopeTypeEnum;
+import com.ayanlab.core.dto.ResourceScopeDto;
+import com.ayanlab.core.enums.ResourceScopeTypeEnum;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.UUID;
 
+import com.ayanlab.core.util.AuthorizationScopeSupport;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class AuthorizationScopeSupportTest {

@@ -1,8 +1,8 @@
 package com.ayanlab.pms.backend.controller;
 
 import com.ayanlab.core.annotation.ClientHeaders;
-import com.ayanlab.core.data.ClientHeadersPayload;
-import com.ayanlab.core.data.responses.ApiResponse;
+import com.ayanlab.core.dto.ClientHeadersPayload;
+import com.ayanlab.core.dto.response.ApiResponse;
 import com.ayanlab.pms.backend.entity.accounting.TaxFiling1099;
 import com.ayanlab.pms.backend.service.ITaxFiling1099Service;
 import io.swagger.v3.oas.annotations.tags.Tag;

@@ -1,7 +1,7 @@
 package com.ayanlab.pms.backend.platform.startup;
 
 import com.ayanlab.core.util.IdGenerator;
-import com.ayanlab.pms.backend.data.enums.*;
+import com.ayanlab.pms.backend.enums.*;
 import com.ayanlab.pms.backend.entity.associations.Association;
 import com.ayanlab.pms.backend.entity.rentals.Property;
 import com.ayanlab.pms.backend.entity.rentals.PropertyType;

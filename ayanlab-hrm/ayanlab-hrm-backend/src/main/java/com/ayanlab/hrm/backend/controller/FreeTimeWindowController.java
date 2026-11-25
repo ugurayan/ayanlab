@@ -3,8 +3,8 @@ package com.ayanlab.hrm.backend.controller;
 import com.ayanlab.core.annotation.ClientHeaders;
 import com.ayanlab.core.annotation.RequirePermission;
 import com.ayanlab.core.controller.BaseController;
-import com.ayanlab.core.data.ClientHeadersPayload;
-import com.ayanlab.core.data.responses.ApiResponse;
+import com.ayanlab.core.dto.ClientHeadersPayload;
+import com.ayanlab.core.dto.response.ApiResponse;
 import com.ayanlab.hrm.backend.entity.FreeTimeWindow;
 import com.ayanlab.hrm.backend.service.FreeTimeWindowService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -43,7 +44,7 @@ public class FreeTimeWindowController extends BaseController {
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @RequirePermission("staffiq:free_time_windows:read")
     public ResponseEntity<ApiResponse<FreeTimeWindow>> get(
-            @PathVariable String id, @ClientHeaders ClientHeadersPayload headers) {
+            @PathVariable UUID id, @ClientHeaders ClientHeadersPayload headers) {
         TracedCall call = tracedCall(log, "free_time_windows-get", "GET", BASE + "/{id}", headers, null, Map.of("id", id));
         try {
             FreeTimeWindow data = service.findById(id, call.context());
@@ -73,7 +74,7 @@ public class FreeTimeWindowController extends BaseController {
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @RequirePermission("staffiq:free_time_windows:update")
     public ResponseEntity<ApiResponse<FreeTimeWindow>> update(
-            @PathVariable String id, @RequestBody FreeTimeWindow body, @ClientHeaders ClientHeadersPayload headers) {
+            @PathVariable UUID id, @RequestBody FreeTimeWindow body, @ClientHeaders ClientHeadersPayload headers) {
         body.setId(id);
         TracedCall call = tracedCall(log, "free_time_windows-update", "PUT", BASE + "/{id}", headers, body, Map.of("id", id));
         try {
@@ -88,7 +89,7 @@ public class FreeTimeWindowController extends BaseController {
 
     @DeleteMapping("/{id}")
     @RequirePermission("staffiq:free_time_windows:delete")
-    public ResponseEntity<ApiResponse<Object>> delete(@PathVariable String id, @ClientHeaders ClientHeadersPayload headers) {
+    public ResponseEntity<ApiResponse<Object>> delete(@PathVariable UUID id, @ClientHeaders ClientHeadersPayload headers) {
         TracedCall call = tracedCall(log, "free_time_windows-delete", "DELETE", BASE + "/{id}", headers, null, Map.of("id", id));
         try {
             service.deleteById(id, call.context());

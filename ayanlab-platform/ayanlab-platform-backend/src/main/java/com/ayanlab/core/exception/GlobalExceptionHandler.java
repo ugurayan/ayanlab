@@ -1,6 +1,6 @@
 package com.ayanlab.core.exception;
 
-import com.ayanlab.core.data.responses.ApiResponse;
+import com.ayanlab.core.dto.response.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;

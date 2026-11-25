@@ -2,8 +2,8 @@ package com.ayanlab.hrm.backend.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,11 +11,14 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "Organization")
-public class Organization {
-    @Id
-    private String id;
+public class Organization extends BaseEntity {
+
+    @Column(name = "platformOrganizationId")
+    private UUID platformOrganizationId;
+
     private String name;
-    private String country;
-    @Column(name = "createdAt")
-    private String createdAt;
+    private String email;
+    private String phone;
+    private String timezone;
+    private String currency;
 }

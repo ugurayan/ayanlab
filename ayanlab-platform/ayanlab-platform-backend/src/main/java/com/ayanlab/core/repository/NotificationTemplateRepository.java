@@ -1,7 +1,7 @@
 package com.ayanlab.core.repository;
 
 import com.ayanlab.core.entity.NotificationTemplate;
-import com.ayanlab.core.data.enums.NotificationTypeEnum;
+import com.ayanlab.core.enums.NotificationTypeEnum;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

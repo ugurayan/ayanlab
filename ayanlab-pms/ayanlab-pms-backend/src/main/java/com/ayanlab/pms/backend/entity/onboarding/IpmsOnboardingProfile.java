@@ -1,8 +1,8 @@
 package com.ayanlab.pms.backend.entity.onboarding;
 
 import com.ayanlab.core.entity.BaseEntity;
-import com.ayanlab.pms.backend.data.enums.OnboardingStatusEnum;
-import com.ayanlab.pms.backend.data.enums.OrganizationCompanyTypeEnum;
+import com.ayanlab.pms.backend.enums.OnboardingStatusEnum;
+import com.ayanlab.pms.backend.enums.OrganizationCompanyTypeEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;

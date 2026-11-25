@@ -1,7 +1,7 @@
 package com.ayanlab.core.repository;
 
-import com.ayanlab.core.data.enums.ApprovalStatusEnum;
-import com.ayanlab.core.data.enums.ApprovalSubjectTypeEnum;
+import com.ayanlab.core.enums.ApprovalStatusEnum;
+import com.ayanlab.core.enums.ApprovalSubjectTypeEnum;
 import com.ayanlab.core.entity.ApprovalRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

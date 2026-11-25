@@ -1,6 +1,6 @@
 package com.ayanlab.core.repository;
 
-import com.ayanlab.core.data.enums.SubscriptionStatusEnum;
+import com.ayanlab.core.enums.SubscriptionStatusEnum;
 import com.ayanlab.core.entity.ProfileSubscription;
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -1,9 +1,9 @@
 package com.ayanlab.core.service;
 
-import com.ayanlab.core.data.CoreContext;
-import com.ayanlab.core.data.responses.PagedResponse;
+import com.ayanlab.core.dto.CoreContext;
+import com.ayanlab.core.dto.response.PagedResponse;
 import com.ayanlab.core.entity.NotificationTemplate;
-import com.ayanlab.core.data.enums.NotificationTypeEnum;
+import com.ayanlab.core.enums.NotificationTypeEnum;
 
 import java.util.UUID;
 

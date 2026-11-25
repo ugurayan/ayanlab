@@ -1,8 +1,8 @@
 package com.ayanlab.core.service.impl;
 
-import com.ayanlab.core.data.CoreContext;
-import com.ayanlab.core.data.dto.EffectiveAuthorization;
-import com.ayanlab.core.data.responses.AccessSummary;
+import com.ayanlab.core.dto.CoreContext;
+import com.ayanlab.core.dto.EffectiveAuthorization;
+import com.ayanlab.core.dto.response.AccessSummary;
 import com.ayanlab.core.entity.Menu;
 import com.ayanlab.core.entity.Organization;
 import com.ayanlab.core.entity.Role;

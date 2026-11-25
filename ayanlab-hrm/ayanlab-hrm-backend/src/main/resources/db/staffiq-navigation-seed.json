@@ -218,6 +218,22 @@
       "requiredPermission": "staffiq:organizations:read"
     },
     {
+      "code": "legal-entities",
+      "routePath": "/app/legal-entities",
+      "section": "PRIMARY",
+      "iconKey": "building-2",
+      "sortOrder": 52,
+      "requiredPermission": "staffiq:legal_entities:read"
+    },
+    {
+      "code": "brands",
+      "routePath": "/app/brands",
+      "section": "PRIMARY",
+      "iconKey": "tag",
+      "sortOrder": 54,
+      "requiredPermission": "staffiq:brands:read"
+    },
+    {
       "code": "locations",
       "routePath": "/app/locations",
       "section": "PRIMARY",
@@ -2087,6 +2103,156 @@
       "menuItemCode": "documentTypes",
       "localeCode": "pl",
       "label": "Document Types"
+    },
+    {
+      "menuItemCode": "legal-entities",
+      "localeCode": "ar",
+      "label": "Legal entities"
+    },
+    {
+      "menuItemCode": "brands",
+      "localeCode": "ar",
+      "label": "Brands"
+    },
+    {
+      "menuItemCode": "legal-entities",
+      "localeCode": "bn",
+      "label": "Legal entities"
+    },
+    {
+      "menuItemCode": "brands",
+      "localeCode": "bn",
+      "label": "Brands"
+    },
+    {
+      "menuItemCode": "legal-entities",
+      "localeCode": "de",
+      "label": "Rechtsträger"
+    },
+    {
+      "menuItemCode": "brands",
+      "localeCode": "de",
+      "label": "Marken"
+    },
+    {
+      "menuItemCode": "legal-entities",
+      "localeCode": "en",
+      "label": "Legal entities"
+    },
+    {
+      "menuItemCode": "brands",
+      "localeCode": "en",
+      "label": "Brands"
+    },
+    {
+      "menuItemCode": "legal-entities",
+      "localeCode": "es",
+      "label": "Legal entities"
+    },
+    {
+      "menuItemCode": "brands",
+      "localeCode": "es",
+      "label": "Brands"
+    },
+    {
+      "menuItemCode": "legal-entities",
+      "localeCode": "fr",
+      "label": "Legal entities"
+    },
+    {
+      "menuItemCode": "brands",
+      "localeCode": "fr",
+      "label": "Brands"
+    },
+    {
+      "menuItemCode": "legal-entities",
+      "localeCode": "hi",
+      "label": "Legal entities"
+    },
+    {
+      "menuItemCode": "brands",
+      "localeCode": "hi",
+      "label": "Brands"
+    },
+    {
+      "menuItemCode": "legal-entities",
+      "localeCode": "id",
+      "label": "Legal entities"
+    },
+    {
+      "menuItemCode": "brands",
+      "localeCode": "id",
+      "label": "Brands"
+    },
+    {
+      "menuItemCode": "legal-entities",
+      "localeCode": "it",
+      "label": "Legal entities"
+    },
+    {
+      "menuItemCode": "brands",
+      "localeCode": "it",
+      "label": "Brands"
+    },
+    {
+      "menuItemCode": "legal-entities",
+      "localeCode": "pl",
+      "label": "Legal entities"
+    },
+    {
+      "menuItemCode": "brands",
+      "localeCode": "pl",
+      "label": "Brands"
+    },
+    {
+      "menuItemCode": "legal-entities",
+      "localeCode": "pt",
+      "label": "Legal entities"
+    },
+    {
+      "menuItemCode": "brands",
+      "localeCode": "pt",
+      "label": "Brands"
+    },
+    {
+      "menuItemCode": "legal-entities",
+      "localeCode": "ru",
+      "label": "Legal entities"
+    },
+    {
+      "menuItemCode": "brands",
+      "localeCode": "ru",
+      "label": "Brands"
+    },
+    {
+      "menuItemCode": "legal-entities",
+      "localeCode": "tr",
+      "label": "Tüzel kişilikler"
+    },
+    {
+      "menuItemCode": "brands",
+      "localeCode": "tr",
+      "label": "Markalar"
+    },
+    {
+      "menuItemCode": "legal-entities",
+      "localeCode": "ur",
+      "label": "Legal entities"
+    },
+    {
+      "menuItemCode": "brands",
+      "localeCode": "ur",
+      "label": "Brands"
+    },
+    {
+      "menuItemCode": "legal-entities",
+      "localeCode": "zh",
+      "label": "Legal entities"
+    },
+    {
+      "menuItemCode": "brands",
+      "localeCode": "zh",
+      "label": "Brands"
     }
   ]
 }

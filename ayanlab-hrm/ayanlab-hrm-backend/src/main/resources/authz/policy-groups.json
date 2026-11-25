@@ -64,13 +64,13 @@
       "code": "STAFFIQ_ORG_READ",
       "name": "Organizations Read",
       "description": "mock org:read",
-      "permissions": ["staffiq:organizations:read"]
+      "permissions": ["staffiq:organizations:read", "staffiq:legal_entities:read", "staffiq:brands:read"]
     },
     {
       "code": "STAFFIQ_ORG_MANAGE",
       "name": "Organizations Manage",
       "description": "mock org:read + org:write",
-      "permissions": ["staffiq:organizations:*"]
+      "permissions": ["staffiq:organizations:*", "staffiq:legal_entities:*", "staffiq:brands:*"]
     },
     {
       "code": "STAFFIQ_LOCATION_READ",
@@ -88,13 +88,13 @@
       "code": "STAFFIQ_SHIFT_READ",
       "name": "Shifts Read",
       "description": "mock shift:read",
-      "permissions": ["staffiq:shifts:read", "staffiq:jobs:read"]
+      "permissions": ["staffiq:shifts:read", "staffiq:shift_templates:read", "staffiq:jobs:read"]
     },
     {
       "code": "STAFFIQ_SHIFT_MANAGE",
       "name": "Shifts Manage",
       "description": "mock shift:read + shift:write (jobs and tasks included)",
-      "permissions": ["staffiq:shifts:*", "staffiq:jobs:*", "staffiq:tasks:*", "staffiq:job_templates:*"]
+      "permissions": ["staffiq:shifts:*", "staffiq:shift_templates:*", "staffiq:jobs:*", "staffiq:tasks:*", "staffiq:job_templates:*"]
     },
     {
       "code": "STAFFIQ_RECRUITING",
@@ -199,6 +199,18 @@
       "name": "Rideshare",
       "description": "Book rides and view routes",
       "permissions": ["staffiq:rides:*", "staffiq:routes:read"]
+    },
+    {
+      "code": "STAFFIQ_MODULE_USERS",
+      "name": "Users Module",
+      "description": "System admin limited to HRM user records",
+      "permissions": ["staffiq:users:*"]
+    },
+    {
+      "code": "STAFFIQ_MODULE_ORGS",
+      "name": "Organizations Module",
+      "description": "System admin limited to organizations, legal entities, brands and locations",
+      "permissions": ["staffiq:organizations:*", "staffiq:legal_entities:*", "staffiq:brands:*", "staffiq:locations:*"]
     }
   ]
 }

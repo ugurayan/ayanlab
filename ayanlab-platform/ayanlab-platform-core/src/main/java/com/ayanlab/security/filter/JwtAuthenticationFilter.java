@@ -1,6 +1,6 @@
 package com.ayanlab.security.filter;
 
-import com.ayanlab.core.helper.ApiClientHeaders;
+import com.ayanlab.core.constant.ApiClientHeaders;
 import com.ayanlab.security.service.JwtTokenParser;
 import com.ayanlab.core.provider.AppSecurityContext;
 import com.ayanlab.core.provider.ResourceScopeClaims;

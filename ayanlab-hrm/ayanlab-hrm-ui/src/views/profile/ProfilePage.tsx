@@ -32,6 +32,8 @@ import {
 import { useJobProfiles } from "../../data/hooks";
 import { ProfileStrength } from "./ProfileStrength";
 import { ProfileSectionCard } from "./ProfileSectionCard";
+import { useActiveShell } from "../../security/shell";
+import { AdminProfile, EmployerProfile } from "./ShellProfiles";
 
 const mockProfile: Profile = {
   id: "u1",
@@ -108,6 +110,7 @@ const mockCompleteness: ProfileCompleteness = {
 };
 
 export function ProfilePage() {
+  const { shell, constrained } = useActiveShell();
   const [profile, setProfile] = useState<Profile>(mockProfile);
   const [draft, setDraft] = useState<Profile>(mockProfile);
   const [completeness, setCompleteness] = useState<ProfileCompleteness>(mockCompleteness);
@@ -227,6 +230,9 @@ export function ProfilePage() {
       documents: prev.documents.filter((doc) => doc.id !== id)
     }));
   };
+
+  if (constrained && shell === "employer") return <EmployerProfile />;
+  if (constrained && shell === "admin") return <AdminProfile />;
 
   const target = isEdit ? draft : profile;
 

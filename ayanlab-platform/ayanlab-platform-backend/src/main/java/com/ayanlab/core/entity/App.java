@@ -1,6 +1,6 @@
 package com.ayanlab.core.entity;
 
-import com.ayanlab.core.data.enums.AppSubscriptionModeEnum;
+import com.ayanlab.core.enums.AppSubscriptionModeEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;

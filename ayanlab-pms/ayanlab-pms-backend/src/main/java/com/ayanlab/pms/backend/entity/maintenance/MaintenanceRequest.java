@@ -1,9 +1,9 @@
 package com.ayanlab.pms.backend.entity.maintenance;
 
 import com.ayanlab.core.entity.BaseEntity;
-import com.ayanlab.pms.backend.data.OrgScoped;
-import com.ayanlab.pms.backend.data.enums.MaintenancePriorityEnum;
-import com.ayanlab.pms.backend.data.enums.MaintenanceStatusEnum;
+import com.ayanlab.pms.backend.dto.OrgScoped;
+import com.ayanlab.pms.backend.enums.MaintenancePriorityEnum;
+import com.ayanlab.pms.backend.enums.MaintenanceStatusEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;

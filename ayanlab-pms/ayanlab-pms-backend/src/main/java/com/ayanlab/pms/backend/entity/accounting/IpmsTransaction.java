@@ -1,9 +1,9 @@
 package com.ayanlab.pms.backend.entity.accounting;
 
 import com.ayanlab.core.entity.BaseEntity;
-import com.ayanlab.pms.backend.data.OrgScoped;
-import com.ayanlab.pms.backend.data.enums.IpmsTransactionStatusEnum;
-import com.ayanlab.pms.backend.data.enums.IpmsTransactionTypeEnum;
+import com.ayanlab.pms.backend.dto.OrgScoped;
+import com.ayanlab.pms.backend.enums.IpmsTransactionStatusEnum;
+import com.ayanlab.pms.backend.enums.IpmsTransactionTypeEnum;
 import jakarta.persistence.*;
 import lombok.*;
 

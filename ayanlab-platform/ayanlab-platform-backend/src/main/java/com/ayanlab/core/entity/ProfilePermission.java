@@ -2,7 +2,7 @@ package com.ayanlab.core.entity;
 
 import com.ayanlab.core.authz.AuthzChangeListener;
 
-import com.ayanlab.core.data.enums.PermissionEffectEnum;
+import com.ayanlab.core.enums.PermissionEffectEnum;
 import jakarta.persistence.*;
 import lombok.*;
 

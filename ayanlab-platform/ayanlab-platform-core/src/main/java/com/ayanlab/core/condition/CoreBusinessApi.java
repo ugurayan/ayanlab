@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 
 /**
  * Profile-scoped platform business REST — exposed when {@code ayanlabs.expose.core-business-apis=true}
- * (core backend). Paths use {@link com.ayanlab.core.web.ApiPathPrefixes#CORE}.
+ * (core backend). Paths use {@link com.ayanlab.core.constant.ApiPathPrefixes#CORE}.
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

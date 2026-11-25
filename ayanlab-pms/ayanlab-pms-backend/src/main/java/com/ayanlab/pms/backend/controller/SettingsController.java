@@ -2,11 +2,11 @@ package com.ayanlab.pms.backend.controller;
 
 import com.ayanlab.core.annotation.ClientHeaders;
 import com.ayanlab.core.controller.BaseController;
-import com.ayanlab.core.data.ClientHeadersPayload;
-import com.ayanlab.core.data.requests.ChangePasswordRequest;
-import com.ayanlab.core.data.responses.ApiResponse;
+import com.ayanlab.core.dto.ClientHeadersPayload;
+import com.ayanlab.core.dto.request.ChangePasswordRequest;
+import com.ayanlab.core.dto.response.ApiResponse;
 import com.ayanlab.core.exception.CoreException;
-import com.ayanlab.pms.backend.data.requests.UpdateMyPasswordRequest;
+import com.ayanlab.pms.backend.dto.request.UpdateMyPasswordRequest;
 import com.ayanlab.security.service.AuthService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

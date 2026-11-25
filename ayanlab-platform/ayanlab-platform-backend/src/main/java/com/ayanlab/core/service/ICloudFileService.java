@@ -1,8 +1,8 @@
 package com.ayanlab.core.service;
 
-import com.ayanlab.core.data.CoreContext;
-import com.ayanlab.core.data.enums.DocumentTypeEnum;
-import com.ayanlab.core.data.enums.EncryptionTypeEnum;
+import com.ayanlab.core.dto.CoreContext;
+import com.ayanlab.core.enums.DocumentTypeEnum;
+import com.ayanlab.core.enums.EncryptionTypeEnum;
 import com.ayanlab.core.entity.CloudFile;
 import org.springframework.web.multipart.MultipartFile;
 

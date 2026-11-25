@@ -1,8 +1,8 @@
 package com.ayanlab.pms.backend.entity.communication;
 
 import com.ayanlab.core.entity.BaseEntity;
-import com.ayanlab.pms.backend.data.OrgScoped;
-import com.ayanlab.pms.backend.data.enums.CommunicationEmailStatusEnum;
+import com.ayanlab.pms.backend.dto.OrgScoped;
+import com.ayanlab.pms.backend.enums.CommunicationEmailStatusEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;

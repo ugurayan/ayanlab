@@ -1,10 +1,10 @@
 package com.ayanlab.pms.backend.controller;
 
 import com.ayanlab.core.annotation.ClientHeaders;
-import com.ayanlab.core.data.ClientHeadersPayload;
-import com.ayanlab.core.data.responses.ApiResponse;
-import com.ayanlab.pms.backend.data.requests.*;
-import com.ayanlab.pms.backend.data.responses.*;
+import com.ayanlab.core.dto.ClientHeadersPayload;
+import com.ayanlab.core.dto.response.ApiResponse;
+import com.ayanlab.pms.backend.dto.request.*;
+import com.ayanlab.pms.backend.dto.response.*;
 import com.ayanlab.pms.backend.service.IIpmsSignupService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

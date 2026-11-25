@@ -1,6 +1,6 @@
 package com.ayanlab.core.repository;
 
-import com.ayanlab.core.data.enums.PaymentStatusEnum;
+import com.ayanlab.core.enums.PaymentStatusEnum;
 import com.ayanlab.core.entity.Payment;
 import org.springframework.data.jpa.repository.JpaRepository;
 

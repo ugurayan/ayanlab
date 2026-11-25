@@ -1,18 +1,23 @@
 package com.ayanlab.hrm.backend.service.impl;
 
+import com.ayanlab.core.dto.CoreContext;
 import com.ayanlab.hrm.backend.entity.Organization;
+import com.ayanlab.hrm.backend.enums.ReferenceEntityKind;
+import com.ayanlab.hrm.backend.repository.BrandRepository;
+import com.ayanlab.hrm.backend.repository.LegalEntityRepository;
+import com.ayanlab.hrm.backend.repository.LocationRepository;
 import com.ayanlab.hrm.backend.repository.OrganizationRepository;
+import com.ayanlab.hrm.backend.repository.ShiftRepository;
+import com.ayanlab.hrm.backend.repository.ShiftTemplateRepository;
 import com.ayanlab.hrm.backend.service.OrganizationService;
 import com.ayanlab.hrm.backend.service.platform.HrmPlatformAuthorizationService;
-import com.ayanlab.core.data.CoreContext;
+import com.ayanlab.hrm.backend.util.StaffingRules;
+import com.ayanlab.hrm.backend.util.StaffingScope;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
-
 
 @Service
 @RequiredArgsConstructor
@@ -24,30 +29,41 @@ public class OrganizationServiceImpl implements OrganizationService {
     private static final String PERM_DELETE = "staffiq:organizations:delete";
 
     private final OrganizationRepository repository;
+    private final LegalEntityRepository legalEntities;
+    private final BrandRepository brands;
+    private final LocationRepository locations;
+    private final ShiftTemplateRepository templates;
+    private final ShiftRepository shifts;
     private final HrmPlatformAuthorizationService platformAuthorization;
-
 
     @Override
     public List<Organization> findAll(CoreContext context) {
         platformAuthorization.requirePermission(context, PERM_READ);
+        if (context != null && context.getOrgId() != null) {
+            return repository.findByPlatformOrganizationId(context.getOrgId()).stream().toList();
+        }
         return repository.findAll();
     }
 
     @Override
-    public Organization findById(String id, CoreContext context) {
+    public Organization findById(UUID id, CoreContext context) {
         platformAuthorization.requirePermission(context, PERM_READ);
-        return repository
-                .findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Organization not found"));
+        Organization row = live(id);
+        StaffingScope.assertSameOrg(context, row.getPlatformOrganizationId());
+        return row;
     }
 
     @Override
     @Transactional
     public Organization create(Organization body, CoreContext context) {
         platformAuthorization.requirePermission(context, PERM_CREATE);
-        if (body.getId() == null || body.getId().isBlank()) {
-            body.setId(UUID.randomUUID().toString());
+        body.setPlatformOrganizationId(StaffingScope.organizationId(context, body.getPlatformOrganizationId()));
+        validate(body);
+        if (repository.findByPlatformOrganizationId(body.getPlatformOrganizationId()).isPresent()) {
+            throw StaffingRules.conflict("A profile already exists for this organization");
         }
+        body.setId(null);
+        body.markNew(StaffingScope.actor(context));
         return repository.save(body);
     }
 
@@ -55,19 +71,46 @@ public class OrganizationServiceImpl implements OrganizationService {
     @Transactional
     public Organization update(Organization body, CoreContext context) {
         platformAuthorization.requirePermission(context, PERM_UPDATE);
-        if (!repository.existsById(body.getId())) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Organization not found");
-        }
+        Organization existing = live(body.getId());
+        StaffingScope.assertSameOrg(context, existing.getPlatformOrganizationId());
+        body.setPlatformOrganizationId(existing.getPlatformOrganizationId());
+        validate(body);
+        body.setId(existing.getId());
+        body.setCreatedAt(existing.getCreatedAt());
+        body.setCreatedBy(existing.getCreatedBy());
+        body.setIsDeleted(existing.getIsDeleted());
+        body.markUpdated(StaffingScope.actor(context));
         return repository.save(body);
     }
 
     @Override
     @Transactional
-    public void deleteById(String id, CoreContext context) {
+    public void deleteById(UUID id, CoreContext context) {
         platformAuthorization.requirePermission(context, PERM_DELETE);
-        if (!repository.existsById(id)) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Organization not found");
+        Organization existing = live(id);
+        StaffingScope.assertSameOrg(context, existing.getPlatformOrganizationId());
+        UUID orgId = existing.getPlatformOrganizationId();
+        if (!legalEntities.findByPlatformOrganizationId(orgId).isEmpty()
+                || !brands.findByPlatformOrganizationId(orgId).isEmpty()
+                || locations.existsByReferenceEntityAndReferenceId(ReferenceEntityKind.ORGANIZATION, orgId)
+                || templates.findByPlatformOrganizationId(orgId).stream().findAny().isPresent()
+                || shifts.existsByPlatformOrganizationId(orgId)) {
+            throw StaffingRules.conflict("Organization profile still has legal entities, brands, locations, or shifts");
         }
-        repository.deleteById(id);
+        existing.markDeleted(StaffingScope.actor(context));
+        repository.save(existing);
+    }
+
+    private Organization live(UUID id) {
+        return repository.findById(id).filter(Organization::live).orElseThrow(() -> StaffingRules.notFound("Organization not found"));
+    }
+
+    private static void validate(Organization body) {
+        StaffingRules.requireText(body.getName(), "name");
+        StaffingRules.requireEmail(body.getEmail(), "email");
+        StaffingRules.requireText(body.getPhone(), "phone");
+        StaffingRules.requireTimezone(body.getTimezone());
+        StaffingRules.requireCurrency(body.getCurrency());
+        body.setCurrency(body.getCurrency().trim().toUpperCase());
     }
 }

@@ -1,8 +1,8 @@
 package com.ayanlab.core.service.impl;
 
-import com.ayanlab.core.data.CoreContext;
-import com.ayanlab.core.data.enums.NotificationTypeEnum;
-import com.ayanlab.core.data.requests.SendTemplateEmailRequest;
+import com.ayanlab.core.dto.CoreContext;
+import com.ayanlab.core.enums.NotificationTypeEnum;
+import com.ayanlab.core.dto.request.SendTemplateEmailRequest;
 import com.ayanlab.core.entity.EmailDispatchLog;
 import com.ayanlab.core.entity.NotificationTemplate;
 import com.ayanlab.core.exception.CoreException;

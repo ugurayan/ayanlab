@@ -1,12 +1,12 @@
 package com.ayanlab.hrm.backend.service.platform;
 
-import com.ayanlab.core.data.CoreContext;
-import com.ayanlab.core.data.dto.EffectiveAuthorization;
-import com.ayanlab.core.data.responses.ApiResponse;
+import com.ayanlab.core.dto.CoreContext;
+import com.ayanlab.core.dto.EffectiveAuthorization;
+import com.ayanlab.core.dto.response.ApiResponse;
 import com.ayanlab.core.exception.ForbiddenException;
-import com.ayanlab.core.helper.ApiClientHeaders;
+import com.ayanlab.core.constant.ApiClientHeaders;
 import com.ayanlab.core.util.PermissionCodes;
-import com.ayanlab.core.web.ApiPathPrefixes;
+import com.ayanlab.core.constant.ApiPathPrefixes;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.net.URI;
@@ -64,8 +64,12 @@ public class HrmPlatformAuthorizationService {
             HttpRequest.Builder builder = HttpRequest.newBuilder(URI.create(url))
                     .timeout(Duration.ofSeconds(5))
                     .header(HttpHeaders.AUTHORIZATION, "Bearer " + context.getToken())
+                    .header(ApiClientHeaders.CLIENT_TOKEN, context.getToken())
                     .header(HttpHeaders.ACCEPT, "application/json")
                     .GET();
+            if (context.getRefreshToken() != null && !context.getRefreshToken().isBlank()) {
+                builder.header(ApiClientHeaders.CLIENT_REFRESH_TOKEN, context.getRefreshToken());
+            }
             if (context.getCorrelationId() != null) {
                 builder.header(ApiClientHeaders.CORRELATION_ID, context.getCorrelationId().toString());
             }

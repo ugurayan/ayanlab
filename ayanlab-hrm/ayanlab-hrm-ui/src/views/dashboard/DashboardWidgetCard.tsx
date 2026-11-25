@@ -204,7 +204,7 @@ function WidgetContent({ widgetId, data }: { widgetId: string; data: Record<stri
   if (data.items && Array.isArray(data.items)) {
     const items = data.items as Record<string, unknown>[];
     const first = items[0];
-    if (!first) return <p className="text-xs text-slate-500">No items</p>;
+    if (!first || typeof first !== "object") return <p className="text-xs text-slate-500">No items</p>;
     if ("status" in first && "created" in first) {
       return (
         <ul className="space-y-2 text-sm">

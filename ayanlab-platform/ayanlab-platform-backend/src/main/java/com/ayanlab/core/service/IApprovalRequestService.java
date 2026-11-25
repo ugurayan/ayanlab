@@ -1,9 +1,9 @@
 package com.ayanlab.core.service;
 
-import com.ayanlab.core.data.CoreContext;
-import com.ayanlab.core.data.enums.ApprovalStatusEnum;
-import com.ayanlab.core.data.enums.ApprovalSubjectTypeEnum;
-import com.ayanlab.core.data.requests.CreateApprovalRequest;
+import com.ayanlab.core.dto.CoreContext;
+import com.ayanlab.core.enums.ApprovalStatusEnum;
+import com.ayanlab.core.enums.ApprovalSubjectTypeEnum;
+import com.ayanlab.core.dto.request.CreateApprovalRequest;
 import com.ayanlab.core.entity.ApprovalRequest;
 
 import java.util.List;

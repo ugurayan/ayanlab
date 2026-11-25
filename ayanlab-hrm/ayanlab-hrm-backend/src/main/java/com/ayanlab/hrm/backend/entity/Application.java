@@ -5,6 +5,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -12,8 +13,8 @@ import lombok.Setter;
 @Table(name = "Application")
 public class Application {
     @Id
-    private String id;
-    private String shiftId;
-    private String workerId;
+    private UUID id;
+    private UUID shiftId;
+    private UUID workerId;
     private String status;
 }

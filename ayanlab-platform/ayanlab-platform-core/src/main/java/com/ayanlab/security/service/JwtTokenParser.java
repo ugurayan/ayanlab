@@ -1,12 +1,12 @@
 package com.ayanlab.security.service;
 
 import com.ayanlab.core.config.JwtConfig;
-import com.ayanlab.core.data.CoreContext;
-import com.ayanlab.core.data.enums.ClientTypeEnum;
+import com.ayanlab.core.dto.CoreContext;
+import com.ayanlab.core.enums.ClientTypeEnum;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
-import com.ayanlab.security.support.JwtSigningKeys;
+import com.ayanlab.security.util.JwtSigningKeys;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

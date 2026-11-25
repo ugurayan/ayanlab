@@ -1,6 +1,6 @@
 package com.ayanlab.pms.backend.service.impl;
 
-import com.ayanlab.core.data.CoreContext;
+import com.ayanlab.core.dto.CoreContext;
 import com.ayanlab.pms.backend.entity.leasing.Tenant;
 import com.ayanlab.pms.backend.repository.TenantRepository;
 import com.ayanlab.pms.backend.service.ITenantService;

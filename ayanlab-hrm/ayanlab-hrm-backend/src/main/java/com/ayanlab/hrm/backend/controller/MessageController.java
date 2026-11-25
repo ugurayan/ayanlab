@@ -3,8 +3,8 @@ package com.ayanlab.hrm.backend.controller;
 import com.ayanlab.core.annotation.ClientHeaders;
 import com.ayanlab.core.annotation.RequirePermission;
 import com.ayanlab.core.controller.BaseController;
-import com.ayanlab.core.data.ClientHeadersPayload;
-import com.ayanlab.core.data.responses.ApiResponse;
+import com.ayanlab.core.dto.ClientHeadersPayload;
+import com.ayanlab.core.dto.response.ApiResponse;
 import com.ayanlab.hrm.backend.entity.Message;
 import com.ayanlab.hrm.backend.service.MessageService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -44,7 +45,7 @@ public class MessageController extends BaseController {
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @RequirePermission("staffiq:inbox:read")
     public ResponseEntity<ApiResponse<Message>> get(
-            @PathVariable String id, @ClientHeaders ClientHeadersPayload headers) {
+            @PathVariable UUID id, @ClientHeaders ClientHeadersPayload headers) {
         TracedCall call = tracedCall(log, "messages-get", "GET", BASE + "/{id}", headers, null, Map.of("id", id));
         try {
             Message data = service.findById(id, call.context());
@@ -74,7 +75,7 @@ public class MessageController extends BaseController {
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @RequirePermission("staffiq:inbox:update")
     public ResponseEntity<ApiResponse<Message>> update(
-            @PathVariable String id, @RequestBody Message body, @ClientHeaders ClientHeadersPayload headers) {
+            @PathVariable UUID id, @RequestBody Message body, @ClientHeaders ClientHeadersPayload headers) {
         body.setId(id);
         TracedCall call = tracedCall(log, "messages-update", "PUT", BASE + "/{id}", headers, body, Map.of("id", id));
         try {
@@ -89,7 +90,7 @@ public class MessageController extends BaseController {
 
     @DeleteMapping("/{id}")
     @RequirePermission("staffiq:inbox:delete")
-    public ResponseEntity<ApiResponse<Object>> delete(@PathVariable String id, @ClientHeaders ClientHeadersPayload headers) {
+    public ResponseEntity<ApiResponse<Object>> delete(@PathVariable UUID id, @ClientHeaders ClientHeadersPayload headers) {
         TracedCall call = tracedCall(log, "messages-delete", "DELETE", BASE + "/{id}", headers, null, Map.of("id", id));
         try {
             service.deleteById(id, call.context());

@@ -1,6 +1,6 @@
 package com.ayanlab.core.service;
 
-import com.ayanlab.core.data.dto.TemplateParameterDefinition;
+import com.ayanlab.core.dto.TemplateParameterDefinition;
 import com.ayanlab.core.entity.NotificationTemplate;
 
 import java.util.Map;

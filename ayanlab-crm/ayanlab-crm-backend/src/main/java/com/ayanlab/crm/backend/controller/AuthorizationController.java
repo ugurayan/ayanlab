@@ -1,11 +1,11 @@
 package com.ayanlab.crm.backend.controller;
 
-import com.ayanlab.core.data.ClientHeadersPayload;
+import com.ayanlab.core.dto.ClientHeadersPayload;
 
 import com.ayanlab.core.annotation.ClientHeaders;
 
 import com.ayanlab.core.controller.BaseController;
-import com.ayanlab.core.data.responses.ApiResponse;
+import com.ayanlab.core.dto.response.ApiResponse;
 import com.ayanlab.core.provider.AuthorizationSnapshots;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;

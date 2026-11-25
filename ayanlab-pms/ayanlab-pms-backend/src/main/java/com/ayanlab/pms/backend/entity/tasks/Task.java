@@ -1,9 +1,9 @@
 package com.ayanlab.pms.backend.entity.tasks;
 
 import com.ayanlab.core.entity.BaseEntity;
-import com.ayanlab.pms.backend.data.OrgScoped;
-import com.ayanlab.pms.backend.data.enums.TaskPriorityEnum;
-import com.ayanlab.pms.backend.data.enums.TaskStatusEnum;
+import com.ayanlab.pms.backend.dto.OrgScoped;
+import com.ayanlab.pms.backend.enums.TaskPriorityEnum;
+import com.ayanlab.pms.backend.enums.TaskStatusEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;

@@ -3,10 +3,13 @@ package com.ayanlab.hrm.backend.controller;
 import com.ayanlab.core.annotation.ClientHeaders;
 import com.ayanlab.core.annotation.RequirePermission;
 import com.ayanlab.core.controller.BaseController;
-import com.ayanlab.core.data.ClientHeadersPayload;
-import com.ayanlab.core.data.responses.ApiResponse;
+import com.ayanlab.core.dto.ClientHeadersPayload;
+import com.ayanlab.core.dto.response.ApiResponse;
+import com.ayanlab.core.provider.AppSecurityContext;
+import com.ayanlab.hrm.backend.dto.response.HrmShellsResponse;
 import com.ayanlab.hrm.backend.entity.Locale;
 import com.ayanlab.hrm.backend.service.NavigationService;
+import com.ayanlab.hrm.backend.util.HrmShells;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -41,6 +44,21 @@ public class NavigationController extends BaseController {
             List<Map<String, Object>> data = navigationService.listMenuItemsForLocale(locale);
             ResponseEntity<ApiResponse<List<Map<String, Object>>>> response = okBody(data, call.context());
             call.trace().success(Map.of("count", data.size()));
+            return response;
+        } catch (Exception e) {
+            call.trace().error(e);
+            throw e;
+        }
+    }
+
+    @GetMapping("/shells")
+    @RequirePermission("staffiq:dashboard:read")
+    public ResponseEntity<ApiResponse<HrmShellsResponse>> listShells(@ClientHeaders ClientHeadersPayload headers) {
+        TracedCall call = tracedCall(log, "list-shells", "GET", BASE_PATH + "/shells", headers, null, null);
+        try {
+            HrmShellsResponse data = new HrmShellsResponse(HrmShells.available(AppSecurityContext.get()));
+            ResponseEntity<ApiResponse<HrmShellsResponse>> response = okBody(data, call.context());
+            call.trace().success(Map.of("count", data.shells().size()));
             return response;
         } catch (Exception e) {
             call.trace().error(e);

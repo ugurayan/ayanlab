@@ -1,7 +1,7 @@
 package com.ayanlab.core.entity;
 
-import com.ayanlab.core.data.enums.DocumentTypeEnum;
-import com.ayanlab.core.data.enums.EncryptionTypeEnum;
+import com.ayanlab.core.enums.DocumentTypeEnum;
+import com.ayanlab.core.enums.EncryptionTypeEnum;
 import jakarta.persistence.*;
 import lombok.*;
 

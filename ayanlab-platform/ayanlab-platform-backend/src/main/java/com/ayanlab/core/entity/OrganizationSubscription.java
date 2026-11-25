@@ -1,6 +1,6 @@
 package com.ayanlab.core.entity;
 
-import com.ayanlab.core.data.enums.SubscriptionStatusEnum;
+import com.ayanlab.core.enums.SubscriptionStatusEnum;
 import jakarta.persistence.*;
 import lombok.*;
 

@@ -2,7 +2,7 @@ package com.ayanlab.core.entity;
 
 import com.ayanlab.core.authz.AuthzChangeListener;
 
-import com.ayanlab.core.data.enums.ResourceScopeTypeEnum;
+import com.ayanlab.core.enums.ResourceScopeTypeEnum;
 import jakarta.persistence.*;
 import lombok.*;
 

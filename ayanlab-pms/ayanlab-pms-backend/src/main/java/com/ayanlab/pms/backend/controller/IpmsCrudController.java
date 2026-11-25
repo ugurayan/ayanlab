@@ -2,9 +2,9 @@ package com.ayanlab.pms.backend.controller;
 
 import com.ayanlab.core.annotation.ClientHeaders;
 import com.ayanlab.core.controller.BaseController;
-import com.ayanlab.core.data.ClientHeadersPayload;
-import com.ayanlab.core.data.CoreContext;
-import com.ayanlab.core.data.responses.ApiResponse;
+import com.ayanlab.core.dto.ClientHeadersPayload;
+import com.ayanlab.core.dto.CoreContext;
+import com.ayanlab.core.dto.response.ApiResponse;
 import com.ayanlab.core.entity.BaseEntity;
 import com.ayanlab.pms.backend.security.IpmsAuthz;
 import com.ayanlab.pms.backend.service.IIpmsOrgScopedService;

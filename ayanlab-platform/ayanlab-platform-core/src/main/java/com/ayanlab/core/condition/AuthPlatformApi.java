@@ -10,7 +10,7 @@ import java.lang.annotation.Target;
 
 /**
  * RBAC / identity platform REST — exposed when {@code ayanlabs.expose.auth-platform-apis=true}
- * (auth backend). Paths use {@link com.ayanlab.core.web.ApiPathPrefixes#AUTH}.
+ * (auth backend). Paths use {@link com.ayanlab.core.constant.ApiPathPrefixes#AUTH}.
  */
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

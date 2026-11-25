@@ -1,7 +1,7 @@
 package com.ayanlab.pms.backend.entity.signup;
 
 import com.ayanlab.core.entity.BaseEntity;
-import com.ayanlab.pms.backend.data.enums.*;
+import com.ayanlab.pms.backend.enums.*;
 import jakarta.persistence.*;
 import lombok.*;
 

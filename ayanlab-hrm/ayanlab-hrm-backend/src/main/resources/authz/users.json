@@ -3,7 +3,10 @@
   "appCode": "staffiq",
   "organizations": [
     { "code": "ACME_RETAIL", "name": "Acme Retail GmbH", "description": "Mock org_acme (CH)" },
-    { "code": "ZEN_LOGISTICS", "name": "Zen Logistics AG", "description": "Mock org_zen (DE)" }
+    { "code": "ZEN_LOGISTICS", "name": "Zen Logistics AG", "description": "Mock org_zen (DE)" },
+    { "code": "HARBOR_CATERING", "name": "Harbor Catering Ltd", "description": "Food and beverage employer (London)" },
+    { "code": "NORTHLINE_LOGISTICS", "name": "Northline Logistics GmbH", "description": "Warehouse employer (Berlin)" },
+    { "code": "CITYLINE_RETAIL", "name": "Cityline Retail AG", "description": "Retail employer (Zurich)" }
   ],
   "users": [
     {
@@ -92,6 +95,141 @@
       "permissionOverrides": [
         { "code": "staffiq:workers:read", "effect": "GRANT" }
       ]
+    },
+    {
+      "email": "harbor.admin@staffiq.test",
+      "password": "password",
+      "firstName": "Harbor",
+      "lastName": "Admin",
+      "mobile": "+10000003001",
+      "birthDate": "1982-03-12",
+      "profileSlug": "harbor-admin",
+      "organizationCode": "HARBOR_CATERING",
+      "registrationStatus": "Approved",
+      "roles": ["ORG_ADMIN", "BUSINESS_ADMIN"]
+    },
+    {
+      "email": "northline.admin@staffiq.test",
+      "password": "password",
+      "firstName": "Northline",
+      "lastName": "Admin",
+      "mobile": "+10000003002",
+      "birthDate": "1981-07-04",
+      "profileSlug": "northline-admin",
+      "organizationCode": "NORTHLINE_LOGISTICS",
+      "registrationStatus": "Approved",
+      "roles": ["ORG_ADMIN", "BUSINESS_ADMIN"]
+    },
+    {
+      "email": "cityline.admin@staffiq.test",
+      "password": "password",
+      "firstName": "Cityline",
+      "lastName": "Admin",
+      "mobile": "+10000003003",
+      "birthDate": "1983-11-19",
+      "profileSlug": "cityline-admin",
+      "organizationCode": "CITYLINE_RETAIL",
+      "registrationStatus": "Approved",
+      "roles": ["ORG_ADMIN", "BUSINESS_ADMIN"]
+    },
+    {
+      "email": "maya.chen@staffiq.test",
+      "password": "password",
+      "firstName": "Maya",
+      "lastName": "Chen",
+      "mobile": "+10000003011",
+      "birthDate": "1996-04-02",
+      "profileSlug": "maya-chen",
+      "tenancy": "PERSONAL",
+      "registrationStatus": "Approved",
+      "roles": ["WORKER"]
+    },
+    {
+      "email": "jonah.ellis@staffiq.test",
+      "password": "password",
+      "firstName": "Jonah",
+      "lastName": "Ellis",
+      "mobile": "+10000003012",
+      "birthDate": "1994-09-15",
+      "profileSlug": "jonah-ellis",
+      "tenancy": "PERSONAL",
+      "registrationStatus": "Approved",
+      "roles": ["WORKER"]
+    },
+    {
+      "email": "priya.shah@staffiq.test",
+      "password": "password",
+      "firstName": "Priya",
+      "lastName": "Shah",
+      "mobile": "+10000003013",
+      "birthDate": "1998-01-28",
+      "profileSlug": "priya-shah",
+      "tenancy": "PERSONAL",
+      "registrationStatus": "Approved",
+      "roles": ["WORKER"]
+    },
+    {
+      "email": "lukas.meier@staffiq.test",
+      "password": "password",
+      "firstName": "Lukas",
+      "lastName": "Meier",
+      "mobile": "+10000003014",
+      "birthDate": "1992-06-08",
+      "profileSlug": "lukas-meier",
+      "tenancy": "PERSONAL",
+      "registrationStatus": "Approved",
+      "roles": ["WORKER"]
+    },
+    {
+      "email": "elena.rossi@staffiq.test",
+      "password": "password",
+      "firstName": "Elena",
+      "lastName": "Rossi",
+      "mobile": "+10000003015",
+      "birthDate": "1990-12-21",
+      "profileSlug": "elena-rossi",
+      "tenancy": "PERSONAL",
+      "registrationStatus": "Approved",
+      "roles": ["WORKER"]
+    },
+    {
+      "email": "users.admin@staffiq.test",
+      "password": "password",
+      "firstName": "Users",
+      "lastName": "Admin",
+      "mobile": "+10000003021",
+      "birthDate": "1979-05-03",
+      "profileSlug": "users-admin",
+      "tenancy": "PERSONAL",
+      "registrationStatus": "Approved",
+      "roles": ["SYSTEM_ADMIN"],
+      "policyGroups": ["STAFFIQ_MODULE_USERS"]
+    },
+    {
+      "email": "orgs.admin@staffiq.test",
+      "password": "password",
+      "firstName": "Orgs",
+      "lastName": "Admin",
+      "mobile": "+10000003022",
+      "birthDate": "1978-08-16",
+      "profileSlug": "orgs-admin",
+      "tenancy": "PERSONAL",
+      "registrationStatus": "Approved",
+      "roles": ["SYSTEM_ADMIN"],
+      "policyGroups": ["STAFFIQ_MODULE_ORGS"]
+    },
+    {
+      "email": "full.admin@staffiq.test",
+      "password": "password",
+      "firstName": "Full",
+      "lastName": "Admin",
+      "mobile": "+10000003023",
+      "birthDate": "1976-02-09",
+      "profileSlug": "full-admin",
+      "tenancy": "PERSONAL",
+      "registrationStatus": "Approved",
+      "roles": ["SYSTEM_ADMIN", "PLATFORM_ADMIN"],
+      "policyGroups": ["STAFFIQ_PLATFORM_ALL"]
     }
   ]
 }

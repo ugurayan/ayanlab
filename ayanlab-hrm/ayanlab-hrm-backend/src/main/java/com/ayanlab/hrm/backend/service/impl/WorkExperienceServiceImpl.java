@@ -4,8 +4,8 @@ import com.ayanlab.hrm.backend.entity.WorkExperience;
 import com.ayanlab.hrm.backend.repository.WorkExperienceRepository;
 import com.ayanlab.hrm.backend.service.WorkExperienceService;
 import com.ayanlab.hrm.backend.service.platform.HrmPlatformAuthorizationService;
-import com.ayanlab.hrm.backend.service.support.HrmProfileContextSupport;
-import com.ayanlab.core.data.CoreContext;
+import com.ayanlab.hrm.backend.util.HrmProfileContextSupport;
+import com.ayanlab.core.dto.CoreContext;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -32,16 +32,16 @@ public class WorkExperienceServiceImpl implements WorkExperienceService {
     public List<WorkExperience> findAll(CoreContext context) {
         platformAuthorization.requirePermission(context, PERM_READ);
         if (context.getProfileId() != null) {
-            return repository.findByProfileId(context.getProfileId().toString());
+            return repository.findByProfileId(context.getProfileId());
         }
         if (context.getOrgId() != null) {
-            return repository.findByOrgId(context.getOrgId().toString());
+            return repository.findByOrgId(context.getOrgId());
         }
         return repository.findAll();
     }
 
     @Override
-    public WorkExperience findById(String id, CoreContext context) {
+    public WorkExperience findById(UUID id, CoreContext context) {
         platformAuthorization.requirePermission(context, PERM_READ);
         WorkExperience row = repository
                 .findById(id)
@@ -54,8 +54,8 @@ public class WorkExperienceServiceImpl implements WorkExperienceService {
     @Transactional
     public WorkExperience create(WorkExperience body, CoreContext context) {
         platformAuthorization.requirePermission(context, PERM_CREATE);
-        if (body.getId() == null || body.getId().isBlank()) {
-            body.setId(UUID.randomUUID().toString());
+        if (body.getId() == null) {
+            body.setId(UUID.randomUUID());
         }
         HrmProfileContextSupport.stampFromContext(body, context);
         return repository.save(body);
@@ -75,7 +75,7 @@ public class WorkExperienceServiceImpl implements WorkExperienceService {
 
     @Override
     @Transactional
-    public void deleteById(String id, CoreContext context) {
+    public void deleteById(UUID id, CoreContext context) {
         platformAuthorization.requirePermission(context, PERM_DELETE);
         WorkExperience existing = repository
                 .findById(id)

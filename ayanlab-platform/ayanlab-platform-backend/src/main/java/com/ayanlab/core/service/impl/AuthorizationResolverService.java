@@ -1,9 +1,9 @@
 package com.ayanlab.core.service.impl;
 
-import com.ayanlab.core.data.CoreContext;
-import com.ayanlab.core.data.dto.EffectiveAuthorization;
-import com.ayanlab.core.data.dto.ResourceScopeDto;
-import com.ayanlab.core.data.enums.PermissionEffectEnum;
+import com.ayanlab.core.dto.CoreContext;
+import com.ayanlab.core.dto.EffectiveAuthorization;
+import com.ayanlab.core.dto.ResourceScopeDto;
+import com.ayanlab.core.enums.PermissionEffectEnum;
 import com.ayanlab.core.entity.*;
 import com.ayanlab.core.exception.CoreException;
 import com.ayanlab.core.repository.*;

@@ -1,7 +1,7 @@
 package com.ayanlab.core.service;
 
-import com.ayanlab.core.data.CoreContext;
-import com.ayanlab.core.data.requests.SendTemplateEmailRequest;
+import com.ayanlab.core.dto.CoreContext;
+import com.ayanlab.core.dto.request.SendTemplateEmailRequest;
 
 public interface EmailDispatchService {
 

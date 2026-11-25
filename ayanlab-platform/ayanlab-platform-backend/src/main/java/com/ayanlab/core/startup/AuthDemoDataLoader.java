@@ -1,7 +1,7 @@
 package com.ayanlab.core.startup;
 
 import com.ayanlab.core.condition.AuthSeedSurface;
-import com.ayanlab.core.data.enums.NotificationTypeEnum;
+import com.ayanlab.core.enums.NotificationTypeEnum;
 import com.ayanlab.core.entity.App;
 import com.ayanlab.core.entity.ApplicationModule;
 import com.ayanlab.core.entity.ApplicationOrganization;

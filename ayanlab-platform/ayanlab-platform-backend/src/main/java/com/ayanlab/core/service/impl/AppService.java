@@ -1,8 +1,8 @@
 package com.ayanlab.core.service.impl;
 
-import com.ayanlab.core.data.CoreContext;
-import com.ayanlab.core.data.enums.ActionEnum;
-import com.ayanlab.core.data.responses.PagedResponse;
+import com.ayanlab.core.dto.CoreContext;
+import com.ayanlab.core.enums.ActionEnum;
+import com.ayanlab.core.dto.response.PagedResponse;
 import com.ayanlab.core.entity.App;
 import com.ayanlab.core.exception.CoreException;
 import com.ayanlab.core.repository.AppRepository;
@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
-import static com.ayanlab.core.data.mapper.BaseMapper.map;
+import static com.ayanlab.core.mapping.BaseMapper.map;
 
 @Slf4j
 @Service

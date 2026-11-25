@@ -1,7 +1,7 @@
 package com.ayanlab.core.entity;
 
-import com.ayanlab.core.data.enums.PaymentMethodEnum;
-import com.ayanlab.core.data.enums.PaymentStatusEnum;
+import com.ayanlab.core.enums.PaymentMethodEnum;
+import com.ayanlab.core.enums.PaymentStatusEnum;
 import jakarta.persistence.*;
 import lombok.*;
 

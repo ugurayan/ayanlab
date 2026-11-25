@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -19,7 +20,7 @@ import lombok.Setter;
 @Table(name = "Worker")
 public class Worker {
     @Id
-    private String id;
+    private UUID id;
     private String displayName;
     private double rating;
     private int ratingCount;
@@ -44,7 +45,7 @@ public class Worker {
     private List<String> jobProfiles = new ArrayList<>();
 
     @ElementCollection
-    @CollectionTable(name = "WorkerSkill", joinColumns = @JoinColumn(name = "workerId"))
+    @CollectionTable(name = "WorkerSkillTag", joinColumns = @JoinColumn(name = "workerId"))
     @Column(name = "skill")
     private List<String> skills = new ArrayList<>();
 }

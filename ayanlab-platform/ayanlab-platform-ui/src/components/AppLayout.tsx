@@ -79,8 +79,7 @@ export function AppLayout() {
   }
 
   function renderLink(e: EntityResource, nested = false) {
-    const label =
-      nested && e.folderLabel ? entityName(`${e.id}.folder`, e.folderLabel) : entityName(e.id, e.label);
+    const label = entityName(e.id, e.label);
     return (
       <li key={nested ? `nav-child-${e.id}` : `nav-leaf-${e.id}`}>
         <NavLink

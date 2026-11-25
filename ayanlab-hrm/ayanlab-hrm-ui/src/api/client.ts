@@ -27,16 +27,23 @@ export const authHttp = axios.create({
 });
 
 function correlationId() {
-  return `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+  return crypto.randomUUID();
 }
 
 http.interceptors.request.use((config) => {
   const token = getToken();
+  const refresh = typeof window !== "undefined" ? window.localStorage.getItem("refreshToken") : null;
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
+    config.headers["X-Client-Token"] = token;
+  }
+  if (refresh) {
+    config.headers["X-Client-Refresh-Token"] = refresh;
   }
   config.headers["X-App-Id"] = appId;
   config.headers["X-Client-Type"] = "Web";
+  config.headers["X-Client-Language"] =
+    (typeof window !== "undefined" && window.localStorage.getItem("language")) || "en";
   config.headers["X-Correlation-Id"] = correlationId();
   return config;
 });

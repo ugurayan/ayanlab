@@ -6,7 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Binds standard AyanLabs client headers into {@link com.ayanlab.core.data.ClientHeadersPayload}.
+ * Binds standard AyanLabs client headers into {@link com.ayanlab.core.dto.ClientHeadersPayload}.
  * Use {@code requireTokens = false} on sign-in / public catalog endpoints.
  */
 @Target(ElementType.PARAMETER)

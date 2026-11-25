@@ -3,12 +3,12 @@ package com.ayanlab.core.controller;
 import com.ayanlab.core.condition.CoreBusinessApi;
 import com.ayanlab.core.annotation.ClientHeaders;
 import com.ayanlab.core.annotation.RequirePermission;
-import com.ayanlab.core.data.ClientHeadersPayload;
-import com.ayanlab.core.data.enums.ApprovalStatusEnum;
-import com.ayanlab.core.data.enums.ApprovalSubjectTypeEnum;
-import com.ayanlab.core.data.requests.ApprovalDecisionRequest;
-import com.ayanlab.core.data.requests.CreateApprovalRequest;
-import com.ayanlab.core.data.responses.ApiResponse;
+import com.ayanlab.core.dto.ClientHeadersPayload;
+import com.ayanlab.core.enums.ApprovalStatusEnum;
+import com.ayanlab.core.enums.ApprovalSubjectTypeEnum;
+import com.ayanlab.core.dto.request.ApprovalDecisionRequest;
+import com.ayanlab.core.dto.request.CreateApprovalRequest;
+import com.ayanlab.core.dto.response.ApiResponse;
 import com.ayanlab.core.entity.ApprovalRequest;
 import com.ayanlab.core.service.IApprovalRequestService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -124,6 +124,6 @@ public class ApprovalController extends BaseController {
 
     @FunctionalInterface
     private interface DecisionApplier {
-        ApprovalRequest apply(UUID id, String note, com.ayanlab.core.data.CoreContext context);
+        ApprovalRequest apply(UUID id, String note, com.ayanlab.core.dto.CoreContext context);
     }
 }

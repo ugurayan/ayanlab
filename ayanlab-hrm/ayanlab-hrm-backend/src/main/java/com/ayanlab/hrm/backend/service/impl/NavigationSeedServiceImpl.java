@@ -4,7 +4,7 @@ import com.ayanlab.hrm.backend.config.HrmDataProperties;
 import com.ayanlab.hrm.backend.entity.Locale;
 import com.ayanlab.hrm.backend.entity.MenuItem;
 import com.ayanlab.hrm.backend.entity.MenuItemLabel;
-import com.ayanlab.hrm.backend.entity.NavigationSection;
+import com.ayanlab.hrm.backend.enums.NavigationSection;
 import com.ayanlab.hrm.backend.repository.LocaleRepository;
 import com.ayanlab.hrm.backend.repository.MenuItemLabelRepository;
 import com.ayanlab.hrm.backend.repository.MenuItemRepository;

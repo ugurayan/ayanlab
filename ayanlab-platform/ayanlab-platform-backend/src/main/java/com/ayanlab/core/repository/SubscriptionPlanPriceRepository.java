@@ -1,6 +1,6 @@
 package com.ayanlab.core.repository;
 
-import com.ayanlab.core.data.enums.BillingPeriodEnum;
+import com.ayanlab.core.enums.BillingPeriodEnum;
 import com.ayanlab.core.entity.SubscriptionPlanPrice;
 import org.springframework.data.jpa.repository.JpaRepository;
 

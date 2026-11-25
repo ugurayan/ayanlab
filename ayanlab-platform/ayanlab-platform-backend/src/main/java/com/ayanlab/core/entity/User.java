@@ -1,7 +1,7 @@
 package com.ayanlab.core.entity;
 
-import com.ayanlab.core.data.enums.EmailStatusEnum;
-import com.ayanlab.core.data.enums.MobileStatusEnum;
+import com.ayanlab.core.enums.EmailStatusEnum;
+import com.ayanlab.core.enums.MobileStatusEnum;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;

@@ -1,7 +1,7 @@
 package com.ayanlab.pms.backend.repository;
 
 import com.ayanlab.pms.backend.entity.signup.IpmsSignupSession;
-import com.ayanlab.pms.backend.data.enums.OrganizationJoinRequestStatusEnum;
+import com.ayanlab.pms.backend.enums.OrganizationJoinRequestStatusEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

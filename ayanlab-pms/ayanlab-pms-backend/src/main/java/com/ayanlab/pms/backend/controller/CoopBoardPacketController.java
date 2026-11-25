@@ -1,8 +1,8 @@
 package com.ayanlab.pms.backend.controller;
 
 import com.ayanlab.core.annotation.ClientHeaders;
-import com.ayanlab.core.data.ClientHeadersPayload;
-import com.ayanlab.core.data.responses.ApiResponse;
+import com.ayanlab.core.dto.ClientHeadersPayload;
+import com.ayanlab.core.dto.response.ApiResponse;
 import com.ayanlab.pms.backend.entity.associations.CoopBoardPacket;
 import com.ayanlab.pms.backend.service.ICoopBoardPacketService;
 import io.swagger.v3.oas.annotations.tags.Tag;

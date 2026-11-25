@@ -1,6 +1,6 @@
 package com.ayanlab.pms.backend.service.impl;
 
-import com.ayanlab.core.data.CoreContext;
+import com.ayanlab.core.dto.CoreContext;
 import java.util.List;
 import java.util.UUID;
 

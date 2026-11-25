@@ -1,6 +1,6 @@
 package com.ayanlab.core.entity;
 
-import com.ayanlab.core.data.enums.BillingPeriodEnum;
+import com.ayanlab.core.enums.BillingPeriodEnum;
 import jakarta.persistence.*;
 import lombok.*;
 

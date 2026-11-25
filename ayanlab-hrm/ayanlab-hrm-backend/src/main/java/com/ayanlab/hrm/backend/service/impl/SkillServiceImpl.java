@@ -4,8 +4,8 @@ import com.ayanlab.hrm.backend.entity.Skill;
 import com.ayanlab.hrm.backend.repository.SkillRepository;
 import com.ayanlab.hrm.backend.service.SkillService;
 import com.ayanlab.hrm.backend.service.platform.HrmPlatformAuthorizationService;
-import com.ayanlab.hrm.backend.service.support.HrmProfileContextSupport;
-import com.ayanlab.core.data.CoreContext;
+import com.ayanlab.hrm.backend.util.HrmProfileContextSupport;
+import com.ayanlab.core.dto.CoreContext;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +35,7 @@ public class SkillServiceImpl implements SkillService {
     }
 
     @Override
-    public Skill findById(String id, CoreContext context) {
+    public Skill findById(UUID id, CoreContext context) {
         platformAuthorization.requirePermission(context, PERM_READ);
         Skill row = repository
                 .findById(id)
@@ -48,8 +48,8 @@ public class SkillServiceImpl implements SkillService {
     @Transactional
     public Skill create(Skill body, CoreContext context) {
         platformAuthorization.requirePermission(context, PERM_CREATE);
-        if (body.getId() == null || body.getId().isBlank()) {
-            body.setId(UUID.randomUUID().toString());
+        if (body.getId() == null) {
+            body.setId(UUID.randomUUID());
         }
         HrmProfileContextSupport.stampFromContext(body, context);
         return repository.save(body);
@@ -69,7 +69,7 @@ public class SkillServiceImpl implements SkillService {
 
     @Override
     @Transactional
-    public void deleteById(String id, CoreContext context) {
+    public void deleteById(UUID id, CoreContext context) {
         platformAuthorization.requirePermission(context, PERM_DELETE);
         Skill existing = repository
                 .findById(id)

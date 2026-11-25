@@ -68,6 +68,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import com.ayanlab.hrm.backend.mapping.MockDataJsonMapper;
 /** Maps {@code staffiq-mock-data.json} into JPA entities for CRUD APIs. */
 @Component
 @RequiredArgsConstructor
@@ -265,7 +266,7 @@ public class MockDataSeeder {
         for (JsonNode n : nodes) {
             Department row = new Department();
             String id = n.path("department_id").asText("dept_" + i);
-            row.setId(id);
+            row.setId(com.ayanlab.hrm.backend.util.Ids.parse(id));
             row.setDetails(n);
             rows.add(row);
             i++;
@@ -280,9 +281,9 @@ public class MockDataSeeder {
         List<Profile> rows = new ArrayList<>();
         for (JsonNode n : nodes) {
             Profile row = new Profile();
-            row.setId(text(n, "id"));
-            row.setWorkerId(textOrNull(n, "workerId"));
-            row.setProfileId(textOrNull(n, "id"));
+            row.setId(com.ayanlab.hrm.backend.util.Ids.parse(text(n, "id")));
+            row.setWorkerId(com.ayanlab.hrm.backend.util.Ids.parse(textOrNull(n, "workerId")));
+            row.setProfileId(com.ayanlab.hrm.backend.util.Ids.parse(textOrNull(n, "id")));
             row.setDetails(n);
             rows.add(row);
         }
@@ -302,7 +303,7 @@ public class MockDataSeeder {
 
     private <T extends com.ayanlab.hrm.backend.entity.ProfileLinkedEntity> void loadProfileLinked(
             JsonNode nodes,
-            org.springframework.data.jpa.repository.JpaRepository<T, String> repository,
+            org.springframework.data.jpa.repository.JpaRepository<T, java.util.UUID> repository,
             Class<T> type) {
         if (!nodes.isArray()) {
             return;
@@ -312,45 +313,45 @@ public class MockDataSeeder {
             try {
                 T row = type.getDeclaredConstructor().newInstance();
                 if (row instanceof Education education) {
-                    education.setId(text(n, "id"));
-                    education.setWorkerId(textOrNull(n, "workerId"));
-                    education.setProfileId(textOrNull(n, "profileId"));
+                    education.setId(com.ayanlab.hrm.backend.util.Ids.parse(text(n, "id")));
+                    education.setWorkerId(com.ayanlab.hrm.backend.util.Ids.parse(textOrNull(n, "workerId")));
+                    education.setProfileId(com.ayanlab.hrm.backend.util.Ids.parse(textOrNull(n, "profileId")));
                     education.setDetails(n);
                     rows.add(type.cast(education));
                 } else if (row instanceof WorkExperience experience) {
-                    experience.setId(text(n, "id"));
-                    experience.setWorkerId(textOrNull(n, "workerId"));
-                    experience.setProfileId(textOrNull(n, "profileId"));
+                    experience.setId(com.ayanlab.hrm.backend.util.Ids.parse(text(n, "id")));
+                    experience.setWorkerId(com.ayanlab.hrm.backend.util.Ids.parse(textOrNull(n, "workerId")));
+                    experience.setProfileId(com.ayanlab.hrm.backend.util.Ids.parse(textOrNull(n, "profileId")));
                     experience.setDetails(n);
                     rows.add(type.cast(experience));
                 } else if (row instanceof ProfileLanguage language) {
-                    language.setId(text(n, "id"));
-                    language.setWorkerId(textOrNull(n, "workerId"));
-                    language.setProfileId(textOrNull(n, "profileId"));
+                    language.setId(com.ayanlab.hrm.backend.util.Ids.parse(text(n, "id")));
+                    language.setWorkerId(com.ayanlab.hrm.backend.util.Ids.parse(textOrNull(n, "workerId")));
+                    language.setProfileId(com.ayanlab.hrm.backend.util.Ids.parse(textOrNull(n, "profileId")));
                     language.setDetails(n);
                     rows.add(type.cast(language));
                 } else if (row instanceof ProfileContact contact) {
-                    contact.setId(text(n, "id"));
-                    contact.setWorkerId(textOrNull(n, "workerId"));
-                    contact.setProfileId(textOrNull(n, "profileId"));
+                    contact.setId(com.ayanlab.hrm.backend.util.Ids.parse(text(n, "id")));
+                    contact.setWorkerId(com.ayanlab.hrm.backend.util.Ids.parse(textOrNull(n, "workerId")));
+                    contact.setProfileId(com.ayanlab.hrm.backend.util.Ids.parse(textOrNull(n, "profileId")));
                     contact.setDetails(n);
                     rows.add(type.cast(contact));
                 } else if (row instanceof ProfileLocationDetail location) {
-                    location.setId(text(n, "id"));
-                    location.setWorkerId(textOrNull(n, "workerId"));
-                    location.setProfileId(textOrNull(n, "profileId"));
+                    location.setId(com.ayanlab.hrm.backend.util.Ids.parse(text(n, "id")));
+                    location.setWorkerId(com.ayanlab.hrm.backend.util.Ids.parse(textOrNull(n, "workerId")));
+                    location.setProfileId(com.ayanlab.hrm.backend.util.Ids.parse(textOrNull(n, "profileId")));
                     location.setDetails(n);
                     rows.add(type.cast(location));
                 } else if (row instanceof WorkerSkill skill) {
-                    skill.setId(text(n, "id"));
-                    skill.setWorkerId(textOrNull(n, "workerId"));
-                    skill.setProfileId(textOrNull(n, "profileId"));
+                    skill.setId(com.ayanlab.hrm.backend.util.Ids.parse(text(n, "id")));
+                    skill.setWorkerId(com.ayanlab.hrm.backend.util.Ids.parse(textOrNull(n, "workerId")));
+                    skill.setProfileId(com.ayanlab.hrm.backend.util.Ids.parse(textOrNull(n, "profileId")));
                     skill.setDetails(n);
                     rows.add(type.cast(skill));
                 } else if (row instanceof WorkerCertificate certificate) {
-                    certificate.setId(text(n, "id"));
-                    certificate.setWorkerId(textOrNull(n, "workerId"));
-                    certificate.setProfileId(textOrNull(n, "profileId"));
+                    certificate.setId(com.ayanlab.hrm.backend.util.Ids.parse(text(n, "id")));
+                    certificate.setWorkerId(com.ayanlab.hrm.backend.util.Ids.parse(textOrNull(n, "workerId")));
+                    certificate.setProfileId(com.ayanlab.hrm.backend.util.Ids.parse(textOrNull(n, "profileId")));
                     certificate.setDetails(n);
                     rows.add(type.cast(certificate));
                 }
@@ -407,12 +408,12 @@ public class MockDataSeeder {
         }
     }
 
-    private <T> void saveCatalog(JsonNode nodes, Class<T> type, JpaRepository<T, String> repository) {
+    private <T> void saveCatalog(JsonNode nodes, Class<T> type, JpaRepository<T, java.util.UUID> repository) {
         saveCatalog(List.of(nodes), type, repository);
     }
 
     /** Persists catalog rows. Rows without {@code id} use {@code labelKey}. Duplicate ids are skipped. */
-    private <T> void saveCatalog(List<JsonNode> sources, Class<T> type, JpaRepository<T, String> repository) {
+    private <T> void saveCatalog(List<JsonNode> sources, Class<T> type, JpaRepository<T, java.util.UUID> repository) {
         Set<String> seen = new HashSet<>();
         List<T> rows = new ArrayList<>();
         for (JsonNode nodes : sources) {
@@ -430,11 +431,11 @@ public class MockDataSeeder {
                 obj.put("id", id);
                 try {
                     T row = type.getDeclaredConstructor().newInstance();
-                    type.getMethod("setId", String.class).invoke(row, id);
+                    type.getMethod("setId", java.util.UUID.class).invoke(row, com.ayanlab.hrm.backend.util.Ids.parse(id));
                     type.getMethod("setDetails", JsonNode.class).invoke(row, obj);
                     String orgId = textOrNull(obj, "orgId");
                     if (orgId != null) {
-                        type.getMethod("setOrgId", String.class).invoke(row, orgId);
+                        type.getMethod("setOrgId", java.util.UUID.class).invoke(row, com.ayanlab.hrm.backend.util.Ids.parse(orgId));
                     }
                     rows.add(row);
                 } catch (ReflectiveOperationException e) {

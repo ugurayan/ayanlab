@@ -1,16 +1,16 @@
 package com.ayanlab.pms.backend.service;
 
-import com.ayanlab.core.data.CoreContext;
+import com.ayanlab.core.dto.CoreContext;
 import com.ayanlab.core.entity.Permission;
 import com.ayanlab.core.entity.Role;
-import com.ayanlab.pms.backend.data.requests.AssignProfileRoleRequest;
-import com.ayanlab.pms.backend.data.requests.CreateAuthRoleRequest;
-import com.ayanlab.pms.backend.data.requests.UpdateMyProfileRequest;
-import com.ayanlab.pms.backend.data.requests.UpdateOrgMemberRequest;
-import com.ayanlab.pms.backend.data.responses.AuthPermissionResponse;
-import com.ayanlab.pms.backend.data.responses.AuthRoleResponse;
-import com.ayanlab.pms.backend.data.responses.MyProfileResponse;
-import com.ayanlab.pms.backend.data.responses.OrgMemberResponse;
+import com.ayanlab.pms.backend.dto.request.AssignProfileRoleRequest;
+import com.ayanlab.pms.backend.dto.request.CreateAuthRoleRequest;
+import com.ayanlab.pms.backend.dto.request.UpdateMyProfileRequest;
+import com.ayanlab.pms.backend.dto.request.UpdateOrgMemberRequest;
+import com.ayanlab.pms.backend.dto.response.AuthPermissionResponse;
+import com.ayanlab.pms.backend.dto.response.AuthRoleResponse;
+import com.ayanlab.pms.backend.dto.response.MyProfileResponse;
+import com.ayanlab.pms.backend.dto.response.OrgMemberResponse;
 
 import java.util.List;
 import java.util.UUID;

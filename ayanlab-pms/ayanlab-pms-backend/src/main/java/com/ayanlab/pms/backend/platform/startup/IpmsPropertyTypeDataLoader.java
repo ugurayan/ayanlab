@@ -1,7 +1,7 @@
 package com.ayanlab.pms.backend.platform.startup;
 
 import com.ayanlab.core.util.IdGenerator;
-import com.ayanlab.pms.backend.data.enums.PropertyTypeCategoryEnum;
+import com.ayanlab.pms.backend.enums.PropertyTypeCategoryEnum;
 import com.ayanlab.pms.backend.entity.rentals.PropertyType;
 import com.ayanlab.pms.backend.repository.PropertyTypeRepository;
 import com.fasterxml.jackson.databind.JsonNode;

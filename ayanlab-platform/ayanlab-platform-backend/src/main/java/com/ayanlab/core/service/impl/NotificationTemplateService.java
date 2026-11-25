@@ -1,9 +1,9 @@
 package com.ayanlab.core.service.impl;
 
-import com.ayanlab.core.data.CoreContext;
-import com.ayanlab.core.data.enums.ActionEnum;
-import com.ayanlab.core.data.enums.NotificationTypeEnum;
-import com.ayanlab.core.data.responses.PagedResponse;
+import com.ayanlab.core.dto.CoreContext;
+import com.ayanlab.core.enums.ActionEnum;
+import com.ayanlab.core.enums.NotificationTypeEnum;
+import com.ayanlab.core.dto.response.PagedResponse;
 import com.ayanlab.core.entity.NotificationTemplate;
 import com.ayanlab.core.exception.CoreException;
 import com.ayanlab.core.repository.NotificationTemplateRepository;
@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.UUID;
 
-import static com.ayanlab.core.data.mapper.BaseMapper.map;
+import static com.ayanlab.core.mapping.BaseMapper.map;
 
 @Slf4j
 @Service
@@ -120,7 +120,7 @@ public class NotificationTemplateService implements INotificationTemplateService
         if (template.getParametersJson() != null) {
             try {
                 com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
-                mapper.readValue(template.getParametersJson(), mapper.getTypeFactory().constructCollectionType(List.class, com.ayanlab.core.data.dto.TemplateParameterDefinition.class));
+                mapper.readValue(template.getParametersJson(), mapper.getTypeFactory().constructCollectionType(List.class, com.ayanlab.core.dto.TemplateParameterDefinition.class));
             } catch (Exception ex) {
                 throw new CoreException("VALIDATION_ERROR", "parametersJson is not a valid parameter definition array: " + ex.getMessage());
             }

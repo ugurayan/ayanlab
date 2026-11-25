@@ -1,8 +1,8 @@
 package com.ayanlab.core.entity;
 
-import com.ayanlab.core.data.enums.ApprovalStatusEnum;
-import com.ayanlab.core.data.enums.ApprovalSubjectTypeEnum;
-import com.ayanlab.core.data.enums.ApprovalTypeEnum;
+import com.ayanlab.core.enums.ApprovalStatusEnum;
+import com.ayanlab.core.enums.ApprovalSubjectTypeEnum;
+import com.ayanlab.core.enums.ApprovalTypeEnum;
 import jakarta.persistence.*;
 import lombok.*;
 

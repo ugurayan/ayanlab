@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -16,13 +17,13 @@ import org.hibernate.type.SqlTypes;
 @Table(name = "ProfileLanguage")
 public class ProfileLanguage implements ProfileLinkedEntity {
     @Id
-    private String id;
+    private UUID id;
 
-    private String profileId;
-    private String orgId;
-    private String workerId;
-    private String platformUserId;
-    private String platformRecordId;
+    private UUID profileId;
+    private UUID orgId;
+    private UUID workerId;
+    private UUID platformUserId;
+    private UUID platformRecordId;
     private String createdAt;
     private String updatedAt;
 

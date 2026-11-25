@@ -3,9 +3,10 @@ package com.ayanlab.hrm.backend.repository;
 import com.ayanlab.hrm.backend.entity.Department;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.UUID;
 
-public interface DepartmentRepository extends JpaRepository<Department, String> {
-    List<Department> findByProfileId(String profileId);
-    List<Department> findByOrgId(String orgId);
-    List<Department> findByWorkerId(String workerId);
+public interface DepartmentRepository extends JpaRepository<Department, UUID> {
+    List<Department> findByProfileId(UUID profileId);
+    List<Department> findByOrgId(UUID orgId);
+    List<Department> findByWorkerId(UUID workerId);
 }

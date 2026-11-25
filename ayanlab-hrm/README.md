@@ -129,6 +129,28 @@ Kapatmak: `STAFFIQ_RELOAD_MOCK_DATA=false` / `STAFFIQ_RELOAD_NAVIGATION=false`.
 
 Mock JSON → entity eşlemesi: `MockDataServiceImpl` + `MockDataSeeder` + `MockDataJsonMapper`.
 
+HRM domain kayıtları (`staffiq-mock-data.json`) her backend açılışında silinip yeniden yazılır. Platform kullanıcıları `authz/users.json` içinden aynı açılışta yayınlanır: kullanıcı yoksa oluşturulur, var olanın şifresi değiştirilmez.
+
+### Demo girişleri
+
+UI: `http://localhost:3104/login`. Hepsinin şifresi `password`.
+
+| E-posta | Kim | Ne görür |
+|---------|-----|----------|
+| `harbor.admin@staffiq.test` | Harbor Catering Ltd | İşveren kabuğu, yiyecek-içecek vardiyası |
+| `northline.admin@staffiq.test` | Northline Logistics GmbH | İşveren kabuğu, depo vardiyası |
+| `cityline.admin@staffiq.test` | Cityline Retail AG | İşveren kabuğu, kasa vardiyası |
+| `maya.chen@staffiq.test` | İşçi | Barista, kasiyer ve depo (üç dal) |
+| `jonah.ellis@staffiq.test` | İşçi | Mutfak asistanı |
+| `priya.shah@staffiq.test` | İşçi | Garson |
+| `lukas.meier@staffiq.test` | İşçi | Depo |
+| `elena.rossi@staffiq.test` | İşçi | Tesisat / tamir |
+| `users.admin@staffiq.test` | Sistem yöneticisi | Yalnız kullanıcı modülü |
+| `orgs.admin@staffiq.test` | Sistem yöneticisi | Yalnız organizasyon modülü |
+| `full.admin@staffiq.test` | Sistem yöneticisi | Tüm modüller |
+
+Eski seed hesapları da durur: `admin@acme.test`, `next.is.future@icloud.com` (şifre yine `password`).
+
 ### Yetkilendirme
 
 İzin formatı: `staffiq:{kaynak}:{eylem}` — tanımlar `authz/permissions.json`. Controller’lar `@RequirePermission` kullanır.

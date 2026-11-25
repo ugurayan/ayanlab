@@ -1,13 +1,13 @@
 package com.ayanlab.pms.backend.controller;
 
 import com.ayanlab.core.annotation.ClientHeaders;
-import com.ayanlab.core.data.ClientHeadersPayload;
-import com.ayanlab.core.data.responses.ApiResponse;
-import com.ayanlab.pms.backend.data.enums.OrganizationJoinRequestStatusEnum;
-import com.ayanlab.pms.backend.data.requests.CreateOrganizationInviteRequest;
-import com.ayanlab.pms.backend.data.requests.ReviewJoinRequestRequest;
-import com.ayanlab.pms.backend.data.responses.OrganizationInviteResponse;
-import com.ayanlab.pms.backend.data.responses.OrganizationJoinRequestResponse;
+import com.ayanlab.core.dto.ClientHeadersPayload;
+import com.ayanlab.core.dto.response.ApiResponse;
+import com.ayanlab.pms.backend.enums.OrganizationJoinRequestStatusEnum;
+import com.ayanlab.pms.backend.dto.request.CreateOrganizationInviteRequest;
+import com.ayanlab.pms.backend.dto.request.ReviewJoinRequestRequest;
+import com.ayanlab.pms.backend.dto.response.OrganizationInviteResponse;
+import com.ayanlab.pms.backend.dto.response.OrganizationJoinRequestResponse;
 import com.ayanlab.pms.backend.service.IIpmsSignupService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

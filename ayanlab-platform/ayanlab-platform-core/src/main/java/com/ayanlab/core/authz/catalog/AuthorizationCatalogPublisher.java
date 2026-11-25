@@ -1,6 +1,6 @@
 package com.ayanlab.core.authz.catalog;
 
-import com.ayanlab.core.helper.ApiClientHeaders;
+import com.ayanlab.core.constant.ApiClientHeaders;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -18,6 +18,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.UUID;
 
+import com.ayanlab.core.constant.InternalApiHeaders;
 /**
  * Publishes this app's authorization catalog (roles, policy groups, permissions, seed users) to the platform
  * on every startup. The platform import is idempotent, so re-publishing is safe.

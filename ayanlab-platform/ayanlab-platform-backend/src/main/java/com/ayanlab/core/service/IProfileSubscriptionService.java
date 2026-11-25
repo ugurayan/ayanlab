@@ -1,7 +1,7 @@
 package com.ayanlab.core.service;
 
-import com.ayanlab.core.data.dto.SubscriptionDtos;
-import com.ayanlab.core.data.requests.StartProfileSubscriptionRequest;
+import com.ayanlab.core.dto.SubscriptionDtos;
+import com.ayanlab.core.dto.request.StartProfileSubscriptionRequest;
 import com.ayanlab.core.entity.ProfileSubscription;
 
 import java.util.List;

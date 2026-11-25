@@ -1,8 +1,8 @@
 package com.ayanlab.pms.backend.entity.rentals;
 
 import com.ayanlab.core.entity.BaseEntity;
-import com.ayanlab.pms.backend.data.OrgScoped;
-import com.ayanlab.pms.backend.data.enums.OutstandingBalanceStatusEnum;
+import com.ayanlab.pms.backend.dto.OrgScoped;
+import com.ayanlab.pms.backend.enums.OutstandingBalanceStatusEnum;
 import jakarta.persistence.*;
 import lombok.*;
 

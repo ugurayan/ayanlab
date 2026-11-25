@@ -1,8 +1,8 @@
 package com.ayanlab.core.service;
 
-import com.ayanlab.core.data.dto.SubscriptionDtos;
-import com.ayanlab.core.data.requests.StartOrganizationSubscriptionRequest;
-import com.ayanlab.core.data.requests.StartUserSubscriptionRequest;
+import com.ayanlab.core.dto.SubscriptionDtos;
+import com.ayanlab.core.dto.request.StartOrganizationSubscriptionRequest;
+import com.ayanlab.core.dto.request.StartUserSubscriptionRequest;
 
 import java.util.List;
 import java.util.UUID;

@@ -69,10 +69,28 @@ class HrmAuthorizationCatalogTest {
     }
 
     @Test
+    void systemAdminsSplitModuleAccess() {
+        assertThat(policyGroupsOf("users.admin@staffiq.test")).containsExactly("STAFFIQ_MODULE_USERS");
+        assertThat(policyGroupsOf("orgs.admin@staffiq.test")).containsExactly("STAFFIQ_MODULE_ORGS");
+        assertThat(policyGroupsOf("full.admin@staffiq.test")).containsExactly("STAFFIQ_PLATFORM_ALL");
+        assertThat(catalog.organizationsOrEmpty())
+                .extracting(AppAuthorizationCatalog.OrganizationSpec::code)
+                .contains("HARBOR_CATERING", "NORTHLINE_LOGISTICS", "CITYLINE_RETAIL");
+    }
+
+    @Test
     void vendorUserReviewsDocumentsOnly() {
         Set<String> perms = permissionsOf("VENDOR_USER");
         assertThat(perms).contains("staffiq:documents:read", "staffiq:documents:review");
         assertThat(perms).noneMatch(p -> p.startsWith("staffiq:shifts:") || p.startsWith("staffiq:applications:"));
+    }
+
+    private static List<String> policyGroupsOf(String email) {
+        return catalog.usersOrEmpty().stream()
+                .filter(user -> email.equals(user.email()))
+                .findFirst()
+                .orElseThrow()
+                .policyGroups();
     }
 
     private static Set<String> permissionsOf(String roleCode) {

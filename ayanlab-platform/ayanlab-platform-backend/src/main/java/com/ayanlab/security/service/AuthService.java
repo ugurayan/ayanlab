@@ -1,29 +1,29 @@
 package com.ayanlab.security.service;
 
-import com.ayanlab.core.data.CoreContext;
-import com.ayanlab.core.data.dto.EffectiveAuthorization;
-import com.ayanlab.core.data.enums.RegistrationStatusEnum;
-import com.ayanlab.core.data.requests.EnrollRequest;
-import com.ayanlab.core.data.requests.LoginRequest;
-import com.ayanlab.core.data.requests.RefreshTokenRequest;
-import com.ayanlab.core.data.requests.RegisterRequest;
-import com.ayanlab.core.data.responses.AccessSummary;
-import com.ayanlab.core.data.responses.TokenResponse;
-import com.ayanlab.core.data.responses.UserDetails;
+import com.ayanlab.core.dto.CoreContext;
+import com.ayanlab.core.dto.EffectiveAuthorization;
+import com.ayanlab.core.enums.RegistrationStatusEnum;
+import com.ayanlab.core.dto.request.EnrollRequest;
+import com.ayanlab.core.dto.request.LoginRequest;
+import com.ayanlab.core.dto.request.RefreshTokenRequest;
+import com.ayanlab.core.dto.request.RegisterRequest;
+import com.ayanlab.core.dto.response.AccessSummary;
+import com.ayanlab.core.dto.response.TokenResponse;
+import com.ayanlab.core.dto.response.UserDetails;
 import com.ayanlab.core.exception.*;
 import com.ayanlab.core.entity.*;
 import com.ayanlab.core.repository.*;
 import com.ayanlab.core.service.IAccessSummaryService;
 import com.ayanlab.core.service.IAuthorizationResolverService;
 import com.ayanlab.core.service.EmailDispatchService;
-import com.ayanlab.core.data.requests.SendTemplateEmailRequest;
+import com.ayanlab.core.dto.request.SendTemplateEmailRequest;
 import com.ayanlab.core.service.IIpLogService;
 import com.ayanlab.core.service.ILoginHistoryService;
 import com.ayanlab.core.service.impl.ProfileService;
 import com.ayanlab.core.service.impl.UserService;
 import com.ayanlab.core.service.INotificationTemplateService;
 import com.ayanlab.core.entity.NotificationTemplate;
-import com.ayanlab.core.data.enums.ProfileTenancyEnum;
+import com.ayanlab.core.enums.ProfileTenancyEnum;
 import com.ayanlab.core.util.IdGenerator;
 import com.ayanlab.core.util.PhoneNumberHelper;
 import com.ayanlab.core.util.ProfileSlugHelper;
@@ -123,7 +123,7 @@ public class AuthService {
         if (sendSms && req.smsTemplateCode() != null) {
             try {
                 NotificationTemplate tmpl = notificationTemplateService.findById(
-                    notificationTemplateService.findAll(0,1, appId, com.ayanlab.core.data.enums.NotificationTypeEnum.SMS, req.smsTemplateCode(), context).getContent().stream().findFirst().map(NotificationTemplate::getId).orElse(null), context);
+                    notificationTemplateService.findAll(0,1, appId, com.ayanlab.core.enums.NotificationTypeEnum.SMS, req.smsTemplateCode(), context).getContent().stream().findFirst().map(NotificationTemplate::getId).orElse(null), context);
                 log.info("[register] sending sms using template={} to={} correlationId={}", req.smsTemplateCode(), user.getMobile(), context.getCorrelationId());
             } catch (Exception ex) {
                 log.warn("[register] sms template not found or error sending sms: {}", ex.getMessage());

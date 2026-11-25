@@ -1,6 +1,6 @@
 package com.ayanlab.core.service;
 
-import com.ayanlab.core.data.CoreContext;
+import com.ayanlab.core.dto.CoreContext;
 
 import java.util.UUID;
 

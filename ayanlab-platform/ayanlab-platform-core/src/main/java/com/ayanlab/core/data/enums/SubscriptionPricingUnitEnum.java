@@ -1,7 +1,0 @@
-package com.ayanlab.core.data.enums;
-
-/** How a plan price is calculated (flat vs per-seat). */
-public enum SubscriptionPricingUnitEnum {
-    FLAT,
-    PER_USER
-}

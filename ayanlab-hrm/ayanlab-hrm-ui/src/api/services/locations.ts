@@ -79,6 +79,8 @@ export type AddressApi = {
   country: string;
   profileId: string;
   createdAt: string;
+  lat?: number;
+  lng?: number;
 };
 
 export type AddressPage = {
@@ -255,16 +257,29 @@ export async function apiListLocations(): Promise<AddressApi[]> {
   const { endpoints } = await import("../endpoints");
   const { unwrapHrmData } = await import("../hrmApi");
   const res = await http.get(endpoints.locations.list);
-  const rows = unwrapHrmData<Array<{ id: string; name: string; city?: string; orgId?: string }>>(res.data);
+  const rows = unwrapHrmData<Array<{
+    id: string;
+    name?: string;
+    formattedAddress?: string;
+    street?: string;
+    city?: string;
+    state?: string;
+    zipCode?: string;
+    country?: string;
+    latitude?: number;
+    longitude?: number;
+  }>>(res.data);
   return rows.map((row) => ({
     id: row.id,
-    name: row.name,
-    street: row.name,
+    name: row.name || row.formattedAddress || "",
+    street: row.street || row.formattedAddress || row.name || "",
     city: row.city ?? "",
-    state: "",
-    zipcode: "",
-    country: "",
-    lat: 0,
-    lng: 0,
+    state: row.state ?? "",
+    zipcode: row.zipCode ?? "",
+    country: row.country ?? "",
+    profileId: "",
+    createdAt: "",
+    lat: row.latitude ?? 0,
+    lng: row.longitude ?? 0,
   }));
 }

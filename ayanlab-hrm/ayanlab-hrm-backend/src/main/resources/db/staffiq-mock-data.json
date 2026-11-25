@@ -12,6 +12,27 @@
       "name": "Zen Logistics AG",
       "country": "DE",
       "createdAt": "2026-11-23T06:21:11.177Z"
+    },
+    {
+      "id": "staffiq-org:HARBOR_CATERING",
+      "name": "Harbor Catering Ltd",
+      "country": "GB",
+      "email": "harbor.admin@staffiq.test",
+      "createdAt": "2026-11-25T08:00:00.000Z"
+    },
+    {
+      "id": "staffiq-org:NORTHLINE_LOGISTICS",
+      "name": "Northline Logistics GmbH",
+      "country": "DE",
+      "email": "northline.admin@staffiq.test",
+      "createdAt": "2026-11-25T08:00:00.000Z"
+    },
+    {
+      "id": "staffiq-org:CITYLINE_RETAIL",
+      "name": "Cityline Retail AG",
+      "country": "CH",
+      "email": "cityline.admin@staffiq.test",
+      "createdAt": "2026-11-25T08:00:00.000Z"
     }
   ],
   "locations": [
@@ -35,6 +56,27 @@
       "name": "Zen — Warehouse A",
       "city": "Berlin",
       "createdAt": "2026-11-23T06:21:11.177Z"
+    },
+    {
+      "id": "loc_harbor_1",
+      "orgId": "staffiq-org:HARBOR_CATERING",
+      "name": "Harbor — Shoreditch",
+      "city": "London",
+      "createdAt": "2026-11-25T08:00:00.000Z"
+    },
+    {
+      "id": "loc_northline_1",
+      "orgId": "staffiq-org:NORTHLINE_LOGISTICS",
+      "name": "Northline — Warehouse A",
+      "city": "Berlin",
+      "createdAt": "2026-11-25T08:00:00.000Z"
+    },
+    {
+      "id": "loc_cityline_1",
+      "orgId": "staffiq-org:CITYLINE_RETAIL",
+      "name": "Cityline — Bahnhofstrasse",
+      "city": "Zurich",
+      "createdAt": "2026-11-25T08:00:00.000Z"
     }
   ],
   "shifts": [
@@ -57,6 +99,36 @@
       "endAt": "2026-11-23T06:21:11.177Z",
       "headcount": 1,
       "status": "DRAFT"
+    },
+    {
+      "id": "sh_harbor_barista",
+      "orgId": "staffiq-org:HARBOR_CATERING",
+      "locationId": "loc_harbor_1",
+      "role": "Barista",
+      "startAt": "2026-12-01T08:00:00.000Z",
+      "endAt": "2026-12-01T16:00:00.000Z",
+      "headcount": 2,
+      "status": "PUBLISHED"
+    },
+    {
+      "id": "sh_northline_warehouse",
+      "orgId": "staffiq-org:NORTHLINE_LOGISTICS",
+      "locationId": "loc_northline_1",
+      "role": "Warehouse operative",
+      "startAt": "2026-12-02T06:00:00.000Z",
+      "endAt": "2026-12-02T14:00:00.000Z",
+      "headcount": 3,
+      "status": "PUBLISHED"
+    },
+    {
+      "id": "sh_cityline_cashier",
+      "orgId": "staffiq-org:CITYLINE_RETAIL",
+      "locationId": "loc_cityline_1",
+      "role": "Cashier",
+      "startAt": "2026-12-03T09:00:00.000Z",
+      "endAt": "2026-12-03T17:00:00.000Z",
+      "headcount": 1,
+      "status": "PUBLISHED"
     }
   ],
   "applications": [
@@ -64,6 +136,24 @@
       "id": "app_1",
       "shiftId": "sh_1",
       "workerId": "w_1",
+      "status": "APPLIED"
+    },
+    {
+      "id": "app_harbor_maya",
+      "shiftId": "sh_harbor_barista",
+      "workerId": "w_maya",
+      "status": "APPLIED"
+    },
+    {
+      "id": "app_northline_lukas",
+      "shiftId": "sh_northline_warehouse",
+      "workerId": "w_lukas",
+      "status": "APPLIED"
+    },
+    {
+      "id": "app_cityline_priya",
+      "shiftId": "sh_cityline_cashier",
+      "workerId": "w_priya",
       "status": "APPLIED"
     }
   ],
@@ -177,6 +267,111 @@
         }
       ],
       "notes": "Monitor reliability closely; requires approval for premium shifts."
+    },
+    {
+      "id": "w_maya",
+      "displayName": "Maya Chen",
+      "rating": 4.8,
+      "ratingCount": 65,
+      "reliability": 0.96,
+      "acceptanceRate": 0.9,
+      "jobProfiles": ["Barista", "Cashier", "Warehouse operative"],
+      "skills": ["Coffee Making", "Customer Service", "Cash Handling", "Order Taking"],
+      "onTimeStarts": 60,
+      "lateStarts": 2,
+      "jobsCompleted": 64,
+      "jobsNotCompleted": 1,
+      "noShows": 0,
+      "criticalIncidents": 0,
+      "reliabilityIncidents": 1,
+      "avgHourlyRateCents": 1850,
+      "earnings": { "currency": "GBP", "lastMonthCents": 248000, "last3MonthsCents": 710000, "last6MonthsCents": 1400000, "last12MonthsCents": 2680000 },
+      "lastIncidents": [],
+      "notes": "Expert in food service, retail checkout and warehouse. Login maya.chen@staffiq.test."
+    },
+    {
+      "id": "w_jonah",
+      "displayName": "Jonah Ellis",
+      "rating": 4.4,
+      "ratingCount": 22,
+      "reliability": 0.91,
+      "acceptanceRate": 0.8,
+      "jobProfiles": ["Kitchen assistant"],
+      "skills": ["Food Preparation", "Food Hygiene", "Kitchen Equipment"],
+      "onTimeStarts": 20,
+      "lateStarts": 1,
+      "jobsCompleted": 21,
+      "jobsNotCompleted": 0,
+      "noShows": 0,
+      "criticalIncidents": 0,
+      "reliabilityIncidents": 0,
+      "avgHourlyRateCents": 1600,
+      "earnings": { "currency": "GBP", "lastMonthCents": 180000, "last3MonthsCents": 520000, "last6MonthsCents": 980000, "last12MonthsCents": 1760000 },
+      "lastIncidents": [],
+      "notes": "Kitchen only. Login jonah.ellis@staffiq.test."
+    },
+    {
+      "id": "w_priya",
+      "displayName": "Priya Shah",
+      "rating": 4.7,
+      "ratingCount": 41,
+      "reliability": 0.95,
+      "acceptanceRate": 0.88,
+      "jobProfiles": ["Waitress / Waiter"],
+      "skills": ["Customer Service", "Order Taking", "Teamwork"],
+      "onTimeStarts": 38,
+      "lateStarts": 1,
+      "jobsCompleted": 39,
+      "jobsNotCompleted": 0,
+      "noShows": 0,
+      "criticalIncidents": 0,
+      "reliabilityIncidents": 0,
+      "avgHourlyRateCents": 1550,
+      "earnings": { "currency": "GBP", "lastMonthCents": 162000, "last3MonthsCents": 470000, "last6MonthsCents": 910000, "last12MonthsCents": 1640000 },
+      "lastIncidents": [],
+      "notes": "Front of house. Login priya.shah@staffiq.test."
+    },
+    {
+      "id": "w_lukas",
+      "displayName": "Lukas Meier",
+      "rating": 4.5,
+      "ratingCount": 33,
+      "reliability": 0.94,
+      "acceptanceRate": 0.84,
+      "jobProfiles": ["Warehouse operative"],
+      "skills": ["Inventory", "Heavy Lifting", "Safety Procedures"],
+      "onTimeStarts": 30,
+      "lateStarts": 2,
+      "jobsCompleted": 31,
+      "jobsNotCompleted": 1,
+      "noShows": 0,
+      "criticalIncidents": 0,
+      "reliabilityIncidents": 1,
+      "avgHourlyRateCents": 1900,
+      "earnings": { "currency": "EUR", "lastMonthCents": 210000, "last3MonthsCents": 620000, "last6MonthsCents": 1210000, "last12MonthsCents": 2280000 },
+      "lastIncidents": [],
+      "notes": "Warehouse only. Login lukas.meier@staffiq.test."
+    },
+    {
+      "id": "w_elena",
+      "displayName": "Elena Rossi",
+      "rating": 4.6,
+      "ratingCount": 18,
+      "reliability": 0.97,
+      "acceptanceRate": 0.79,
+      "jobProfiles": ["Handyman"],
+      "skills": ["Basic Repairs", "Tools", "Problem Solving"],
+      "onTimeStarts": 17,
+      "lateStarts": 0,
+      "jobsCompleted": 17,
+      "jobsNotCompleted": 0,
+      "noShows": 0,
+      "criticalIncidents": 0,
+      "reliabilityIncidents": 0,
+      "avgHourlyRateCents": 2400,
+      "earnings": { "currency": "CHF", "lastMonthCents": 196000, "last3MonthsCents": 540000, "last6MonthsCents": 1020000, "last12MonthsCents": 1880000 },
+      "lastIncidents": [],
+      "notes": "Facilities and repairs. Login elena.rossi@staffiq.test."
     }
   ],
   "jobProfiles": [

@@ -1,8 +1,8 @@
 package com.ayanlab.core.config;
 
 import com.ayanlab.core.annotation.ClientHeaders;
-import com.ayanlab.core.data.ClientHeadersPayload;
-import com.ayanlab.core.helper.ApiClientHeaders;
+import com.ayanlab.core.dto.ClientHeadersPayload;
+import com.ayanlab.core.constant.ApiClientHeaders;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.core.MethodParameter;
 import org.springframework.stereotype.Component;

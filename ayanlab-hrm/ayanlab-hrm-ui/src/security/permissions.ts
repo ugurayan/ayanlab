@@ -11,8 +11,11 @@ export const P = {
   tasksRead: "staffiq:tasks:read",
   inboxRead: "staffiq:inbox:read",
   orgsRead: "staffiq:organizations:read",
+  legalEntitiesRead: "staffiq:legal_entities:read",
+  brandsRead: "staffiq:brands:read",
   locationsRead: "staffiq:locations:read",
   shiftsRead: "staffiq:shifts:read",
+  shiftTemplatesRead: "staffiq:shift_templates:read",
   shiftsCreate: "staffiq:shifts:create",
   applicationsRead: "staffiq:applications:read",
   workersRead: "staffiq:workers:read",
@@ -76,7 +79,8 @@ const TAXONOMY_READ = [
   "staffiq:free_time_windows:read", "staffiq:expertise_levels:read",
   "staffiq:job_documents:read", "staffiq:job_templates:read"
 ];
-const SHIFT_MANAGE = ["staffiq:shifts:*", "staffiq:jobs:*", "staffiq:tasks:*", "staffiq:job_templates:*"];
+const SHIFT_MANAGE = ["staffiq:shifts:*", "staffiq:shift_templates:*", "staffiq:jobs:*", "staffiq:tasks:*", "staffiq:job_templates:*"];
+const ORG_STRUCTURE = ["staffiq:organizations:*", "staffiq:legal_entities:*", "staffiq:brands:*", "staffiq:locations:*"];
 const DOCUMENT_REVIEW = [
   "staffiq:documents:read", "staffiq:documents:review",
   "staffiq:verification:read", "staffiq:verification:review"
@@ -90,7 +94,7 @@ const ROLE_GRANTS: Record<string, Permission[]> = {
   PLATFORM_ADMIN: ["staffiq:*:*"],
   ADMIN: ["staffiq:*:*"],
   ORG_ADMIN: [
-    ...BASE, "staffiq:organizations:*", "staffiq:locations:*", ...SHIFT_MANAGE, "staffiq:applications:*",
+    ...BASE, ...ORG_STRUCTURE, ...SHIFT_MANAGE, "staffiq:applications:*",
     "staffiq:workers:read", ...DOCUMENT_REVIEW, "staffiq:finance:read", "staffiq:transactions:read",
     "staffiq:audit:read", ...TAXONOMY_READ, "staffiq:subscriptions:*"
   ],

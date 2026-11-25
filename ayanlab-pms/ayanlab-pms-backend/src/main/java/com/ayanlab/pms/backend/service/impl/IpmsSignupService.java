@@ -1,10 +1,10 @@
 package com.ayanlab.pms.backend.service.impl;
 
-import com.ayanlab.core.data.CoreContext;
-import com.ayanlab.core.data.enums.RegistrationStatusEnum;
-import com.ayanlab.core.data.requests.RegisterRequest;
-import com.ayanlab.core.data.responses.AccessSummary;
-import com.ayanlab.core.data.responses.TokenResponse;
+import com.ayanlab.core.dto.CoreContext;
+import com.ayanlab.core.enums.RegistrationStatusEnum;
+import com.ayanlab.core.dto.request.RegisterRequest;
+import com.ayanlab.core.dto.response.AccessSummary;
+import com.ayanlab.core.dto.response.TokenResponse;
 import com.ayanlab.core.entity.*;
 import com.ayanlab.core.exception.CoreException;
 import com.ayanlab.core.repository.*;
@@ -16,9 +16,9 @@ import com.ayanlab.core.service.IProfileService;
 import com.ayanlab.core.service.impl.UserService;
 import com.ayanlab.core.util.IdGenerator;
 import com.ayanlab.core.util.PhoneNumberHelper;
-import com.ayanlab.pms.backend.data.enums.*;
-import com.ayanlab.pms.backend.data.requests.*;
-import com.ayanlab.pms.backend.data.responses.*;
+import com.ayanlab.pms.backend.enums.*;
+import com.ayanlab.pms.backend.dto.request.*;
+import com.ayanlab.pms.backend.dto.response.*;
 import com.ayanlab.pms.backend.entity.onboarding.IpmsOnboardingProfile;
 import com.ayanlab.pms.backend.entity.signup.IpmsOrganizationInvite;
 import com.ayanlab.pms.backend.entity.signup.IpmsOrganizationJoinRequest;

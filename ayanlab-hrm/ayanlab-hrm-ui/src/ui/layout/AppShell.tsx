@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Outlet, NavLink, useNavigate } from "react-router-dom";
+import { Outlet, NavLink, useLocation, useNavigate } from "react-router-dom";
 import {
   Building2,
   CalendarClock,
@@ -38,6 +38,7 @@ import { APP_LANGUAGE_CODES, localeOptionLabel } from "../../i18n/localeCatalog"
 import { Button } from "../components/Button";
 import { TEXTS } from "./i18n";
 import { P } from "../../security/permissions";
+import { routeVisibleInShell, SHELL_LABEL, useActiveShell, type HrmShell } from "../../security/shell";
 
 type NavItem = {
   to: string;
@@ -54,6 +55,8 @@ const nav = [
   { to: "/app/tasks", labelKey: "tasks", icon: <ClipboardList size={18} />, perm: [P.tasksRead] },
   { to: "/app/inbox", labelKey: "inbox", icon: <Mail size={18} />, perm: [P.inboxRead] },
   { to: "/app/orgs", labelKey: "orgs", icon: <Building2 size={18} />, perm: [P.orgsRead] },
+  { to: "/app/legal-entities", labelKey: "legalEntities", icon: <Building2 size={18} />, perm: [P.legalEntitiesRead] },
+  { to: "/app/brands", labelKey: "brands", icon: <Tag size={18} />, perm: [P.brandsRead] },
   { to: "/app/locations", labelKey: "locations", icon: <MapPin size={18} />, perm: [P.locationsRead] },
   { to: "/app/shifts", labelKey: "shifts", icon: <CalendarClock size={18} />, perm: [P.shiftsRead] },
   { to: "/app/applications", labelKey: "applications", icon: <ClipboardList size={18} />, perm: [P.applicationsRead] },
@@ -76,7 +79,9 @@ const nav = [
 
 export function AppShell() {
   const { user, logout, has } = useAuth();
+  const { shell, available, setShell, constrained } = useActiveShell();
   const navigate = useNavigate();
+  const location = useLocation();
   const [isNavOpen, setIsNavOpen] = useState(false);
   const { language, setLanguage } = useLanguage();
   const copy = useTranslations(TEXTS);
@@ -139,9 +144,20 @@ export function AppShell() {
     if (!isProfileApproved) {
       return false;
     }
-    // Otherwise, filter by permissions
+    if (constrained && !routeVisibleInShell(n.to, shell)) {
+      return false;
+    }
     return n.perm.some((p) => has(p));
   });
+
+  const switchShell = (next: HrmShell) => {
+    setShell(next);
+    setIsProfileChangeOpen(false);
+    setIsProfileSwitcherOpen(false);
+    if (!routeVisibleInShell(location.pathname, next)) {
+      navigate("/app/profile");
+    }
+  };
 
   // Group admin-related items for sidebar
   const adminSectionRoutes = new Set<string>([
@@ -532,36 +548,21 @@ export function AppShell() {
                   className="absolute right-0 top-full mt-2 w-64 rounded-2xl border border-slate-200 bg-white p-2 shadow-lg z-50"
                 >
                   <div className="space-y-1">
-                    <button
-                      className="w-full rounded-xl px-3 py-2 text-left text-sm hover:bg-slate-50 flex items-center gap-2"
-                      onClick={() => {
-                        navigate("/app/profile");
-                        setIsProfileChangeOpen(false);
-                      }}
-                    >
-                      <Users size={16} />
-                      <span>Worker Profile</span>
-                    </button>
-                    <button
-                      className="w-full rounded-xl px-3 py-2 text-left text-sm hover:bg-slate-50 flex items-center gap-2"
-                      onClick={() => {
-                        // Switch to company admin profile
-                        setIsProfileChangeOpen(false);
-                      }}
-                    >
-                      <Building2 size={16} />
-                      <span>Company Admin</span>
-                    </button>
-                    <button
-                      className="w-full rounded-xl px-3 py-2 text-left text-sm hover:bg-slate-50 flex items-center gap-2"
-                      onClick={() => {
-                        // Switch to system admin profile
-                        setIsProfileChangeOpen(false);
-                      }}
-                    >
-                      <ShieldCheck size={16} />
-                      <span>System Admin</span>
-                    </button>
+                    {(["worker", "employer", "admin"] as HrmShell[])
+                      .filter((item) => available.includes(item))
+                      .map((item) => (
+                        <button
+                          key={item}
+                          className={cn(
+                            "w-full rounded-xl px-3 py-2 text-left text-sm hover:bg-slate-50 flex items-center gap-2",
+                            shell === item && "bg-slate-50 font-semibold"
+                          )}
+                          onClick={() => switchShell(item)}
+                        >
+                          {item === "worker" ? <Users size={16} /> : item === "employer" ? <Building2 size={16} /> : <ShieldCheck size={16} />}
+                          <span>{SHELL_LABEL[item]}</span>
+                        </button>
+                      ))}
                     <div className="border-t border-slate-100 my-1"></div>
                     <button
                       className="w-full rounded-xl px-3 py-2 text-left text-sm hover:bg-slate-50 flex items-center gap-2 text-red-600"
@@ -618,17 +619,20 @@ export function AppShell() {
         {/* Profile switcher panel */}
         {isProfileSwitcherOpen && (
           <div className="mb-4 rounded-2xl border border-slate-200 bg-white p-3 text-sm shadow-sm">
-            <div className="text-xs font-semibold text-slate-500 mb-2">Switch profile (mock)</div>
+            <div className="text-xs font-semibold text-slate-500 mb-2">Switch profile</div>
             <div className="grid gap-2 md:grid-cols-3">
-              <button className="rounded-xl border border-slate-100 px-3 py-2 text-left text-xs hover:bg-slate-50">
-                Worker profile
-              </button>
-              <button className="rounded-xl border border-slate-100 px-3 py-2 text-left text-xs hover:bg-slate-50">
-                Company admin profile
-              </button>
-              <button className="rounded-xl border border-slate-100 px-3 py-2 text-left text-xs hover:bg-slate-50">
-                System admin profile
-              </button>
+              {available.map((item) => (
+                <button
+                  key={item}
+                  className={cn(
+                    "rounded-xl border px-3 py-2 text-left text-xs hover:bg-slate-50",
+                    shell === item ? "border-slate-900 bg-slate-50 font-semibold" : "border-slate-100"
+                  )}
+                  onClick={() => switchShell(item)}
+                >
+                  {SHELL_LABEL[item]}
+                </button>
+              ))}
             </div>
           </div>
         )}

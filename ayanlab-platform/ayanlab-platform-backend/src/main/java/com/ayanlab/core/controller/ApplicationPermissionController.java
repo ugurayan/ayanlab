@@ -1,11 +1,11 @@
 package com.ayanlab.core.controller;
 
 import com.ayanlab.core.condition.AuthPlatformApi;
-import com.ayanlab.core.web.ApiPathPrefixes;
+import com.ayanlab.core.constant.ApiPathPrefixes;
 import com.ayanlab.core.annotation.ClientHeaders;
 import com.ayanlab.core.annotation.RequirePermission;
-import com.ayanlab.core.data.ClientHeadersPayload;
-import com.ayanlab.core.data.responses.ApiResponse;
+import com.ayanlab.core.dto.ClientHeadersPayload;
+import com.ayanlab.core.dto.response.ApiResponse;
 import com.ayanlab.core.entity.ApplicationPermission;
 import com.ayanlab.core.service.IApplicationPermissionService;
 import io.swagger.v3.oas.annotations.tags.Tag;

@@ -1,8 +1,8 @@
 package com.ayanlab.core.service.impl;
 
-import com.ayanlab.core.data.CoreContext;
-import com.ayanlab.core.data.enums.ActionEnum;
-import com.ayanlab.core.data.enums.TransactionStatusEnum;
+import com.ayanlab.core.dto.CoreContext;
+import com.ayanlab.core.enums.ActionEnum;
+import com.ayanlab.core.enums.TransactionStatusEnum;
 import com.ayanlab.core.entity.Transaction;
 import com.ayanlab.core.exception.CoreException;
 import com.ayanlab.core.repository.TransactionRepository;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static com.ayanlab.core.data.mapper.BaseMapper.map;
+import static com.ayanlab.core.mapping.BaseMapper.map;
 
 @Service
 @RequiredArgsConstructor

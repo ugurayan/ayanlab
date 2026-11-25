@@ -2,12 +2,12 @@ package com.ayanlab.auth.controller;
 
 import com.ayanlab.core.annotation.ClientHeaders;
 import com.ayanlab.core.controller.BaseController;
-import com.ayanlab.core.data.ClientHeadersPayload;
-import com.ayanlab.core.data.requests.*;
-import com.ayanlab.core.data.responses.ApiResponse;
-import com.ayanlab.core.data.responses.AppCatalogEntry;
-import com.ayanlab.core.data.responses.CurrentSessionResponse;
-import com.ayanlab.core.data.responses.TokenResponse;
+import com.ayanlab.core.dto.ClientHeadersPayload;
+import com.ayanlab.core.dto.request.*;
+import com.ayanlab.core.dto.response.ApiResponse;
+import com.ayanlab.core.dto.response.AppCatalogEntry;
+import com.ayanlab.core.dto.response.CurrentSessionResponse;
+import com.ayanlab.core.dto.response.TokenResponse;
 import com.ayanlab.core.entity.User;
 import com.ayanlab.core.entity.UserProfile;
 import com.ayanlab.core.repository.AppRepository;

@@ -3,8 +3,8 @@ package com.ayanlab.hrm.backend.controller;
 import com.ayanlab.core.annotation.ClientHeaders;
 import com.ayanlab.core.annotation.RequirePermission;
 import com.ayanlab.core.controller.BaseController;
-import com.ayanlab.core.data.ClientHeadersPayload;
-import com.ayanlab.core.data.responses.ApiResponse;
+import com.ayanlab.core.dto.ClientHeadersPayload;
+import com.ayanlab.core.dto.response.ApiResponse;
 import com.ayanlab.hrm.backend.entity.Location;
 import com.ayanlab.hrm.backend.service.LocationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.UUID;
 
 @Slf4j
 @RestController
@@ -29,10 +30,13 @@ public class LocationController extends BaseController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @RequirePermission("staffiq:locations:read")
-    public ResponseEntity<ApiResponse<List<Location>>> list(@ClientHeaders ClientHeadersPayload headers) {
+    public ResponseEntity<ApiResponse<List<Location>>> list(
+            @RequestParam(required = false) String referenceEntity,
+            @RequestParam(required = false) UUID referenceId,
+            @ClientHeaders ClientHeadersPayload headers) {
         TracedCall call = tracedCall(log, "locations-list", "GET", BASE, headers, null, null);
         try {
-            List<Location> data = service.findAll(call.context());
+            List<Location> data = service.findAll(call.context(), referenceEntity, referenceId);
             call.trace().success(Map.of("count", data.size()));
             return ok(data, call.context());
         } catch (Exception e) {
@@ -44,7 +48,7 @@ public class LocationController extends BaseController {
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @RequirePermission("staffiq:locations:read")
     public ResponseEntity<ApiResponse<Location>> get(
-            @PathVariable String id, @ClientHeaders ClientHeadersPayload headers) {
+            @PathVariable UUID id, @ClientHeaders ClientHeadersPayload headers) {
         TracedCall call = tracedCall(log, "locations-get", "GET", BASE + "/{id}", headers, null, Map.of("id", id));
         try {
             Location data = service.findById(id, call.context());
@@ -74,7 +78,7 @@ public class LocationController extends BaseController {
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @RequirePermission("staffiq:locations:update")
     public ResponseEntity<ApiResponse<Location>> update(
-            @PathVariable String id, @RequestBody Location body, @ClientHeaders ClientHeadersPayload headers) {
+            @PathVariable UUID id, @RequestBody Location body, @ClientHeaders ClientHeadersPayload headers) {
         body.setId(id);
         TracedCall call = tracedCall(log, "locations-update", "PUT", BASE + "/{id}", headers, body, Map.of("id", id));
         try {
@@ -89,7 +93,7 @@ public class LocationController extends BaseController {
 
     @DeleteMapping("/{id}")
     @RequirePermission("staffiq:locations:delete")
-    public ResponseEntity<ApiResponse<Object>> delete(@PathVariable String id, @ClientHeaders ClientHeadersPayload headers) {
+    public ResponseEntity<ApiResponse<Object>> delete(@PathVariable UUID id, @ClientHeaders ClientHeadersPayload headers) {
         TracedCall call = tracedCall(log, "locations-delete", "DELETE", BASE + "/{id}", headers, null, Map.of("id", id));
         try {
             service.deleteById(id, call.context());

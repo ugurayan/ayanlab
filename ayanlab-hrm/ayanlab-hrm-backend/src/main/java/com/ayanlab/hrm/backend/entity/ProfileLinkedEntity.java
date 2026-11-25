@@ -1,21 +1,23 @@
 package com.ayanlab.hrm.backend.entity;
 
+import java.util.UUID;
+
 /** Marker for entities keyed by platform profile with optional org/worker linkage. */
 public interface ProfileLinkedEntity {
 
-    String getProfileId();
+    UUID getProfileId();
 
-    void setProfileId(String profileId);
+    void setProfileId(UUID profileId);
 
-    String getOrgId();
+    UUID getOrgId();
 
-    void setOrgId(String orgId);
+    void setOrgId(UUID orgId);
 
-    String getWorkerId();
+    UUID getWorkerId();
 
-    void setWorkerId(String workerId);
+    void setWorkerId(UUID workerId);
 
-    String getPlatformUserId();
+    UUID getPlatformUserId();
 
-    void setPlatformUserId(String platformUserId);
+    void setPlatformUserId(UUID platformUserId);
 }

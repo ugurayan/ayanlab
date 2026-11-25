@@ -1,7 +1,7 @@
 package com.ayanlab.pms.backend.entity.maintenance;
 
 import com.ayanlab.core.entity.BaseEntity;
-import com.ayanlab.pms.backend.data.OrgScoped;
+import com.ayanlab.pms.backend.dto.OrgScoped;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;

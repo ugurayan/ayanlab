@@ -1,6 +1,6 @@
 package com.ayanlab.core.entity;
 
-import com.ayanlab.core.data.enums.NotificationTypeEnum;
+import com.ayanlab.core.enums.NotificationTypeEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;

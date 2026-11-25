@@ -30,7 +30,7 @@ Optional: `X-Client-Language`
 
 Do **not** add per-method `@RequestHeader` for the old 10-header block.
 
-Constants: `com.ayanlab.core.helper.ApiClientHeaders`.
+Constants: `com.ayanlab.core.constant.ApiClientHeaders`.
 
 ## Core module pattern
 

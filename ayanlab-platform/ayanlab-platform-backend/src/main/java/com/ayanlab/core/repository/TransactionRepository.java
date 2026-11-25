@@ -1,6 +1,6 @@
 package com.ayanlab.core.repository;
 
-import com.ayanlab.core.data.enums.TransactionStatusEnum;
+import com.ayanlab.core.enums.TransactionStatusEnum;
 import com.ayanlab.core.entity.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 

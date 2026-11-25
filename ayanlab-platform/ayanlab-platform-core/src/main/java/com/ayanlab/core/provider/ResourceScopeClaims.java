@@ -1,7 +1,7 @@
 package com.ayanlab.core.provider;
 
-import com.ayanlab.core.data.dto.ResourceScopeDto;
-import com.ayanlab.core.data.enums.ResourceScopeTypeEnum;
+import com.ayanlab.core.dto.ResourceScopeDto;
+import com.ayanlab.core.enums.ResourceScopeTypeEnum;
 
 import java.util.*;
 

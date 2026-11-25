@@ -1,7 +1,7 @@
 package com.ayanlab.core.startup;
 
 import com.ayanlab.core.condition.AuthSeedSurface;
-import com.ayanlab.core.data.enums.AppSubscriptionModeEnum;
+import com.ayanlab.core.enums.AppSubscriptionModeEnum;
 import com.ayanlab.core.entity.App;
 import com.ayanlab.core.repository.AppRepository;
 import com.ayanlab.core.util.IdGenerator;

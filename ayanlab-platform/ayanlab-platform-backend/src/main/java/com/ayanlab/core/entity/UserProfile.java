@@ -1,7 +1,7 @@
 package com.ayanlab.core.entity;
 
-import com.ayanlab.core.data.enums.ProfileTenancyEnum;
-import com.ayanlab.core.data.enums.RegistrationStatusEnum;
+import com.ayanlab.core.enums.ProfileTenancyEnum;
+import com.ayanlab.core.enums.RegistrationStatusEnum;
 import com.ayanlab.core.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;

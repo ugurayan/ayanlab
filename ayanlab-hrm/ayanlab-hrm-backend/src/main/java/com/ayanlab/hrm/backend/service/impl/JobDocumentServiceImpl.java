@@ -4,8 +4,8 @@ import com.ayanlab.hrm.backend.entity.JobDocument;
 import com.ayanlab.hrm.backend.repository.JobDocumentRepository;
 import com.ayanlab.hrm.backend.service.JobDocumentService;
 import com.ayanlab.hrm.backend.service.platform.HrmPlatformAuthorizationService;
-import com.ayanlab.hrm.backend.service.support.HrmProfileContextSupport;
-import com.ayanlab.core.data.CoreContext;
+import com.ayanlab.hrm.backend.util.HrmProfileContextSupport;
+import com.ayanlab.core.dto.CoreContext;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -35,7 +35,7 @@ public class JobDocumentServiceImpl implements JobDocumentService {
     }
 
     @Override
-    public JobDocument findById(String id, CoreContext context) {
+    public JobDocument findById(UUID id, CoreContext context) {
         platformAuthorization.requirePermission(context, PERM_READ);
         JobDocument row = repository
                 .findById(id)
@@ -48,8 +48,8 @@ public class JobDocumentServiceImpl implements JobDocumentService {
     @Transactional
     public JobDocument create(JobDocument body, CoreContext context) {
         platformAuthorization.requirePermission(context, PERM_CREATE);
-        if (body.getId() == null || body.getId().isBlank()) {
-            body.setId(UUID.randomUUID().toString());
+        if (body.getId() == null) {
+            body.setId(UUID.randomUUID());
         }
         HrmProfileContextSupport.stampFromContext(body, context);
         return repository.save(body);
@@ -69,7 +69,7 @@ public class JobDocumentServiceImpl implements JobDocumentService {
 
     @Override
     @Transactional
-    public void deleteById(String id, CoreContext context) {
+    public void deleteById(UUID id, CoreContext context) {
         platformAuthorization.requirePermission(context, PERM_DELETE);
         JobDocument existing = repository
                 .findById(id)

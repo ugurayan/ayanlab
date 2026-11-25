@@ -13,9 +13,10 @@ import { JobsCreatePage } from "../views/jobs/JobsCreatePage";
 import { JobCreationWizard } from "../views/jobs/JobCreationWizard";
 import { SettingsPage } from "../views/settings/SettingsPage";
 import { OrgsPage } from "../views/orgs/OrgsPage";
+import { LegalEntitiesPage } from "../views/legal-entities/LegalEntitiesPage";
+import { BrandsPage } from "../views/brands/BrandsPage";
 import { LocationsPage } from "../views/locations/LocationsPage";
 import { ShiftsPage } from "../views/shifts/ShiftsPage";
-import { CreateShiftPage } from "../views/shifts/CreateShiftPage";
 import { ApplicationsPage } from "../views/applications/ApplicationsPage";
 import { WorkersPage } from "../views/workers/WorkersPage";
 import { DocumentsPage } from "../views/documents/DocumentsPage";
@@ -61,9 +62,11 @@ export const router = createBrowserRouter([
       { path: "jobs/create", element: <JobsCreatePage /> },
       { path: "inbox", element: <InboxPage /> },
       { path: "orgs", element: <OrgsPage /> },
+      { path: "legal-entities", element: <LegalEntitiesPage /> },
+      { path: "brands", element: <BrandsPage /> },
       { path: "locations", element: <LocationsPage /> },
       { path: "shifts", element: <ShiftsPage /> },
-      { path: "shifts/new", element: <CreateShiftPage /> },
+      { path: "shifts/new", element: <Navigate to="/app/shifts" replace /> },
       { path: "applications", element: <ApplicationsPage /> },
       { path: "workers", element: <WorkersPage /> },
       { path: "documents", element: <DocumentsPage /> },

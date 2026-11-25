@@ -1,13 +1,13 @@
 package com.ayanlab.core.controller;
 
 import com.ayanlab.core.condition.CoreBusinessApi;
-import com.ayanlab.core.data.ClientHeadersPayload;
+import com.ayanlab.core.dto.ClientHeadersPayload;
 
 import com.ayanlab.core.annotation.ClientHeaders;
 
-import com.ayanlab.core.data.dto.SubscriptionDtos;
-import com.ayanlab.core.data.requests.StartProfileSubscriptionRequest;
-import com.ayanlab.core.data.responses.ApiResponse;
+import com.ayanlab.core.dto.SubscriptionDtos;
+import com.ayanlab.core.dto.request.StartProfileSubscriptionRequest;
+import com.ayanlab.core.dto.response.ApiResponse;
 import com.ayanlab.core.entity.ProfileSubscription;
 import com.ayanlab.core.service.IProfileSubscriptionService;
 import com.ayanlab.core.service.ISubscriptionService;

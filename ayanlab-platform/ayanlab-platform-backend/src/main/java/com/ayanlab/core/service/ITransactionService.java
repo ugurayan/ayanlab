@@ -1,6 +1,6 @@
 package com.ayanlab.core.service;
 
-import com.ayanlab.core.data.enums.TransactionStatusEnum;
+import com.ayanlab.core.enums.TransactionStatusEnum;
 import com.ayanlab.core.entity.Transaction;
 
 import java.util.List;

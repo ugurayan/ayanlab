@@ -17,7 +17,7 @@ public class AppSecurityContext {
         private Set<String> roles;
         private Set<String> permissions;
         private Set<String> policyGroups;
-        private java.util.List<com.ayanlab.core.data.dto.ResourceScopeDto> resourceScopes;
+        private java.util.List<com.ayanlab.core.dto.ResourceScopeDto> resourceScopes;
 
         public boolean hasRole(String role) { return roles != null && roles.contains(role); }
         public boolean hasPermission(String perm) { return PermissionCodes.anyImplies(permissions, perm); }

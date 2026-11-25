@@ -12,7 +12,6 @@ export type EntityResource = {
   profileScoped?: boolean;
   readOnly?: boolean;
   createFields?: string[];
-  folderLabel?: string;
 };
 
 export const NAV_FOLDERS: { id: NavFolderId; titleKey: string; pageId?: string; childIds: string[] }[] = [
@@ -25,8 +24,6 @@ export const NAV_FOLDERS: { id: NavFolderId; titleKey: string; pageId?: string; 
       "application-organizations",
       "application-permissions",
       "application-modules",
-      "ipms-permissions",
-      "ipms-roles",
     ],
   },
   {
@@ -84,30 +81,6 @@ export const ENTITY_RESOURCES: EntityResource[] = [
   { id: "departments", label: "Departments", path: "/auth/api/departments", group: "Auth & RBAC" },
   { id: "translations", label: "Translations", path: "/auth/api/translations", group: "Auth & RBAC" },
   { id: "application-permissions", label: "Application Permissions", path: "/auth/api/application-permissions", group: "Auth & RBAC", navFolder: "applications", columns: ["id", "appId", "permissionId", "isActive", "createdAt", "updatedAt"], createFields: ["appId", "permissionId"] },
-  {
-    id: "ipms-permissions",
-    label: "IPMS permissions",
-    path: "/auth/api/permissions",
-    group: "Auth & RBAC",
-    navFolder: "applications",
-    folderLabel: "IPMS",
-    listQuery: { appCode: "ipms" },
-    columns: ["id", "code", "name", "module", "resource", "action", "isActive", "updatedAt"],
-    permission: "core:permissions:read",
-    readOnly: true,
-  },
-  {
-    id: "ipms-roles",
-    label: "IPMS roles",
-    path: "/auth/api/roles",
-    group: "Auth & RBAC",
-    navFolder: "applications",
-    folderLabel: "IPMS",
-    listQuery: { appId: "ad94b2d2-5022-4818-a785-55807ab139ba" },
-    columns: ["id", "code", "name", "description", "organizationId", "isActive", "updatedAt"],
-    permission: "core:roles:read",
-    readOnly: true,
-  },
   { id: "profile-roles", label: "Profile Roles", path: "/auth/api/profile-roles", group: "Auth & RBAC", navFolder: "profile" },
   { id: "profile-permissions", label: "Profile Permissions", path: "/auth/api/profile-permissions", group: "Auth & RBAC", navFolder: "profile" },
   { id: "policy-groups", label: "Policy Groups", path: "/auth/api/policy-groups", group: "Auth & RBAC" },

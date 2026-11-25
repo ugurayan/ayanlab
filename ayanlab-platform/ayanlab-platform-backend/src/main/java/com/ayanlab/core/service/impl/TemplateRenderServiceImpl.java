@@ -1,6 +1,6 @@
 package com.ayanlab.core.service.impl;
 
-import com.ayanlab.core.data.dto.TemplateParameterDefinition;
+import com.ayanlab.core.dto.TemplateParameterDefinition;
 import com.ayanlab.core.entity.NotificationTemplate;
 import com.ayanlab.core.exception.CoreException;
 import com.ayanlab.core.service.TemplateRenderService;

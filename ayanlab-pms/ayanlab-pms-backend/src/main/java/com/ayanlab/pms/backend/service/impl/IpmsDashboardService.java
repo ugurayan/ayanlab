@@ -1,12 +1,12 @@
 package com.ayanlab.pms.backend.service.impl;
 
-import com.ayanlab.core.data.CoreContext;
+import com.ayanlab.core.dto.CoreContext;
 import com.ayanlab.core.entity.ApplicationOrganization;
 import com.ayanlab.core.exception.CoreException;
 import com.ayanlab.core.repository.ApplicationOrganizationRepository;
 import com.ayanlab.core.repository.UserRepository;
-import com.ayanlab.pms.backend.data.enums.*;
-import com.ayanlab.pms.backend.data.responses.*;
+import com.ayanlab.pms.backend.enums.*;
+import com.ayanlab.pms.backend.dto.response.*;
 import com.ayanlab.pms.backend.entity.associations.Violation;
 import com.ayanlab.pms.backend.entity.leasing.Lease;
 import com.ayanlab.pms.backend.entity.leasing.RentersInsurancePolicy;

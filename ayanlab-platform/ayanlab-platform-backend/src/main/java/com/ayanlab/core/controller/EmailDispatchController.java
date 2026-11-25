@@ -3,11 +3,11 @@ package com.ayanlab.core.controller;
 import com.ayanlab.core.condition.CoreBusinessApi;
 import com.ayanlab.core.annotation.ClientHeaders;
 import com.ayanlab.core.annotation.RequirePermission;
-import com.ayanlab.core.data.ClientHeadersPayload;
-import com.ayanlab.core.data.CoreContext;
-import com.ayanlab.core.data.requests.PreviewTemplateRequest;
-import com.ayanlab.core.data.requests.SendTemplateEmailRequest;
-import com.ayanlab.core.data.responses.ApiResponse;
+import com.ayanlab.core.dto.ClientHeadersPayload;
+import com.ayanlab.core.dto.CoreContext;
+import com.ayanlab.core.dto.request.PreviewTemplateRequest;
+import com.ayanlab.core.dto.request.SendTemplateEmailRequest;
+import com.ayanlab.core.dto.response.ApiResponse;
 import com.ayanlab.core.entity.NotificationTemplate;
 import com.ayanlab.core.service.EmailDispatchService;
 import com.ayanlab.core.service.INotificationTemplateService;
@@ -69,7 +69,7 @@ public class EmailDispatchController extends BaseController {
                     0,
                     1,
                     appId,
-                    com.ayanlab.core.data.enums.NotificationTypeEnum.EMAIL,
+                    com.ayanlab.core.enums.NotificationTypeEnum.EMAIL,
                     body.templateCode(),
                     context
             ).getContent().stream().findFirst().orElse(null);

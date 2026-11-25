@@ -1,6 +1,6 @@
 package com.ayanlab.pms.backend.service;
 
-import com.ayanlab.core.data.CoreContext;
+import com.ayanlab.core.dto.CoreContext;
 import com.ayanlab.pms.backend.entity.files.StoredFile;
 import org.springframework.web.multipart.MultipartFile;
 

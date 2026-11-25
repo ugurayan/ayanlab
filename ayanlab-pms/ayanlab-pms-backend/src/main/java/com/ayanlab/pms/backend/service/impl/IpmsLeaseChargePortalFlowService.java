@@ -1,13 +1,13 @@
 package com.ayanlab.pms.backend.service.impl;
 
-import com.ayanlab.core.data.CoreContext;
+import com.ayanlab.core.dto.CoreContext;
 import com.ayanlab.core.exception.CoreException;
 import com.ayanlab.core.util.IdGenerator;
-import com.ayanlab.pms.backend.data.enums.IpmsTransactionStatusEnum;
-import com.ayanlab.pms.backend.data.enums.IpmsTransactionTypeEnum;
-import com.ayanlab.pms.backend.data.enums.LeaseStatusEnum;
-import com.ayanlab.pms.backend.data.enums.OutstandingBalanceStatusEnum;
-import com.ayanlab.pms.backend.data.responses.LeaseChargePortalResult;
+import com.ayanlab.pms.backend.enums.IpmsTransactionStatusEnum;
+import com.ayanlab.pms.backend.enums.IpmsTransactionTypeEnum;
+import com.ayanlab.pms.backend.enums.LeaseStatusEnum;
+import com.ayanlab.pms.backend.enums.OutstandingBalanceStatusEnum;
+import com.ayanlab.pms.backend.dto.response.LeaseChargePortalResult;
 import com.ayanlab.pms.backend.entity.accounting.IpmsTransaction;
 import com.ayanlab.pms.backend.entity.leasing.Lease;
 import com.ayanlab.pms.backend.entity.rentals.OutstandingBalance;

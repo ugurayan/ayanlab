@@ -1,10 +1,10 @@
 package com.ayanlab.pms.backend.service.impl;
 
-import com.ayanlab.core.data.CoreContext;
-import com.ayanlab.core.data.enums.ActionEnum;
+import com.ayanlab.core.dto.CoreContext;
+import com.ayanlab.core.enums.ActionEnum;
 import com.ayanlab.core.entity.BaseEntity;
 import com.ayanlab.core.exception.CoreException;
-import com.ayanlab.pms.backend.data.OrgScoped;
+import com.ayanlab.pms.backend.dto.OrgScoped;
 import com.ayanlab.pms.backend.repository.IpmsOrgRepository;
 import com.ayanlab.pms.backend.service.IIpmsOrgScopedService;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.UUID;
 
-import static com.ayanlab.core.data.mapper.BaseMapper.map;
+import static com.ayanlab.core.mapping.BaseMapper.map;
 
 public abstract class AbstractIpmsOrgService<T extends BaseEntity & OrgScoped, R extends IpmsOrgRepository<T, UUID>>
         implements IIpmsOrgScopedService<T> {

@@ -1,14 +1,14 @@
 package com.ayanlab.security.service;
 
 import com.ayanlab.core.config.JwtConfig;
-import com.ayanlab.core.data.CoreContext;
-import com.ayanlab.core.data.enums.ClientTypeEnum;
-import com.ayanlab.core.data.dto.EffectiveAuthorization;
+import com.ayanlab.core.dto.CoreContext;
+import com.ayanlab.core.enums.ClientTypeEnum;
+import com.ayanlab.core.dto.EffectiveAuthorization;
 import com.ayanlab.core.entity.*;
 import com.ayanlab.core.provider.ResourceScopeClaims;
 import com.ayanlab.security.authz.AuthzVersionChecker;
 import io.jsonwebtoken.*;
-import com.ayanlab.security.support.JwtSigningKeys;
+import com.ayanlab.security.util.JwtSigningKeys;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import javax.crypto.SecretKey;

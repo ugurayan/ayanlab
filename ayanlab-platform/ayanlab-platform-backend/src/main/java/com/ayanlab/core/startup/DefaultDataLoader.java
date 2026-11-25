@@ -1,11 +1,11 @@
 package com.ayanlab.core.startup;
 
 import com.ayanlab.core.condition.AuthSeedSurface;
-import com.ayanlab.core.data.enums.AppSubscriptionModeEnum;
-import com.ayanlab.core.data.enums.ProfileTenancyEnum;
+import com.ayanlab.core.enums.AppSubscriptionModeEnum;
+import com.ayanlab.core.enums.ProfileTenancyEnum;
 import com.ayanlab.core.entity.*;
 import com.ayanlab.core.util.ProfileSlugHelper;
-import com.ayanlab.core.data.enums.RegistrationStatusEnum;
+import com.ayanlab.core.enums.RegistrationStatusEnum;
 import com.ayanlab.core.repository.*;
 import com.ayanlab.core.util.IdGenerator;
 import com.fasterxml.jackson.databind.JsonNode;

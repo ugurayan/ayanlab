@@ -48,3 +48,9 @@ Warning: could not ensure schemas: ERROR: permission denied for database ayanlab
 Target database is reachable: ayanlab
 Connecting to target DB: jdbc:postgresql://147.93.138.158:5432/ayanlab as user 'platform_admin' to ensure schemas
 Warning: could not ensure schemas: ERROR: permission denied for database ayanlab
+Target database is reachable: ayanlab
+Connecting to target DB: jdbc:postgresql://147.93.138.158:5432/ayanlab as user 'platform_admin' to ensure schemas
+Warning: could not ensure schemas: ERROR: permission denied for database ayanlab
+Target database is reachable: ayanlab
+Connecting to target DB: jdbc:postgresql://147.93.138.158:5432/ayanlab as user 'platform_admin' to ensure schemas
+Warning: could not ensure schemas: ERROR: permission denied for database ayanlab
