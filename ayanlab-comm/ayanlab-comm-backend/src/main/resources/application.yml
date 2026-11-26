@@ -59,7 +59,7 @@ postgis:
   schema: ${POSTGIS_SCHEMA:core}
   user: ${POSTGIS_USER:core}
   password: ${POSTGIS_PASSWORD:secret}
-  schemas: ${POSTGIS_SCHEMAS:core,ipms,crm,vault,staffiq}
+  schemas: ${POSTGIS_SCHEMAS:core,ipms,crm,vault,staffiq,comm}
 
 gcp:
   project-id: ${GCP_PROJECT_ID:}
