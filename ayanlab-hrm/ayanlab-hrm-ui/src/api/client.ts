@@ -1,4 +1,5 @@
 import axios, { type AxiosResponse, type InternalAxiosRequestConfig } from "axios";
+import { clearProfileAuthz } from "../auth/profileAuthz";
 import { getToken, setToken, setUser } from "../state/authStorage";
 
 /** HRM product API (mock or ayanlab-hrm-backend). */
@@ -81,6 +82,7 @@ function refreshAuthorization(): Promise<boolean> {
       );
       const data = res.data?.data ?? res.data;
       if (!data?.accessToken) return false;
+      clearProfileAuthz("hrm");
       setToken(data.accessToken);
       if (data.refreshToken) localStorage.setItem("refreshToken", data.refreshToken);
       const { apiMe } = await import("./services/auth");

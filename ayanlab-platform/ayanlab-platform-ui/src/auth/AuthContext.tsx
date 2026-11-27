@@ -11,6 +11,7 @@ import { apiRequest, SESSION_REFRESHED_EVENT } from "../api/client";
 import type { ApiResponse, CurrentSession, TokenResponse } from "../api/types";
 import { clientHeaders } from "../api/headers";
 import { correlationId } from "../api/headers";
+import { ensureProfileAuthz, clearProfileAuthz, type ProfileAuthzSnapshot } from "./profileAuthz";
 import {
   clearSession,
   getSession,
@@ -28,6 +29,26 @@ type AuthContextValue = {
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
+
+async function loadPlatformAuthz(profileId?: string): Promise<ProfileAuthzSnapshot | null> {
+  return ensureProfileAuthz("platform", profileId, async () => {
+    const res = await apiRequest<ProfileAuthzSnapshot>("/auth/api/authorization/snapshot");
+    return res.data ?? null;
+  });
+}
+
+function applySnapshot(session: CurrentSession | null, snapshot: ProfileAuthzSnapshot | null): CurrentSession | null {
+  if (!session || !snapshot) return session;
+  return {
+    ...session,
+    profileId: snapshot.profileId ?? session.profileId,
+    authorization: {
+      roleCodes: snapshot.roles,
+      permissionCodes: snapshot.permissions,
+      policyGroupCodes: snapshot.policyGroups,
+    },
+  };
+}
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<AuthSession | null>(() => getSession());
@@ -54,7 +75,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setSession(saved);
     try {
       const meRes = await apiRequest<CurrentSession>("/auth/api/me");
-      setMe(meRes.data);
+      const snapshot = await loadPlatformAuthz(meRes.data?.profileId ?? saved.profileId);
+      setMe(applySnapshot(meRes.data, snapshot));
     } catch {
       setMe(null);
     }
@@ -78,6 +100,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }).catch(() => undefined);
     }
     clearSession();
+    clearProfileAuthz("platform");
     setSession(null);
     setMe(null);
   }, []);
@@ -85,7 +108,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (!session?.accessToken) return;
     void apiRequest<CurrentSession>("/auth/api/me")
-      .then((r) => setMe(r.data))
+      .then(async (r) => {
+        const snapshot = await loadPlatformAuthz(r.data?.profileId ?? session.profileId);
+        setMe(applySnapshot(r.data, snapshot));
+      })
       .catch(() => setMe(null));
   }, [session?.accessToken]);
 
@@ -96,7 +122,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
     try {
       const meRes = await apiRequest<CurrentSession>("/auth/api/me");
-      setMe(meRes.data);
+      const snapshot = await loadPlatformAuthz(meRes.data?.profileId ?? getSession()?.profileId);
+      setMe(applySnapshot(meRes.data, snapshot));
     } catch {
       setMe(null);
     }

@@ -50,11 +50,11 @@ export function Modal({
         />
         
         {/* Modal panel */}
-        <div className={`inline-block w-full align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:w-full ${sizeClasses[size] || sizeClasses.md}`}>
+        <div className={`inline-block w-full transform overflow-hidden rounded-xl border border-line bg-white text-left align-bottom shadow-panel transition-all sm:my-8 sm:w-full sm:align-middle ${sizeClasses[size] || sizeClasses.md}`}>
           {/* Header */}
-          <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+          <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
             <div className="flex items-center justify-between">
-              <h3 className="text-lg font-medium leading-6 text-gray-900">
+              <h3 className="text-lg font-semibold leading-6 tracking-tight text-ink">
                 {title}
               </h3>
               <button

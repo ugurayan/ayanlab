@@ -1,5 +1,6 @@
 import type { ApiResponse, TokenResponse } from "./types";
 import { clientHeaders } from "./headers";
+import { clearProfileAuthz } from "../auth/profileAuthz";
 import { getSession, saveSessionFromToken } from "../auth/session";
 
 const API_BASE = import.meta.env.VITE_API_BASE ?? "";
@@ -33,6 +34,7 @@ function refreshSession(): Promise<boolean> {
   refreshInFlight = (async () => {
     const session = getSession();
     if (!session?.refreshToken) return false;
+    clearProfileAuthz("platform");
     const res = await fetch(API_BASE + "/auth/api/refresh", {
       method: "POST",
       headers: clientHeaders({ appId: session.appId, requireTokens: false }),

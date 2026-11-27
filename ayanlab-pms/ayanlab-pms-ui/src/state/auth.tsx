@@ -1,8 +1,10 @@
-import React, { createContext, useCallback, useContext, useMemo, useState } from "react";
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import type { User } from "../types/auth";
 import { apiLogin } from "../api/services/auth";
+import { http } from "../api/pmsClient";
 import { MOCK_ONLY } from "../env";
 import { mockLogin } from "../mock/mockApi";
+import { clearProfileAuthz, ensureProfileAuthz } from "../auth/profileAuthz";
 import { clearAuth, getToken, getUser, setToken, setUser as persistUser } from "./authStorage";
 
 type AuthCtx = {
@@ -42,8 +44,25 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = useCallback(() => {
     clearAuth();
+    clearProfileAuthz("pms");
     setUserState(null);
   }, []);
+
+  useEffect(() => {
+    if (MOCK_ONLY || !user) return;
+    const token = getToken();
+    const refresh = localStorage.getItem("pms.refresh_token") ?? "";
+    if (!token || !refresh) return;
+    void ensureProfileAuthz("pms", undefined, async () => {
+      const res = await http.get("/authorization/snapshot", {
+        headers: {
+          "X-Client-Token": token,
+          "X-Client-Refresh-Token": refresh
+        }
+      });
+      return res.data?.data ?? null;
+    });
+  }, [user]);
 
   const value = useMemo(
     () => ({

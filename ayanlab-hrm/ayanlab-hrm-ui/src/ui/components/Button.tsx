@@ -5,10 +5,10 @@ type Variant = "primary" | "secondary" | "ghost" | "danger";
 type Size = "sm" | "md" | "lg";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-slate-900 text-white hover:bg-slate-800",
-  secondary: "bg-white text-slate-900 border border-slate-200 hover:bg-slate-50",
-  ghost: "bg-transparent text-slate-700 hover:bg-slate-100",
-  danger: "bg-rose-600 text-white hover:bg-rose-700"
+  primary: "bg-brand text-white hover:bg-brand-hover shadow-sm",
+  secondary: "bg-canvas text-ink border border-line hover:bg-surface",
+  ghost: "bg-transparent text-ink-muted hover:bg-surface hover:text-ink",
+  danger: "bg-rose-600 text-white hover:bg-rose-700 shadow-sm"
 };
 
 const sizes: Record<Size, string> = {
@@ -25,15 +25,21 @@ export function Button({
   disabled,
   children,
   ...props
-}: React.ButtonHTMLAttributes<HTMLButtonElement> & { variant?: Variant; size?: Size | string; isLoading?: boolean }) {
+}: React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  variant?: Variant;
+  size?: Size | string;
+  isLoading?: boolean;
+}) {
   const sizeClass = size && size in sizes ? sizes[size as Size] : "px-4 py-2 text-sm";
   const isDisabled = disabled || isLoading;
-  
+
   return (
     <button
       disabled={isDisabled}
       className={cn(
-        "inline-flex items-center justify-center gap-2 rounded-2xl font-semibold shadow-sm transition disabled:opacity-60 disabled:cursor-not-allowed",
+        "inline-flex items-center justify-center gap-2 rounded-xl font-semibold transition",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-ring focus-visible:ring-offset-2",
+        "disabled:cursor-not-allowed disabled:opacity-50",
         sizeClass,
         variants[variant],
         className

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../core/l10n/app_localizations.dart';
+import '../staffing/account_pages.dart';
 
 /// Security & privacy: mock change-password, 2FA toggle, sessions list.
 class SecurityPage extends StatefulWidget {
@@ -25,11 +26,9 @@ class _SecurityPageState extends State<SecurityPage> {
             leading: const Icon(Icons.password_rounded),
             title: Text(loc.changePassword),
             trailing: const Icon(Icons.chevron_right_rounded),
-            onTap: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text('${loc.changePassword} (mock)')),
-              );
-            },
+            onTap: () => Navigator.of(context).push(
+              MaterialPageRoute<void>(builder: (_) => const ChangePasswordPage()),
+            ),
           ),
           SwitchListTile(
             secondary: const Icon(Icons.verified_user_rounded),

@@ -171,7 +171,6 @@ export function AppShell() {
   const primaryNav = visible.filter((n) => !adminSectionRoutes.has(n.to));
   const adminNav = visible.filter((n) => adminSectionRoutes.has(n.to));
 
-  console.log(user);
   const isOrgOrAdmin =
     user?.roles.includes("4a3207bf-cc00-46db-8db7-42e8d9568b8b") ||
     user?.roles.includes("a0fdb0b8-a079-4315-ae21-31e68cd80778") ||
@@ -195,10 +194,10 @@ export function AppShell() {
         </button>
       </header>
 
-      <aside className="hidden md:flex flex-col bg-white border-r border-slate-100 p-4 h-full overflow-hidden">
-        <div className="px-3 py-2 flex-shrink-0">
-          <div className="text-sm font-semibold text-slate-900">Staffing Portal</div>
-          <div className="text-xs text-slate-500">Employer/Admin Console</div>
+      <aside className="hidden h-full flex-col overflow-hidden border-r border-line bg-canvas p-4 md:flex">
+        <div className="flex-shrink-0 px-3 py-2">
+          <div className="text-sm font-semibold tracking-tight text-ink">Staffing Portal</div>
+          <div className="text-xs text-ink-muted">Employer / admin console</div>
         </div>
 
         <nav className="mt-4 flex flex-col gap-1 flex-1 min-h-0 overflow-y-auto">
@@ -211,11 +210,11 @@ export function AppShell() {
                 to={item.to}
                 className={({ isActive }) =>
                   cn(
-                    "flex items-center gap-3 rounded-2xl px-3 py-2 text-sm font-semibold",
+                    "nav-item",
                     isDisabled
-                      ? "text-slate-400 cursor-not-allowed opacity-50"
-                      : "text-slate-700 hover:bg-slate-50",
-                    isActive && !isDisabled && "bg-slate-900 text-white hover:bg-slate-900"
+                      ? "cursor-not-allowed text-ink-subtle opacity-50"
+                      : "nav-item-idle",
+                    isActive && !isDisabled && "nav-item-active"
                   )
                 }
                 onClick={(e) => {
@@ -244,11 +243,11 @@ export function AppShell() {
                     to={item.to}
                     className={({ isActive }) =>
                       cn(
-                        "flex items-center gap-3 rounded-2xl px-3 py-2 text-sm font-semibold",
+                        "nav-item",
                         isDisabled
-                          ? "text-slate-400 cursor-not-allowed opacity-50"
-                          : "text-slate-700 hover:bg-slate-50",
-                        isActive && !isDisabled && "bg-slate-900 text-white hover:bg-slate-900"
+                          ? "cursor-not-allowed text-ink-subtle opacity-50"
+                          : "nav-item-idle",
+                        isActive && !isDisabled && "nav-item-active"
                       )
                     }
                     onClick={(e) => {
@@ -327,11 +326,11 @@ export function AppShell() {
                     to={item.to}
                     className={({ isActive }) =>
                       cn(
-                        "flex items-center gap-3 rounded-2xl px-3 py-2 text-sm font-semibold",
+                        "nav-item",
                         isDisabled
-                          ? "text-slate-400 cursor-not-allowed opacity-50"
-                          : "text-slate-700 hover:bg-slate-50",
-                        isActive && !isDisabled && "bg-slate-900 text-white hover:bg-slate-900"
+                          ? "cursor-not-allowed text-ink-subtle opacity-50"
+                          : "nav-item-idle",
+                        isActive && !isDisabled && "nav-item-active"
                       )
                     }
                     onClick={(e) => {
@@ -362,11 +361,11 @@ export function AppShell() {
                         to={item.to}
                         className={({ isActive }) =>
                           cn(
-                            "flex items-center gap-3 rounded-2xl px-3 py-2 text-sm font-semibold",
+                            "nav-item",
                             isDisabled
-                              ? "text-slate-400 cursor-not-allowed opacity-50"
-                              : "text-slate-700 hover:bg-slate-50",
-                            isActive && !isDisabled && "bg-slate-900 text-white hover:bg-slate-900"
+                              ? "cursor-not-allowed text-ink-subtle opacity-50"
+                              : "nav-item-idle",
+                            isActive && !isDisabled && "nav-item-active"
                           )
                         }
                         onClick={(e) => {
@@ -417,9 +416,9 @@ export function AppShell() {
           </div>
         </div>
       )}
-            <main className="p-4 md:p-6 h-full flex flex-col min-h-0">
+            <main className="flex h-full min-h-0 flex-col bg-surface p-4 md:p-6">
         {/* Global upper panel */}
-        <div className="mb-4 flex items-center justify-between rounded-2xl border border-slate-200 bg-slate-50 px-4 py-2 text-slate-500 text-sm flex-shrink-0">
+        <div className="mb-4 flex flex-shrink-0 items-center justify-between rounded-xl border border-line bg-canvas px-4 py-2 text-sm text-ink-muted shadow-card">
           {/* Left icons */}
           <div className="flex items-center gap-3">
             <button className="flex h-8 w-8 items-center justify-center rounded-xl border border-slate-300 bg-white">
@@ -526,7 +525,7 @@ export function AppShell() {
               onClick={() => setIsNotificationsOpen((v) => !v)}
             >
               <Bell size={16} />
-              <span className="absolute -right-0.5 -top-0.5 h-2 w-2 rounded-full bg-blue-500"></span>
+              <span className="absolute -right-0.5 -top-0.5 h-2 w-2 rounded-full bg-brand" />
             </button>
 
             {/* Profile Change Button - Far Right */}
@@ -626,7 +625,7 @@ export function AppShell() {
                   key={item}
                   className={cn(
                     "rounded-xl border px-3 py-2 text-left text-xs hover:bg-slate-50",
-                    shell === item ? "border-slate-900 bg-slate-50 font-semibold" : "border-slate-100"
+                    shell === item ? "border-brand bg-brand-soft font-semibold text-brand" : "border-line"
                   )}
                   onClick={() => switchShell(item)}
                 >

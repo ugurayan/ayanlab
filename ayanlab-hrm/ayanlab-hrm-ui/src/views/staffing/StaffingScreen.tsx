@@ -72,8 +72,8 @@ export function StaffingScreen<T extends { id: string }>(props: {
     <div className="space-y-6">
       <div className="flex items-end justify-between gap-4">
         <div>
-          <div className="text-2xl font-bold">{props.title}</div>
-          <div className="text-slate-500">{props.subtitle}</div>
+          <div className="page-title text-2xl">{props.title}</div>
+          <div className="page-subtitle">{props.subtitle}</div>
         </div>
         {has(props.create) && (
           <Button onClick={() => { setFormError(null); setDraft(props.blank()); }}>Create</Button>
@@ -127,7 +127,11 @@ export function StaffingScreen<T extends { id: string }>(props: {
               </label>
             ))}
             {props.formExtra?.(draft, setDraft)}
-            {formError && <div className="text-sm font-semibold text-rose-700 bg-rose-50 border border-rose-100 rounded-2xl p-3">{formError}</div>}
+            {formError && (
+              <div className="rounded-xl border border-rose-100 bg-rose-50 p-3 text-sm font-semibold text-rose-700">
+                {formError}
+              </div>
+            )}
             <div className="flex justify-end gap-2">
               <Button type="button" variant="secondary" onClick={() => setDraft(null)}>Cancel</Button>
               <Button type="submit" disabled={props.query.save.isPending}>Save</Button>

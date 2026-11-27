@@ -17,6 +17,9 @@ import 'features/profile/security_page.dart';
 import 'features/profile/settings_page.dart';
 import 'features/profile/terms_page.dart';
 import 'features/shell/main_shell.dart';
+import 'features/staffing/account_pages.dart';
+import 'features/staffing/job_detail_page.dart';
+import 'features/staffing/staffing_store.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -33,6 +36,7 @@ Future<void> main() async {
         ChangeNotifierProvider.value(value: session),
         ChangeNotifierProvider.value(value: locale),
         ChangeNotifierProvider.value(value: theme),
+        ChangeNotifierProvider(create: (_) => StaffingStore()),
       ],
       child: const AyanLabApp(),
     ),
@@ -57,6 +61,14 @@ class AyanLabApp extends StatelessWidget {
       themeMode: theme.mode,
       debugShowCheckedModeBanner: false,
       home: const _SplashGate(),
+      onGenerateRoute: (settings) {
+        if (settings.name == kJobRoute && settings.arguments is String) {
+          return MaterialPageRoute<void>(
+            builder: (_) => JobDetailPage(jobId: settings.arguments! as String),
+          );
+        }
+        return null;
+      },
       routes: {
         '/onboarding': (_) => const OnboardingPage(),
         '/login': (_) => const LoginPage(),
@@ -69,6 +81,8 @@ class AyanLabApp extends StatelessWidget {
         '/help': (_) => const HelpPage(),
         '/about': (_) => const AboutPage(),
         '/terms': (_) => const TermsPage(),
+        '/account/password': (_) => const ChangePasswordPage(),
+        '/account/delete': (_) => const DeleteAccountPage(),
       },
     );
   }

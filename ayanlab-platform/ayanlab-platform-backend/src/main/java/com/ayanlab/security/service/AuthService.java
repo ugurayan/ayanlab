@@ -1,5 +1,6 @@
 package com.ayanlab.security.service;
 
+import com.ayanlab.core.authz.cache.ProfileAuthzCacheService;
 import com.ayanlab.core.dto.CoreContext;
 import com.ayanlab.core.dto.EffectiveAuthorization;
 import com.ayanlab.core.enums.RegistrationStatusEnum;
@@ -50,6 +51,7 @@ public class AuthService {
     private final JwtService jwtService;
     private final INotificationTemplateService notificationTemplateService;
     private final IAuthorizationResolverService authorizationResolverService;
+    private final ProfileAuthzCacheService profileAuthzCacheService;
     private final IAccessSummaryService accessSummaryService;
     private final EmailDispatchService emailDispatchService;
     private final UserRepository userRepository;
@@ -143,7 +145,7 @@ public class AuthService {
             .correlationId(context.getCorrelationId())
             .build();
 
-        EffectiveAuthorization authorization = authorizationResolverService.resolveForProfile(profile.getId(), tokenContext);
+        EffectiveAuthorization authorization = resolveAndRemember(profile.getId(), tokenContext);
         AccessSummary access = null;
         try {
             access = accessSummaryService.build(authorization, profile, null);
@@ -207,7 +209,7 @@ public class AuthService {
             .language(context.getLanguage())
             .build();
 
-        EffectiveAuthorization authorization = authorizationResolverService.resolveForProfile(profile.getId(), tokenContext);
+        EffectiveAuthorization authorization = resolveAndRemember(profile.getId(), tokenContext);
         AccessSummary access = accessSummaryService.build(authorization, profile, null);
 
         Map<String, Object> additional = new HashMap<>();
@@ -283,7 +285,7 @@ public class AuthService {
                 .correlationId(context.getCorrelationId())
                 .build();
 
-            EffectiveAuthorization authorization = authorizationResolverService.resolveForProfile(profile.getId(), tokenContext);
+            EffectiveAuthorization authorization = resolveAndRemember(profile.getId(), tokenContext);
             AccessSummary access = accessSummaryService.build(authorization, profile, null);
             Map<String, String> tokens = jwtService.refreshTokensIfValid(
                 req.getRefreshToken(),
@@ -439,6 +441,12 @@ public class AuthService {
         }
     }
 
+    private EffectiveAuthorization resolveAndRemember(UUID profileId, CoreContext tokenContext) {
+        EffectiveAuthorization authorization = authorizationResolverService.resolveForProfile(profileId, tokenContext);
+        profileAuthzCacheService.remember(authorization);
+        return authorization;
+    }
+
     private TokenResponse issueTokenResponse(User user, UserProfile profile, CoreContext context) {
         CoreContext tokenContext = CoreContext.builder()
             .appId(profile.getAppId())
@@ -451,7 +459,7 @@ public class AuthService {
             .language(context.getLanguage())
             .build();
 
-        EffectiveAuthorization authorization = authorizationResolverService.resolveForProfile(profile.getId(), tokenContext);
+        EffectiveAuthorization authorization = resolveAndRemember(profile.getId(), tokenContext);
         AccessSummary access = accessSummaryService.build(authorization, profile, null);
 
         Map<String, Object> additional = new HashMap<>();

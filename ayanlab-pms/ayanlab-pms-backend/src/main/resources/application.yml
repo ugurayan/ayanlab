@@ -95,6 +95,18 @@ ayanlabs:
     access-token-expiry-for-web: ${JWT_ACCESS_TOKEN_EXPIRY_WEB:86400}
     access-token-expiry-for-mobile: ${JWT_ACCESS_TOKEN_EXPIRY_MOBILE:1296000}
     refresh-token-expiry: ${JWT_REFRESH_TOKEN_EXPIRY:5184000}
+  authz-cache:
+    enabled: ${AUTHZ_CACHE_ENABLED:true}
+    key-prefix: pms
+    ttl: ${AUTHZ_CACHE_TTL:1h}
+    api-base: /pms/api
+    source: remote
+    platform-api-url: ${AYANLAB_PLATFORM_URL:http://localhost:8102}
+    redis:
+      host: ${SPRING_DATA_REDIS_HOST:localhost}
+      port: ${SPRING_DATA_REDIS_PORT:6379}
+      password: ${SPRING_DATA_REDIS_PASSWORD:}
+      database: ${SPRING_DATA_REDIS_DATABASE:0}
 
 springdoc:
   api-docs:

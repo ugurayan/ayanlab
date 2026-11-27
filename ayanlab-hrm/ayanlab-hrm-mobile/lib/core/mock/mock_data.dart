@@ -47,19 +47,18 @@ const mockUser = MockUser(
 
 const mockNotifications = <MockNotification>[
   MockNotification(
-    title: 'Welcome',
-    body: 'This is a mock notification body.',
-    time: '09:00',
+    title: 'New application',
+    body: 'Lena Meier applied for Evening bar.',
+    time: '09:40',
   ),
   MockNotification(
-    title: 'Reminder',
-    body: 'Another mock notification body.',
+    title: 'Hours to approve',
+    body: 'Two shifts from yesterday are waiting.',
     time: 'Yesterday',
-    unread: false,
   ),
   MockNotification(
-    title: 'Update',
-    body: 'Yet another mock notification body.',
+    title: 'Shift filled',
+    body: 'Breakfast service has both people hired.',
     time: '2 days ago',
     unread: false,
   ),

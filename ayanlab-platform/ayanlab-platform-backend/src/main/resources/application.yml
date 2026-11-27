@@ -100,6 +100,17 @@ ayanlabs:
     access-token-expiry-for-web: ${JWT_ACCESS_TOKEN_EXPIRY_WEB:86400}
     access-token-expiry-for-mobile: ${JWT_ACCESS_TOKEN_EXPIRY_MOBILE:1296000}
     refresh-token-expiry: ${JWT_REFRESH_TOKEN_EXPIRY:5184000}
+  authz-cache:
+    enabled: ${AUTHZ_CACHE_ENABLED:true}
+    key-prefix: platform
+    ttl: ${AUTHZ_CACHE_TTL:1h}
+    api-base: /auth/api
+    source: local
+    redis:
+      host: ${SPRING_DATA_REDIS_HOST:localhost}
+      port: ${SPRING_DATA_REDIS_PORT:6379}
+      password: ${SPRING_DATA_REDIS_PASSWORD:}
+      database: ${SPRING_DATA_REDIS_DATABASE:0}
 
 springdoc:
   api-docs:
@@ -127,3 +138,6 @@ platform:
     load-subscription-data: true
     load-demo-data: true
     load-ipms-property-types: true
+    load-bank-routing-catalog: true
+    load-country-catalog: true
+    load-language-catalog: true

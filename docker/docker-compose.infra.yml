@@ -31,8 +31,15 @@ services:
     container_name: ayanlab-redis
     restart: unless-stopped
     ports:
-      - "6379:6379"
-    command: ["redis-server", "--appendonly", "yes"]
+      - "${AYANLAB_REDIS_HOST_PORT:-6379}:6379"
+    command:
+      - redis-server
+      - --appendonly
+      - "yes"
+      - --maxmemory
+      - ${REDIS_MAXMEMORY:-256mb}
+      - --maxmemory-policy
+      - ${REDIS_MAXMEMORY_POLICY:-allkeys-lru}
     volumes:
       - ayanlab_redis_data:/data
     healthcheck:

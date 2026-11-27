@@ -77,6 +77,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             .roles(new HashSet<>(roles != null ? roles : List.of()))
             .permissions(new HashSet<>(permissions != null ? permissions : List.of()))
             .policyGroups(new HashSet<>(policyGroups != null ? policyGroups : List.of()))
+            .authzVersion(claims.get(AuthzVersionChecker.CLAIM, String.class))
             .resourceScopes(ResourceScopeClaims.fromClaim(claims.get(ResourceScopeClaims.CLAIM)))
             .build());
 

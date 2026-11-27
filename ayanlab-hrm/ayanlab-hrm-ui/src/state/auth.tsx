@@ -2,7 +2,8 @@ import React, { createContext, useContext, useMemo, useState, useEffect, useCall
 import type { AuthSession, Permission, User } from "../types/auth";
 import { clearAuth, setToken, setUser, getUser, getToken } from "./authStorage";
 import { hasPermission } from "../security/permissions";
-import { AUTH_USER_REFRESHED_EVENT } from "../api/client";
+import { AUTH_USER_REFRESHED_EVENT, http } from "../api/client";
+import { clearProfileAuthz, ensureProfileAuthz, type ProfileAuthzSnapshot } from "../auth/profileAuthz";
 
 type AuthCtx = {
   user: User | null;
@@ -18,6 +19,23 @@ type AuthCtx = {
 const Ctx = createContext<AuthCtx | undefined>(undefined);
 
 const USE_MOCKS = (import.meta.env.VITE_USE_MOCKS ?? "false") === "true";
+
+async function loadHrmAuthz(profileId?: string): Promise<ProfileAuthzSnapshot | null> {
+  return ensureProfileAuthz("hrm", profileId, async () => {
+    const res = await http.get("/authorization/snapshot");
+    return (res.data?.data ?? null) as ProfileAuthzSnapshot | null;
+  });
+}
+
+function withSnapshot(user: User, snapshot: ProfileAuthzSnapshot | null): User {
+  if (!snapshot) return user;
+  return {
+    ...user,
+    profileId: snapshot.profileId,
+    permissions: snapshot.permissions ?? user.permissions,
+    roles: snapshot.roles ?? user.roles
+  };
+}
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   // Initialize user from storage on mount
@@ -52,13 +70,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         // Fire and forget - don't block initial render
         import("../api/services/auth")
           .then((m) => m.apiMe())
-          .then((freshUser) => {
-            setUserState(freshUser);
-            setUser(freshUser);
+          .then(async (freshUser) => {
+            const snapshot = await loadHrmAuthz(freshUser.profileId);
+            const next = withSnapshot(freshUser, snapshot);
+            setUserState(next);
+            setUser(next);
           })
           .catch(() => {
             // Token invalid, clear auth (but don't block render)
             clearAuth();
+            clearProfileAuthz("hrm");
             setUserState(null);
           });
       }
@@ -79,19 +100,31 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     // Store token
     setToken(session.accessToken);
 
-    setUser(session.user);
-    setUserState(session.user);
+    const snapshot = await loadHrmAuthz(session.user.profileId);
+    const next = withSnapshot(session.user, snapshot);
+    setUser(next);
+    setUserState(next);
   }, []);
 
   const logout = useCallback(() => {
     clearAuth();
+    clearProfileAuthz("hrm");
     setUserState(null);
   }, []);
 
   const has = useCallback((p: Permission) => hasPermission(permissions, p), [permissions]);
 
   useEffect(() => {
-    const reload = () => setUserState(getUser());
+    const reload = () => {
+      const stored = getUser();
+      setUserState(stored);
+      if (!stored || USE_MOCKS) return;
+      void loadHrmAuthz(stored.profileId).then((snapshot) => {
+        const next = withSnapshot(stored, snapshot);
+        setUser(next);
+        setUserState(next);
+      });
+    };
     window.addEventListener(AUTH_USER_REFRESHED_EVENT, reload);
     return () => window.removeEventListener(AUTH_USER_REFRESHED_EVENT, reload);
   }, []);

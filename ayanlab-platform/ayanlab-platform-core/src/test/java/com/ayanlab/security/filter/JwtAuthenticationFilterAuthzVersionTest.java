@@ -36,6 +36,7 @@ class JwtAuthenticationFilterAuthzVersionTest {
     void currentTokenAuthenticates() throws Exception {
         Result result = run("3.7", "3.7");
         assertThat(result.permissions()).containsExactly("staffiq:shifts:read");
+        assertThat(result.authzVersion()).isEqualTo("3.7");
         assertThat(result.response().getHeader(AuthzVersionChecker.STALE_HEADER)).isNull();
     }
 
@@ -53,7 +54,7 @@ class JwtAuthenticationFilterAuthzVersionTest {
         assertThat(result.permissions()).containsExactly("staffiq:shifts:read");
     }
 
-    private record Result(MockHttpServletResponse response, List<String> permissions) {}
+    private record Result(MockHttpServletResponse response, List<String> permissions, String authzVersion) {}
 
     private Result run(String tokenVersion, String currentVersion) throws Exception {
         var claimsBuilder = Jwts.claims()
@@ -79,15 +80,17 @@ class JwtAuthenticationFilterAuthzVersionTest {
         request.addHeader("Authorization", "Bearer token");
         MockHttpServletResponse response = new MockHttpServletResponse();
         AtomicReference<List<String>> seen = new AtomicReference<>();
+        AtomicReference<String> version = new AtomicReference<>();
         MockFilterChain chain = new MockFilterChain(new jakarta.servlet.http.HttpServlet() {
             @Override
             protected void service(jakarta.servlet.http.HttpServletRequest req, jakarta.servlet.http.HttpServletResponse res) {
                 AppSecurityContext.AppContext ctx = AppSecurityContext.get();
                 seen.set(ctx != null ? List.copyOf(ctx.getPermissions()) : null);
+                version.set(ctx != null ? ctx.getAuthzVersion() : null);
             }
         });
 
         new JwtAuthenticationFilter(parser, provider).doFilter(request, response, chain);
-        return new Result(response, seen.get());
+        return new Result(response, seen.get(), version.get());
     }
 }

@@ -6,6 +6,41 @@
   color-scheme: light;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
-a { @apply text-slate-900; }
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  @apply bg-surface font-sans text-ink antialiased;
+}
+
+a {
+  @apply text-ink hover:text-brand;
+}
+
+@layer components {
+  .page-title {
+    @apply text-xl font-semibold tracking-tight text-ink;
+  }
+
+  .page-subtitle {
+    @apply text-sm text-ink-muted;
+  }
+
+  .nav-item {
+    @apply flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium text-ink transition-colors;
+  }
+
+  .nav-item-idle {
+    @apply text-ink-muted hover:bg-surface hover:text-ink;
+  }
+
+  .nav-item-active {
+    @apply bg-brand-soft text-brand font-semibold;
+  }
+}
